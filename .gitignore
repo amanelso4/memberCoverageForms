@@ -4,3 +4,4 @@
 .vscode
 .classpath
 target
+src/main/angular/member-coverage-forms-app/src/node-modules
