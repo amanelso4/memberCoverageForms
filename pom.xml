@@ -4,13 +4,13 @@
     <artifactId>MemberCoverageForms</artifactId>
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
-    
+
     <parent>
         <groupId>net.wasdev.wlp.maven.parent</groupId>
         <artifactId>liberty-maven-app-parent</artifactId>
         <version>2.1.2</version>
     </parent>
-    
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -18,16 +18,16 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <packaging.type>minify,runnable</packaging.type>
     </properties>
-    
+
     <profiles>
         <profile>
             <id>usr-package</id>
             <properties>
                 <packaging.type>usr</packaging.type>
-            </properties>        
-        </profile>    
+            </properties>
+        </profile>
     </profiles>
-    
+
     <dependencies>
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -48,9 +48,10 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-    
+
     <build>
         <finalName>${project.artifactId}</finalName>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -77,6 +78,7 @@
                 </configuration>
             </plugin>
             <plugin>
+
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>2.19.1</version>
