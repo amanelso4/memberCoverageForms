@@ -39,4 +39,9 @@ export class TableComponent implements OnInit {
     this.forms = MOCKFORMS;
   }
 
+  onSubmit() {
+    //Need to filter data so that it uses filters
+    console.warn(this.tableFilters.value);
+  }
+
 }

@@ -1,4 +1,4 @@
-<form [formGroup]="tableFilters">
+<form [formGroup]="tableFilters" (ngSubmit)="onSubmit()">
   <table>
     <tr>
       <th>
@@ -37,9 +37,7 @@
         Form Link<br>
         <input type="text" formControlName="link" size="45">
       </th>
-      <th></th>
-      <th></th>
-
+      <th colspan="2"><button type="submit">Search</button></th>
     </tr>
     <tr *ngFor="let form of forms">
       <td style="max-width: 20px;">{{ form.formType }}</td>
