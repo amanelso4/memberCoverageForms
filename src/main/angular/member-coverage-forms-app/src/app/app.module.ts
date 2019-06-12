@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+
 import {FormsModule} from '@angular/forms';
 import {RouterModule, Routes} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
@@ -8,10 +9,15 @@ import { AppComponent } from './app.component';
 import { SubmissionFormComponent } from './submission-form/submission-form.component';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { ConfigComponent } from './config/config.component';
+import { TableComponent } from './table/table.component';
+import { TopBarComponent } from './top-bar/top-bar.component';
+
+import {HttpClientInMemoryWebApiModule} from 'angular-in-memory-web-api';
+import {InMemoryDataService} from './in-memory-data.service';
 
 const appRoutes: Routes = [
   {path: 'submission-form', component: SubmissionFormComponent},
-  {path: 'confirmation-form', component: ConfirmationComponent},
+  {path: 'table', component: TableComponent},
   {path: '', redirectTo: '/submission-form', pathMatch: 'full'},
 
 ];
@@ -20,8 +26,12 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     SubmissionFormComponent,
+
     ConfirmationComponent,
-    ConfigComponent
+    ConfigComponent,
+    TableComponent,
+    TopBarComponent,
+
   ],
   imports: [
     RouterModule.forRoot(
@@ -31,6 +41,9 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    HttpClientInMemoryWebApiModule.forRoot(
+      InMemoryDataService, {dataEncapsulation: false}
+    )
   ],
   providers: [],
   bootstrap: [AppComponent]

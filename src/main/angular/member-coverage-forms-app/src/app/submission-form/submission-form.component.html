@@ -151,6 +151,44 @@
 
       <button routerLink="/submission-form" routerLinkActive="active">Add Another</button>
 
+<!--
+<h3>Submission Form</h3>
+
+<h3>Forms</h3>
+<div>
+  <label>Form name:
+    <input #formName />
+  </label>
+ (click) passes input value to add() and then clears the input
+  <button (click)="add(formName.value); formName.value=''">
+    add
+  </button>
+
+  <label>Form link:
+    <input #formName />
+  </label>
+
+  <button (click)="add(formName.value); formName.value=''">
+    add
+  </button>
+
+</div>
+
+
+
+<ul class="forms">
+  <li *ngFor="let form of forms">
+    <a (click)="edit(form)">
+      <span class="badge">{{form.id || -1 }}</span>
+      <span *ngIf="form!==editForm">{{form.name}}</span>
+      <input *ngIf="form===editForm" [(ngModel)]="form.name"
+             (blur)="update()" (keyup.enter)="update()">
+    </a>
+    <button class="delete" title="delete form"
+            (click)="delete(form)">Delete</button>
+  </li>
+</ul>
+-->
 
 
 
