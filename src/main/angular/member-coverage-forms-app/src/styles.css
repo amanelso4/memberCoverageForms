@@ -65,6 +65,7 @@ h4 {
 
 table {
   border-collapse: collapse;
+  table-layout: fixed;
 }
 
 td, th {
@@ -80,7 +81,7 @@ td:first-child, th:first-child {
 
 th {
   background-color: #ffcb05;
-  height: 64px;
+  height: 100px;
 }
 
 tr:nth-child(odd) {
