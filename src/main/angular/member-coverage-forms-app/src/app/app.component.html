@@ -1,12 +1,17 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
   <h1>
-    Welcome to {{ title }}!
+    {{ title }}
   </h1>
 </div>
 
+<nav>
+  <button routerLink="/search-form" routerLinkActive="active">Search For a Form</button>
+  <button routerLink="/submission-form" routerLinkActive="active">Submit a Form</button>
+  <button routerLink="/submission-form" routerLinkActive="active">Submit a Form</button>
+</nav>
 
-<app-form></app-form>
+<router-outlet></router-outlet>
 
 
 
