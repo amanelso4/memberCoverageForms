@@ -1,15 +1,8 @@
-<html lang="en">
-<head>
-  <title>Bootstrap Example</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-
-</head>
-
-<body>
 
 <div class="container-fluid">
+  <div [hidden] = "submitted">
+
+<body>
   <h3>Form Submission</h3>
 
   <div class="row">
@@ -134,16 +127,30 @@
     <div class="col" style="background-color:white;">This is where the preview of the form will appear for the user to check
       their inputted information before being exported to the database.</div>
   </div>
+
+
+</body>
+</div>
 </div>
 
+    <button class="btn btn-primary" (click)="submitted=true">Upload to Database</button>
 <div>
-  <button type="submit" class="btn btn-success" [disabled]="!Form.form.valid">Save to Database</button>
-  <div>
-    <button type="button" class="btn btn-default" (click)="newForm(); Form.reset()">Add Another Form</button>
-  </div>
   <button routerLink="/search-form" routerLinkActive="active">Cancel</button>
 </div>
 
-</body>
-</html>
+    <div [hidden]="!submitted">
+      <h3>You submitted the following:</h3>
+        <h4>Coverage Type: {{this.coverageType}}
+          State(s): {{this.state}}
+          Source System: {{this.sourceSystem}}
+          Form Type: {{this.formType}}
+          Name: {{this.name}}
+          Link: {{this.link}}
+          Description: {{this.description}}
+        </h4>
+
+      <button routerLink="/submission-form" routerLinkActive="active">Add Another</button>
+
+
+
 
