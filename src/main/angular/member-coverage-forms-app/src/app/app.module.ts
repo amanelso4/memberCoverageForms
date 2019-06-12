@@ -1,21 +1,32 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {RouterModule} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { SubmissionFormComponent } from './submission-form/submission-form.component';
+import { SearchComponent } from './search/search.component';
+
+const appRoutes: Routes = [
+  {path: 'submission-form', component: SubmissionFormComponent},
+  {path: 'search-form', component: SearchComponent},
+  {path: '', redirectTo: '/submission-form', pathMatch: 'full'},
+  {path: 'table', component: TableComponent},
+];
 
 @NgModule({
   declarations: [
     AppComponent,
-    SubmissionFormComponent
+    SubmissionFormComponent,
+    SearchComponent
   ],
   imports: [
-    RouterModule.forRoot([{path: '', component: SubmissionFormComponent},
-      ]),
+    RouterModule.forRoot(
+      appRoutes,
+      { enableTracing: true } // <-- debugging purposes only
+    ),
     BrowserModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

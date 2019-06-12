@@ -1,0 +1,89 @@
+
+
+<h2>Form Search</h2>
+<h4>Input details of form to search for all forms in directory with these characteristics. Tap the "Search" button
+  to be redirected the to table page with results of search.</h4>
+
+<div class="row">
+  <div class="col" style="background-color:white;">
+    <div class="container">
+      <div [hidden] = "submitted">
+        <form (ngSubmit)="onSubmit()" #Form="ngForm">
+
+          <div class="form-group">
+            <label for="coverageType">Coverage Type: </label>
+            <select class="form-control"
+                    id="coverageType"
+                    required
+                    [(ngModel)]="model.coverageType"
+                    name="coverageType"
+                    #coverageType="ngModel">
+              <option *ngFor="let coverageType of coverageTypes"
+                      [value]="coverageType">{{coverageType}}</option>
+            </select>
+            <div [hidden]="coverageType.valid ||
+               coverageType.pristine" class="alert alert-danger">
+              Coverage Type is required
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label for="state">State: </label>
+            <select class="form-control"
+                    id="state"
+                    required
+                    [(ngModel)]="model.state"
+                    name="state"
+                    multiple data-max-options="50"
+                    #state="ngModel">
+              <option *ngFor="let state of states"
+                      [value]="state">{{state}}</option>
+            </select>
+            <div [hidden]="state.valid ||
+   state.pristine" class="alert alert-danger">
+              State is required
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label for="state">Source System: </label>
+            <select class="form-control"
+                    id="sourceSystem"
+                    required
+                    [(ngModel)]="model.sourceSystem"
+                    name="state"
+                    #sourceSystem="ngModel">
+              <option *ngFor="let sourceSystem of sourceSystems"
+                      [value]="sourceSystem">{{sourceSystem}}</option>
+            </select>
+            <div [hidden]="sourceSystem.valid ||
+   sourceSystem.pristine" class="alert alert-danger">
+              Source System is required
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="formType">Form type: </label>
+            <select class="form-control"
+                    id="formType"
+                    required
+                    [(ngModel)]="model.formType"
+                    name="formType"
+                    #formType="ngModel">
+              <option *ngFor="let formType of formTypes"
+                      [value]="formType">{{formType}}</option>
+            </select>
+            <div [hidden]="formType.valid ||
+   formType.pristine" class="alert alert-danger">
+              Form type is required
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <button routerLink="/submission-form" routerLinkActive="active">Search</button>
