@@ -1,3 +1,21 @@
-<p>
-  table works!
-</p>
+<table>
+  <tr>
+    <th>Form Type</th>
+    <th>Coverage Type</th>
+    <th>Coverage States</th>
+    <th>Form Name</th>
+    <th>Form Description</th>
+    <th>Form Link</th>
+    <th></th><th></th>
+  </tr>
+  <tr *ngFor="let form of forms">
+    <td>{{ form.formType }}</td>
+    <td>{{ form.coverageType }}</td>
+    <td>{{ form.state }}</td>
+    <td class="name">{{ form.name }}</td>
+    <td class="description">{{ form.description }}</td>
+    <td>{{ form.link }}</td>
+    <td>Update</td>
+    <td>Delete</td>
+  </tr>
+</table>

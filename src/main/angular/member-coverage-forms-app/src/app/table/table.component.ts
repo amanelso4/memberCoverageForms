@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Form } from '../form';
+import { MOCKFORMS } from "../../assets/mockForms";
 
 @Component({
   selector: 'app-table',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TableComponent implements OnInit {
 
+  forms: Form[];
+
   constructor() { }
 
   ngOnInit() {
+    this.forms = MOCKFORMS;
   }
 
 }
