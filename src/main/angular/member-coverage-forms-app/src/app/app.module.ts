@@ -6,6 +6,8 @@ import {RouterModule, Routes} from '@angular/router';
 import { AppComponent } from './app.component';
 import { SubmissionFormComponent } from './submission-form/submission-form.component';
 import { SearchComponent } from './search/search.component';
+import { TableComponent } from './table/table.component';
+import { TopBarComponent } from './top-bar/top-bar.component';
 
 const appRoutes: Routes = [
   {path: 'submission-form', component: SubmissionFormComponent},
@@ -18,7 +20,9 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     SubmissionFormComponent,
-    SearchComponent
+    SearchComponent,
+    TableComponent,
+    TopBarComponent
   ],
   imports: [
     RouterModule.forRoot(
