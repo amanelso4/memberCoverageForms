@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Form } from '../form';
 import { MOCKFORMS } from "../../assets/mockForms";
+import { FormInt } from "../../assets/formInt";
+import { TableHelperService } from "../table-helper.service";
 
 @Component({
   selector: 'app-table',
@@ -33,7 +35,9 @@ export class TableComponent implements OnInit {
     link: new FormControl('')
   });
 
-  constructor() { }
+  constructor(
+    private tableHelper: TableHelperService
+  ) { }
 
   ngOnInit() {
     this.forms = MOCKFORMS;
@@ -43,5 +47,10 @@ export class TableComponent implements OnInit {
     //Need to filter data so that it uses filters
     console.warn(this.tableFilters.value);
   }
+
+  /*getForms() {
+    this.tableHelper.getForms().subscribe(
+      (data: FormInt) => this.forms = data); //Need to fix this, be more specific with types
+  }*/
 
 }
