@@ -1,0 +1,30 @@
+<h2>Submission Complete</h2>
+<h3>You uploaded: </h3>
+
+<div [hidden]="!submitted">
+  <h3>You submitted the following:</h3>
+
+  <table style="width:100%">
+    <tr>
+      <th>Form Name</th>
+      <th>Form Link</th>
+      <th>Form Type</th>
+      <th>Form Description</th>
+      <th>Coverage Type</th>
+      <th>State(s)</th>
+      <th>Source System</th>
+      <th> </th>
+      <th> </th>
+    </tr>
+    <tr>
+      <td>{{model.name}}</td>
+      <td>{{model.link}}</td>
+      <td>{{model.formType}}</td>
+      <td>{{model.description}}</td>
+      <td>{{model.coverageType}}</td>
+      <td>{{model.state}}</td>
+      <td>{{model.sourceSystem}}</td>
+      <td>Update</td>
+      <td>Delete</td>
+    </tr>
+  </table>
