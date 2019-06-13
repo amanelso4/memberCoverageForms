@@ -12,9 +12,9 @@ import { TableHelperService } from "../table-helper.service";
 })
 export class TableComponent implements OnInit {
 
-  //forms: Form[];
+  rawForms: FormInt[];
+  filters: FormInt;
   forms: FormInt[];
-
   coverageTypesVar = ['STD', 'LTD', 'DENTAL'];
 
   statesVar = ['AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA',
@@ -41,26 +41,42 @@ export class TableComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    //this.forms = MOCKFORMS;
     this.getForms();
   }
 
   onSubmit() {
     //Need to filter data so that it uses filters
     console.warn(this.tableFilters.value);
-    this.getFilteredForms();
+    this.filters = this.tableFilters.value;
+    this.applyFilters();
   }
 
   //Retrieves forms using tableHelper's http request
   getForms() {
     this.tableHelper.getForms().subscribe( //Subscribing to observable
-      (data: FormInt[]) => this.forms = data as FormInt[]);//Parameter is 'data', which is in the form of a form interface
+      (data: FormInt[]) => this.rawForms = data as FormInt[]);//Parameter is 'data', which is in the form of a form interface
       //wat is a local form interface which is filled with the data
+    this.forms = this.rawForms;
   }
 
-  getFilteredForms() {
-    this.tableHelper.getFilteredForms().subscribe(
-      (data: FormInt[]) => this.forms = data as FormInt[]);
+  applyFilters() {
+    this.forms = this.rawForms;
   }
+
+  /*getFilteredForms() {
+    this.tableHelper.getForms().subscribe(
+      (data: FormInt[]) => this.forms = data as FormInt[]);
+      if (this.forms && this.filters) {
+        this.forms = this.forms.filter( form => form.formType == this.filters.formType);
+      }
+  }*/
+
+  /*filterForms() {
+    this.getForms();
+    if (this.forms && this.filters) {
+      this.forms = this.forms.filter(form => form.formType == this.filters.formType);
+    }
+    console.warn(this.forms);
+  }*/
 
 }
