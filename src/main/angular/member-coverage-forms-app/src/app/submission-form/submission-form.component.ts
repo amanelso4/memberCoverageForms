@@ -46,6 +46,21 @@ export class SubmissionFormComponent {
     return myForm;
   }
 
+  expanded = false;
+  showCheckboxes() {
+    let checkboxes = document.getElementById("checkboxes");
+    if (!this.expanded) {
+      checkboxes.style.display = "block";
+      this.expanded = true;
+    } else {
+      checkboxes.style.display = "none";
+      this.expanded = false;
+    }
+  }
+
+  link: 'https://www.slfserviceresources.com/forms/claims/k0384any.pdf';
+
+
 
 }
 

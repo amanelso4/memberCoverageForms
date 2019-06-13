@@ -20,8 +20,7 @@
                       [(ngModel)]="model.coverageType"
                       name="coverageType"
                       #coverageType="ngModel">
-                <option *ngFor="let coverageType of coverageTypes"
-                        [value]="coverageType">{{coverageType}}</option>
+                <option *ngFor="let coverageType of coverageTypes" [value]="coverageType">{{coverageType}}</option>
               </select>
               <div [hidden]="coverageType.valid ||
                coverageType.pristine" class="alert alert-danger">
@@ -29,14 +28,15 @@
               </div>
             </div>
 
-
-            <div class="form-group">
+            <div class="selectBox" onclick="showCheckboxes()">
               <label for="state">State: </label>
-              <select class="form-control"
+              <select multiple
+                      style="height: auto"
+                      name="state"
+                      class="form-control"
                       id="state"
                       required
                       [(ngModel)]="model.state"
-                      name="state"
                       #state="ngModel">
                 <option *ngFor="let state of states"
                         [value]="state">{{state}}</option>
@@ -46,6 +46,9 @@
                 State is required
               </div>
             </div>
+
+
+
 
 
             <div class="form-group">
@@ -122,32 +125,55 @@
 
     </div>
 
-    <div class="col" style="background-color:white;">This is where the preview of the form will appear for the user to check
-      their inputted information before being exported to the database.</div>
+
+
+
+
+
+
+    <div class="col" style="background-color:white;">
+
+      <div class="container">
+
+        <embed src="https://www.slfserviceresources.com/forms/claims/k0384any.pdf" width=500px height=500px/>
+
+      </div>
+
+
+
+    </div>
+
+
+
+
+
   </div>
 
 
 
-    <button class="btn btn-primary" (click)="submitted=true">Upload to Database</button>
-<div>
+    <button class="btn btn-primary" (click)="submitted=true">Submit</button>
+
   <button routerLink="/table" routerLinkActive="active">Cancel</button>
-</div>
 
 </body>
 </div>
 </div>
 
     <div [hidden]="!submitted">
-      <h3>You submitted the following:</h3>
-      <h4>Coverage Type: <p>{{model.coverageType}}</p> <br>
-        State(s): <h5>{{model.state}} </h5><br>
-          Source System: {{model.sourceSystem}} <br>
-          Form Type: {{model.formType}} <br>
-          Name: {{model.name}} <br>
-          Link: {{model.link}} <br>
-          Description: {{model.description}} <br>
-        </h4>
-<button class="btn btn-primary" (click)="submitted=false">Submit Another Form</button>
+      <h3>You are about to Submit the Following: </h3>
+      <b>Coverage Type:   <br> {{model.coverageType}}  <br>
+        State(s): <br>   {{model.state}} <br>
+          Source System: <br>   {{model.sourceSystem}} <br>
+          Form Type: <br>   {{model.formType}} <br>
+          Name:    {{model.name}} <br>
+          Link:    {{model.link}} <br>
+          Description:   {{model.description}} <br>
+        </b>
+      <button routerLink="/table" routerLinkActive="active">Upload to Database</button>
+
+<button class="btn btn-primary" (click)="submitted=false">Upload and Submit Another Form</button>
+
+      <button routerLink="/table" routerLinkActive="active">Back to Table Page</button>
 
 </div>
 
