@@ -12,7 +12,8 @@ import { TableHelperService } from "../table-helper.service";
 })
 export class TableComponent implements OnInit {
 
-  forms: Form[];
+  //forms: Form[];
+  forms: FormInt[];
 
   coverageTypesVar = ['STD', 'LTD', 'DENTAL'];
 
@@ -40,7 +41,8 @@ export class TableComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.forms = MOCKFORMS;
+    //this.forms = MOCKFORMS;
+    this.getForms();
   }
 
   onSubmit() {
@@ -48,9 +50,11 @@ export class TableComponent implements OnInit {
     console.warn(this.tableFilters.value);
   }
 
-  /*getForms() {
-    this.tableHelper.getForms().subscribe(
-      (data: FormInt) => this.forms = data); //Need to fix this, be more specific with types
-  }*/
+  //Retrieves forms using tableHelper's http request
+  getForms() {
+    this.tableHelper.getForms().subscribe( //Subscribing to observable
+      (data: FormInt[]) => this.forms = data as FormInt[]);//Parameter is 'data', which is in the form of a form interface
+      //wat is a local form interface which is filled with the data
+  }
 
 }
