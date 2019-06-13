@@ -62,3 +62,36 @@ h4 {
   font-size: 18px;
   line-height: 23px;
 }
+
+table {
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+td, th {
+  border-left: solid;
+  border-color: #424242;
+  border-width: 1px;
+  padding: 20px 15px;
+}
+
+td:first-child, th:first-child {
+  border-left: none;
+}
+
+th {
+  background-color: #ffcb05;
+  height: 100px;
+}
+
+tr:nth-child(odd) {
+  background-color: #FEEDD2;
+}
+
+.description {
+  max-width: 400px;
+}
+
+.name {
+  max-width: 300px;
+}

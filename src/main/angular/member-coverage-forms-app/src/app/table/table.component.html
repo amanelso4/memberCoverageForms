@@ -1,3 +1,53 @@
-<p>
-  table works!
-</p>
+<form [formGroup]="tableFilters" (ngSubmit)="onSubmit()">
+  <table>
+    <tr>
+      <th>
+        <label>
+          Form Type
+          <select formControlName="formType">
+            <option *ngFor="let type of formTypeVar" [value]="type">{{ type }}</option>
+          </select>
+        </label>
+      </th>
+      <th>
+        <label>
+          Coverage Type
+          <select formControlName="coverageType">
+            <option *ngFor="let cType of coverageTypesVar" [value]="cType">{{ cType }}</option>
+          </select>
+        </label>
+      </th>
+      <th>
+        <label>
+          Coverage State(s)
+          <select multiple formControlName="states" style="height: auto">
+            <option *ngFor="let state of statesVar" [value]="state">{{ state }}</option>
+          </select>
+        </label>
+      </th>
+      <th>
+        Form Name
+        <input type="text" formControlName="name">
+      </th>
+      <th>
+        Form Description
+        <input type="text" formControlName="description">
+      </th>
+      <th>
+        Form Link<br>
+        <input type="text" formControlName="link" size="45">
+      </th>
+      <th colspan="2"><button type="submit">Search</button></th>
+    </tr>
+    <tr *ngFor="let form of forms">
+      <td style="max-width: 20px;">{{ form.formType }}</td>
+      <td>{{ form.coverageType }}</td>
+      <td>{{ form.state }}</td>
+      <td class="name">{{ form.name }}</td>
+      <td class="description">{{ form.description }}</td>
+      <td>{{ form.link }}</td>
+      <td><button>Update</button></td>
+      <td><button>Delete</button></td>
+    </tr>
+  </table>
+</form>
