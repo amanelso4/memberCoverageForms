@@ -2,22 +2,19 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
-
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { SubmissionFormComponent } from './submission-form/submission-form.component';
-import { ConfirmationComponent } from './confirmation/confirmation.component';
-import { ConfigComponent } from './config/config.component';
 import { TableComponent } from './table/table.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
-
-import {HttpClientInMemoryWebApiModule} from 'angular-in-memory-web-api';
-import {InMemoryDataService} from './in-memory-data.service';
+import { InMemoryDataService } from "./in-memory-data.service";
+import { HttpClientInMemoryWebApiModule } from "angular-in-memory-web-api";
 
 const appRoutes: Routes = [
   {path: 'submission-form', component: SubmissionFormComponent},
   {path: 'table', component: TableComponent},
-  {path: '', redirectTo: '/submission-form', pathMatch: 'full'},
+  {path: '', redirectTo: 'table', pathMatch: 'full'},
 
 ];
 
@@ -25,12 +22,8 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     SubmissionFormComponent,
-
-    ConfirmationComponent,
-    ConfigComponent,
     TableComponent,
     TopBarComponent,
-
   ],
   imports: [
     RouterModule.forRoot(
@@ -40,6 +33,8 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
+    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService)
   ],
   providers: [],
   bootstrap: [AppComponent]
