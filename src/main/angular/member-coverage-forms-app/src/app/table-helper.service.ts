@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { FormInt } from "../assets/formInt";
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from "rxjs/operators";
+import { Observable, throwError, from } from 'rxjs';
+import { catchError, retry, map, filter } from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +10,7 @@ import { catchError, retry } from "rxjs/operators";
 export class TableHelperService {
 
   formUrl: string = "api/forms";
+  fullForms: FormInt[];
 
   constructor(
     private http: HttpClient
@@ -21,6 +22,15 @@ export class TableHelperService {
         retry(3), // retry a failed request up to 3 times
         catchError(this.handleError) // then handle the error
       );
+  }
+
+  getFilteredForms() {
+    return this.http.get<FormInt[]>(this.formUrl)
+      .pipe(map(data => {
+      return data.filter(datum => {
+        return datum.state == 'KS' || datum.state == 'AZ';
+      });
+    }));
   }
 
 

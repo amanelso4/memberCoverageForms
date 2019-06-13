@@ -48,6 +48,7 @@ export class TableComponent implements OnInit {
   onSubmit() {
     //Need to filter data so that it uses filters
     console.warn(this.tableFilters.value);
+    this.getFilteredForms();
   }
 
   //Retrieves forms using tableHelper's http request
@@ -55,6 +56,11 @@ export class TableComponent implements OnInit {
     this.tableHelper.getForms().subscribe( //Subscribing to observable
       (data: FormInt[]) => this.forms = data as FormInt[]);//Parameter is 'data', which is in the form of a form interface
       //wat is a local form interface which is filled with the data
+  }
+
+  getFilteredForms() {
+    this.tableHelper.getFilteredForms().subscribe(
+      (data: FormInt[]) => this.forms = data as FormInt[]);
   }
 
 }
