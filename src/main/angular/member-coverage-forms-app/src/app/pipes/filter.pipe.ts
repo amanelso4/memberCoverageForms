@@ -13,7 +13,7 @@ export class FilterPipe implements PipeTransform {
         if (covTypeSearch && covTypeSearch != item.coverageType){
           return false;
         }
-        if (stateSearch && !stateSearch.includes(item.state)){
+        if ((stateSearch.length > 0) && !stateSearch.includes(item.state)){
           return false;
         }
         if (nameSearch && item.name.toLowerCase().indexOf(nameSearch.toLowerCase()) === -1){

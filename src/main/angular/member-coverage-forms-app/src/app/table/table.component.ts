@@ -13,7 +13,6 @@ import { TableHelperService } from "../table-helper.service";
 export class TableComponent implements OnInit {
 
   forms: FormInt[];
-  filters: FormInt;
 
   coverageTypesVar = ['STD', 'LTD', 'DENTAL'];
 
@@ -27,14 +26,12 @@ export class TableComponent implements OnInit {
 
   formTypeVar = ['Claim', 'Continuance'];
 
-  tableFilters = new FormGroup({
-    formType: new FormControl(''),
-    coverageType: new FormControl(''),
-    states: new FormControl(''),
-    name: new FormControl(''),
-    description: new FormControl(''),
-    link: new FormControl('')
-  });
+  formType: string = '';
+  coverageType: string = '';
+  states: string[] = [];
+  name: string = '';
+  description: string = '';
+  link: string = '';
 
   constructor(
     private tableHelper: TableHelperService
@@ -42,12 +39,6 @@ export class TableComponent implements OnInit {
 
   ngOnInit() {
     this.getForms();
-  }
-
-  onSubmit() {
-    //Need to filter data so that it uses filters
-    console.warn(this.tableFilters.value);
-    this.filters = this.tableFilters.value;
   }
 
   //Retrieves forms using tableHelper's http request
