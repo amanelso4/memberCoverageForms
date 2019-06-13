@@ -37,7 +37,7 @@
         Form Link<br>
         <input type="text" formControlName="link" size="45">
       </th>
-      <th colspan="2"><button type="submit">Search</button><button [routerLink]="['/submission-form']">Add a Form</button></th>
+      <th colspan="2"><button type="submit">Search</button></th>
     </tr>
     <tr *ngFor="let form of forms">
       <td style="max-width: 20px;">{{ form.formType }}</td>
