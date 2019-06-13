@@ -1,5 +1,5 @@
 <form [formGroup]="tableFilters" (ngSubmit)="onSubmit()">
-  <table>
+  <table *ngIf="forms">
     <tr>
       <th>
         <label>
@@ -45,7 +45,7 @@
       <td>{{ form.state }}</td>
       <td class="name">{{ form.name }}</td>
       <td class="description">{{ form.description }}</td>
-      <td>{{ form.link }}</td>
+      <td><a href="{{ form.link }}" target="_blank">{{ form.link }}</a></td>
       <td><button>Update</button></td>
       <td><button>Delete</button></td>
     </tr>
