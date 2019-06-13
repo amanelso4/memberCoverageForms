@@ -10,15 +10,11 @@
   display: table;
   clear: both;
 }
-/* Create three equal columns that floats next to each other */
-.column {
-  float: left;
-  width: 33.33%;
+
+label, select {
+  display: table-cell;
 }
 
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
+.form-group {
+  display: table-row;
 }
