@@ -5,8 +5,9 @@
 //
 
 import {Form} from '../app/form';
+import { FormInt } from "./formInt";
 
-export const MOCKFORMS: Form[] = [
+export const MOCKFORMS: FormInt[] = [
   {
     coverageType: 'STD',
     state: 'NY',
