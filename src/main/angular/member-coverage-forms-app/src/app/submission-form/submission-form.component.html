@@ -1,15 +1,8 @@
-<html lang="en">
-<head>
-  <title>Bootstrap Example</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-
-</head>
-
-<body>
 
 <div class="container-fluid">
+  <div [hidden] = "submitted">
+
+<body>
   <h3>Form Submission</h3>
 
   <div class="row">
@@ -129,21 +122,70 @@
 
     </div>
 
-
-
     <div class="col" style="background-color:white;">This is where the preview of the form will appear for the user to check
       their inputted information before being exported to the database.</div>
   </div>
-</div>
 
+
+
+    <button class="btn btn-primary" (click)="submitted=true">Upload to Database</button>
 <div>
-  <button type="submit" class="btn btn-success" [disabled]="!Form.form.valid">Save to Database</button>
-  <div>
-    <button type="button" class="btn btn-default" (click)="newForm(); Form.reset()">Add Another Form</button>
-  </div>
-  <button routerLink="/search-form" routerLinkActive="active">Cancel</button>
+  <button routerLink="/table" routerLinkActive="active">Cancel</button>
 </div>
 
 </body>
-</html>
+</div>
+</div>
 
+    <div [hidden]="!submitted">
+      <h3>You submitted the following:</h3>
+      <h4>Coverage Type: <p>{{model.coverageType}}</p> <br>
+        State(s): <h5>{{model.state}} </h5><br>
+          Source System: {{model.sourceSystem}} <br>
+          Form Type: {{model.formType}} <br>
+          Name: {{model.name}} <br>
+          Link: {{model.link}} <br>
+          Description: {{model.description}} <br>
+        </h4>
+<button class="btn btn-primary" (click)="submitted=false">Submit Another Form</button>
+
+</div>
+
+<!--
+<h3>Submission Form</h3>
+
+<h3>Forms</h3>
+<div>
+  <label>Form name:
+    <input #formName />
+  </label>
+ (click) passes input value to add() and then clears the input
+  <button (click)="add(formName.value); formName.value=''">
+    add
+  </button>
+
+  <label>Form link:
+    <input #formName />
+  </label>
+
+  <button (click)="add(formName.value); formName.value=''">
+    add
+  </button>
+
+</div>
+
+
+
+<ul class="forms">
+  <li *ngFor="let form of forms">
+    <a (click)="edit(form)">
+      <span class="badge">{{form.id || -1 }}</span>
+      <span *ngIf="form!==editForm">{{form.name}}</span>
+      <input *ngIf="form===editForm" [(ngModel)]="form.name"
+             (blur)="update()" (keyup.enter)="update()">
+    </a>
+    <button class="delete" title="delete form"
+            (click)="delete(form)">Delete</button>
+  </li>
+</ul>
+-->

@@ -3,26 +3,34 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
+
 import { AppComponent } from './app.component';
 import { SubmissionFormComponent } from './submission-form/submission-form.component';
-import { SearchComponent } from './search/search.component';
+import { ConfirmationComponent } from './confirmation/confirmation.component';
+import { ConfigComponent } from './config/config.component';
 import { TableComponent } from './table/table.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 
+import {HttpClientInMemoryWebApiModule} from 'angular-in-memory-web-api';
+import {InMemoryDataService} from './in-memory-data.service';
+
 const appRoutes: Routes = [
   {path: 'submission-form', component: SubmissionFormComponent},
-  {path: 'search-form', component: SearchComponent},
   {path: 'table', component: TableComponent},
   {path: '', redirectTo: '/submission-form', pathMatch: 'full'},
+
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
     SubmissionFormComponent,
-    SearchComponent,
+
+    ConfirmationComponent,
+    ConfigComponent,
     TableComponent,
-    TopBarComponent
+    TopBarComponent,
+
   ],
   imports: [
     RouterModule.forRoot(

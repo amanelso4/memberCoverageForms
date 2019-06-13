@@ -1,3 +1,5 @@
+
+
 import { Component } from '@angular/core';
 import {Form} from '../form';
 
@@ -45,6 +47,88 @@ export class SubmissionFormComponent {
   }
 
 
-
-
 }
+
+
+
+/*
+import { Component, OnInit } from '@angular/core';
+import { Form } from './form';
+import { FormsService } from './forms.service';
+
+@Component({
+  selector: 'app-forms',
+  templateUrl: './submission-form.component.html',
+  providers: [ FormsService ],
+  styleUrls: ['./submission-form.component.css']
+})
+export class SubmissionFormComponent implements OnInit {
+  forms: Form[];
+  editForm: Form;
+
+  constructor(private formsService: FormsService) { }
+
+  ngOnInit() {
+    this.getForms();
+  }
+
+  getForms(): void {
+    this.formsService.getForms()
+      .subscribe(forms => this.forms = forms);
+  }
+
+  add(name: string): void {
+    this.editForm = undefined;
+    name = name.trim();
+    if (!name) { return; }
+
+
+    add(name: string): void {
+      name = name.trim();
+    if (!name) { return; }
+    this.formService.addForm({ name } as Form)
+      .subscribe(form => {
+        this.forms.push(form);
+      });
+  }
+
+
+
+    const newForm: Form = { name } as Form;
+    this.formsService.addForm(newForm)
+      .subscribe(form => this.forms.push(form));
+  }
+
+  delete(form: Form): void {
+    this.forms = this.forms.filter(h => h !== form);
+    this.formsService.deleteForm(form.id).subscribe();
+
+  }
+
+  edit(form) {
+    this.editForm = form;
+  }
+
+  search(searchTerm: string) {
+    this.editForm = undefined;
+    if (searchTerm) {
+      this.formsService.searchForms(searchTerm)
+        .subscribe(forms => this.forms = forms);
+    }
+  }
+
+  update() {
+    if (this.editForm) {
+      this.formsService.updateForm(this.editForm)
+        .subscribe(form => {
+
+          const ix = form ? this.forms.findIndex(h => h.name ===form.name) : -1;
+          if (ix > -1) { this.forms[ix] = form; }
+        });
+      this.editForm = undefined;
+    }
+
+
+
+  }*/
+
