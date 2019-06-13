@@ -122,34 +122,34 @@
 
     </div>
 
-
-
     <div class="col" style="background-color:white;">This is where the preview of the form will appear for the user to check
       their inputted information before being exported to the database.</div>
   </div>
 
 
+
+    <button class="btn btn-primary" (click)="submitted=true">Upload to Database</button>
+<div>
+  <button routerLink="/table" routerLinkActive="active">Cancel</button>
+</div>
+
 </body>
 </div>
 </div>
 
-    <button class="btn btn-primary" (click)="submitted=true">Upload to Database</button>
-<div>
-  <button routerLink="/search-form" routerLinkActive="active">Cancel</button>
-</div>
-
     <div [hidden]="!submitted">
       <h3>You submitted the following:</h3>
-        <h4>Coverage Type: {{this.coverageType}}
-          State(s): {{this.state}}
-          Source System: {{this.sourceSystem}}
-          Form Type: {{this.formType}}
-          Name: {{this.name}}
-          Link: {{this.link}}
-          Description: {{this.description}}
+      <h4>Coverage Type: {{model.coverageType}} <br>
+          State(s): {{model.state}} <br>
+          Source System: {{model.sourceSystem}} <br>
+          Form Type: {{model.formType}} <br>
+          Name: {{model.name}} <br>
+          Link: {{model.link}} <br>
+          Description: {{model.description}} <br>
         </h4>
+<button class="btn btn-primary" (click)="submitted=false">Submit Another Form</button>
 
-      <button routerLink="/submission-form" routerLinkActive="active">Add Another</button>
+</div>
 
 <!--
 <h3>Submission Form</h3>
@@ -189,6 +189,3 @@
   </li>
 </ul>
 -->
-
-
-
