@@ -48,4 +48,14 @@ export class TableComponent implements OnInit {
       //wat is a local form interface which is filled with the data
   }
 
+  //Clear the currently selected filters
+  clearFilters() {
+    this.formType = '';
+    this.coverageType = '';
+    this.states = [];
+    this.name = '';
+    this.description = '';
+    this.link = '';
+  }
+
 }
