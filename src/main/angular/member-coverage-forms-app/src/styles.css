@@ -21,8 +21,27 @@ button {
   margin: 5px;
 }
 
+button.edit {
+  width: 75px;
+  text-align: center;
+}
+
+button.confirmation {
+  background-color: white;
+  border-width: 2px;
+  border-color: #b81f41;
+  color: #b81f41;
+  border-style: solid;
+}
+
 button:hover {
   background-color: #4a7283;
+  color: white;
+}
+
+button:hover.confirmation {
+  background-color: #b81f41;
+  color: white;
 }
 
 select {

@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
-import { Form } from '../form';
-
 import { FormInt } from "../../assets/formInt";
 import { TableHelperService } from "../table-helper.service";
 
@@ -13,7 +10,22 @@ import { TableHelperService } from "../table-helper.service";
 })
 export class TableComponent implements OnInit {
 
+  constructor(
+    private tableHelper: TableHelperService
+  ) { }
+
+  //////////////////
+  // DECLARATIONS //
+  //////////////////
+
   forms: FormInt[];
+
+  formType: string = '';
+  coverageType: string = '';
+  states: string[] = [];
+  name: string = '';
+  description: string = '';
+  link: string = '';
 
   coverageTypesVar = ['STD', 'LTD', 'DENTAL'];
 
@@ -27,16 +39,9 @@ export class TableComponent implements OnInit {
 
   formTypeVar = ['Claim', 'Continuance'];
 
-  formType: string = '';
-  coverageType: string = '';
-  states: string[] = [];
-  name: string = '';
-  description: string = '';
-  link: string = '';
-
-  constructor(
-    private tableHelper: TableHelperService
-  ) { }
+  //////////////////
+  ///// METHODS ////
+  //////////////////
 
   ngOnInit() {
     this.getForms();
@@ -44,9 +49,8 @@ export class TableComponent implements OnInit {
 
   //Retrieves forms using tableHelper's http request
   getForms() {
-    this.tableHelper.getForms().subscribe( //Subscribing to observable
-      (data: FormInt[]) => this.forms = data as FormInt[]);//Parameter is 'data', which is in the form of a form interface
-    //wat is a local form interface which is filled with the data
+    this.tableHelper.getForms().subscribe(
+      (data: FormInt[]) => this.forms = data as FormInt[]); // Parameter is 'data', which is in the form of a form interface
   }
 
   //Clear the currently selected filters
@@ -57,6 +61,14 @@ export class TableComponent implements OnInit {
     this.name = '';
     this.description = '';
     this.link = '';
+  }
+
+  //Delete a form by providing the form's id as an argument
+  deleteForm(formId: number) {
+    this.tableHelper.delete(formId).subscribe(
+      () => console.log('Employee w/ Id ' + formId + ' deleted')
+    );
+    this.getForms(); //Update form list so deletion affects table
   }
 
 }
