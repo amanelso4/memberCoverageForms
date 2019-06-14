@@ -1,33 +1,29 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { FormInt } from "../assets/formInt";
+import { Observable, throwError } from 'rxjs';
+import { catchError, retry } from "rxjs/operators";
 
-import { Observable, throwError, from, of } from 'rxjs';
-import { catchError, retry, map, tap, filter } from "rxjs/operators";
-import {Form} from "./form";
-
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
-
-@Injectable({providedIn: 'root'})
-
-
+@Injectable({
+  providedIn: 'root'
+})
 export class TableHelperService {
-
- private formUrl: string = "api/forms";
-
- httpOptions = {
-   headers: new HttpHeaders({
-     'Content-Type': 'application/json'
-   })
-  };
-
 
   constructor(
     private http: HttpClient
   ) { }
 
+  //////////////////
+  // DECLARATIONS //
+  //////////////////
+
+  private formUrl: string = "api/forms";
+
+  //////////////////
+  ///// METHODS ////
+  //////////////////
+
+  //Gets forms using HttpClient service
   getForms() {
     return this.http.get<FormInt[]>(this.formUrl)
       .pipe(
@@ -36,8 +32,7 @@ export class TableHelperService {
       );
   }
 
-  // DELETE A FORM
-
+  //Deletes a form based on the provided formId
   delete(formId: number): Observable<{}> {
     const url = this.formUrl + '/' + formId; // delete api/forms/formId
     return this.http.delete(url)
@@ -45,7 +40,6 @@ export class TableHelperService {
         catchError(this.handleError)
       );
   }
-
 
   //Taken from angular http guide, handles errors for requests
   private handleError(error: HttpErrorResponse) {
@@ -63,4 +57,5 @@ export class TableHelperService {
     return throwError(
       'Something bad happened; please try again later.');
   }
+
 }

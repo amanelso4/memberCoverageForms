@@ -1,6 +1,5 @@
 import { InMemoryDbService }  from 'angular-in-memory-web-api';
-import {FormInt} from "../assets/formInt";
-import { Form} from "./form";
+import { Form } from "./form";
 import { Injectable } from '@angular/core';
 
 
@@ -9,6 +8,7 @@ import { Injectable } from '@angular/core';
 })
 
 export class InMemoryDataService implements InMemoryDbService {
+  //Used to create a mock database so that we can test http methods for obtaining data
   createDb() {
     const forms = [
       {
