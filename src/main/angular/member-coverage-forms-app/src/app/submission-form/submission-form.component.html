@@ -6,9 +6,6 @@
     <h3>Form Submission</h3>
     <div class="row">
 
-
-
-<<<<<<< HEAD
           <div class="column" style="background-color:white;">
             <div class="container">
               <div [hidden] = "submitted">
@@ -88,10 +85,15 @@
                       Form type is required
                     </div>
                   </div>
+
+
              <!--   </form> -->
               </div>
+            </div>
+          </div>
 
           <div class="column" style="background-color:white;">
+
             <div>
               <label>Form name:
                 <input #formName />
@@ -109,6 +111,8 @@
                 <input #formDescription />
               </label>
             </div>
+
+          </div>
 <!--
             <div class="form-group">
               <label for = "description">Description: </label>
@@ -121,34 +125,14 @@
               </div>
             </div>
 -->
-        <div class="form-group">
-          <label for = "name">Name: </label>
-          <input type="text"
-                 class="form-control" id="name"
-                 required [(ngModel)]="model.name"
-                 name="name"
-                 #name="ngModel">
-          <div [hidden]="name.valid || name.pristine" class="alert alert-danger">Name is required
-          </div>
-        </div>
           <div class="col" style="background-color:white;">
             <div class="container">
               <embed src="https://www.slfserviceresources.com/forms/claims/k0384any.pdf" width=500px height=500px/>
             </div>
-
           </div>
+
+
         </div>
-
-
-      </div>
-
-
-
-      <div class="col" style="background-color:white;">
-        <div class="container">
-          <embed src="https://www.slfserviceresources.com/forms/claims/k0384any.pdf" width=500px height=500px/>
-        </div>
-      </div>
 
     <button class="btn btn-primary" (click)="submitted=true">Submit</button>
     <button routerLink="/table" routerLinkActive="active">Cancel</button>
