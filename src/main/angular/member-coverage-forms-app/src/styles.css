@@ -21,6 +21,10 @@ button {
   margin: 5px;
 }
 
+button:hover {
+  background-color: #4a7283;
+}
+
 select {
   font-family: "Sun Life Sans";
   font-size: 16px;

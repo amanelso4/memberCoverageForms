@@ -10,19 +10,19 @@ export class FilterPipe implements PipeTransform {
         if (fTypeSearch && fTypeSearch != item.formType){
           return false;
         }
-        if (covTypeSearch && covTypeSearch != item.coverageType){
+        else if (covTypeSearch && covTypeSearch != item.coverageType){
           return false;
         }
-        if ((stateSearch.length > 0) && !stateSearch.includes(item.state)){
+        else if ((stateSearch.length > 0) && !stateSearch.includes(item.state)){
           return false;
         }
-        if (nameSearch && item.name.toLowerCase().indexOf(nameSearch.toLowerCase()) === -1){
+        else if (nameSearch && item.name.toLowerCase().indexOf(nameSearch.toLowerCase()) === -1){
           return false;
         }
-        if (descSearch && item.description.toLowerCase().indexOf(descSearch.toLowerCase()) === -1){
+        else if (descSearch && item.description.toLowerCase().indexOf(descSearch.toLowerCase()) === -1){
           return false;
         }
-        if (linkSearch && item.link.toLowerCase().indexOf(linkSearch.toLowerCase()) === -1){
+        else if (linkSearch && item.link.toLowerCase().indexOf(linkSearch.toLowerCase()) === -1){
           return false;
         }
         return true;
