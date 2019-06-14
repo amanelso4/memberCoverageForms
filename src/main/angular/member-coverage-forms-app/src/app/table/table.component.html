@@ -39,6 +39,7 @@
       </th>
       <th colspan="2"><button type="submit">Search</button></th>
     </tr>
+
     <tr *ngFor="let form of forms">
       <td style="max-width: 20px;">{{ form.formType }}</td>
       <td>{{ form.coverageType }}</td>
@@ -49,5 +50,6 @@
       <td><button>Update</button></td>
       <td><button>Delete</button></td>
     </tr>
+
   </table>
 </form>

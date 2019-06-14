@@ -5,6 +5,7 @@ import { MOCKFORMS } from "../../assets/mockForms";
 import { FormInt } from "../../assets/formInt";
 import { TableHelperService } from "../table-helper.service";
 
+
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
@@ -55,7 +56,7 @@ export class TableComponent implements OnInit {
   getForms() {
     this.tableHelper.getForms().subscribe( //Subscribing to observable
       (data: FormInt[]) => this.forms = data as FormInt[]);//Parameter is 'data', which is in the form of a form interface
-      //wat is a local form interface which is filled with the data
+    //wat is a local form interface which is filled with the data
   }
 
   getFilteredForms() {

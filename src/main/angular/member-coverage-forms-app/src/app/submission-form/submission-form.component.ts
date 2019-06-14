@@ -1,8 +1,6 @@
-
-
-import { Component } from '@angular/core';
-import {Form} from '../form';
-
+import { Component, OnInit } from '@angular/core';
+import {PostService} from "../post.service";
+import { Form} from "../form";
 
 
 @Component({
@@ -10,9 +8,30 @@ import {Form} from '../form';
   templateUrl: './submission-form.component.html',
   styleUrls: ['./submission-form.component.css']
 })
-export class SubmissionFormComponent {
 
-  coverageTypes = ['Short-term Disability', 'Long-term Disability', 'Dental', 'Vision'];
+export class SubmissionFormComponent implements OnInit{
+  forms: Form[];
+
+  constructor(private formService: PostService) {}
+
+  ngOnInit(): void {
+    this.getForms();
+
+  }
+  getForms(): void {
+    this.formService.getForms()
+      .subscribe(forms => this.forms = forms);
+  }
+
+  add(name: string): void {
+    name = name.trim();
+    this.formService.addForm({ name } as Form)
+      .subscribe(form => {
+        this.forms.push(form);
+      });
+  }
+
+  coverageTypes = ['Short-term Disability', 'Long-term Disability', 'Dental', 'Vision', 'Life', 'AD&D', 'Critical Illness', 'Accident', 'Vision', 'Gap'];
 
   states = ['AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA',
     'HI', 'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI',
@@ -24,45 +43,20 @@ export class SubmissionFormComponent {
 
   formTypes = ['Claim', 'Continuance', 'Other'];
 
-  model = new Form(' ', ' ', ' ', ' ', 'Type name here...', 'Type link here...', 'Type Description here...');
+  model = new Form();
 
   submitted = false;
 
+
   onSubmit() {
     this.submitted = true;
-  }
-
-  get diagnostic() {
-    return JSON.stringify(this.model);
-  }
-
-  newForm() {
-    this.model = new Form('', '', '', '', '', '', '');
-  }
-
-  vision(): Form {
-    let myForm = new Form('a', 'b', 'c', 'd', 'e', 'f', 'g');
-    console.log('My Form is called ' + myForm.name);
-    return myForm;
-  }
-
-  expanded = false;
-  showCheckboxes() {
-    let checkboxes = document.getElementById("checkboxes");
-    if (!this.expanded) {
-      checkboxes.style.display = "block";
-      this.expanded = true;
-    } else {
-      checkboxes.style.display = "none";
-      this.expanded = false;
-    }
-  }
+  };
 
   link: 'https://www.slfserviceresources.com/forms/claims/k0384any.pdf';
 
 
-
 }
+
 
 
 
