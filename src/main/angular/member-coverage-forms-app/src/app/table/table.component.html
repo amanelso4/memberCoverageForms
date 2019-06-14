@@ -49,7 +49,11 @@
       <button>Update</button>
     </td>
     <td>
-      <button (click)="deleteForm(form.id)">Delete</button>
+      <button (click)="form.confirmDelete=true">Delete</button>
+      <span *ngIf="form.confirmDelete">
+        <button class="confirmation" (click)="deleteForm(form.id)">Confirm</button>
+        <button class="confirmation" (click)="form.confirmDelete=false">Cancel</button>
+      </span>
     </td>
   </tr>
 </table>

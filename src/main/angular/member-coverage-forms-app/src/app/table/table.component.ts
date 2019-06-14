@@ -15,6 +15,7 @@ export class TableComponent implements OnInit {
 
   forms: FormInt[];
 
+
   coverageTypesVar = ['STD', 'LTD', 'DENTAL'];
 
   statesVar = ['AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA',
