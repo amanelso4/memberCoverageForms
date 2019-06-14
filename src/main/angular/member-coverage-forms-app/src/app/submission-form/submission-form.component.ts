@@ -22,13 +22,14 @@ export class SubmissionFormComponent implements OnInit{
       .subscribe(forms => this.forms = forms);
   }
 
-  add(name: string): void {
-    name = name.trim();
-    this.postService.addForm({ name } as Form)
+  add(model: Form): void {
+    this.postService.addForm(model)
       .subscribe(form => {
         this.forms.push(form);
       });
   }
+
+
 
   coverageTypes = ['Short-term Disability', 'Long-term Disability', 'Dental', 'Vision', 'Life', 'AD&D', 'Critical Illness', 'Accident', 'Vision', 'Gap'];
 
