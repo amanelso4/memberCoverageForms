@@ -1,4 +1,5 @@
 export interface FormInt {
+  id: number;
   coverageType: string;
   state: string;
   sourceSystem: string;
@@ -6,5 +7,4 @@ export interface FormInt {
   name: string;
   link: string;
   description: string;
-  id: number;
 }

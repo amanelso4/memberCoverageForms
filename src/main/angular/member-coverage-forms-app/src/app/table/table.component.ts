@@ -59,4 +59,11 @@ export class TableComponent implements OnInit {
     this.link = '';
   }
 
+  deleteForm(formId: number) {
+    this.tableHelper.delete(formId).subscribe(
+      () => console.log('Employee w/ Id ' + formId + ' deleted')
+    );
+    this.getForms();
+  }
+
 }

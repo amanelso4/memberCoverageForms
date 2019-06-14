@@ -17,6 +17,12 @@ export class TableHelperService {
 
  private formUrl: string = "api/forms";
 
+ httpOptions = {
+   headers: new HttpHeaders({
+     'Content-Type': 'application/json'
+   })
+  };
+
 
   constructor(
     private http: HttpClient
@@ -30,23 +36,14 @@ export class TableHelperService {
       );
   }
 
+  // DELETE A FORM
 
-  getFilteredForms() {
-    return this.http.get<FormInt[]>(this.formUrl)
-      .pipe(map(data => {
-        return data.filter(datum => {
-          return datum.state == 'KS' || datum.state == 'AZ';
-        });
-      }));
-  }
-
-  //** POST FUNCTION
-
-  addForm (form: Form): Observable<FormInt> {
-    return this.http.post<FormInt>(this.formUrl, form, httpOptions).pipe(
-
-      catchError(this.handleError)
-    );
+  delete(formId: number): Observable<{}> {
+    const url = this.formUrl + '/' + formId; // delete api/forms/formId
+    return this.http.delete(url)
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
 
