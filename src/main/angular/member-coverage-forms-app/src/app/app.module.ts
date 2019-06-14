@@ -10,6 +10,7 @@ import { TableComponent } from './table/table.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { InMemoryDataService } from "./in-memory-data.service";
 import { HttpClientInMemoryWebApiModule } from "angular-in-memory-web-api";
+import { FilterPipe } from "./pipes/filter.pipe";
 
 const appRoutes: Routes = [
   {path: 'submission-form', component: SubmissionFormComponent},
@@ -24,6 +25,7 @@ const appRoutes: Routes = [
     SubmissionFormComponent,
     TableComponent,
     TopBarComponent,
+    FilterPipe,
   ],
   imports: [
     RouterModule.forRoot(

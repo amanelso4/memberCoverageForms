@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { FormInt } from "../assets/formInt";
+
 import { Observable, throwError, from, of } from 'rxjs';
 import { catchError, retry, map, tap, filter } from "rxjs/operators";
 import {Form} from "./form";
@@ -11,10 +12,15 @@ const httpOptions = {
 
 @Injectable({providedIn: 'root'})
 
+
 export class TableHelperService {
 
+<<<<<<< HEAD
  private formUrl: string = "api/forms";
 
+=======
+  private formUrl: string = "api/forms";
+>>>>>>> 70ad168af74091f640aa7632f43667064fd995f0
 
   constructor(
     private http: HttpClient
@@ -28,6 +34,7 @@ export class TableHelperService {
       );
   }
 
+<<<<<<< HEAD
   getFilteredForms() {
     return this.http.get<FormInt[]>(this.formUrl)
       .pipe(map(data => {
@@ -46,6 +53,8 @@ export class TableHelperService {
     );
   }
 
+=======
+>>>>>>> 70ad168af74091f640aa7632f43667064fd995f0
   //Taken from angular http guide, handles errors for requests
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
