@@ -96,16 +96,11 @@
 
 
           <div class="column" style="background-color:white;">
-
-
-
             <div>
               <label>Form name:
                 <input #formName />
               </label>
             </div>
-
-
 
             <div>
               <label>Form link:
@@ -113,8 +108,12 @@
               </label>
             </div>
 
-
-
+            <div>
+              <label>Form Description:
+                <input #formDescription />
+              </label>
+            </div>
+<!--
             <div class="form-group">
               <label for = "description">Description: </label>
               <input type="text"
@@ -125,30 +124,24 @@
               <div [hidden]="description.valid || description.pristine" class="alert alert-danger">Description is required
               </div>
             </div>
-
+-->
 
           </div>
-
-
 
           <div class="col" style="background-color:white;">
             <div class="container">
               <embed src="https://www.slfserviceresources.com/forms/claims/k0384any.pdf" width=500px height=500px/>
             </div>
-
           </div>
 
         </div>
 
-          <button class="btn btn-primary" (click)="submitted=true">Submit</button>
-
+        <button class="btn btn-primary" (click)="submitted=true">Submit</button>
         <button routerLink="/table" routerLinkActive="active">Cancel</button>
 
           </body>
       </div>
    </div>
-
-
 
 <! Confirmation Page begins>
 
@@ -160,7 +153,7 @@
                 Form Type: <br>   {{model.formType}} <br>
                 Name:    {{formName.value}} <br>
                 Link:    {{formLink.value}} <br>
-                Description:   {{model.description}} <br>
+                Description:   {{formDescription.value}} <br>
 
               </b>
 
