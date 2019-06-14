@@ -94,26 +94,25 @@
 
           <div class="column" style="background-color:white;">
 
-            <div>
-              <label>Form name:
-                <input #formName />
-              </label>
+            <div class="form-group">
+              <label for = "name">Name: </label>
+              <input type="text"
+                     class="form-control" id="name"
+                     required [(ngModel)]="model.name"
+                     name="name"
+                     #description="ngModel">
+
             </div>
 
-            <div>
-              <label>Form link:
-                <input #formLink />
-              </label>
+            <div class="form-group">
+              <label for = "link">Link: </label>
+              <input type="text"
+                     class="form-control" id="link"
+                     required [(ngModel)]="model.link"
+                     name="link"
+                     #description="ngModel">
             </div>
 
-            <div>
-              <label>Form Description:
-                <input #formDescription />
-              </label>
-            </div>
-
-          </div>
-<!--
             <div class="form-group">
               <label for = "description">Description: </label>
               <input type="text"
@@ -124,7 +123,9 @@
               <div [hidden]="description.valid || description.pristine" class="alert alert-danger">Description is required
               </div>
             </div>
--->
+
+          </div>
+
           <div class="col" style="background-color:white;">
             <div class="container">
               <embed src="https://www.slfserviceresources.com/forms/claims/k0384any.pdf" width=500px height=500px/>
@@ -149,14 +150,14 @@
               State(s): <br>   {{model.state}} <br>
                 Source System: <br>   {{model.sourceSystem}} <br>
                 Form Type: <br>   {{model.formType}} <br>
-                Name:    {{formName.value}} <br>
-                Link:    {{formLink.value}} <br>
-                Description:   {{formDescription.value}} <br>
+                Name:    {{model.name}} <br>
+                Link:    {{model.link}} <br>
+                Description:   {{model.description}} <br>
 
               </b>
 
-            <button routerLink="/table" routerLinkActive="active" (click)="add(formName.value)">Upload to Database</button>
-  <button class="btn btn-primary" (click)="submitted=false">Upload and Submit Another Form</button>
+            <button routerLink="/table" routerLinkActive="active" (click)="add(model)">Upload to Database</button>
+  <button class="btn btn-primary" (click)="submitted=false; add(formName.value); formName.value=''">Upload and Submit Another Form</button>
 
   <button routerLink="/table" routerLinkActive="active">Back to Table Page</button>
 
