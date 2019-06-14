@@ -1,27 +1,29 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { FormInt } from "../assets/formInt";
+import { Observable, throwError } from 'rxjs';
+import { catchError, retry } from "rxjs/operators";
 
-import { Observable, throwError, from, of } from 'rxjs';
-import { catchError, retry, map, tap, filter } from "rxjs/operators";
-import {Form} from "./form";
-
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
-
-@Injectable({providedIn: 'root'})
-
-
+@Injectable({
+  providedIn: 'root'
+})
 export class TableHelperService {
-
- private formUrl: string = "api/forms";
-
 
   constructor(
     private http: HttpClient
   ) { }
 
+  //////////////////
+  // DECLARATIONS //
+  //////////////////
+
+  private formUrl: string = "api/forms";
+
+  //////////////////
+  ///// METHODS ////
+  //////////////////
+
+  //Gets forms using HttpClient service
   getForms() {
     return this.http.get<FormInt[]>(this.formUrl)
       .pipe(
@@ -30,25 +32,14 @@ export class TableHelperService {
       );
   }
 
-
-  getFilteredForms() {
-    return this.http.get<FormInt[]>(this.formUrl)
-      .pipe(map(data => {
-        return data.filter(datum => {
-          return datum.state == 'KS' || datum.state == 'AZ';
-        });
-      }));
+  //Deletes a form based on the provided formId
+  delete(formId: number): Observable<{}> {
+    const url = this.formUrl + '/' + formId; // delete api/forms/formId
+    return this.http.delete(url)
+      .pipe(
+        catchError(this.handleError)
+      );
   }
-
-  //** POST FUNCTION
-
-  addForm (form: Form): Observable<FormInt> {
-    return this.http.post<FormInt>(this.formUrl, form, httpOptions).pipe(
-
-      catchError(this.handleError)
-    );
-  }
-
 
   //Taken from angular http guide, handles errors for requests
   private handleError(error: HttpErrorResponse) {
@@ -66,4 +57,5 @@ export class TableHelperService {
     return throwError(
       'Something bad happened; please try again later.');
   }
+
 }

@@ -4,6 +4,8 @@ import { Pipe, PipeTransform } from "@angular/core";
   name: 'filter'
 })
 export class FilterPipe implements PipeTransform {
+  //Uses provided search values to filter out form values that do not fit
+  //If search value is empty string, it does not apply filter
   transform(items: any[], fTypeSearch: string, covTypeSearch: string, stateSearch: string[], nameSearch: string, descSearch: string, linkSearch: string) {
     if (items && items.length) {
       return items.filter(item =>{
