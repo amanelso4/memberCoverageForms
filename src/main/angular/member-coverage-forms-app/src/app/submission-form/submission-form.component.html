@@ -2,190 +2,196 @@
 <div class="container-fluid">
   <div [hidden] = "submitted">
 
-<body>
-  <h3>Form Submission</h3>
+    <body>
+    <h3>Form Submission</h3>
+    <div class="row">
 
-  <div class="row">
 
-    <div class="column" style="background-color:white;">
-      <div class="container">
-        <div [hidden] = "submitted">
-          <form (ngSubmit)="onSubmit()" #Form="ngForm">
 
-            <div class="form-group">
-              <label for="coverageType">Coverage Type: </label>
-              <select class="form-control"
-                      id="coverageType"
-                      required
-                      [(ngModel)]="model.coverageType"
-                      name="coverageType"
-                      #coverageType="ngModel">
-                <option *ngFor="let coverageType of coverageTypes"
-                        [value]="coverageType">{{coverageType}}</option>
-              </select>
-              <div [hidden]="coverageType.valid ||
-               coverageType.pristine" class="alert alert-danger">
-                Coverage Type is required
+      <div class="column" style="background-color:white;">
+        <div class="container">
+          <div [hidden] = "submitted">
+            <form (ngSubmit)="onSubmit()" #Form="ngForm">
+
+
+
+              <div class="form-group">
+                <label for="coverageType">Coverage Type: </label>
+                <select class="form-control"
+                        id="coverageType"
+                        required
+                        [(ngModel)]="model.coverageType"
+                        name="coverageType"
+                        #coverageType="ngModel">
+                  <option *ngFor="let coverageType of coverageTypes" [value]="coverageType">{{coverageType}}</option>
+                </select>
+                <div [hidden]="coverageType.valid ||
+                     coverageType.pristine" class="alert alert-danger">
+                  Coverage Type is required
+                </div>
               </div>
-            </div>
 
 
-            <div class="form-group">
-              <label for="state">State: </label>
-              <select class="form-control"
-                      id="state"
-                      required
-                      [(ngModel)]="model.state"
-                      name="state"
-                      #state="ngModel">
-                <option *ngFor="let state of states"
-                        [value]="state">{{state}}</option>
-              </select>
-              <div [hidden]="state.valid ||
-   state.pristine" class="alert alert-danger">
-                State is required
+
+              <div class="selectBox" onclick="showCheckboxes()">
+                <label for="state">State: </label>
+                <select multiple
+                        style="height: auto"
+                        name="state"
+                        class="form-control"
+                        id="state"
+                        required
+                        [(ngModel)]="model.state"
+                        #state="ngModel">
+                  <option *ngFor="let state of states"
+                          [value]="state">{{state}}</option>
+                </select>
+                <div [hidden]="state.valid ||
+         state.pristine" class="alert alert-danger">
+                  State is required
+                </div>
               </div>
-            </div>
 
 
-            <div class="form-group">
-              <label for="state">Source System: </label>
-              <select class="form-control"
-                      id="sourceSystem"
-                      required
-                      [(ngModel)]="model.sourceSystem"
-                      name="state"
-                      #sourceSystem="ngModel">
-                <option *ngFor="let sourceSystem of sourceSystems"
-                        [value]="sourceSystem">{{sourceSystem}}</option>
-              </select>
-              <div [hidden]="sourceSystem.valid ||
-   sourceSystem.pristine" class="alert alert-danger">
-                Source System is required
+
+              <div class="form-group">
+                <label for="state">Source System: </label>
+                <select class="form-control"
+                        id="sourceSystem"
+                        required
+                        [(ngModel)]="model.sourceSystem"
+                        name="state"
+                        #sourceSystem="ngModel">
+                  <option *ngFor="let sourceSystem of sourceSystems"
+                          [value]="sourceSystem">{{sourceSystem}}</option>
+                </select>
+                <div [hidden]="sourceSystem.valid ||
+         sourceSystem.pristine" class="alert alert-danger">
+                  Source System is required
+                </div>
               </div>
-            </div>
 
-            <div class="form-group">
-              <label for="formType">Form type: </label>
-              <select class="form-control"
-                      id="formType"
-                      required
-                      [(ngModel)]="model.formType"
-                      name="formType"
-                      #formType="ngModel">
-                <option *ngFor="let formType of formTypes"
-                        [value]="formType">{{formType}}</option>
-              </select>
-              <div [hidden]="formType.valid ||
-   formType.pristine" class="alert alert-danger">
-                Form type is required
+
+
+              <div class="form-group">
+                <label for="formType">Form type: </label>
+                <select class="form-control"
+                        id="formType"
+                        required
+                        [(ngModel)]="model.formType"
+                        name="formType"
+                        #formType="ngModel">
+                  <option *ngFor="let formType of formTypes"
+                          [value]="formType">{{formType}}</option>
+                </select>
+                <div [hidden]="formType.valid ||
+         formType.pristine" class="alert alert-danger">
+                  Form type is required
+                </div>
               </div>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
+
+
+      <div class="column" style="background-color:white;">
+
+
+
+        <div class="form-group">
+          <label for = "name">Name: </label>
+          <input type="text"
+                 class="form-control" id="name"
+                 required [(ngModel)]="model.name"
+                 name="name"
+                 #name="ngModel">
+          <div [hidden]="name.valid || name.pristine" class="alert alert-danger">Name is required
+          </div>
+        </div>
+
+
+
+        <div class="form-group">
+          <label for = "link">Link: </label>
+          <input type="text"
+                 class="form-control" id="link"
+                 required [(ngModel)]="model.link"
+                 name="link"
+                 #link="ngModel">
+          <div [hidden]="link.valid || link.pristine" class="alert alert-danger">Link is required
+          </div>
+        </div>
+
+
+
+        <div class="form-group">
+          <label for = "description">Description: </label>
+          <input type="text"
+                 class="form-control" id="description"
+                 required [(ngModel)]="model.description"
+                 name="description"
+                 #description="ngModel">
+          <div [hidden]="description.valid || description.pristine" class="alert alert-danger">Description is required
+          </div>
+        </div>
+
+
+      </div>
+
+
+
+      <div class="col" style="background-color:white;">
+        <div class="container">
+          <embed src="https://www.slfserviceresources.com/forms/claims/k0384any.pdf" width=500px height=500px/>
+        </div>
+
+        <div>
+          <label>Form name:
+            <input #name />
+          </label>
+          <!-- (click) passes input value to add() and then clears the input -->
+          <button (click)="add(name.value); name.value=''">
+            add
+          </button>
+        </div>
+
+        <ul class="forms">
+          <li *ngFor="let form of forms">
+            {{form.name}}
+          </li>
+        </ul>
+
+      </div>
+
     </div>
-    <div class="column" style="background-color:white;">
-      <div class="form-group">
-        <label for = "name">Name: </label>
-        <input type="text"
-               class="form-control" id="name"
-               required [(ngModel)]="model.name"
-               name="name"
-               #name="ngModel">
-        <div [hidden]="name.valid || name.pristine" class="alert alert-danger">Name is required
-        </div>
-      </div>
 
-      <div class="form-group">
-        <label for = "link">Link: </label>
-        <input type="text"
-               class="form-control" id="link"
-               required [(ngModel)]="model.link"
-               name="link"
-               #link="ngModel">
-        <div [hidden]="link.valid || link.pristine" class="alert alert-danger">Link is required
-        </div>
-      </div>
+    <button class="btn btn-primary" (click)="submitted=true">Submit</button>
+    <button routerLink="/table" routerLinkActive="active">Cancel</button>
 
-      <div class="form-group">
-        <label for = "description">Description: </label>
-        <input type="text"
-               class="form-control" id="description"
-               required [(ngModel)]="model.description"
-               name="description"
-               #description="ngModel">
-        <div [hidden]="description.valid || description.pristine" class="alert alert-danger">Description is required
-        </div>
-      </div>
-
-
-    </div>
-
-    <div class="col" style="background-color:white;">This is where the preview of the form will appear for the user to check
-      their inputted information before being exported to the database.</div>
+    </body>
   </div>
-
-
-
-    <button class="btn btn-primary" (click)="submitted=true">Upload to Database</button>
-<div>
-  <button routerLink="/table" routerLinkActive="active">Cancel</button>
-</div>
-
-</body>
-</div>
-</div>
-
-    <div [hidden]="!submitted">
-      <h3>You submitted the following:</h3>
-      <h4>Coverage Type: <p>{{model.coverageType}}</p> <br>
-        State(s): <h5>{{model.state}} </h5><br>
-          Source System: {{model.sourceSystem}} <br>
-          Form Type: {{model.formType}} <br>
-          Name: {{model.name}} <br>
-          Link: {{model.link}} <br>
-          Description: {{model.description}} <br>
-        </h4>
-<button class="btn btn-primary" (click)="submitted=false">Submit Another Form</button>
-
-</div>
-
-<!--
-<h3>Submission Form</h3>
-
-<h3>Forms</h3>
-<div>
-  <label>Form name:
-    <input #formName />
-  </label>
- (click) passes input value to add() and then clears the input
-  <button (click)="add(formName.value); formName.value=''">
-    add
-  </button>
-
-  <label>Form link:
-    <input #formName />
-  </label>
-
-  <button (click)="add(formName.value); formName.value=''">
-    add
-  </button>
-
 </div>
 
 
 
-<ul class="forms">
-  <li *ngFor="let form of forms">
-    <a (click)="edit(form)">
-      <span class="badge">{{form.id || -1 }}</span>
-      <span *ngIf="form!==editForm">{{form.name}}</span>
-      <input *ngIf="form===editForm" [(ngModel)]="form.name"
-             (blur)="update()" (keyup.enter)="update()">
-    </a>
-    <button class="delete" title="delete form"
-            (click)="delete(form)">Delete</button>
-  </li>
-</ul>
--->
+<! Confirmation Page begins>
+
+<div [hidden]="!submitted">
+  <h3>You are about to Submit the Following: </h3>
+  <b>Coverage Type:   <br> {{model.coverageType}}  <br>
+    State(s): <br>   {{model.state}} <br>
+    Source System: <br>   {{model.sourceSystem}} <br>
+    Form Type: <br>   {{model.formType}} <br>
+    Name:    {{model.name}} <br>
+    Link:    {{model.link}} <br>
+    Description:   {{model.description}} <br>
+  </b>
+
+  <button routerLink="/table" routerLinkActive="active">Upload to Database</button>
+
+  <button class="btn btn-primary" (click)="submitted=false">Upload and Submit Another Form</button>
+
+  <button routerLink="/table" routerLinkActive="active">Back to Table Page</button>
+
+</div>

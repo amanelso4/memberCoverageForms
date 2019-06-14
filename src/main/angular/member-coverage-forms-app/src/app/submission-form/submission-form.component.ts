@@ -1,18 +1,36 @@
+import { Component, OnInit } from '@angular/core';
 
-
-import { Component } from '@angular/core';
-import {Form} from '../form';
-
-
+import { Form} from '../form';
+import {PostService} from '../post.service';
 
 @Component({
   selector: 'app-form',
   templateUrl: './submission-form.component.html',
   styleUrls: ['./submission-form.component.css']
 })
-export class SubmissionFormComponent {
+export class SubmissionFormComponent implements OnInit{
+  forms: Form[];
 
-  coverageTypes = ['Short-term Disability', 'Long-term Disability', 'Dental', 'Vision'];
+  constructor(private postService: PostService) { }
+
+  ngOnInit(): void {
+    this.getForms();
+  }
+
+  getForms(): void {
+    this.postService.getForms()
+      .subscribe(forms => this.forms = forms);
+  }
+
+  add(name: string): void {
+    name = name.trim();
+    this.postService.addForm({ name } as Form)
+      .subscribe(form => {
+        this.forms.push(form);
+      });
+  }
+
+  coverageTypes = ['Short-term Disability', 'Long-term Disability', 'Dental', 'Vision', 'Life', 'AD&D', 'Critical Illness', 'Accident', 'Vision', 'Gap'];
 
   states = ['AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA',
     'HI', 'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI',
@@ -24,30 +42,20 @@ export class SubmissionFormComponent {
 
   formTypes = ['Claim', 'Continuance', 'Other'];
 
-  model = new Form(' ', ' ', ' ', ' ', 'Type name here...', 'Type link here...', 'Type Description here...');
+  model = new Form();
 
   submitted = false;
 
+
   onSubmit() {
     this.submitted = true;
-  }
+  };
 
-  get diagnostic() {
-    return JSON.stringify(this.model);
-  }
-
-  newForm() {
-    this.model = new Form('', '', '', '', '', '', '');
-  }
-
-  vision(): Form {
-    let myForm = new Form('a', 'b', 'c', 'd', 'e', 'f', 'g');
-    console.log('My Form is called ' + myForm.name);
-    return myForm;
-  }
+  link: 'https://www.slfserviceresources.com/forms/claims/k0384any.pdf';
 
 
 }
+
 
 
 
