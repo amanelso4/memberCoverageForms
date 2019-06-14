@@ -1,7 +1,12 @@
 import { InMemoryDbService }  from 'angular-in-memory-web-api';
 import {FormInt} from "../assets/formInt";
+import { Form} from "./form";
 import { Injectable } from '@angular/core';
 
+
+@Injectable({
+  providedIn: 'root',
+})
 
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
@@ -75,7 +80,7 @@ export class InMemoryDataService implements InMemoryDbService {
     return {forms};
   }
 
-  genId(forms: FormInt[]): number {
+  genId(forms: Form[]): number {
     return forms.length > 0 ? Math.max(...forms.map(form => form.id)) + 1 : 11;
   }
 

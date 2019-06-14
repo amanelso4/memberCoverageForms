@@ -1,31 +1,30 @@
 import { Component, OnInit } from '@angular/core';
-import {PostService} from "../post.service";
-import { Form} from "../form";
 
+import { Form} from '../form';
+import {PostService} from '../post.service';
 
 @Component({
   selector: 'app-form',
   templateUrl: './submission-form.component.html',
   styleUrls: ['./submission-form.component.css']
 })
-
 export class SubmissionFormComponent implements OnInit{
   forms: Form[];
 
-  constructor(private formService: PostService) {}
+  constructor(private postService: PostService) { }
 
   ngOnInit(): void {
     this.getForms();
-
   }
+
   getForms(): void {
-    this.formService.getForms()
+    this.postService.getForms()
       .subscribe(forms => this.forms = forms);
   }
 
   add(name: string): void {
     name = name.trim();
-    this.formService.addForm({ name } as Form)
+    this.postService.addForm({ name } as Form)
       .subscribe(form => {
         this.forms.push(form);
       });
