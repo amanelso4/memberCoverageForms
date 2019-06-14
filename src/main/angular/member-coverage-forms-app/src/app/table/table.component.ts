@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Form } from '../form';
-import { MOCKFORMS } from "../../assets/mockForms";
+
 import { FormInt } from "../../assets/formInt";
 import { TableHelperService } from "../table-helper.service";
 

@@ -15,12 +15,8 @@ const httpOptions = {
 
 export class TableHelperService {
 
-<<<<<<< HEAD
  private formUrl: string = "api/forms";
 
-=======
-  private formUrl: string = "api/forms";
->>>>>>> 70ad168af74091f640aa7632f43667064fd995f0
 
   constructor(
     private http: HttpClient
@@ -34,7 +30,7 @@ export class TableHelperService {
       );
   }
 
-<<<<<<< HEAD
+
   getFilteredForms() {
     return this.http.get<FormInt[]>(this.formUrl)
       .pipe(map(data => {
@@ -48,13 +44,12 @@ export class TableHelperService {
 
   addForm (form: Form): Observable<FormInt> {
     return this.http.post<FormInt>(this.formUrl, form, httpOptions).pipe(
-      tap((newForm: Form) => this.log(`added form w/ id=${newForm.id}`)),
-      catchError(this.handleError<>('addForm'))
+
+      catchError(this.handleError)
     );
   }
 
-=======
->>>>>>> 70ad168af74091f640aa7632f43667064fd995f0
+
   //Taken from angular http guide, handles errors for requests
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

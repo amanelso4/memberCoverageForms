@@ -25,16 +25,16 @@ export class PostService {
     return this.http.get<Form[]>(this.formsUrl)
       .pipe(
         retry(3), // retry a failed request up to 3 times
-        catchError(this.handleError<Form[]> ('getForms'), []) // then handle the error
+        catchError(this.handleError) // then handle the error
       );
   }
 
   //** POST FUNCTION
 
   addForm (form: Form): Observable<Form> {
-    return this.http.post<Form>(this.formsUrlUrl, form, httpOptions).pipe(
-      tap((newForm: Form) => this.log(`added form w/ id=${newForm.id}`)),
-      catchError(this.handleError<>('addForm'))
+    return this.http.post<Form>(this.formsUrl, form, httpOptions).pipe(
+
+      catchError(this.handleError)
     );
   }
 
