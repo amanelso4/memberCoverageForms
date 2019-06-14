@@ -13,10 +13,9 @@ import { HttpClientInMemoryWebApiModule } from "angular-in-memory-web-api";
 import { FilterPipe } from "./pipes/filter.pipe";
 
 const appRoutes: Routes = [
-  {path: 'submission-form', component: SubmissionFormComponent},
+  {path: 'submission-form/:formId', component: SubmissionFormComponent},
   {path: 'table', component: TableComponent},
   {path: '', redirectTo: 'table', pathMatch: 'full'},
-
 ];
 
 @NgModule({
