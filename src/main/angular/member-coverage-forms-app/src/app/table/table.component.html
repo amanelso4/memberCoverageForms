@@ -46,12 +46,12 @@
     <td class="description">{{ form.description }}</td>
     <td><a href="{{ form.link }}" target="_blank">{{ form.link }}</a></td>
     <td>
-      <button *ngIf="!form.confirmDelete">Update</button>
-      <button class="confirmation" *ngIf="form.confirmDelete" (click)="deleteForm(form.id)">Confirm</button>
+      <button class="edit" *ngIf="!form.confirmDelete">Update</button>
+      <button class="edit confirmation" *ngIf="form.confirmDelete" (click)="deleteForm(form.id)">Confirm</button>
     </td>
     <td>
-      <button *ngIf="!form.confirmDelete" (click)="form.confirmDelete=true">Delete</button>
-      <button class="confirmation" *ngIf="form.confirmDelete" (click)="form.confirmDelete=false">Cancel</button>
+      <button class="edit" *ngIf="!form.confirmDelete" (click)="form.confirmDelete=true">Delete</button>
+      <button class="edit confirmation" *ngIf="form.confirmDelete" (click)="form.confirmDelete=false">Cancel</button>
     </td>
   </tr>
 </table>
