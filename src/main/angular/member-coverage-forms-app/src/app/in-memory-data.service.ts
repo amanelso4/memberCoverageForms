@@ -1,4 +1,12 @@
 import { InMemoryDbService }  from 'angular-in-memory-web-api';
+import {FormInt} from "../assets/formInt";
+import { Form} from "./form";
+import { Injectable } from '@angular/core';
+
+
+@Injectable({
+  providedIn: 'root',
+})
 
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
@@ -10,7 +18,8 @@ export class InMemoryDataService implements InMemoryDbService {
         formType: 'Claim',
         name: 'Short-term Disability Claim Statement',
         link: 'https://www.slfserviceresources.com/forms/claims/k0384any.pdf',
-        description: 'This form is used for submitting short-term disability claims'
+        description: 'This form is used for submitting short-term disability claims',
+        id: '1',
       },
       {
         coverageType: 'DENTAL',
@@ -19,7 +28,8 @@ export class InMemoryDataService implements InMemoryDbService {
         formType: 'Claim',
         name: 'Dental Claim Statement',
         link: 'https://www.slfserviceresources.com/forms/claims/k2147a.pdf',
-        description: 'This form is used for submitting dental claims'
+        description: 'This form is used for submitting dental claims',
+        id: '2',
       },
       {
         coverageType: 'DENTAL',
@@ -68,6 +78,10 @@ export class InMemoryDataService implements InMemoryDbService {
       },
     ];
     return {forms};
+  }
+
+  genId(forms: Form[]): number {
+    return forms.length > 0 ? Math.max(...forms.map(form => form.id)) + 1 : 11;
   }
 
 }

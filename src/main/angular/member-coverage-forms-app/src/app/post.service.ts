@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { FormInt } from "../assets/formInt";
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
+
+import { Form} from './form';
 
 import { Observable, throwError, from, of } from 'rxjs';
-import { catchError, retry, map, tap, filter } from "rxjs/operators";
-import {Form} from "./form";
+import { catchError, retry, map, tap, filter } from 'rxjs/operators';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -12,43 +12,31 @@ const httpOptions = {
 
 @Injectable({providedIn: 'root'})
 
+export class PostService {
 
-export class TableHelperService {
-
- private formUrl: string = "api/forms";
+  private formsUrl: string='api/forms';
 
 
   constructor(
     private http: HttpClient
   ) { }
 
-  getForms() {
-    return this.http.get<FormInt[]>(this.formUrl)
+  getForms(): Observable<Form[]> {
+    return this.http.get<Form[]>(this.formsUrl)
       .pipe(
         retry(3), // retry a failed request up to 3 times
         catchError(this.handleError) // then handle the error
       );
   }
 
-
-  getFilteredForms() {
-    return this.http.get<FormInt[]>(this.formUrl)
-      .pipe(map(data => {
-        return data.filter(datum => {
-          return datum.state == 'KS' || datum.state == 'AZ';
-        });
-      }));
-  }
-
   //** POST FUNCTION
 
-  addForm (form: Form): Observable<FormInt> {
-    return this.http.post<FormInt>(this.formUrl, form, httpOptions).pipe(
+  addForm (form: Form): Observable<Form> {
+    return this.http.post<Form>(this.formsUrl, form, httpOptions).pipe(
 
       catchError(this.handleError)
     );
   }
-
 
   //Taken from angular http guide, handles errors for requests
   private handleError(error: HttpErrorResponse) {

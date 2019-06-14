@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Form } from '../form';
-import { MOCKFORMS } from "../../assets/mockForms";
+
 import { FormInt } from "../../assets/formInt";
 import { TableHelperService } from "../table-helper.service";
+
 
 @Component({
   selector: 'app-table',
@@ -45,7 +46,7 @@ export class TableComponent implements OnInit {
   getForms() {
     this.tableHelper.getForms().subscribe( //Subscribing to observable
       (data: FormInt[]) => this.forms = data as FormInt[]);//Parameter is 'data', which is in the form of a form interface
-      //wat is a local form interface which is filled with the data
+    //wat is a local form interface which is filled with the data
   }
 
   //Clear the currently selected filters
