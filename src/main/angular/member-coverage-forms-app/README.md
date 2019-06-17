@@ -1,22 +1,24 @@
 
 
-Member Coverage Forms Front-End Application
+#Member Forms Manager
 Developed: Summer 2019
 
+###Stakeholders:
 
-Stakeholders:
-Jon Carter          Mentor
-Steve Kouri         Mentor
-Evan Trout          Developer
-Amanda Nelson       Developer
-Ashley Brin         Product Owner
-Edward Fitzgerald   BSA
+Name | Title
+----- | ------
+Jon Carter | Mentor
+Steve Kouri | Mentor
+Ashley Brin | Product Owner
+Amanda Nelson | Developer
+Evan Trout | Developer
+Edward Fitzgerald | BSA
 
 
 -------------------------------------
 
-1. To Download this project, open a command line and run:
-   git clone http://<yourUniqueACF2Id>@bitbucket.us.sunlife/scm/intern/membercoverageforms.git
+1. To download this project, open a command line and run:
+   git clone http://<ACF2Id>@bitbucket.us.sunlife/scm/intern/membercoverageforms.git
 
 2. After this open the cloned file (will be named MemberCoverageForms) in IntelliJ. Navigate through the nested folders to
    member-coverage-forms-app
