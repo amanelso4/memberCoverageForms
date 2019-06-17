@@ -1,3 +1,5 @@
+
+@import '~bootstrap/dist/css/bootstrap.min.css';
 /* Create three equal columns that floats next to each other */
 .column {
   float: left;
@@ -17,14 +19,17 @@
   display: table;
   clear: both;
 }
-
+.align-content-center
 label, select {
   display: table-cell;
 }
 
 .form-group {
-  display: table-row;
+  padding: auto;
+  align: label;
 }
+
+
 
 
 

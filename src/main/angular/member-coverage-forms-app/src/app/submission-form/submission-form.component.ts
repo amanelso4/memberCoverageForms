@@ -30,7 +30,7 @@ export class SubmissionFormComponent implements OnInit{
     'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VA', 'VT',
     'WA', 'WI', 'WV', 'WY'];
 
-  sourceSystems = ['SOLAR', 'QPS'];
+  sourceSystems = ['S', 'Q'];
 
   formTypes = ['Claim', 'Continuance'];
 
@@ -61,7 +61,8 @@ export class SubmissionFormComponent implements OnInit{
         formType: null,
         name: null,
         link: null,
-        description: null
+        description: null,
+        formId: null
       };
     } else {
       //Need to call a function that fills model with proper values
