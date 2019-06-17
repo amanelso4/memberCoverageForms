@@ -6,7 +6,7 @@
     <h3>Form Submission</h3>
     <div class="row">
 
-          <div class="column" style="background-color:white;">
+          <div class="column left" style="background-color:white;">
             <div class="container">
               <div [hidden] = "submitted">
               <!--  <form (ngSubmit)="onSubmit()" #Form="ngForm">  -->
@@ -92,7 +92,7 @@
             </div>
           </div>
 
-          <div class="column" style="background-color:white;">
+          <div class="column middle" style="background-color:white;">
 
             <div class="form-group">
               <label for = "name">Name: </label>
@@ -126,12 +126,11 @@
 
           </div>
 
-          <div class="col" style="background-color:white;">
+          <div class="column right" style="background-color:white;">
             <div class="container">
-              <embed src="https://www.slfserviceresources.com/forms/claims/k0384any.pdf" width=500px height=500px/>
+              <embed src="https://www.slfserviceresources.com/forms/claims/k0384any.pdf" width=800px height=500px/>
             </div>
           </div>
-
 
         </div>
 
@@ -157,7 +156,8 @@
               </b>
 
             <button routerLink="/table" routerLinkActive="active" (click)="add(model)">Upload to Database</button>
-  <button class="btn btn-primary" (click)="submitted=false; add(formName.value); formName.value=''">Upload and Submit Another Form</button>
+  <button class="btn btn-primary" (click)="submitted=false; add(model); model.coverageType=''; model.state=''; model.sourceSystem=''; model.formType='';
+model.name=''; model.link=''; model.description=''">Upload and Submit Another Form</button>
 
   <button routerLink="/table" routerLinkActive="active">Back to Table Page</button>
 
