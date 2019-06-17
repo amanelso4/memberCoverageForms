@@ -32,7 +32,6 @@ export class SubmissionFormComponent implements OnInit{
 
   sourceSystems = ['SOLAR', 'QPS'];
 
-  //formTypes = ['Claim', 'Continuance', 'Other'];
   formTypes = ['Claim', 'Continuance'];
 
   model = new Form();
