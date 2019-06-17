@@ -22,7 +22,7 @@ body {
   height: 48px;
   border-radius: 5px;
   border-width: 0px;
-  margin: 5px;
+  text-align: center;
 }
 
 .button:hover {
@@ -68,7 +68,8 @@ body {
 
 .button--context-table {
   width: 75px;
-  text-align: center;
+  margin: auto;
+  display: block;
 }
 
 select {
@@ -118,13 +119,26 @@ table {
   table-layout: fixed;
   padding-top: 0px;
   margin-top: 0px;
+  width: 100%;
+}
+
+.table--smallCol {
+  width: 10%;
+}
+
+.table--medCol {
+  width: 15%;
+}
+
+.table--largCol {
+  width:20%;
 }
 
 td, th {
   border-left: solid;
   border-color: #424242;
   border-width: 1px;
-  padding: 20px 15px;
+  padding: 10px 10px;
 }
 
 td:first-child, th:first-child {

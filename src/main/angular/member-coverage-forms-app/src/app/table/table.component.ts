@@ -22,7 +22,7 @@ export class TableComponent implements OnInit {
 
   formType: string = '';
   coverageType: string = '';
-  states: string[] = [];
+  state: string = '';
   sourceSystem: string = '';
   formId: string = '';
   name: string = '';
@@ -57,7 +57,7 @@ export class TableComponent implements OnInit {
   clearFilters() {
     this.formType = '';
     this.coverageType = '';
-    this.states = [];
+    this.state = '';
     this.name = '';
     this.sourceSystem = '';
     this.formId = '';

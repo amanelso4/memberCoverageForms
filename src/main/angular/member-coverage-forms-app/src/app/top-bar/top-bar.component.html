@@ -1,6 +1,13 @@
+<head>
+  <!--<link rel="stylesheet" href="../../../node_modules/@fortawesome/fontawesome-free/css/all.css">-->
+</head>
+<body>
 <div class="topBar">
   <div class="yellowBar"></div>
   <img src="../../assets/sunLifeLogo.png">
-  <button class="button button--primary-yellow" [routerLink]="['/submission-form/0']" *ngIf="router.url === '/table'">Add a Form</button>
+  <button class="button button--primary-yellow" [routerLink]="['/submission-form/0']" *ngIf="router.url === '/table'">
+    <span class="fas fa-plus"></span>Add a Form
+  </button>
   <h2>Member Form Manager</h2>
 </div>
+</body>

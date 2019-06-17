@@ -1,23 +1,23 @@
 <table>
   <tr>
-    <th>
+    <th class="table--medCol">
       <label>
-        Form Type
+        Form Type<br>
         <!-- ngModels used to link inputs with pipe filters -->
         <select [(ngModel)]="formType">
           <option *ngFor="let type of formTypeVar" [value]="type">{{ type }}</option>
         </select>
       </label>
     </th>
-    <th>
+    <th class="table--medCol">
       <label>
-        Coverage Type
+        Coverage Type<br>
         <select [(ngModel)]="coverageType">
           <option *ngFor="let cType of coverageTypesVar" [value]="cType">{{ cType }}</option>
         </select>
       </label>
     </th>
-    <th>
+    <th class="table--smallCol">
       <label>
         Coverage State(s)
         <select [(ngModel)]="state">
@@ -25,21 +25,21 @@
         </select>
       </label>
     </th>
-    <th>
+    <th class="table--smallCol">
       Source System
       <select [(ngModel)]="sourceSystem">
         <option *ngFor="let source of sourceVar" [value]="source">{{ source }}</option>
       </select>
     </th>
-    <th>
+    <th class="table--medCol">
       Form ID
       <input type="text" [(ngModel)]="formId">
     </th>
-    <th>
+    <th class="table--largCol">
       Form Name<br>
       <input type="text" [(ngModel)]="name">
     </th>
-    <th colspan="2"><button class="button button--primary-blue" (click)="clearFilters()">Clear Filters</button></th>
+    <th colspan="2" class="table--medCol"><button class="button button--primary-blue" (click)="clearFilters()">Clear Filters</button></th>
   </tr>
   <!-- filter applies the user's filters; see ../pipes/filter.pipe.ts for implementation -->
   <tr *ngFor="let form of forms | filter: formType:coverageType:state:sourceSystem:formId:name">
