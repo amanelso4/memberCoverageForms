@@ -1,12 +1,27 @@
 .topBar{
-  background-color: #ffcb05;
+  background-color: white;
   color: #424242;
-  padding: 10px;
   overflow: hidden;
+  text-align: center;
+}
+
+.yellowBar {
+  background-color: #ffcb05;
+  padding: 4px;
+  margin: 0px;
+}
+
+h2 {
+  float: left;
+  margin-top: 1rem;
+  margin-right: 1rem;
+}
+
+h4 {
 }
 
 button {
   float: right;
-  margin-right: 20px;
-  margin-top: 50px;
+  margin-top: 1rem;
+  margin-right: 1rem;
 }

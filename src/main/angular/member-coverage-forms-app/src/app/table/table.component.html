@@ -39,7 +39,7 @@
       Form Name<br>
       <input type="text" [(ngModel)]="name">
     </th>
-    <th colspan="2"><button (click)="clearFilters()">Clear Filters</button></th>
+    <th colspan="2"><button class="button button--primary-blue" (click)="clearFilters()">Clear Filters</button></th>
   </tr>
   <!-- filter applies the user's filters; see ../pipes/filter.pipe.ts for implementation -->
   <tr *ngFor="let form of forms | filter: formType:coverageType:states:sourceSystem:formId:name">
@@ -47,17 +47,17 @@
     <td>{{ form.coverageType }}</td>
     <td>{{ form.state }}</td>
     <td>{{ form.sourceSystem }}</td>
-    <td><a href="{{ form.link }}" target="_blank">{{ form.formId }}</a></td>
+    <td><a class="a" href="{{ form.link }}" target="_blank">{{ form.formId }}</a></td>
     <td title="{{ form.description }}">{{ form.name }}</td>
     <!-- "Update" and "Delete" displayed by default, "Confirm" and "Cancel" displayed if "Delete" is pressed -->
     <!-- This is controlled on a per-row basis by the form.confirmDelete variable -->
     <td>
-      <button class="edit" *ngIf="!form.confirmDelete" [routerLink]="['/submission-form/', form.id]">Update</button>
-      <button class="edit confirmation" *ngIf="form.confirmDelete" (click)="deleteForm(form.id)">Confirm</button>
+      <button class="button button--primary-blue button--context-table" *ngIf="!form.confirmDelete" [routerLink]="['/submission-form/', form.id]">Update</button>
+      <button class="button button--type-confirm button--context-table" *ngIf="form.confirmDelete" (click)="deleteForm(form.id)">Confirm</button>
     </td>
     <td>
-      <button class="edit" *ngIf="!form.confirmDelete" (click)="form.confirmDelete=true">Delete</button>
-      <button class="edit confirmation" *ngIf="form.confirmDelete" (click)="form.confirmDelete=false">Cancel</button>
+      <button class="button button--primary-blue button--context-table" *ngIf="!form.confirmDelete" (click)="form.confirmDelete=true">Delete</button>
+      <button class="button button--type-confirm button--context-table" *ngIf="form.confirmDelete" (click)="form.confirmDelete=false">Cancel</button>
     </td>
   </tr>
 </table>
