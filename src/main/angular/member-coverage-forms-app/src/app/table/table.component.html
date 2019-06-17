@@ -20,7 +20,7 @@
     <th>
       <label>
         Coverage State(s)
-        <select multiple [(ngModel)]="states" style="height: auto">
+        <select [(ngModel)]="state">
           <option *ngFor="let state of statesVar" [value]="state">{{ state }}</option>
         </select>
       </label>
@@ -42,7 +42,7 @@
     <th colspan="2"><button class="button button--primary-blue" (click)="clearFilters()">Clear Filters</button></th>
   </tr>
   <!-- filter applies the user's filters; see ../pipes/filter.pipe.ts for implementation -->
-  <tr *ngFor="let form of forms | filter: formType:coverageType:states:sourceSystem:formId:name">
+  <tr *ngFor="let form of forms | filter: formType:coverageType:state:sourceSystem:formId:name">
     <td style="max-width: 20px;">{{ form.formType }}</td>
     <td>{{ form.coverageType }}</td>
     <td>{{ form.state }}</td>
