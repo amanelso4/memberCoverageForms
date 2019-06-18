@@ -7,17 +7,17 @@
 
 img {
   float: left;
-  margin-top: 50px;
+  margin-top: 2.5rem;
   margin-left: 2rem;
 }
 
 h2 {
-  margin-top: 50px;
+  margin-top: 2.5rem;
   text-align: center;
 }
 
 button {
   float: right;
-  margin-top: 50px;
+  margin-top: 2.5rem;
   margin-right: 2rem;
 }

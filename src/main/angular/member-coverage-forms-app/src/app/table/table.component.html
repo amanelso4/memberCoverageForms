@@ -1,45 +1,60 @@
 <table>
   <tr>
     <th class="table--medCol">
-      <label>
-        Form Type<br>
-        <!-- ngModels used to link inputs with pipe filters -->
-        <select [(ngModel)]="formType">
-          <option *ngFor="let type of formTypeVar" [value]="type">{{ type }}</option>
-        </select>
-      </label>
+      Form Type
     </th>
     <th class="table--medCol">
-      <label>
-        Coverage Type<br>
-        <select [(ngModel)]="coverageType">
-          <option *ngFor="let cType of coverageTypesVar" [value]="cType">{{ cType }}</option>
-        </select>
-      </label>
+      Coverage Type
     </th>
     <th class="table--smallCol">
-      <label>
-        Coverage State(s)
-        <select [(ngModel)]="state">
-          <option *ngFor="let state of statesVar" [value]="state">{{ state }}</option>
-        </select>
-      </label>
+      Coverage State
     </th>
     <th class="table--smallCol">
       Source System
+    </th>
+    <th class="table--largCol">
+      Form Name<br>
+    </th>
+    <th class="table--medCol">
+      Form ID
+    </th>
+    <th colspan="2" class="table--medCol"></th>
+  </tr>
+  <tr>
+    <!-- ngModels used to link inputs with pipe filters -->
+    <th class="filterCell">
+      <!--FORM TYPE-->
+      <select [(ngModel)]="formType">
+        <option *ngFor="let type of formTypeVar" [value]="type">{{ type }}</option>
+      </select>
+    </th>
+    <th class="filterCell">
+      <!--COVERAGE TYPE-->
+      <select [(ngModel)]="coverageType">
+        <option *ngFor="let cType of coverageTypesVar" [value]="cType">{{ cType }}</option>
+      </select>
+    </th>
+    <th class="filterCell">
+      <!--COVERAGE STATE-->
+      <select [(ngModel)]="state">
+        <option *ngFor="let state of statesVar" [value]="state">{{ state }}</option>
+      </select>
+    </th>
+    <th class="filterCell">
+      <!--SOURCE SYSTEM-->
       <select [(ngModel)]="sourceSystem">
         <option *ngFor="let source of sourceVar" [value]="source">{{ source }}</option>
       </select>
     </th>
-    <th class="table--medCol">
-      Form ID
-      <input type="text" [(ngModel)]="formId">
-    </th>
-    <th class="table--largCol">
-      Form Name<br>
+    <th class="filterCell">
+      <!--FORM NAME-->
       <input type="text" [(ngModel)]="name">
     </th>
-    <th colspan="2" class="table--medCol"><button class="button button--primary-blue" (click)="clearFilters()">Clear Filters</button></th>
+    <th class="filterCell">
+      <!--FORM ID-->
+      <input type="text" [(ngModel)]="formId">
+    </th>
+    <th colspan="2" class="table--medCol filterCell"><button class="button button--primary-blue" (click)="clearFilters()">Clear Filters</button></th>
   </tr>
   <!-- filter applies the user's filters; see ../pipes/filter.pipe.ts for implementation -->
   <tr *ngFor="let form of forms | filter: formType:coverageType:state:sourceSystem:formId:name">
@@ -47,8 +62,8 @@
     <td>{{ form.coverageType }}</td>
     <td>{{ form.state }}</td>
     <td>{{ form.sourceSystem }}</td>
-    <td><a class="a" href="{{ form.link }}" target="_blank">{{ form.formId }}</a></td>
-    <td title="{{ form.description }}">{{ form.name }}</td>
+    <td title="{{ form.description }}"><a class="a" href="{{ form.link }}" target="_blank">{{ form.name }}</a></td>
+    <td>{{ form.formId }}</td>
     <!-- "Update" and "Delete" displayed by default, "Confirm" and "Cancel" displayed if "Delete" is pressed -->
     <!-- This is controlled on a per-row basis by the form.confirmDelete variable -->
     <td>
