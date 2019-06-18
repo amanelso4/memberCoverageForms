@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Form } from '../form';
 import { PostService } from '../post.service';
 import { ActivatedRoute } from "@angular/router";
+
 import {NgModel} from "@angular/forms";
 
 @Component({
@@ -10,26 +11,13 @@ import {NgModel} from "@angular/forms";
   styleUrls: ['./submission-form.component.css']
 })
 export class SubmissionFormComponent implements OnInit{
-  selectedStates: any[];
+  pdfSrc: string = ' ';
 
   constructor(
     private postService: PostService,
     private route: ActivatedRoute
   ){}
 
-  equals(objOne, objTwo) {
-    if (typeof objOne !== 'undefined' && typeof objTwo !== 'undefined') {
-      return objOne.id === objTwo.id;
-    }
-  }
-
-  selectAll(select: NgModel, values, array) {
-    select.update.emit(values);
-  }
-
-  deselectAll(select: NgModel) {
-    select.update.emit([]);
-  }
 
   //////////////////
   // DECLARATIONS //
