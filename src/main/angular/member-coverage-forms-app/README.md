@@ -1,27 +1,45 @@
-# MemberCoverageFormsApp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.9.
 
-## Development server
+#Member Forms Manager
+Developed: Summer 2019
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+###Stakeholders:
 
-## Code scaffolding
+Name | Title
+----- | ------
+Jon Carter | Mentor
+Steve Kouri | Mentor
+Ashley Brin | Product Owner
+Amanda Nelson | Developer
+Evan Trout | Developer
+Edward Fitzgerald | BSA
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
+-------------------------------------
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+1. To download this project, open a command line and run:
+   git clone http://<ACF2Id>@bitbucket.us.sunlife/scm/intern/membercoverageforms.git
 
-## Running unit tests
+2. After this open the cloned file (will be named MemberCoverageForms) in IntelliJ. Navigate through the nested folders to
+   member-coverage-forms-app
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+3. Open a command line and run:
+   npm install -g @angular/cli
+   npm install
 
-## Running end-to-end tests
+4. You should now have the Angular CLI Server as an option to run this project. Go to the top bar of IntelliJ to the box next to
+   the green hammer and select Angular CLI Server. After that, all you have to do is click the green play button right next
+   to the box you just selected Angular CLI Server in.
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+5. After pressing this green play button, the project will open in your web browser under the URL localhost:4200
 
-## Further help
+Optionally, you can run:
+npm start
+and access the URL http://localhost:4200
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+--------------------------------------
+
+
+
+
+

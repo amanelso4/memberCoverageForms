@@ -24,7 +24,7 @@ body {
   height: 48px;
   border-radius: 5px;
   border-width: 0px;
-  margin: 5px;
+  text-align: center;
 }
 
 .button:hover {
@@ -40,6 +40,8 @@ body {
 .button--primary-yellow {
   background-color: #ffcb05;
   color: #004c6c;
+  width: 150px;
+  height: 50px;
 }
 
 .button--secondary {
@@ -51,6 +53,7 @@ body {
 
 .button--tertiary {
   color: #004c6c;
+  background-color: white;
 }
 
 .button--type-confirm {
@@ -68,7 +71,8 @@ body {
 
 .button--context-table {
   width: 75px;
-  text-align: center;
+  margin: auto;
+  display: block;
 }
 
 select {
@@ -116,13 +120,28 @@ h4 {
 table {
   border-collapse: collapse;
   table-layout: fixed;
+  padding-top: 0px;
+  margin-top: 0px;
+  width: 100%;
+}
+
+.table--smallCol {
+  width: 10%;
+}
+
+.table--medCol {
+  width: 15%;
+}
+
+.table--largCol {
+  width:20%;
 }
 
 td, th {
   border-left: solid;
   border-color: #424242;
   border-width: 1px;
-  padding: 20px 15px;
+  padding: 10px 10px;
 }
 
 td:first-child, th:first-child {
