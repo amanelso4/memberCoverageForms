@@ -20,8 +20,7 @@ export class TableComponent implements OnInit {
 
   forms: FormInt[];
 
-  formsPerPage: number;
-  currentIndex: number;
+  formsPerPage: number = 10;
   p: number = 1;
 
   formType: string = '';
@@ -43,14 +42,14 @@ export class TableComponent implements OnInit {
 
   formTypeVar = ['Claim', 'Continuance'];
 
+  numPerPage = [10, 25, 50, 100];
+
   //////////////////
   ///// METHODS ////
   //////////////////
 
   ngOnInit() {
     this.getForms();
-    this.formsPerPage = 10;
-    this.currentIndex = 1;
   }
 
   //Retrieves forms using tableHelper's http request
