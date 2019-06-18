@@ -11,7 +11,7 @@ import { TopBarComponent } from './top-bar/top-bar.component';
 import { InMemoryDataService } from "./in-memory-data.service";
 import { HttpClientInMemoryWebApiModule } from "angular-in-memory-web-api";
 import { FilterPipe } from "./pipes/filter.pipe";
-import { PdfViewerModule } from 'ng2-pdf-viewer';
+//** import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 
 
@@ -40,12 +40,12 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false }),
-    PdfViewerModule,
+  //  PdfViewerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
 
-platformBrowserDynamic().bootstrapModule(AppModule);
+//platformBrowserDynamic().bootstrapModule(AppModule);
 
