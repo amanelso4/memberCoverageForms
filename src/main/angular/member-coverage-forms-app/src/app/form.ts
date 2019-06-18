@@ -8,5 +8,5 @@ export class Form {
     link: string;
     description: string;
     id: number;
-    formId: string;
+    formId: number;
 }
