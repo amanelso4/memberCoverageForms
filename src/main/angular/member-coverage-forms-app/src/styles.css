@@ -53,6 +53,7 @@ body {
 
 .button--tertiary {
   color: #004c6c;
+  background-color: white;
 }
 
 .button--type-confirm {
