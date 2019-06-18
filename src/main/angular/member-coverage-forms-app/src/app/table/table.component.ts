@@ -42,7 +42,7 @@ export class TableComponent implements OnInit {
 
   formTypeVar = ['Claim', 'Continuance'];
 
-  numPerPage = [10, 25, 50, 100];
+  numPerPage = [10, 20, 50];
 
   //////////////////
   ///// METHODS ////
