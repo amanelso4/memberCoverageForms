@@ -23,9 +23,9 @@ export class TableComponent implements OnInit {
   formType: string = '';
   coverageType: string = '';
   states: string[] = [];
+  sourceSystem: string = '';
+  formId: string = '';
   name: string = '';
-  description: string = '';
-  link: string = '';
 
   coverageTypesVar = ['STD', 'LTD', 'DENTAL'];
 
@@ -35,7 +35,7 @@ export class TableComponent implements OnInit {
     'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VA', 'VT',
     'WA', 'WI', 'WV', 'WY'];
 
-  sourceSystemsVar = ['SOLAR', 'QPS'];
+  sourceVar = ['S', 'Q'];
 
   formTypeVar = ['Claim', 'Continuance'];
 
@@ -59,8 +59,8 @@ export class TableComponent implements OnInit {
     this.coverageType = '';
     this.states = [];
     this.name = '';
-    this.description = '';
-    this.link = '';
+    this.sourceSystem = '';
+    this.formId = '';
   }
 
   //Delete a form by providing the form's id as an argument

@@ -65,15 +65,12 @@ export class SubmissionFormComponent implements OnInit{
         formId: null
       };
     } else {
-      //Need to call a function that fills model with proper values
+      //this.model = Object.assign({}, this.postService.getForm(id)); //getForm needs to return a Form() object bc that's what model is
     }
   }
 
   add(model: Form): void {
-    this.postService.addForm(model)
-      .subscribe(form => {
-        this.forms.push(form);
-      });
+    this.postService.addForm(model).subscribe();
   }
 
 }

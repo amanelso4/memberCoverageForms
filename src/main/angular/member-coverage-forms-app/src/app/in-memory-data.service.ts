@@ -20,6 +20,7 @@ export class InMemoryDataService implements InMemoryDbService {
         name: 'Short-term Disability Claim Statement',
         link: 'https://www.slfserviceresources.com/forms/claims/k0384any.pdf',
         description: 'This form is used for submitting short-term disability claims',
+        formId: 'k0384any',
       },
       {
         id: '2',
@@ -30,6 +31,7 @@ export class InMemoryDataService implements InMemoryDbService {
         name: 'Dental Claim Statement',
         link: 'https://www.slfserviceresources.com/forms/claims/k2147a.pdf',
         description: 'This form is used for submitting dental claims',
+        formId: 'k2147a'
       },
       {
         id: '3',
@@ -40,6 +42,7 @@ export class InMemoryDataService implements InMemoryDbService {
         name: 'Dental Claim Statement',
         link: 'https://www.slfserviceresources.com/forms/claims/k2147a.pdf',
         description: 'This form is used for submitting dental claims',
+        formId: 'k2147a'
       },
       {
         id: '4',
@@ -50,6 +53,7 @@ export class InMemoryDataService implements InMemoryDbService {
         name: 'Dental Claim Statement',
         link: 'https://www.slfserviceresources.com/forms/claims/k2147a.pdf',
         description: 'This form is used for submitting dental claims',
+        formId: 'k2147a'
       },
       {
         id: '5',
@@ -60,6 +64,7 @@ export class InMemoryDataService implements InMemoryDbService {
         name: 'Employee Application For Conversion Coverage Long-term Disability Insurance',
         link: 'https://www.slfserviceresources.com/forms/admin/k1615.pdf',
         description: 'This employee form is used when requesting conversion of your long-term disability policy.',
+        formId: 'k1615'
       },
       {
         id: '6',
@@ -70,6 +75,7 @@ export class InMemoryDataService implements InMemoryDbService {
         name: 'Facts About Your Conversion Privilege',
         link: 'https://www.slfserviceresources.com/forms/admin/k4054e.pdf',
         description: 'This employee form is used to learn more about converting your long-term disability policy. ',
+        formId: 'k4054e'
       },
       {
         id: '7',
@@ -80,6 +86,7 @@ export class InMemoryDataService implements InMemoryDbService {
         name: 'Long-term Disability Claim Statement',
         link: 'https://www.slfserviceresources.com/forms/claims/k3283a.pdf',
         description: 'This form is used for submitting long-term disability claims.',
+        formId: 'k3283a'
       },
     ];
     return {forms};

@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from "@angular/core";
 export class FilterPipe implements PipeTransform {
   //Uses provided search values to filter out form values that do not fit
   //If search value is empty string, it does not apply filter
-  transform(items: any[], fTypeSearch: string, covTypeSearch: string, stateSearch: string[], nameSearch: string, descSearch: string, linkSearch: string) {
+  transform(items: any[], fTypeSearch: string, covTypeSearch: string, stateSearch: string[], sourceSearch: string, idSearch: string, nameSearch: string) {
     if (items && items.length) {
       return items.filter(item =>{
         if (fTypeSearch && fTypeSearch != item.formType){
@@ -21,10 +21,10 @@ export class FilterPipe implements PipeTransform {
         else if (nameSearch && item.name.toLowerCase().indexOf(nameSearch.toLowerCase()) === -1){
           return false;
         }
-        else if (descSearch && item.description.toLowerCase().indexOf(descSearch.toLowerCase()) === -1){
+        else if (sourceSearch && item.sourceSystem != sourceSearch){
           return false;
         }
-        else if (linkSearch && item.link.toLowerCase().indexOf(linkSearch.toLowerCase()) === -1){
+        else if (idSearch && item.formId.toLowerCase().indexOf(idSearch.toLowerCase()) === -1){
           return false;
         }
         return true;

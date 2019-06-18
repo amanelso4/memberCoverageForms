@@ -8,4 +8,5 @@ export interface FormInt {
   name: string;
   link: string;
   description: string;
+  formId: string;
 }
