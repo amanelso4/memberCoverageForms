@@ -10,7 +10,7 @@ import { Injectable } from '@angular/core';
 export class InMemoryDataService implements InMemoryDbService {
   //Used to create a mock database so that we can test http methods for obtaining data
   createDb() {
-    const forms = [
+    const forms = [ //Maybe make this a Form[] object?
       {
         id: '1',
         coverageType: 'STD',
