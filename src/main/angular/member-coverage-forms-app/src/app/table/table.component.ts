@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormInt } from "../../assets/formInt";
 import { TableHelperService } from "../table-helper.service";
 
-
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
@@ -17,6 +16,7 @@ export class TableComponent implements OnInit {
   //////////////////
   // DECLARATIONS //
   //////////////////
+
 
   forms: FormInt[];
 

@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { NgxPaginationModule } from "ngx-pagination";
 
 import { AppComponent } from './app.component';
 import { SubmissionFormComponent } from './submission-form/submission-form.component';
@@ -12,7 +11,8 @@ import { TopBarComponent } from './top-bar/top-bar.component';
 import { InMemoryDataService } from "./in-memory-data.service";
 import { HttpClientInMemoryWebApiModule } from "angular-in-memory-web-api";
 import { FilterPipe } from "./pipes/filter.pipe";
-
+import { NgxPaginationModule } from "ngx-pagination";
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 
 
 const appRoutes: Routes = [
@@ -38,6 +38,7 @@ const appRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     NgxPaginationModule,
+    FontAwesomeModule,
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false }),
   ],
