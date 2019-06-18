@@ -22,6 +22,7 @@ export class TableComponent implements OnInit {
 
   formsPerPage: number;
   currentIndex: number;
+  p: number = 1;
 
   formType: string = '';
   coverageType: string = '';

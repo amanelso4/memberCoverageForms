@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { NgxPaginationModule } from "ngx-pagination";
 
 import { AppComponent } from './app.component';
 import { SubmissionFormComponent } from './submission-form/submission-form.component';
@@ -34,6 +35,7 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxPaginationModule,
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false }),
   ],
