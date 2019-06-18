@@ -1,3 +1,15 @@
 .my-pagination /deep/ .ngx-pagination .current {
   background: #ffcb05;
 }
+
+.my-pagination /deep/ .ngx-pagination {
+  float: right;
+}
+
+.footer {
+  text-align: center;
+}
+
+.footerInput {
+  float: left;
+}

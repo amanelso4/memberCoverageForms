@@ -76,7 +76,11 @@
     </td>
   </tr>
 </table>
-<pagination-controls class="my-pagination" (pageChange)="p = $event"></pagination-controls>
-<select [(ngModel)]="formsPerPage">
-  <option *ngFor="let num of numPerPage" [value]="num">{{ num }}</option>
-</select>
+<div class="footer">
+  <pagination-controls class="my-pagination" (pageChange)="p = $event"></pagination-controls>
+  <label class="footerInput"><b style="padding-right: 10px">Forms per Page</b>
+    <select style="height: 40px" [(ngModel)]="formsPerPage">
+      <option *ngFor="let num of numPerPage" [value]="num">{{ num }}</option>
+    </select>
+  </label>
+</div>
