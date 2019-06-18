@@ -20,6 +20,9 @@ export class TableComponent implements OnInit {
 
   forms: FormInt[];
 
+  formsPerPage: number;
+  currentIndex: number;
+
   formType: string = '';
   coverageType: string = '';
   state: string = '';
@@ -27,7 +30,7 @@ export class TableComponent implements OnInit {
   formId: string = '';
   name: string = '';
 
-  coverageTypesVar = ['STD', 'LTD', 'DENTAL'];
+  coverageTypesVar = ['STD', 'LTD', 'DENTAL', 'GAP', 'DENTALPREPAID', 'CRITICALILLNESS'];
 
   statesVar = ['AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA',
     'HI', 'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI',
@@ -45,6 +48,8 @@ export class TableComponent implements OnInit {
 
   ngOnInit() {
     this.getForms();
+    this.formsPerPage = 10;
+    this.currentIndex = 1;
   }
 
   //Retrieves forms using tableHelper's http request
