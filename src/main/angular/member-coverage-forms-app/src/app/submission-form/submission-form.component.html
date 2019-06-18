@@ -61,6 +61,50 @@
                     </div>
                   </div>
 
+                <mat-list-item class="primary-imenu-item" role="listitem">
+                  <mat-form-field class="select-form">
+                    <mat-select
+                      placeholder="States"
+                      name="state"
+                      class="filter-select"
+                      [(ngModel)]="selectedStates"
+                      [compareWith]="equals"
+                      multiple
+                      #yearSelect="ngModel">
+                      <mat-option
+                        disabled="disabled"
+                        class="filter-option">
+                        <button
+                          mat-raised-button
+                          class="mat-primary fill text-sm"
+                          (click)="selectAll(stateSelect, states)">
+                          Select All
+                        </button>
+                        <button
+                          mat-raised-button
+                          class="mat-accent fill text-sm"
+                          (click)="deselectAll(stateSelect)">
+                          Deselect All
+                        </button>
+                      </mat-option>
+                      <mat-option *ngFor="let state of states" [value]="state">
+                        {{state.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </mat-list-item>
+
+                <select class="mdb-select md-form" multiple>
+                  <option value="" disabled selected>Choose your country</option>
+                  <option value="1">USA</option>
+                  <option value="2">Germany</option>
+                  <option value="3">France</option>
+                  <option value="3">Poland</option>
+                  <option value="3">Japan</option>
+                </select>
+                <label class="mdb-main-label">Label example</label>
+                <button class="btn-save btn btn-primary btn-sm">Save</button>
+
                   <div class="form-group">
                     <select class="form-control"
                             id="sourceSystem"

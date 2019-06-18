@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Form } from '../form';
 import { PostService } from '../post.service';
 import { ActivatedRoute } from "@angular/router";
+import {NgModel} from "@angular/forms";
 
 @Component({
   selector: 'app-form',
@@ -9,11 +10,26 @@ import { ActivatedRoute } from "@angular/router";
   styleUrls: ['./submission-form.component.css']
 })
 export class SubmissionFormComponent implements OnInit{
+  selectedStates: any[];
 
   constructor(
     private postService: PostService,
     private route: ActivatedRoute
   ){}
+
+  equals(objOne, objTwo) {
+    if (typeof objOne !== 'undefined' && typeof objTwo !== 'undefined') {
+      return objOne.id === objTwo.id;
+    }
+  }
+
+  selectAll(select: NgModel, values, array) {
+    select.update.emit(values);
+  }
+
+  deselectAll(select: NgModel) {
+    select.update.emit([]);
+  }
 
   //////////////////
   // DECLARATIONS //
@@ -29,6 +45,7 @@ export class SubmissionFormComponent implements OnInit{
     'MN', 'MO', 'MS', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV', 'NY',
     'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VA', 'VT',
     'WA', 'WI', 'WV', 'WY'];
+  selected = [];
 
   sourceSystems = ['S', 'Q'];
 

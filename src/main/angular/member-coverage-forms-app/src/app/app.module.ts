@@ -12,6 +12,9 @@ import { InMemoryDataService } from "./in-memory-data.service";
 import { HttpClientInMemoryWebApiModule } from "angular-in-memory-web-api";
 import { FilterPipe } from "./pipes/filter.pipe";
 
+import { MatListModule, MatSelectModule, MatOptionModule, MatButtonModule } from '@angular/material';
+
+
 const appRoutes: Routes = [
   {path: 'submission-form/:formId', component: SubmissionFormComponent},
   {path: 'table', component: TableComponent},
@@ -36,6 +39,9 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false }),
+    MatSelectModule,
+    MatListModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
