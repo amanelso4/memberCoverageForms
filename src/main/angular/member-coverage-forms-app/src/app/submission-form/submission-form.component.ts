@@ -30,7 +30,7 @@ export class SubmissionFormComponent implements OnInit{
     'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VA', 'VT',
     'WA', 'WI', 'WV', 'WY'];
 
-  sourceSystems = ['SOLAR', 'QPS'];
+  sourceSystems = ['S', 'Q'];
 
   formTypes = ['Claim', 'Continuance'];
 
