@@ -160,8 +160,8 @@
 
         </div>
 
-    <button class="btn btn-primary" (click)="submitted=true">Submit</button>
-    <button routerLink="/table" routerLinkActive="active">Cancel</button>
+    <button class="button button--primary-blue" (click)="submitted=true">Submit</button>
+    <button class="button button--secondary"  routerLink="/table" routerLinkActive="active">Cancel</button>
 
     </body>
   </div>
@@ -182,10 +182,10 @@
               </b>
             <br>
 
-            <button routerLink="/table" routerLinkActive="active" (click)="add(model)">Upload to Database</button>
-  <button class="btn btn-primary" (click)="submitted=false; add(model); model.coverageType=''; model.state=''; model.sourceSystem=''; model.formType='';
-model.name=''; model.link=''; model.description=''">Upload and Submit Another Form</button>
+            <button class="button button--primary-blue" routerLink="/table" routerLinkActive="active" (click)="add(model)">Upload to Database</button>
+  <button class="button button--secondary" (click)="submitted=false; add(model); model.coverageType=''; model.state=''; model.sourceSystem=''; model.formType='';
+    model.name=''; model.link=''; model.description=''">Upload and Submit Another Form</button>
 
-  <button routerLink="/table" routerLinkActive="active">Cancel</button>
+  <button class="button button--tertiary" routerLink="/table" routerLinkActive="active">Cancel</button>
 
 </div>
