@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Form } from "../form";
-import { TableHelperService } from "../table-helper.service";
+import { FormService } from "../form.service";
 import { ActivatedRoute } from "@angular/router";
 
 @Component({
@@ -11,7 +11,7 @@ import { ActivatedRoute } from "@angular/router";
 export class TableComponent implements OnInit {
 
   constructor(
-    private tableHelper: TableHelperService,
+    private formService: FormService,
     private activatedRoute: ActivatedRoute
   ) {
     //Using table-resolver service to get initial form data - allows for data to be pre-fetched
@@ -64,13 +64,13 @@ export class TableComponent implements OnInit {
 
   //Retrieve updated forms after a delete call
   getForms() {
-    this.tableHelper.getForms().subscribe( forms => this.forms = forms);
+    this.formService.getForms().subscribe( forms => this.forms = forms);
   }
 
   //Delete a form by providing the form's id as an argument
-  deleteForm(formId: number) {
-    this.tableHelper.delete(formId).subscribe(() => {
-      console.log('Employee w/ Id ' + formId + ' deleted');
+  deleteForm(id: number) {
+    this.formService.deleteForm(id).subscribe(() => {
+      console.log('Employee w/ Id ' + id + ' deleted');
       this.getForms();
     });
   }

@@ -56,6 +56,12 @@ export class FormService {
       .pipe(catchError(this.handleError));
   }
 
+  // DELETE
+  deleteForm(id: number): Observable<{}> {
+    return this.http.delete(`${this.formUrl}/${id}`)
+      .pipe(catchError(this.handleError));
+  }
+
   /// ERROR HANDLING ///
 
   //Taken from angular http guide, handles errors for requests
