@@ -24,7 +24,6 @@ export class TableComponent implements OnInit {
 
 
   forms: Form[];
-  tempForms: Form[];
 
   formType: string = '';
   coverageType: string = '';
@@ -60,6 +59,7 @@ export class TableComponent implements OnInit {
     this.name = '';
     this.sourceSystem = '';
     this.formId = '';
+    console.log(this.forms);
   }
 
   //Retrieve updated forms after a delete call

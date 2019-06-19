@@ -1,5 +1,7 @@
+/* TODO: combine this service and Amanda's Post Service into a single service for whole application */
+
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Form } from "./form";
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from "rxjs/operators";
@@ -32,6 +34,31 @@ export class TableHelperService {
       );
   }
 
+  save(form: Form) : Observable<Form> { /*TODO: collapse this function into Amanda's post function */
+    if (form.id === null) {
+      return this.http.post<Form>(this.formUrl, form, {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json'
+        })
+      }).pipe(catchError(this.handleError));
+    } else {
+
+    }
+  }
+
+
+  /*FROM THE VIDEO GUY'S CREATE-EMPLOYEE COMPONENT
+    saveEmployee(): void {
+      this.employeeService.save(this.employee).subscribe(
+        (data: Employee) => {
+          console.log(data);
+          this.createEmployeeForm.reset();
+          this.router.navigate(['list']);
+        }
+      );
+    }
+   */
+
   //Deletes a form based on the provided formId
   delete(formId: number): Observable<{}> {
     const url = this.formUrl + '/' + formId; // delete api/forms/formId
@@ -45,7 +72,7 @@ export class TableHelperService {
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly
-      console.error('An error occurred:', error.error.message);
+      console.error('A client side error occurred:', error.error.message);
     } else {
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong.
