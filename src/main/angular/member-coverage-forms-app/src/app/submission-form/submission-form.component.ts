@@ -15,8 +15,10 @@ import {PDFDocumentProxy, PDFPromise, PDFProgressData, PDFJS} from "pdfjs-dist";
   styleUrls: ['./submission-form.component.css'],
 })
 export class SubmissionFormComponent implements OnInit{
-
-  report: Form = new Form;
+//multiselect dropdown module
+  dropdownSettings = {};
+  selectedItems = [];
+ Form = new Form;
   pdfSrc: string = "";
   page: any = 1;
   pageTotal: any;
