@@ -24,7 +24,7 @@ export class TableHelperService {
   //////////////////
 
   //Gets forms using HttpClient service
-  getForms() {
+  getForms(): Observable<FormInt[]> {
     return this.http.get<FormInt[]>(this.formUrl)
       .pipe(
         retry(3), // retry a failed request up to 3 times

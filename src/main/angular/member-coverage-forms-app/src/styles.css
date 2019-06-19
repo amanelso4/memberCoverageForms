@@ -73,6 +73,7 @@ body {
   width: 75px;
   margin: auto;
   display: block;
+  height: 47px;
 }
 
 select {
@@ -123,6 +124,7 @@ table {
   padding-top: 0px;
   margin-top: 0px;
   width: 100%;
+  overflow: hidden;
 }
 
 .table--smallCol {
@@ -142,6 +144,9 @@ td, th {
   border-color: #424242;
   border-width: 1px;
   padding: 10px 10px;
+  vertical-align: middle;
+  overflow: hidden;
+  display: table-cell;
 }
 
 td:first-child, th:first-child {
@@ -150,7 +155,16 @@ td:first-child, th:first-child {
 
 th {
   background-color: #ffcb05;
-  height: 100px;
+  height: 30px;
+  text-align: center;
+  padding: 5px;
+  margin: 0px;
+}
+
+th.filterCell {
+  border-top: solid;
+  border-width: 1px;
+  padding: 10px;
 }
 
 tr:nth-child(odd) {

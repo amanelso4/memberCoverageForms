@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormInt } from "../../assets/formInt";
 import { TableHelperService } from "../table-helper.service";
 
-
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
@@ -18,7 +17,11 @@ export class TableComponent implements OnInit {
   // DECLARATIONS //
   //////////////////
 
+
   forms: FormInt[];
+
+  formsPerPage: number = 10;
+  p: number = 1;
 
   formType: string = '';
   coverageType: string = '';
@@ -27,7 +30,7 @@ export class TableComponent implements OnInit {
   formId: string = '';
   name: string = '';
 
-  coverageTypesVar = ['STD', 'LTD', 'DENTAL'];
+  coverageTypesVar = ['STD', 'LTD', 'DENTAL', 'GAP', 'DENTALPREPAID', 'CRITICALILLNESS'];
 
   statesVar = ['AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA',
     'HI', 'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI',
@@ -38,6 +41,8 @@ export class TableComponent implements OnInit {
   sourceVar = ['S', 'Q'];
 
   formTypeVar = ['Claim', 'Continuance'];
+
+  numPerPage = [10, 20, 50];
 
   //////////////////
   ///// METHODS ////
