@@ -4,14 +4,15 @@ import { PostService } from '../post.service';
 import { ActivatedRoute } from "@angular/router";
 
 import {NgModel} from "@angular/forms";
+import {PDFSource, PdfViewerModule} from "ng2-pdf-viewer";
 
 @Component({
   selector: 'app-form',
   templateUrl: './submission-form.component.html',
-  styleUrls: ['./submission-form.component.css']
+  styleUrls: ['./submission-form.component.css'],
+  providers: [ PdfViewerModule]
 })
 export class SubmissionFormComponent implements OnInit{
-  pdfSrc: string = ' ';
 
   constructor(
     private postService: PostService,
@@ -33,7 +34,6 @@ export class SubmissionFormComponent implements OnInit{
     'MN', 'MO', 'MS', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV', 'NY',
     'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VA', 'VT',
     'WA', 'WI', 'WV', 'WY'];
-  selected = [];
 
   sourceSystems = ['S', 'Q'];
 
@@ -77,5 +77,5 @@ export class SubmissionFormComponent implements OnInit{
   add(model: Form): void {
     this.postService.addForm(model).subscribe();
   }
-
+  pdfSrc: string | PDFSource | ArrayBuffer = 'https://www.slfserviceresources.com/forms/claims/k0384any.pdf';
 }

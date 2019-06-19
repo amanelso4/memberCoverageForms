@@ -192,9 +192,23 @@
             <div class="container">
               <embed src="https://www.slfserviceresources.com/forms/claims/k0384any.pdf" width=600px height=500px/>
 
-         <!--     <pdf-viewer
+              <div>
+                <label>PDF src</label>
+                <input type="text" placeholder="PDF src" [(ngModel)]="pdfSrc">
+              </div>
+              <pdf-viewer
                 [src]="pdfSrc"
-              ></pdf-viewer> -->
+                [(page)]="page"
+                [rotation]="rotation"
+                [original-size]="originalSize"
+                [fit-to-page]="fitToPage"
+                [zoom]="zoom"
+                [show-all]="showAll"
+                [stick-to-page]="stickToPage"
+                [render-text]="renderText"
+                [external-link-target]="'blank'"
+                [autoresize]="autoresize"
+              ></pdf-viewer>
 
             </div>
           </div>
