@@ -45,6 +45,7 @@ body {
 }
 
 .button--secondary {
+  border-style: solid;
   border-width: 2px;
   border-color: #004c6c;
   color: #004c6c;

@@ -17,7 +17,7 @@ import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { TableResolverService } from "./table-resolver.service";
 
 const appRoutes: Routes = [
-  {path: 'submission-form/:formId', component: SubmissionFormComponent},
+  {path: 'submission-form/:id', component: SubmissionFormComponent},
   {path: 'table', component: TableComponent, resolve: { formList: TableResolverService }},
   {path: '', redirectTo: 'table', pathMatch: 'full'},
 ];
@@ -33,7 +33,7 @@ const appRoutes: Routes = [
   imports: [
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
+      { enableTracing: false }
     ),
     BrowserModule,
     FormsModule,
