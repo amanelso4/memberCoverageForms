@@ -5,13 +5,22 @@ import { ActivatedRoute } from "@angular/router";
 
 import {NgModel} from "@angular/forms";
 
+import {PDFSource, PdfViewerModule} from "ng2-pdf-viewer";
+
+import {PDFDocumentProxy, PDFPromise, PDFProgressData, PDFJS} from "pdfjs-dist";
+
 @Component({
   selector: 'app-form',
   templateUrl: './submission-form.component.html',
-  styleUrls: ['./submission-form.component.css']
+  styleUrls: ['./submission-form.component.css'],
 })
 export class SubmissionFormComponent implements OnInit{
-  pdfSrc: string = ' ';
+
+  report: Form = new Form;
+  pdfSrc: string = "";
+  page: any = 1;
+  pageTotal: any;
+  private _pdf: PDFDocumentProxy;
 
   constructor(
     private postService: PostService,
@@ -33,7 +42,6 @@ export class SubmissionFormComponent implements OnInit{
     'MN', 'MO', 'MS', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV', 'NY',
     'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VA', 'VT',
     'WA', 'WI', 'WV', 'WY'];
-  selected = [];
 
   sourceSystems = ['S', 'Q'];
 
@@ -42,6 +50,7 @@ export class SubmissionFormComponent implements OnInit{
   model = new Form();
 
   submitted = false;
+  view = false;
 
   link: 'https://www.slfserviceresources.com/forms/claims/k0384any.pdf';
 
@@ -50,6 +59,7 @@ export class SubmissionFormComponent implements OnInit{
   //////////////////
 
   ngOnInit(): void {
+
     this.route.paramMap.subscribe(parameterMap => {
       const id = +parameterMap.get('formId');
       this.getForm(id);
@@ -76,6 +86,9 @@ export class SubmissionFormComponent implements OnInit{
 
   add(model: Form): void {
     this.postService.addForm(model).subscribe();
-  }
-
 }
+}
+
+
+
+
