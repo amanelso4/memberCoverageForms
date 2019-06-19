@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormInt } from "../../assets/formInt";
+import { Form } from "../form";
 import { TableHelperService } from "../table-helper.service";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-table',
@@ -10,18 +11,20 @@ import { TableHelperService } from "../table-helper.service";
 export class TableComponent implements OnInit {
 
   constructor(
-    private tableHelper: TableHelperService
-  ) { }
+    private tableHelper: TableHelperService,
+    private activatedRoute: ActivatedRoute
+  ) {
+    this.forms = this.activatedRoute.snapshot.data['formList'];
+  }
 
   //////////////////
   // DECLARATIONS //
   //////////////////
 
 
-  forms: FormInt[];
+  forms: Form[];
 
   formsPerPage: number = 10;
-  p: number = 1;
 
   formType: string = '';
   coverageType: string = '';
@@ -42,20 +45,11 @@ export class TableComponent implements OnInit {
 
   formTypeVar = ['Claim', 'Continuance'];
 
-  numPerPage = [10, 20, 50];
-
   //////////////////
   ///// METHODS ////
   //////////////////
 
   ngOnInit() {
-    this.getForms();
-  }
-
-  //Retrieves forms using tableHelper's http request
-  getForms() {
-    this.tableHelper.getForms().subscribe(
-      (data: FormInt[]) => this.forms = data as FormInt[]); // Parameter is 'data', which is in the form of a form interface
   }
 
   //Clear the currently selected filters
@@ -73,7 +67,7 @@ export class TableComponent implements OnInit {
     this.tableHelper.delete(formId).subscribe(
       () => console.log('Employee w/ Id ' + formId + ' deleted')
     );
-    this.getForms(); //Update form list so deletion affects table
+    //this.getForms(); //Update form list so deletion affects table
   }
 
 }
