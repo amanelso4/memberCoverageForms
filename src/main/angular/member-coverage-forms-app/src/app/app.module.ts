@@ -12,11 +12,11 @@ import { InMemoryDataService } from "./in-memory-data.service";
 import { HttpClientInMemoryWebApiModule } from "angular-in-memory-web-api";
 import { FilterPipe } from "./pipes/filter.pipe";
 
+
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import {platformBrowserDynamic} from "@angular/platform-browser-dynamic";
-
-
-
+import { NgxPaginationModule } from "ngx-pagination";
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 
 
 const appRoutes: Routes = [
@@ -41,6 +41,8 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxPaginationModule,
+    FontAwesomeModule,
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false }),
     PdfViewerModule,
