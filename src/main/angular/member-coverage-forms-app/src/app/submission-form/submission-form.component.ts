@@ -4,7 +4,10 @@ import { PostService } from '../post.service';
 import { ActivatedRoute } from "@angular/router";
 
 import {NgModel} from "@angular/forms";
+
 import {PDFSource, PdfViewerModule} from "ng2-pdf-viewer";
+
+import {PDFDocumentProxy, PDFPromise, PDFProgressData, PDFJS} from "pdfjs-dist";
 
 @Component({
   selector: 'app-form',
@@ -77,5 +80,5 @@ export class SubmissionFormComponent implements OnInit{
   add(model: Form): void {
     this.postService.addForm(model).subscribe();
   }
-  pdfSrc: string | PDFSource | ArrayBuffer = 'https://www.slfserviceresources.com/forms/claims/k0384any.pdf';
+
 }
