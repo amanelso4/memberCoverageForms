@@ -190,18 +190,20 @@
 
           <div class="col-lg-4" style="background-color:white;">
             <div class="container">
-              <embed src="https://www.slfserviceresources.com/forms/claims/k0384any.pdf" width=600px height=500px/>
 
-         <!--     <pdf-viewer
-                [src]="pdfSrc"
-              ></pdf-viewer> -->
+              <button class="button button--primary-yellow" (click)="view=true">View Form</button>
+              <div [hidden]="!view">
+              <pdf-viewer
+                [src]="'https://cors-anywhere.herokuapp.com/'+ model.link "
+              ></pdf-viewer>
+              </div>
 
             </div>
           </div>
 
         </div>
 
-    <button class="button button--primary-blue" (click)="submitted=true">Submit</button>
+    <button class="button button--primary-yellow" (click)="submitted=true">Submit</button>
     <button class="button button--secondary"  routerLink="/table" routerLinkActive="active">Cancel</button>
 
     </body>
@@ -212,18 +214,35 @@
 
           <div [hidden]="!submitted">
             <h3>You are about to Submit the Following: </h3>
-            <b>Coverage Type:   <br> {{model.coverageType}}  <br>
-              State(s): <br>   {{model.state}} <br>
-                Source System: <br>   {{model.sourceSystem}} <br>
-                Form Type: <br>   {{model.formType}} <br>
-                Name:    {{model.name}} <br>
-                Link:    {{model.link}} <br>
-                Description:   {{model.description}} <br>
-                Form ID: {{model.formId}}<br>
-              </b>
+            <h3>You submitted the following:</h3>
+
+            <table style="width:100%">
+              <tr>
+                <th>Form Name</th>
+                <th>Form Link</th>
+                <th>Form Type</th>
+                <th>Form Description</th>
+                <th>Coverage Type</th>
+                <th>State(s)</th>
+                <th>Source System</th>
+                <th>Form ID</th>
+              </tr>
+              <tr>
+                <td>{{model.name}}</td>
+                <td>{{model.link}}</td>
+                <td>{{model.formType}}</td>
+                <td>{{model.description}}</td>
+                <td>{{model.coverageType}}</td>
+                <td>{{model.state}}</td>
+                <td>{{model.sourceSystem}}</td>
+                <td>{{model.formId}}</td>
+              </tr>
+            </table>
+
             <br>
 
-            <button class="button button--primary-blue" routerLink="/table" routerLinkActive="active" (click)="add(model)">Upload to Database</button>
+
+            <button class="button button--primary-yellow" routerLink="/table" routerLinkActive="active" (click)="add(model)">Upload to Database</button>
   <button class="button button--secondary" (click)="submitted=false; add(model); model.coverageType=''; model.state=''; model.sourceSystem=''; model.formType='';
     model.name=''; model.link=''; model.description=''; model.formId=''">Upload and Submit Another Form</button>
 

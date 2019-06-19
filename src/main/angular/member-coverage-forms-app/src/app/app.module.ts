@@ -11,9 +11,12 @@ import { TopBarComponent } from './top-bar/top-bar.component';
 import { InMemoryDataService } from "./in-memory-data.service";
 import { HttpClientInMemoryWebApiModule } from "angular-in-memory-web-api";
 import { FilterPipe } from "./pipes/filter.pipe";
+
+
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { NgxPaginationModule } from "ngx-pagination";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
-import { PdfViewerModule } from 'ng2-pdf-viewer';
+
 
 const appRoutes: Routes = [
   {path: 'submission-form/:formId', component: SubmissionFormComponent},
@@ -41,12 +44,11 @@ const appRoutes: Routes = [
     FontAwesomeModule,
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false }),
-  //  PdfViewerModule,
+    PdfViewerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
 
-//platformBrowserDynamic().bootstrapModule(AppModule);
 
