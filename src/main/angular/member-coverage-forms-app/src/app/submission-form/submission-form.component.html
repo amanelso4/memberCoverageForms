@@ -217,32 +217,44 @@
 
           <div [hidden]="!submitted">
             <h3>You are about to Submit the Following: </h3>
-            <h3>You submitted the following:</h3>
 
-            <table style="width:100%">
+            <table class="confirm">
+              <tr>
+                <th>Form Type</th>
+                <td>{{model.formType}}</td>
+              </tr>
+              <tr>
+                <th>Coverage Type</th>
+                <td>{{model.coverageType}}</td>
+              </tr>
+              <tr>
+                <th>Coverage State(s)</th>
+                <td>{{model.state}}</td>
+              </tr>
+              <tr>
+                <th>Source System</th>
+                <td>{{model.sourceSystem}}</td>
+              </tr>
               <tr>
                 <th>Form Name</th>
-                <th>Form Link</th>
-                <th>Form Type</th>
-                <th>Form Description</th>
-                <th>Coverage Type</th>
-                <th>State(s)</th>
-                <th>Source System</th>
-                <th>Form ID</th>
+                <td>{{model.name}}</td>
               </tr>
               <tr>
-                <td>{{model.name}}</td>
-                <td>{{model.link}}</td>
-                <td>{{model.formType}}</td>
-                <td>{{model.description}}</td>
-                <td>{{model.coverageType}}</td>
-                <td>{{model.state}}</td>
-                <td>{{model.sourceSystem}}</td>
+                <th>Form ID</th>
                 <td>{{model.formId}}</td>
               </tr>
+              <tr>
+                <th>Form Link</th>
+                <td>{{model.link}}</td>
+              </tr>
+              <tr>
+                <th>Form Description</th>
+                <td>{{model.description}}</td>
+              </tr>
+
             </table>
 
-            <br> <br> <br> <br>
+            <br> <br> <br>
 
 <div class="row">
 
