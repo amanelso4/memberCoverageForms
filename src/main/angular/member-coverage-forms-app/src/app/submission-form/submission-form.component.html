@@ -87,6 +87,21 @@
                       State is required
                     </div>
                   </div>
+
+
+                 <ng-multiselect-dropdown
+                   [placeholder]="'Select Coverages to Filter By'"
+                   [data]="coveragesItems"
+                   [(ngModel)]="selectedItems"
+                   [settings]="dropdownSettings"
+                   (onSelect)="updateCoverageFilter()"
+                   (onSelectAll)="onSelectAll()"
+                   (onDeSelect)="updateCoverageFilter()"
+                   (onDeSelectAll)="onDeSelectAll()">
+                 </ng-multiselect-dropdown>
+
+
+
                </div>
              </div>
             <div class="row">
