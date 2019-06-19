@@ -17,6 +17,12 @@ import {PDFDocumentProxy, PDFPromise, PDFProgressData, PDFJS} from "pdfjs-dist";
 })
 export class SubmissionFormComponent implements OnInit{
 
+  report: Form = new Form;
+  pdfSrc: string = "";
+  page: any = 1;
+  pageTotal: any;
+  private _pdf: PDFDocumentProxy;
+
   constructor(
     private postService: PostService,
     private route: ActivatedRoute
@@ -45,6 +51,7 @@ export class SubmissionFormComponent implements OnInit{
   model = new Form();
 
   submitted = false;
+  view = false;
 
   link: 'https://www.slfserviceresources.com/forms/claims/k0384any.pdf';
 
@@ -53,6 +60,12 @@ export class SubmissionFormComponent implements OnInit{
   //////////////////
 
   ngOnInit(): void {
+
+
+
+
+
+
     this.route.paramMap.subscribe(parameterMap => {
       const id = +parameterMap.get('formId');
       this.getForm(id);

@@ -190,24 +190,13 @@
 
           <div class="col-lg-4" style="background-color:white;">
             <div class="container">
-              <embed src="https://www.slfserviceresources.com/forms/claims/k0384any.pdf" width=600px height=500px/>
 
-              <div>
-                <label>PDF src</label>
-                <input type="text" placeholder="PDF src" [(ngModel)]="pdfSrc">
-              </div>
+
+
+
               <pdf-viewer
-                [src]="pdfSrc"
-                [(page)]="page"
-                [rotation]="rotation"
-                [original-size]="originalSize"
-                [fit-to-page]="fitToPage"
-                [zoom]="zoom"
-                [show-all]="showAll"
-                [stick-to-page]="stickToPage"
-                [render-text]="renderText"
-                [external-link-target]="'blank'"
-                [autoresize]="autoresize"
+                [src]="'https://cors-anywhere.herokuapp.com/'+ model.link "
+                height = 100px;
               ></pdf-viewer>
 
             </div>

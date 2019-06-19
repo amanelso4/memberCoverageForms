@@ -14,7 +14,6 @@ import { FilterPipe } from "./pipes/filter.pipe";
 
 
 import { PdfViewerModule } from 'ng2-pdf-viewer';
-import {platformBrowserDynamic} from "@angular/platform-browser-dynamic";
 import { NgxPaginationModule } from "ngx-pagination";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 
@@ -52,5 +51,4 @@ const appRoutes: Routes = [
 })
 export class AppModule { }
 
-platformBrowserDynamic().bootstrapModule(AppModule);
 
