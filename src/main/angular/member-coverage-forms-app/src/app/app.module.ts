@@ -14,10 +14,11 @@ import { FilterPipe } from "./pipes/filter.pipe";
 import { NgxPaginationModule } from "ngx-pagination";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { TableResolverService } from "./table-resolver.service";
 
 const appRoutes: Routes = [
   {path: 'submission-form/:formId', component: SubmissionFormComponent},
-  {path: 'table', component: TableComponent},
+  {path: 'table', component: TableComponent, resolve: { formList: TableResolverService }},
   {path: '', redirectTo: 'table', pathMatch: 'full'},
 ];
 
@@ -43,7 +44,7 @@ const appRoutes: Routes = [
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false }),
   //  PdfViewerModule,
   ],
-  providers: [],
+  providers: [TableResolverService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
