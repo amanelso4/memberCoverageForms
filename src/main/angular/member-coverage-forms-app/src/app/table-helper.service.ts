@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { FormInt } from "../assets/formInt";
+import { Form } from "./form";
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from "rxjs/operators";
 
@@ -24,8 +24,8 @@ export class TableHelperService {
   //////////////////
 
   //Gets forms using HttpClient service
-  getForms(): Observable<FormInt[]> {
-    return this.http.get<FormInt[]>(this.formUrl)
+  getForms(): Observable<Form[]> {
+    return this.http.get<Form[]>(this.formUrl)
       .pipe(
         retry(3), // retry a failed request up to 3 times
         catchError(this.handleError) // then handle the error

@@ -57,7 +57,7 @@
     <th colspan="2" class="table--medCol filterCell"><button class="button button--primary-blue" (click)="clearFilters()">Clear Filters</button></th>
   </tr>
   <!-- filter applies the user's filters; see ../pipes/filter.pipe.ts for implementation -->
-  <tr *ngFor="let form of forms | filter: formType:coverageType:state:sourceSystem:formId:name | paginate: { itemsPerPage: formsPerPage, currentPage: p }">
+  <tr *ngFor="let form of forms | filter: formType:coverageType:state:sourceSystem:formId:name | paginate: { itemsPerPage: 10, currentPage: p }">
     <td style="max-width: 20px;">{{ form.formType }}</td>
     <td>{{ form.coverageType }}</td>
     <td>{{ form.state }}</td>
