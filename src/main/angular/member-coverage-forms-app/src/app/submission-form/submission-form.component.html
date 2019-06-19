@@ -23,6 +23,27 @@
             <div class="container">
               <div [hidden] = "submitted">
 
+                <div class="row">
+                  <div class="col-lg-4">
+                    <label for="formType">Form type: </label> <br>
+                  </div>
+                  <div class="col-lg-8">
+                    <div class="form-group">
+                      <select class="form-control"
+                              id="formType"
+                              required
+                              [(ngModel)]="model.formType"
+                              name="formType"
+                              #formType="ngModel">
+                        <option *ngFor="let formType of formTypes"
+                                [value]="formType">{{formType}}</option>
+                      </select>
+                      <div [hidden]="formType.valid || formType.untouched" class="alert alert-danger">
+                        Form type is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
              <div class="row">
                   <div class="col-lg-4">
@@ -47,7 +68,7 @@
              </div>
              <div class="row">
                <div class="col-lg-4">
-                 <label for="state">State(s): </label>
+                 <label for="state">Coverage State(s): </label>
                </div>
                <div class="col-lg-8">
                   <div class="form-group">
@@ -66,6 +87,21 @@
                       State is required
                     </div>
                   </div>
+
+
+                 <ng-multiselect-dropdown
+                   [placeholder]="'Select Coverages to Filter By'"
+                   [data]="coveragesItems"
+                   [(ngModel)]="selectedItems"
+                   [settings]="dropdownSettings"
+                   (onSelect)="updateCoverageFilter()"
+                   (onSelectAll)="onSelectAll()"
+                   (onDeSelect)="updateCoverageFilter()"
+                   (onDeSelectAll)="onDeSelectAll()">
+                 </ng-multiselect-dropdown>
+
+
+
                </div>
              </div>
             <div class="row">
@@ -89,27 +125,7 @@
                   </div>
               </div>
             </div>
-            <div class="row">
-              <div class="col-lg-4">
-                <label for="formType">Form type: </label> <br>
-              </div>
-              <div class="col-lg-8">
-                  <div class="form-group">
-                    <select class="form-control"
-                            id="formType"
-                            required
-                            [(ngModel)]="model.formType"
-                            name="formType"
-                            #formType="ngModel">
-                      <option *ngFor="let formType of formTypes"
-                              [value]="formType">{{formType}}</option>
-                    </select>
-                    <div [hidden]="formType.valid || formType.untouched" class="alert alert-danger">
-                      Form type is required
-                    </div>
-                  </div>
-              </div>
-            </div>
+
 
 
 
@@ -118,12 +134,12 @@
           </div>
 
           <div class="col-lg-4" style="background-color:white;">
+
             <div class="row">
               <div class="col-lg-4">
-                <label for = "name">Name: </label>
+                <label for = "name">Form Name: </label>
               </div>
               <div class="col-lg-8">
-
               <div class="form-group">
                 <input type="text"
                        class="form-control" id="name"
@@ -133,39 +149,6 @@
                 <div [hidden]="name.valid || name.untouched" class="alert alert-danger">Name is required
                 </div>
               </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-lg-4">
-                <label for = "link">Link: </label>
-              </div>
-              <div class="col-lg-8">
-                <div class="form-group">
-                  <input type="text"
-                         class="form-control" id="link"
-                         required [(ngModel)]="model.link"
-                         name="link"
-                         #link="ngModel">
-                  <div [hidden]="link.valid || link.untouched" class="alert alert-danger">Link is required
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-4">
-                <label for = "description">Description: </label>
-              </div>
-              <div class="col-lg-8">
-                <div class="form-group">
-                  <input type="text"
-                         class="form-control" id="description"
-                         required [(ngModel)]="model.description"
-                         name="description"
-                         #description="ngModel">
-                  <div [hidden]="description.valid || description.untouched" class="alert alert-danger">Description is required
-                  </div>
-                </div>
               </div>
             </div>
 
@@ -181,6 +164,40 @@
                          name="formId"
                          #formId="ngModel">
                   <div [hidden]="formId.valid || formId.untouched" class="alert alert-danger">Form ID is required
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-4">
+                <label for = "link">Form Link: </label>
+              </div>
+              <div class="col-lg-8">
+                <div class="form-group">
+                  <input type="text"
+                         class="form-control" id="link"
+                         required [(ngModel)]="model.link"
+                         name="link"
+                         #link="ngModel">
+                  <div [hidden]="link.valid || link.untouched" class="alert alert-danger">Link is required
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-4">
+                <label for = "description">Form Description: </label>
+              </div>
+              <div class="col-lg-8">
+                <div class="form-group">
+                  <input type="text"
+                         class="form-control" id="description"
+                         required [(ngModel)]="model.description"
+                         name="description"
+                         #description="ngModel">
+                  <div [hidden]="description.valid || description.untouched" class="alert alert-danger">Description is required
                   </div>
                 </div>
               </div>
@@ -204,6 +221,7 @@
         </div>
 
     <button class="button button--primary-yellow" (click)="submitted=true">Submit</button>
+    <div class="divider"></div>
     <button class="button button--secondary"  routerLink="/table" routerLinkActive="active">Cancel</button>
 
     </body>
@@ -214,38 +232,54 @@
 
           <div [hidden]="!submitted">
             <h3>You are about to Submit the Following: </h3>
-            <h3>You submitted the following:</h3>
 
-            <table style="width:100%">
+            <table class="confirm">
+              <tr>
+                <th>Form Type</th>
+                <td>{{model.formType}}</td>
+              </tr>
+              <tr>
+                <th>Coverage Type</th>
+                <td>{{model.coverageType}}</td>
+              </tr>
+              <tr>
+                <th>Coverage State(s)</th>
+                <td>{{model.state}}</td>
+              </tr>
+              <tr>
+                <th>Source System</th>
+                <td>{{model.sourceSystem}}</td>
+              </tr>
               <tr>
                 <th>Form Name</th>
-                <th>Form Link</th>
-                <th>Form Type</th>
-                <th>Form Description</th>
-                <th>Coverage Type</th>
-                <th>State(s)</th>
-                <th>Source System</th>
-                <th>Form ID</th>
+                <td>{{model.name}}</td>
               </tr>
               <tr>
-                <td>{{model.name}}</td>
-                <td>{{model.link}}</td>
-                <td>{{model.formType}}</td>
-                <td>{{model.description}}</td>
-                <td>{{model.coverageType}}</td>
-                <td>{{model.state}}</td>
-                <td>{{model.sourceSystem}}</td>
+                <th>Form ID</th>
                 <td>{{model.formId}}</td>
               </tr>
+              <tr>
+                <th>Form Link</th>
+                <td>{{model.link}}</td>
+              </tr>
+              <tr>
+                <th>Form Description</th>
+                <td>{{model.description}}</td>
+              </tr>
+
             </table>
 
-            <br>
+            <br> <br> <br>
 
+<div class="row">
 
-            <button class="button button--primary-yellow" routerLink="/table" routerLinkActive="active" (click)="add(model)">Upload to Database</button>
+   <button class="button button--primary-yellow" routerLink="/table" routerLinkActive="active" (click)="add(model)">Upload to Database</button>
+  <div class="divider"></div>
   <button class="button button--secondary" (click)="submitted=false; add(model); model.coverageType=''; model.state=''; model.sourceSystem=''; model.formType='';
     model.name=''; model.link=''; model.description=''; model.formId=''">Upload and Submit Another Form</button>
-
+  <div class="divider"></div>
   <button class="button button--tertiary" routerLink="/table" routerLinkActive="active">Cancel</button>
+
+</div>
 
 </div>

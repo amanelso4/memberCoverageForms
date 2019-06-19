@@ -29,7 +29,25 @@ label, select {
   align: label;
 }
 
+.divider{
+  width:15px;
+  height:auto;
+  display:inline-block;
+}
+table.confirm {
+  width: 50%;
+  border: 1px solid black;
+}
 
+table.confirm th, td {
+  padding: 15px;
+  border: 1px solid black;
+}
+
+table.confirm th {
+  text-align: center;
+  width: 30%;
+}
 
 
 
