@@ -34,6 +34,12 @@ export class TableHelperService {
       );
   }
 
+  //Retrieves a single form based on a given id
+  getForm(id: number): Observable<Form> {
+    return this.http.get<Form>(`${this.formUrl}/${id}`)
+      .pipe(catchError(this.handleError));
+  }
+
   save(form: Form) : Observable<Form> { /*TODO: collapse this function into Amanda's post function */
     if (form.id === null) {
       return this.http.post<Form>(this.formUrl, form, {
@@ -42,8 +48,40 @@ export class TableHelperService {
         })
       }).pipe(catchError(this.handleError));
     } else {
-
+      this.updateForm(form); /*TODO: move this functionality into component */
     }
+  }
+
+  /*
+    video dude's saveEmployee() in his form:
+    saveEmployee(): void {
+      if (this.employee.id == null) {
+        this.employeeService.addEmployee(this.employee.subscribe(
+          (data: Employee) => {
+            console.log(data);
+            this.createEmployeeForm.reset();
+            this.router.navigate(['list']_;
+          },
+          (error: any) => console.log(error)
+        );
+      } else {
+        this.employeeService.updateEmployee(this.employee).subscribe(
+          () => {
+            this.createEmployeeForm.reset();
+            this.router.navigate(['list']);
+          },
+          (error: any) => console.log(error)
+        );
+      }
+    }
+   */
+
+  updateForm(form: Form): Observable<{}> {
+    return this.http.put(`${this.formUrl}/${form.id}`, form, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }).pipe(catchError(this.handleError));
   }
 
 
