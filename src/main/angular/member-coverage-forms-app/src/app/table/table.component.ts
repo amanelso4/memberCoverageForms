@@ -14,7 +14,8 @@ export class TableComponent implements OnInit {
     private tableHelper: TableHelperService,
     private activatedRoute: ActivatedRoute
   ) {
-    this.forms = this.activatedRoute.snapshot.data['formList']; //Using table-resolver service to get form data
+    //Using table-resolver service to get initial form data - allows for data to be pre-fetched
+    this.forms = this.activatedRoute.snapshot.data['formList'];
   }
 
   //////////////////
@@ -61,15 +62,17 @@ export class TableComponent implements OnInit {
     this.formId = '';
   }
 
+  //Retrieve updated forms after a delete call
+  getForms() {
+    this.tableHelper.getForms().subscribe( forms => this.forms = forms);
+  }
+
   //Delete a form by providing the form's id as an argument
   deleteForm(formId: number) {
-    this.tableHelper.delete(formId).subscribe(
-      () => console.log('Employee w/ Id ' + formId + ' deleted')
-    );
-    this.forms.splice((formId - 1), 1); //Using table-resolver service to get form data
-    this.tempForms = this.forms;
-    this.forms = this.tempForms;
-    //this.getForms(); //Update form list so deletion affects table
+    this.tableHelper.delete(formId).subscribe(() => {
+      console.log('Employee w/ Id ' + formId + ' deleted');
+      this.getForms();
+    });
   }
 
 }
