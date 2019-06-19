@@ -13,7 +13,6 @@ import {PDFDocumentProxy, PDFPromise, PDFProgressData, PDFJS} from "pdfjs-dist";
   selector: 'app-form',
   templateUrl: './submission-form.component.html',
   styleUrls: ['./submission-form.component.css'],
-  providers: [ PdfViewerModule]
 })
 export class SubmissionFormComponent implements OnInit{
 
@@ -87,10 +86,8 @@ export class SubmissionFormComponent implements OnInit{
 
   add(model: Form): void {
     this.postService.addForm(model).subscribe();
-  }
-
 }
-
+}
 
 
 

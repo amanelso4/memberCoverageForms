@@ -235,5 +235,8 @@ export class InMemoryDataService implements InMemoryDbService {
     return {forms};
   }
 
+  genId(forms: Form[]): number {
+    return forms.length > 0 ? Math.max(...forms.map(form => form.id)) + 1 : 11;
+  }
 
 }

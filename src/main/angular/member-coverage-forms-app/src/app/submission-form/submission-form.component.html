@@ -214,15 +214,31 @@
 
           <div [hidden]="!submitted">
             <h3>You are about to Submit the Following: </h3>
-            <b>Coverage Type:   <br> {{model.coverageType}}  <br>
-              State(s): <br>   {{model.state}} <br>
-                Source System: <br>   {{model.sourceSystem}} <br>
-                Form Type: <br>   {{model.formType}} <br>
-                Name:    {{model.name}} <br>
-                Link:    {{model.link}} <br>
-                Description:   {{model.description}} <br>
-                Form ID: {{model.formId}}<br>
-              </b>
+            <h3>You submitted the following:</h3>
+
+            <table style="width:100%">
+              <tr>
+                <th>Form Name</th>
+                <th>Form Link</th>
+                <th>Form Type</th>
+                <th>Form Description</th>
+                <th>Coverage Type</th>
+                <th>State(s)</th>
+                <th>Source System</th>
+                <th>Form ID</th>
+              </tr>
+              <tr>
+                <td>{{model.name}}</td>
+                <td>{{model.link}}</td>
+                <td>{{model.formType}}</td>
+                <td>{{model.description}}</td>
+                <td>{{model.coverageType}}</td>
+                <td>{{model.state}}</td>
+                <td>{{model.sourceSystem}}</td>
+                <td>{{model.formId}}</td>
+              </tr>
+            </table>
+
             <br>
 
 

@@ -33,7 +33,6 @@ export class PostService {
 
   addForm (form: Form): Observable<Form> {
     return this.http.post<Form>(this.formsUrl, form, httpOptions).pipe(
-
       catchError(this.handleError)
     );
   }
