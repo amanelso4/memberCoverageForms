@@ -61,11 +61,6 @@ export class SubmissionFormComponent implements OnInit{
 
   ngOnInit(): void {
 
-
-
-
-
-
     this.route.paramMap.subscribe(parameterMap => {
       const id = +parameterMap.get('formId');
       this.getForm(id);
@@ -95,3 +90,8 @@ export class SubmissionFormComponent implements OnInit{
   }
 
 }
+
+
+
+
+

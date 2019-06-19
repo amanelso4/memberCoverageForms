@@ -191,20 +191,19 @@
           <div class="col-lg-4" style="background-color:white;">
             <div class="container">
 
-
-
-
+              <button class="button button--primary-yellow" (click)="view=true">View Form</button>
+              <div [hidden]="!view">
               <pdf-viewer
                 [src]="'https://cors-anywhere.herokuapp.com/'+ model.link "
-                height = 100px;
               ></pdf-viewer>
+              </div>
 
             </div>
           </div>
 
         </div>
 
-    <button class="button button--primary-blue" (click)="submitted=true">Submit</button>
+    <button class="button button--primary-yellow" (click)="submitted=true">Submit</button>
     <button class="button button--secondary"  routerLink="/table" routerLinkActive="active">Cancel</button>
 
     </body>
@@ -226,7 +225,8 @@
               </b>
             <br>
 
-            <button class="button button--primary-blue" routerLink="/table" routerLinkActive="active" (click)="add(model)">Upload to Database</button>
+
+            <button class="button button--primary-yellow" routerLink="/table" routerLinkActive="active" (click)="add(model)">Upload to Database</button>
   <button class="button button--secondary" (click)="submitted=false; add(model); model.coverageType=''; model.state=''; model.sourceSystem=''; model.formType='';
     model.name=''; model.link=''; model.description=''; model.formId=''">Upload and Submit Another Form</button>
 
