@@ -39,4 +39,14 @@ table.confirm {
   border: 1px solid black;
 }
 
+table.confirm th, td {
+  padding: 15px;
+}
+
+table.confirm th {
+  text-align: center;
+  width: 30%;
+}
+
+
 
