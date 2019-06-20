@@ -12,7 +12,7 @@
 </head>
 
 <body>
-  <form *ngIf="(form | async) || newForm; else loading" [formGroup]="newModel" (ngSubmit)="submit()">
+  <form *ngIf="(form | async) || newForm; else loading" [formGroup]="model" (ngSubmit)="submit()">
     <div class="container-fluid">
       <div [hidden]="submitted">
 
@@ -171,7 +171,7 @@
             <div class="container">
               <button class="button button--primary-yellow" (click)="view=true">View Form</button>
               <div [hidden]="!view">
-                <pdf-viewer [src]="'https://cors-anywhere.herokuapp.com/' + newModel.value.link"></pdf-viewer>
+                <pdf-viewer [src]="'https://cors-anywhere.herokuapp.com/' + model.value.link"></pdf-viewer>
               </div>
             </div>
           </div>
@@ -189,35 +189,35 @@
         <table class="confirm">
           <tr>
             <th>Form Type</th>
-            <td>{{newModel.value.formType}}</td>
+            <td>{{model.value.formType}}</td>
           </tr>
           <tr>
             <th>Coverage Type</th>
-            <td>{{newModel.value.coverageType}}</td>
+            <td>{{model.value.coverageType}}</td>
           </tr>
           <tr>
             <th>Coverage State(s)</th>
-            <td>{{newModel.value.state}}</td>
+            <td>{{model.value.state}}</td>
           </tr>
           <tr>
             <th>Source System</th>
-            <td>{{newModel.value.sourceSystem}}</td>
+            <td>{{model.value.sourceSystem}}</td>
           </tr>
           <tr>
             <th>Form Name</th>
-            <td>{{newModel.value.name}}</td>
+            <td>{{model.value.name}}</td>
           </tr>
           <tr>
             <th>Form ID</th>
-            <td>{{newModel.value.formId}}</td>
+            <td>{{model.value.formId}}</td>
           </tr>
           <tr>
             <th>Form Link</th>
-            <td>{{newModel.value.link}}</td>
+            <td>{{model.value.link}}</td>
           </tr>
           <tr>
             <th>Form Description</th>
-            <td>{{newModel.value.description}}</td>
+            <td>{{model.value.description}}</td>
           </tr>
         </table>
         <br> <br> <br>
@@ -226,7 +226,7 @@
             Upload to Database
           </button>
           <div class="divider"></div>
-          <button class="button button--secondary" type="button" (click)="submitted=false; submit(); newModel.reset()">Upload and Submit Another Form
+          <button class="button button--secondary" type="button" (click)="submitted=false; submit(); model.reset()">Upload and Submit Another Form
           </button>
           <div class="divider"></div>
           <button class="button button--tertiary" type="button" routerLink="/table" routerLinkActive="active">Cancel</button>

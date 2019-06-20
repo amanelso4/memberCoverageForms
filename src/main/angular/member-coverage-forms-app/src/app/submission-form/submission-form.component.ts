@@ -41,7 +41,7 @@ export class SubmissionFormComponent implements OnInit {
 
   forms: Form[];
   form: Observable<Form>;
-  newModel: FormGroup;
+  model: FormGroup;
   newForm = false;
 
   //coverageTypes = ['Short-term Disability', 'Long-term Disability', 'Dental', 'Vision', 'Life', 'AD&D', 'Critical Illness', 'Accident', 'Vision', 'Gap'];
@@ -67,7 +67,7 @@ export class SubmissionFormComponent implements OnInit {
   //////////////////
 
   ngOnInit() {
-    this.newModel = this.formBuilder.group({
+    this.model = this.formBuilder.group({
       id: [null, Validators.required],
       coverageType: [null, Validators.required],
       state: [null, Validators.required],
@@ -90,14 +90,14 @@ export class SubmissionFormComponent implements OnInit {
 
   private getForm(id: number) {
     this.form = this.formService.getSingleForm(id).pipe(
-      tap(form => this.newModel.patchValue(form))
+      tap(form => this.model.patchValue(form))
     )
   }
 
   submit() {
     // If adding a new form, call a POST
-    if (this.newModel.value.id === null) {
-      const newForm: Form = Object.assign({}, this.newModel.value);
+    if (this.model.value.id === null) {
+      const newForm: Form = Object.assign({}, this.model.value);
       this.formService.addForm(newForm).subscribe(
         (data: Form) => {
           console.log('Added form: ');
@@ -107,10 +107,10 @@ export class SubmissionFormComponent implements OnInit {
       );
       //If updating an existing form, call a PUT
     } else {
-      const updatedForm: Form = Object.assign({}, this.newModel.value);
+      const updatedForm: Form = Object.assign({}, this.model.value);
       this.formService.updateForm(updatedForm).subscribe(
         () => {
-          console.log('Updated form w/ id' + this.newModel.value.id);
+          console.log('Updated form w/ id' + this.model.value.id);
           console.log(updatedForm);
           this.router.navigate(['table']);
         }
