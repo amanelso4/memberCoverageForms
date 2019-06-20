@@ -2,12 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Form } from '../form';
 import { FormService } from "../form.service";
 import { ActivatedRoute } from "@angular/router";
-
 import {NgModel} from "@angular/forms";
-
 import {PDFSource, PdfViewerModule} from "ng2-pdf-viewer";
 
-import {PDFDocumentProxy, PDFPromise, PDFProgressData, PDFJS} from "pdfjs-dist";
 
 @Component({
   selector: 'app-form',
@@ -15,14 +12,7 @@ import {PDFDocumentProxy, PDFPromise, PDFProgressData, PDFJS} from "pdfjs-dist";
   styleUrls: ['./submission-form.component.css'],
 })
 export class SubmissionFormComponent implements OnInit{
-//multiselect dropdown module
-  dropdownSettings = {};
-  selectedItems = [];
- Form = new Form;
-  pdfSrc: string = "";
-  page: any = 1;
-  pageTotal: any;
-  private _pdf: PDFDocumentProxy;
+
 
   constructor(
     private formService: FormService,
@@ -56,51 +46,61 @@ export class SubmissionFormComponent implements OnInit{
 
   link: 'https://www.slfserviceresources.com/forms/claims/k0384any.pdf';
 
+  dropdownSettings = {};
+  coverageState = [];
+
   //////////////////
   ///// METHODS ////
   //////////////////
 
   ngOnInit(): void {
+//set drop down settings
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'id',
+      textField: 'coverage',
+      itemsShowLimit: 5,
+      allowSearchFilter: false,
+      enableCheckAll: true,
+      selectAllText: 'Select All States',
+      unSelectAllText: 'Deselect All States'
+    };
 
-    /*this.route.paramMap.subscribe(parameterMap => {
-      const id = +parameterMap.get('formId');
-      this.getForm(id);
-    });*/
   }
-
-  /*private getForm(id: number) {
-    if(id === 0) {
-      this.model = {
-        id: null,
-        coverageType: null,
-        state: null,
-        sourceSystem: null,
-        formType: null,
-        name: null,
-        link: null,
-        description: null,
-        formId: null
-      };
-    } else {
-      //this.model = Object.assign({}, this.postService.getForm(id)); //getForm needs to return a Form() object bc that's what model is
-    }
-  }*/
 
   add(model: Form): void {
     this.formService.addForm(model).subscribe();
-    /*
-    console.warn(model.id);
-    if (model.id === null) {
-      this.formService.addForm(model).subscribe(
-        () => {console.warn('post attempted');}
-    );
-    } else {
-      this.formService.updateForm(model).subscribe(
-        () => {console.warn('put attempted');}
-      );
+    }
 
-    }*/
-}
+
+  updateState(): void {
+    let tempArray = [];
+    this.model.state.forEach((item) => tempArray.push(item.valueOf()));
+    this.coverageState.length = 0;
+    this.coverageState = tempArray;
+  }
+
+  onSelectAll(): void {
+    let tempArray = [];
+    this.states.forEach((item) => tempArray.push(item.valueOf()));
+    this.coverageState.length = 0;
+    this.coverageState = tempArray;
+  }
+
+  onDeSelectAll(): void {
+    let tempArray = [];
+    this.coverageState.length = 0;
+    this.coverageState = tempArray;
+  }
+message: string='';
+  validate(input: string) {
+    if(input.length ==0) {
+      this.message = "Field is required."
+    }
+
+  }
+
+
 }
 
 

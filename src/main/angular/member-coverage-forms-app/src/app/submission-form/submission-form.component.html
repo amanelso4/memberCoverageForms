@@ -38,9 +38,7 @@
                     <option *ngFor="let formType of formTypes"
                             [value]="formType">{{formType}}</option>
                   </select>
-                  <div [hidden]="formType.valid || formType.untouched" class="alert alert-danger">
-                    Form type is required
-                  </div>
+
                 </div>
               </div>
             </div>
@@ -72,34 +70,20 @@
               </div>
               <div class="col-lg-8">
                 <div class="form-group">
-                  <select multiple
-                          style="height: auto"
-                          name="state"
-                          class="form-control"
-                          id="state"
-                          required
-                          [(ngModel)]="model.state"
-                          #state="ngModel">
-                    <option *ngFor="let state of states"
-                            [value]="state">{{state}}</option>
-                  </select>
-                  <div [hidden]="state.valid || state.untouched" class="alert alert-danger">
-                    State is required
-                  </div>
+                  <ng-multiselect-dropdown
+                    [placeholder]="'States'"
+                    [data]="states"
+                    [(ngModel)]="model.state"
+                    [settings]="dropdownSettings"
+                    (onSelect)="updateState()"
+                    (onSelectAll)="onSelectAll()"
+                    (onDeSelect)="updateState()"
+                    (onDeSelectAll)="onDeSelectAll()"
+                  name="state"
+                  id="state">
+                  </ng-multiselect-dropdown>
+
                 </div>
-
-
-                <!--<ng-multiselect-dropdown
-                  [placeholder]="'Select Coverages to Filter By'"
-                  [data]="coveragesItems"
-                  [(ngModel)]="selectedItems"
-                  [settings]="dropdownSettings"
-                  (onSelect)="updateCoverageFilter()"
-                  (onSelectAll)="onSelectAll()"
-                  (onDeSelect)="updateCoverageFilter()"
-                  (onDeSelectAll)="onDeSelectAll()">
-                </ng-multiselect-dropdown>-->
-
 
               </div>
             </div>
@@ -113,7 +97,7 @@
                           id="sourceSystem"
                           required
                           [(ngModel)]="model.sourceSystem"
-                          name="state"
+                          name="sourceSystem"
                           #sourceSystem="ngModel">
                     <option *ngFor="let sourceSystem of sourceSystems"
                             [value]="sourceSystem">{{sourceSystem}}</option>
@@ -169,6 +153,8 @@
         <div class="row">
           <div class="col-lg-4">
             <label for="link">Form Link: </label>
+            <button class="button button--primary-yellow" (click)="view=true">View Form</button>
+            <br>
           </div>
           <div class="col-lg-8">
             <div class="form-group">
@@ -182,10 +168,10 @@
             </div>
           </div>
         </div>
-
+<br>
         <div class="row">
           <div class="col-lg-4">
-            <label for="description">Form Description: </label>
+             <label for="description">Form Description: </label>
           </div>
           <div class="col-lg-8">
             <div class="form-group">
@@ -194,9 +180,7 @@
                      required [(ngModel)]="model.description"
                      name="description"
                      #description="ngModel">
-              <div [hidden]="description.valid || description.untouched" class="alert alert-danger">Description is
-                required
-              </div>
+
             </div>
           </div>
         </div>
@@ -205,10 +189,11 @@
 
       <div class="col-lg-4" style="background-color:white;">
         <div class="container">
-
-          <button class="button button--primary-yellow" (click)="view=true">View Form</button>
           <div [hidden]="!view">
+            <style class="'pdf'",
+                   height="100px"></style>
             <pdf-viewer
+              [class]="'pdf'"
               [src]="'https://cors-anywhere.herokuapp.com/'+ model.link "
             ></pdf-viewer>
           </div>
@@ -229,7 +214,7 @@
 <! Confirmation Page begins>
 
 <div [hidden]="!submitted">
-  <h3>You are about to Submit the Following: </h3>
+  <h4>You are about to Submit the Following: </h4> <br>
 
   <table class="confirm">
     <tr>
@@ -275,7 +260,7 @@
       Upload to Database
     </button>
     <div class="divider"></div>
-    <button class="button button--secondary" (click)="submitted=false; add(model); model.coverageType=''; model.state=''; model.sourceSystem=''; model.formType='';
+    <button class="button button--secondary" (click)="submitted=false; add(model); model.coverageType=''; model.state=[]; model.sourceSystem=''; model.formType='';
     model.name=''; model.link=''; model.description=''; model.formId=''">Upload and Submit Another Form
     </button>
     <div class="divider"></div>

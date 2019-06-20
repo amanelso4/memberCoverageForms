@@ -46,8 +46,30 @@ table.confirm th, td {
 
 table.confirm th {
   text-align: center;
-  width: 30%;
+  width: 20%;
 }
+
+/*
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 1px solid black;
+}
+
+select::-ms-expand {
+  display: none;
+  border: 1px solid black;
+}
+
+*/
+
+body {
+  margin: 50px;
+}
+
+
+
 
 
 
