@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Form } from '../form';
 import { FormService } from "../form.service";
 import { ActivatedRoute } from "@angular/router";
+import { Observable } from 'rxjs';
 
 import {NgModel} from "@angular/forms";
 
 import {PDFSource, PdfViewerModule} from "ng2-pdf-viewer";
 
 import {PDFDocumentProxy, PDFPromise, PDFProgressData, PDFJS} from "pdfjs-dist";
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-form',
@@ -35,6 +37,7 @@ export class SubmissionFormComponent implements OnInit{
   //////////////////
 
   forms: Form[];
+  form: Observable<Form>;
 
   //coverageTypes = ['Short-term Disability', 'Long-term Disability', 'Dental', 'Vision', 'Life', 'AD&D', 'Critical Illness', 'Accident', 'Vision', 'Gap'];
   coverageTypes = ['STD', 'LTD', 'DENTAL'];
@@ -49,7 +52,7 @@ export class SubmissionFormComponent implements OnInit{
 
   formTypes = ['Claim', 'Continuance'];
 
-  model = new Form();
+  model: Form;
 
   submitted = false;
   view = false;
@@ -60,12 +63,31 @@ export class SubmissionFormComponent implements OnInit{
   ///// METHODS ////
   //////////////////
 
-  ngOnInit(): void {
-
-    /*this.route.paramMap.subscribe(parameterMap => {
-      const id = +parameterMap.get('formId');
+  ngOnInit() {
+    this.route.paramMap.subscribe(parameterMap => {
+      const id = +parameterMap.get('id');
       this.getForm(id);
-    });*/
+    });
+  }
+
+  private getForm(id: number) {
+    if (id === 0) {
+      this.model = {
+        id: null,
+        coverageType: null,
+        state: null,
+        sourceSystem: null,
+        formType: null,
+        name: null,
+        link: null,
+        description: null,
+        formId: null
+      };
+    } else {
+      this.form = this.formService.getSingleForm(id).pipe(
+        tap(form => this.model.patchValue(form))
+      )
+    }
   }
 
   /*private getForm(id: number) {
