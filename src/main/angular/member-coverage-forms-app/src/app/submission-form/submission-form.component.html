@@ -73,6 +73,7 @@
               <div class="col-lg-8">
                 <div class="form-group">
                   <ng-multiselect-dropdown
+                    [required]="true"
                     [placeholder]="'Select Coverage State(s)'"
                     [data]="states"
                     [(ngModel)]="model.state"
@@ -80,8 +81,13 @@
                     (onSelect)="updateState()"
                     (onSelectAll)="onSelectAll()"
                     (onDeSelect)="updateState()"
-                    (onDeSelectAll)="onDeSelectAll()">
+                    (onDeSelectAll)="onDeSelectAll()"
+                    name="state"
+                     id="state">
                   </ng-multiselect-dropdown>
+                  <div [hidden]="state.valid || state.untouched" class="alert alert-danger">
+                    State is required
+                  </div>
                 </div>
 
               </div>
@@ -96,7 +102,7 @@
                           id="sourceSystem"
                           required
                           [(ngModel)]="model.sourceSystem"
-                          name="state"
+                          name="sourceSystem"
                           #sourceSystem="ngModel">
                     <option *ngFor="let sourceSystem of sourceSystems"
                             [value]="sourceSystem">{{sourceSystem}}</option>
@@ -212,7 +218,7 @@
 <! Confirmation Page begins>
 
 <div [hidden]="!submitted">
-  <h3>You are about to Submit the Following: </h3>
+  <h4>You are about to Submit the Following: </h4> <br>
 
   <table class="confirm">
     <tr>
@@ -258,7 +264,7 @@
       Upload to Database
     </button>
     <div class="divider"></div>
-    <button class="button button--secondary" (click)="submitted=false; add(model); model.coverageType=''; model.state=''; model.sourceSystem=''; model.formType='';
+    <button class="button button--secondary" (click)="submitted=false; add(model); model.coverageType=''; model.state=[]; model.sourceSystem=''; model.formType='';
     model.name=''; model.link=''; model.description=''; model.formId=''">Upload and Submit Another Form
     </button>
     <div class="divider"></div>

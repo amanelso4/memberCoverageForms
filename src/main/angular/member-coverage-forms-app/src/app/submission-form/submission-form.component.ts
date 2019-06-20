@@ -26,8 +26,8 @@ export class SubmissionFormComponent implements OnInit{
 
   forms: Form[];
 
-  coverageTypes = ['Short-term Disability', 'Long-term Disability', 'Dental', 'Vision', 'Life', 'AD&D', 'Critical Illness', 'Accident', 'Vision', 'Gap'];
-  //coverageTypes = ['STD', 'LTD', 'DENTAL'];
+  //coverageTypes = ['Short-term Disability', 'Long-term Disability', 'Dental', 'Vision', 'Life', 'AD&D', 'Critical Illness', 'Accident', 'Vision', 'Gap'];
+  coverageTypes = ['STD', 'LTD', 'DENTAL'];
 
   states = ['AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA',
     'HI', 'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI',
@@ -47,7 +47,6 @@ export class SubmissionFormComponent implements OnInit{
   link: 'https://www.slfserviceresources.com/forms/claims/k0384any.pdf';
 
   dropdownSettings = {};
-  selectedStates = this.model.state;
   coverageState = [];
 
   //////////////////
@@ -76,7 +75,7 @@ export class SubmissionFormComponent implements OnInit{
 
   updateState(): void {
     let tempArray = [];
-    this.selectedStates.forEach((item) => tempArray.push(item.valueOf()));
+    this.model.state.forEach((item) => tempArray.push(item.valueOf()));
     this.coverageState.length = 0;
     this.coverageState = tempArray;
   }
