@@ -180,9 +180,7 @@
                      required [(ngModel)]="model.description"
                      name="description"
                      #description="ngModel">
-              <div [hidden]="description.valid || description.untouched" class="alert alert-danger">Description is
-                required
-              </div>
+
             </div>
           </div>
         </div>
@@ -192,7 +190,10 @@
       <div class="col-lg-4" style="background-color:white;">
         <div class="container">
           <div [hidden]="!view">
+            <style class="'pdf'",
+                   height="100px"></style>
             <pdf-viewer
+              [class]="'pdf'"
               [src]="'https://cors-anywhere.herokuapp.com/'+ model.link "
             ></pdf-viewer>
           </div>
