@@ -4,11 +4,7 @@ import { FormService } from "../form.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
-import { NgModel } from "@angular/forms";
-
 import { PDFSource, PdfViewerModule } from "ng2-pdf-viewer";
-
 import { PDFDocumentProxy, PDFPromise, PDFProgressData, PDFJS } from "pdfjs-dist";
 import { tap } from 'rxjs/operators';
 
@@ -39,13 +35,11 @@ export class SubmissionFormComponent implements OnInit {
   // DECLARATIONS //
   //////////////////
 
-  forms: Form[];
   form: Observable<Form>;
   model: FormGroup;
   newForm = false;
 
-  //coverageTypes = ['Short-term Disability', 'Long-term Disability', 'Dental', 'Vision', 'Life', 'AD&D', 'Critical Illness', 'Accident', 'Vision', 'Gap'];
-  coverageTypes = ['STD', 'LTD', 'DENTAL'];
+  coverageTypes = ['STD', 'LTD', 'DENTAL', 'GAP', 'DENTALPREPAID', 'CRITICALILLNESS'];
 
   states = ['AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA',
     'HI', 'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI',
@@ -60,13 +54,12 @@ export class SubmissionFormComponent implements OnInit {
   submitted = false;
   view = false;
 
-  link: 'https://www.slfserviceresources.com/forms/claims/k0384any.pdf';
-
   //////////////////
   ///// METHODS ////
   //////////////////
 
   ngOnInit() {
+    // Initialize form to blank values
     this.model = this.formBuilder.group({
       id: [null, Validators.required],
       coverageType: [null, Validators.required],
@@ -78,22 +71,27 @@ export class SubmissionFormComponent implements OnInit {
       description: [null, Validators.required],
       formId: [null, Validators.required]
     });
+    // Get form id from active route and determine if this is a new form or an existing one
     this.route.paramMap.subscribe(parameterMap => {
       const id = +parameterMap.get('id');
       if (id !== 0) {
+        // Existing form
         this.getForm(id);
       } else {
+        // New form
         this.newForm = true;
       }
     });
   }
 
+  // Retrieve the form the user wants to update and populate the page with its details
   private getForm(id: number) {
     this.form = this.formService.getSingleForm(id).pipe(
       tap(form => this.model.patchValue(form))
     )
   }
 
+  // POST or PUT submitted form depending on form id
   submit() {
     // If adding a new form, call a POST
     if (this.model.value.id === null) {
