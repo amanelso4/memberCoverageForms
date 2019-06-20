@@ -43,6 +43,7 @@ export class SubmissionFormComponent implements OnInit{
 
   submitted = false;
   view = false;
+  egg = false;
 
   link: 'https://www.slfserviceresources.com/forms/claims/k0384any.pdf';
 
@@ -99,6 +100,12 @@ message: string='';
     }
 
   }
+  easterEgg(name: string) {
+    if (name=='amanda.x.nelson') {
+      this.egg=true;
+    }
+  }
+
 
 
 }

@@ -68,6 +68,14 @@ body {
   margin: 50px;
 }
 
+.row-eq-height {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:         flex;
+  height: 500px;
+}
+
 
 
 
