@@ -152,6 +152,8 @@
         <div class="row">
           <div class="col-lg-4">
             <label for="link">Form Link: </label>
+            <button class="button button--primary-yellow" (click)="view=true">View Form</button>
+            <br>
           </div>
           <div class="col-lg-8">
             <div class="form-group">
@@ -165,10 +167,10 @@
             </div>
           </div>
         </div>
-
+<br>
         <div class="row">
           <div class="col-lg-4">
-            <label for="description">Form Description: </label>
+             <label for="description">Form Description: </label>
           </div>
           <div class="col-lg-8">
             <div class="form-group">
@@ -188,8 +190,6 @@
 
       <div class="col-lg-4" style="background-color:white;">
         <div class="container">
-
-          <button class="button button--primary-yellow" (click)="view=true">View Form</button>
           <div [hidden]="!view">
             <pdf-viewer
               [src]="'https://cors-anywhere.herokuapp.com/'+ model.link "
