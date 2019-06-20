@@ -93,6 +93,14 @@ export class SubmissionFormComponent implements OnInit{
     this.coverageState = tempArray;
   }
 
+  validate(input: string) {
+    message:string = '';
+    if(input.length ==0) {
+      message = "Field is required."
+    }
+
+  }
+
 
 }
 

@@ -49,5 +49,25 @@ table.confirm th {
   width: 20%;
 }
 
+/*
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 1px solid black;
+}
+
+select::-ms-expand {
+  display: none;
+  border: 1px solid black;
+}
+
+*/
+
+
+
+
+
+
 
 

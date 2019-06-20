@@ -38,9 +38,7 @@
                     <option *ngFor="let formType of formTypes"
                             [value]="formType">{{formType}}</option>
                   </select>
-                  <div [hidden]="formType.valid || formType.untouched" class="alert alert-danger">
-                    Form type is required
-                  </div>
+
                 </div>
               </div>
             </div>
@@ -73,8 +71,7 @@
               <div class="col-lg-8">
                 <div class="form-group">
                   <ng-multiselect-dropdown
-                    [required]="true"
-                    [placeholder]="'Select Coverage State(s)'"
+                    [placeholder]="'States'"
                     [data]="states"
                     [(ngModel)]="model.state"
                     [settings]="dropdownSettings"
@@ -82,12 +79,10 @@
                     (onSelectAll)="onSelectAll()"
                     (onDeSelect)="updateState()"
                     (onDeSelectAll)="onDeSelectAll()"
-                    name="state"
-                     id="state">
+                  name="state"
+                  id="state">
                   </ng-multiselect-dropdown>
-                  <div [hidden]="state.valid || state.untouched" class="alert alert-danger">
-                    State is required
-                  </div>
+
                 </div>
 
               </div>
