@@ -2,12 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Form } from '../form';
 import { FormService } from "../form.service";
 import { ActivatedRoute } from "@angular/router";
-
 import {NgModel} from "@angular/forms";
-
 import {PDFSource, PdfViewerModule} from "ng2-pdf-viewer";
 
-import {PDFDocumentProxy, PDFPromise, PDFProgressData, PDFJS} from "pdfjs-dist";
 
 @Component({
   selector: 'app-form',
@@ -15,14 +12,10 @@ import {PDFDocumentProxy, PDFPromise, PDFProgressData, PDFJS} from "pdfjs-dist";
   styleUrls: ['./submission-form.component.css'],
 })
 export class SubmissionFormComponent implements OnInit{
-//multiselect dropdown module
+
   dropdownSettings = {};
-  selectedItems = [];
- Form = new Form;
-  pdfSrc: string = "";
-  page: any = 1;
-  pageTotal: any;
-  private _pdf: PDFDocumentProxy;
+  selectedStates = [];
+
 
   constructor(
     private formService: FormService,
@@ -61,46 +54,45 @@ export class SubmissionFormComponent implements OnInit{
   //////////////////
 
   ngOnInit(): void {
+//set drop down settings
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'id',
+      textField: 'coverage',
+      itemsShowLimit: 1,
+      allowSearchFilter: false,
+      enableCheckAll: true,
+      selectAllText: 'Select All States',
+      unSelectAllText: 'Deselect All States'
+    };
 
-    /*this.route.paramMap.subscribe(parameterMap => {
-      const id = +parameterMap.get('formId');
-      this.getForm(id);
-    });*/
   }
-
-  /*private getForm(id: number) {
-    if(id === 0) {
-      this.model = {
-        id: null,
-        coverageType: null,
-        state: null,
-        sourceSystem: null,
-        formType: null,
-        name: null,
-        link: null,
-        description: null,
-        formId: null
-      };
-    } else {
-      //this.model = Object.assign({}, this.postService.getForm(id)); //getForm needs to return a Form() object bc that's what model is
-    }
-  }*/
 
   add(model: Form): void {
     this.formService.addForm(model).subscribe();
-    /*
-    console.warn(model.id);
-    if (model.id === null) {
-      this.formService.addForm(model).subscribe(
-        () => {console.warn('post attempted');}
-    );
-    } else {
-      this.formService.updateForm(model).subscribe(
-        () => {console.warn('put attempted');}
-      );
+    }
 
-    }*/
-}
+
+  updateState(): void {
+    let tempArray = [];
+    this.selectedStates.forEach((item) => tempArray.push(item.state));
+    this.states.length = 0;
+    this.states = tempArray;
+  }
+
+  onSelectAll(): void {
+    let tempArray = [];
+    this.states.forEach((item) => tempArray.push(item.state));
+    this.states.length = 0;
+    this.states = tempArray;
+  }
+
+  onDeSelectAll(): void {
+    let tempArray = [];
+    this.states.length = 0;
+    this.states = tempArray;
+  }
+
 }
 
 

@@ -89,16 +89,16 @@
                 </div>
 
 
-                <!--<ng-multiselect-dropdown
-                  [placeholder]="'Select Coverages to Filter By'"
-                  [data]="coveragesItems"
-                  [(ngModel)]="selectedItems"
+                <ng-multiselect-dropdown
+                  [placeholder]="'Select Coverage State(s)'"
+                  [data]="states"
+                  [(ngModel)]="selectedStates"
                   [settings]="dropdownSettings"
-                  (onSelect)="updateCoverageFilter()"
+                  (onSelect)="updateState()"
                   (onSelectAll)="onSelectAll()"
-                  (onDeSelect)="updateCoverageFilter()"
+                  (onDeSelect)="updateState()"
                   (onDeSelectAll)="onDeSelectAll()">
-                </ng-multiselect-dropdown>-->
+                </ng-multiselect-dropdown>
 
 
               </div>
