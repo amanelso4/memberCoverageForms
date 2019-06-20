@@ -15,6 +15,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { NgxPaginationModule } from "ngx-pagination";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { TableResolverService } from "./table-resolver.service";
+import { NgMultiSelectDropDownModule } from '../../node_modules/ng-multiselect-dropdown';
 
 const appRoutes: Routes = [
   {path: 'submission-form/:id', component: SubmissionFormComponent},
@@ -43,6 +44,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false }),
     PdfViewerModule,
+    NgMultiSelectDropDownModule,
   ],
   providers: [TableResolverService],
   bootstrap: [AppComponent]

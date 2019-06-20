@@ -8,20 +8,13 @@ import { PDFSource, PdfViewerModule } from "ng2-pdf-viewer";
 import { PDFDocumentProxy, PDFPromise, PDFProgressData, PDFJS } from "pdfjs-dist";
 import { tap } from 'rxjs/operators';
 
+
 @Component({
   selector: 'app-form',
   templateUrl: './submission-form.component.html',
   styleUrls: ['./submission-form.component.css'],
 })
 export class SubmissionFormComponent implements OnInit {
-  //multiselect dropdown module
-  dropdownSettings = {};
-  selectedItems = [];
-  Form = new Form; //we should probably give this a different name for clarity's sake
-  pdfSrc: string = "";
-  page: any = 1;
-  pageTotal: any;
-  private _pdf: PDFDocumentProxy;
 
   constructor(
     private formService: FormService,
@@ -54,11 +47,25 @@ export class SubmissionFormComponent implements OnInit {
   submitted = false;
   view = false;
 
+  dropdownSettings = {};
+  coverageState = [];
+
   //////////////////
   ///// METHODS ////
   //////////////////
 
   ngOnInit() {
+    //set drop down settings
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'id',
+      textField: 'coverage',
+      itemsShowLimit: 5,
+      allowSearchFilter: false,
+      enableCheckAll: true,
+      selectAllText: 'Select All States',
+      unSelectAllText: 'Deselect All States'
+    };
     // Initialize form to blank values
     this.model = this.formBuilder.group({
       id: [null, Validators.required],
@@ -115,6 +122,36 @@ export class SubmissionFormComponent implements OnInit {
       )
     }
   }
+
+
+  updateState(): void {
+    let tempArray = [];
+    this.model.value.state.forEach((item) => tempArray.push(item.valueOf()));
+    this.coverageState.length = 0;
+    this.coverageState = tempArray;
+  }
+
+  onSelectAll(): void {
+    let tempArray = [];
+    this.states.forEach((item) => tempArray.push(item.valueOf()));
+    this.coverageState.length = 0;
+    this.coverageState = tempArray;
+  }
+
+  onDeSelectAll(): void {
+    let tempArray = [];
+    this.coverageState.length = 0;
+    this.coverageState = tempArray;
+  }
+  message: string = '';
+  validate(input: string) {
+    if (input.length == 0) {
+      this.message = "Field is required."
+    }
+
+  }
+
+
 }
 
 
