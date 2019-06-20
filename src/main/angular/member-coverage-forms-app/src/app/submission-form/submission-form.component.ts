@@ -15,6 +15,7 @@ export class SubmissionFormComponent implements OnInit{
 
   dropdownSettings = {};
   selectedStates = [];
+  coverageState = [];
 
 
   constructor(
@@ -75,22 +76,22 @@ export class SubmissionFormComponent implements OnInit{
 
   updateState(): void {
     let tempArray = [];
-    this.selectedStates.forEach((item) => tempArray.push(item.state));
-    this.states.length = 0;
-    this.states = tempArray;
+    this.selectedStates.forEach((item) => tempArray.push(item.valueOf()));
+    this.coverageState.length = 0;
+    this.coverageState = tempArray;
   }
 
   onSelectAll(): void {
     let tempArray = [];
-    this.states.forEach((item) => tempArray.push(item.state));
-    this.states.length = 0;
-    this.states = tempArray;
+    this.states.forEach((item) => tempArray.push(item.valueOf()));
+    this.coverageState.length = 0;
+    this.coverageState = tempArray;
   }
 
   onDeSelectAll(): void {
     let tempArray = [];
-    this.states.length = 0;
-    this.states = tempArray;
+    this.coverageState.length = 0;
+    this.coverageState = tempArray;
   }
 
 }
