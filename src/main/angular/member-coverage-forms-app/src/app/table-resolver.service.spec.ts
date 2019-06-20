@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { TableHelperService } from './table-helper.service';
+import { TableResolverService } from './table-resolver.service';
 
-describe('TableHelperService', () => {
+describe('TableResolverService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: TableHelperService = TestBed.get(TableHelperService);
+    const service: TableResolverService = TestBed.get(TableResolverService);
     expect(service).toBeTruthy();
   });
 });

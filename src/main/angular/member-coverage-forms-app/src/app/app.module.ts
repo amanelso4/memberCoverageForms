@@ -11,16 +11,14 @@ import { TopBarComponent } from './top-bar/top-bar.component';
 import { InMemoryDataService } from "./in-memory-data.service";
 import { HttpClientInMemoryWebApiModule } from "angular-in-memory-web-api";
 import { FilterPipe } from "./pipes/filter.pipe";
-
-
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { NgxPaginationModule } from "ngx-pagination";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
-
+import { TableResolverService } from "./table-resolver.service";
 
 const appRoutes: Routes = [
-  {path: 'submission-form/:formId', component: SubmissionFormComponent},
-  {path: 'table', component: TableComponent},
+  {path: 'submission-form/:id', component: SubmissionFormComponent},
+  {path: 'table', component: TableComponent, resolve: { formList: TableResolverService }},
   {path: '', redirectTo: 'table', pathMatch: 'full'},
 ];
 
@@ -35,7 +33,7 @@ const appRoutes: Routes = [
   imports: [
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
+      { enableTracing: false }
     ),
     BrowserModule,
     FormsModule,
@@ -46,7 +44,7 @@ const appRoutes: Routes = [
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false }),
     PdfViewerModule,
   ],
-  providers: [],
+  providers: [TableResolverService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Form } from '../form';
-import { PostService } from '../post.service';
+import { FormService } from "../form.service";
 import { ActivatedRoute } from "@angular/router";
 
 import {NgModel} from "@angular/forms";
@@ -25,7 +25,7 @@ export class SubmissionFormComponent implements OnInit{
   private _pdf: PDFDocumentProxy;
 
   constructor(
-    private postService: PostService,
+    private formService: FormService,
     private route: ActivatedRoute
   ){}
 
@@ -62,13 +62,13 @@ export class SubmissionFormComponent implements OnInit{
 
   ngOnInit(): void {
 
-    this.route.paramMap.subscribe(parameterMap => {
+    /*this.route.paramMap.subscribe(parameterMap => {
       const id = +parameterMap.get('formId');
       this.getForm(id);
-    });
+    });*/
   }
 
-  private getForm(id: number) {
+  /*private getForm(id: number) {
     if(id === 0) {
       this.model = {
         id: null,
@@ -84,10 +84,22 @@ export class SubmissionFormComponent implements OnInit{
     } else {
       //this.model = Object.assign({}, this.postService.getForm(id)); //getForm needs to return a Form() object bc that's what model is
     }
-  }
+  }*/
 
   add(model: Form): void {
-    this.postService.addForm(model).subscribe();
+    this.formService.addForm(model).subscribe();
+    /*
+    console.warn(model.id);
+    if (model.id === null) {
+      this.formService.addForm(model).subscribe(
+        () => {console.warn('post attempted');}
+    );
+    } else {
+      this.formService.updateForm(model).subscribe(
+        () => {console.warn('put attempted');}
+      );
+
+    }*/
 }
 }
 
