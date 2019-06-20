@@ -72,34 +72,17 @@
               </div>
               <div class="col-lg-8">
                 <div class="form-group">
-                  <select multiple
-                          style="height: auto"
-                          name="state"
-                          class="form-control"
-                          id="state"
-                          required
-                          [(ngModel)]="model.state"
-                          #state="ngModel">
-                    <option *ngFor="let state of states"
-                            [value]="state">{{state}}</option>
-                  </select>
-                  <div [hidden]="state.valid || state.untouched" class="alert alert-danger">
-                    State is required
-                  </div>
+                  <ng-multiselect-dropdown
+                    [placeholder]="'Select Coverage State(s)'"
+                    [data]="states"
+                    [(ngModel)]="model.state"
+                    [settings]="dropdownSettings"
+                    (onSelect)="updateState()"
+                    (onSelectAll)="onSelectAll()"
+                    (onDeSelect)="updateState()"
+                    (onDeSelectAll)="onDeSelectAll()">
+                  </ng-multiselect-dropdown>
                 </div>
-
-
-                <ng-multiselect-dropdown
-                  [placeholder]="'Select Coverage State(s)'"
-                  [data]="states"
-                  [(ngModel)]="selectedStates"
-                  [settings]="dropdownSettings"
-                  (onSelect)="updateState()"
-                  (onSelectAll)="onSelectAll()"
-                  (onDeSelect)="updateState()"
-                  (onDeSelectAll)="onDeSelectAll()">
-                </ng-multiselect-dropdown>
-
 
               </div>
             </div>

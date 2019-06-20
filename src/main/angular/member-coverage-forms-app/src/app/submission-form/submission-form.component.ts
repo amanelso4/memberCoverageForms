@@ -13,10 +13,6 @@ import {PDFSource, PdfViewerModule} from "ng2-pdf-viewer";
 })
 export class SubmissionFormComponent implements OnInit{
 
-  dropdownSettings = {};
-  selectedStates = [];
-  coverageState = [];
-
 
   constructor(
     private formService: FormService,
@@ -50,6 +46,10 @@ export class SubmissionFormComponent implements OnInit{
 
   link: 'https://www.slfserviceresources.com/forms/claims/k0384any.pdf';
 
+  dropdownSettings = {};
+  selectedStates = this.model.state;
+  coverageState = [];
+
   //////////////////
   ///// METHODS ////
   //////////////////
@@ -60,7 +60,7 @@ export class SubmissionFormComponent implements OnInit{
       singleSelection: false,
       idField: 'id',
       textField: 'coverage',
-      itemsShowLimit: 1,
+      itemsShowLimit: 5,
       allowSearchFilter: false,
       enableCheckAll: true,
       selectAllText: 'Select All States',
@@ -93,6 +93,7 @@ export class SubmissionFormComponent implements OnInit{
     this.coverageState.length = 0;
     this.coverageState = tempArray;
   }
+
 
 }
 
