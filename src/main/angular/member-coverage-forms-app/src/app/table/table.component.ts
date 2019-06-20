@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormInt } from "../../assets/formInt";
-import { TableHelperService } from "../table-helper.service";
+import { Form } from "../form";
+import { FormService } from "../form.service";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-table',
@@ -10,18 +11,19 @@ import { TableHelperService } from "../table-helper.service";
 export class TableComponent implements OnInit {
 
   constructor(
-    private tableHelper: TableHelperService
-  ) { }
+    private formService: FormService,
+    private activatedRoute: ActivatedRoute
+  ) {
+    //Using table-resolver service to get initial form data - allows for data to be pre-fetched
+    this.forms = this.activatedRoute.snapshot.data['formList'];
+  }
 
   //////////////////
   // DECLARATIONS //
   //////////////////
 
 
-  forms: FormInt[];
-
-  formsPerPage: number = 10;
-  p: number = 1;
+  forms: Form[];
 
   formType: string = '';
   coverageType: string = '';
@@ -42,20 +44,11 @@ export class TableComponent implements OnInit {
 
   formTypeVar = ['Claim', 'Continuance'];
 
-  numPerPage = [10, 20, 50];
-
   //////////////////
   ///// METHODS ////
   //////////////////
 
   ngOnInit() {
-    this.getForms();
-  }
-
-  //Retrieves forms using tableHelper's http request
-  getForms() {
-    this.tableHelper.getForms().subscribe(
-      (data: FormInt[]) => this.forms = data as FormInt[]); // Parameter is 'data', which is in the form of a form interface
   }
 
   //Clear the currently selected filters
@@ -66,14 +59,20 @@ export class TableComponent implements OnInit {
     this.name = '';
     this.sourceSystem = '';
     this.formId = '';
+    console.log(this.forms);
+  }
+
+  //Retrieve updated forms after a delete call
+  getForms() {
+    this.formService.getForms().subscribe( forms => this.forms = forms);
   }
 
   //Delete a form by providing the form's id as an argument
-  deleteForm(formId: number) {
-    this.tableHelper.delete(formId).subscribe(
-      () => console.log('Employee w/ Id ' + formId + ' deleted')
-    );
-    this.getForms(); //Update form list so deletion affects table
+  deleteForm(id: number) {
+    this.formService.deleteForm(id).subscribe(() => {
+      console.log('Employee w/ Id ' + id + ' deleted');
+      this.getForms();
+    });
   }
 
 }

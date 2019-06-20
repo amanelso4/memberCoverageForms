@@ -3,13 +3,8 @@
 }
 
 .my-pagination /deep/ .ngx-pagination {
-  float: right;
 }
 
 .footer {
   text-align: center;
-}
-
-.footerInput {
-  float: left;
 }
