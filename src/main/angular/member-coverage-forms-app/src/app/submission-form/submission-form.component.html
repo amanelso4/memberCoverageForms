@@ -61,18 +61,16 @@
               </div>
               <div class="col-lg-8">
                 <div class="form-group">
-                  <!--
-                  <ng-multiselect-dropdown
-                    [placeholder]="'States'"
-                    [data]="states" formControlName="state"
-                    [settings]="dropdownSettings"
-                    (onSelect)="updateState()"
-                    (onSelectAll)="onSelectAll()"
-                    (onDeSelect)="updateState()"
-                    (onDeSelectAll)="onDeSelectAll()"
-                     id="state">
-                  </ng-multiselect-dropdown>
-                  -->
+
+                  <!--<ng-multiselect-dropdown [placeholder]="'States'" [data]="states" formControlName="state"
+                                           [settings]="dropdownSettings" (onSelect)="updateState()"
+                                           (onSelectAll)="onSelectAll()"
+                                           (onDeSelect)="updateState()" (onDeSelectAll)="onDeSelectAll()" name="state"
+                                           id="state">
+                  </ng-multiselect-dropdown>-->
+                  <select multiple formControlName="state" class="form-control" id="state" required style="height: auto" name="state">
+                    <option *ngFor="let state of states" [value]="state">{{ state }}</option>
+                  </select>
 
                 </div>
               </div>
@@ -156,7 +154,7 @@
 
         <div class="col-lg-4" style="background-color:white;">
           <div class="container">
-            <button class="button button--primary-yellow" (click)="view=true">View Form</button>
+            <button class="button button--primary-yellow" type="button" (click)="view=true">View Form</button>
             <div [hidden]="!view">
               <style class="'pdf'" , height="100px"></style>
               <pdf-viewer [class]="'pdf'" [src]="'https://cors-anywhere.herokuapp.com/' + model.value.link">

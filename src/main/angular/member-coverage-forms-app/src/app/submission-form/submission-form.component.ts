@@ -57,7 +57,7 @@ export class SubmissionFormComponent implements OnInit {
 
   ngOnInit() {
     //set drop down settings
-    this.dropdownSettings = {
+    /*this.dropdownSettings = {
       singleSelection: false,
       idField: 'id',
       textField: 'coverage',
@@ -66,7 +66,7 @@ export class SubmissionFormComponent implements OnInit {
       enableCheckAll: true,
       selectAllText: 'Select All States',
       unSelectAllText: 'Deselect All States'
-    };
+    };*/
     // Initialize form to blank values
     this.model = this.formBuilder.group({
       id: [null, Validators.required],
@@ -125,7 +125,7 @@ export class SubmissionFormComponent implements OnInit {
   }
 
 
-  updateState(): void {
+  /*updateState(): void {
     let tempArray = [];
     this.model.value.state.forEach((item) => tempArray.push(item.valueOf()));
     this.coverageState.length = 0;
