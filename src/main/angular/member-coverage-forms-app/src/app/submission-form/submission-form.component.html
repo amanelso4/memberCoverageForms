@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <title>Bootstrap Example</title>
   <meta charset="utf-8">
@@ -10,35 +11,28 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 
-<div class="container-fluid">
-  <div [hidden]="submitted">
+<body>
+<form *ngIf="(form | async) || newForm; else loading" [formGroup]="model" (ngSubmit)="submit()">
+  <div class="container-fluid">
+    <div [hidden]="submitted">
 
-    <body>
-    <h3>Form Submission</h3>
-    <div class="row">
-
-      <br> <br>
-      <div class="col-lg-4">
-
-        <div class="container">
-          <div [hidden]="submitted">
-
+      <h3>Form Submission</h3>
+      <div class="row">
+        <br> <br>
+        <div class="col-lg-4">
+          <div class="container">
             <div class="row">
               <div class="col-lg-4">
                 <label for="formType">Form type: </label> <br>
               </div>
               <div class="col-lg-8">
                 <div class="form-group">
-                  <select class="form-control"
-                          id="formType"
-                          required
-                          [(ngModel)]="model.formType"
-                          name="formType"
-                          #formType="ngModel">
-                    <option *ngFor="let formType of formTypes"
-                            [value]="formType">{{formType}}</option>
+                  <select class="form-control" required formControlName="formType">
+                    <option *ngFor="let fType of formTypes" [value]="fType">{{fType}}</option>
                   </select>
-
+                  <!--<div [hidden]="formType.valid || formType.untouched" class="alert alert-danger">
+                      Form type is required
+                    </div>-->
                 </div>
               </div>
             </div>
@@ -50,17 +44,14 @@
 
               <div class="col-lg-8">
                 <div class="form-group">
-                  <select class="form-control"
-                          id="coverageType"
-                          required
-                          [(ngModel)]="model.coverageType"
-                          name="coverageType"
-                          #coverageType="ngModel">
-                    <option *ngFor="let coverageType of coverageTypes" [value]="coverageType">{{coverageType}}</option>
+                  <select class="form-control" id="coverageType" required formControlName="coverageType"
+                          name="coverageType">
+                    <option *ngFor="let coverageType of coverageTypes" [value]="coverageType">{{coverageType}}
+                    </option>
                   </select>
-                  <div [hidden]="coverageType.valid || coverageType.untouched" class="alert alert-danger">
-                    Coverage Type is required
-                  </div>
+                  <!--<div [hidden]="coverageType.valid || coverageType.untouched" class="alert alert-danger">
+                      Coverage Type is required
+                    </div>-->
                 </div>
               </div>
             </div>
@@ -70,22 +61,16 @@
               </div>
               <div class="col-lg-8">
                 <div class="form-group">
-                  <ng-multiselect-dropdown
-                    [placeholder]="'States'"
-                    [data]="states"
-                    [(ngModel)]="model.state"
-                    [settings]="dropdownSettings"
-                    (onSelect)="updateState()"
-                    (onSelectAll)="onSelectAll()"
-                    (onDeSelect)="updateState()"
-                    (onDeSelectAll)="onDeSelectAll()"
-                  name="state"
-                  id="state">
+                  <ng-multiselect-dropdown [placeholder]="'States'" [data]="states" formControlName="state"
+                                           [settings]="dropdownSettings" (onSelect)="updateState()"
+                                           (onSelectAll)="onSelectAll()"
+                                           (onDeSelect)="updateState()" (onDeSelectAll)="onDeSelectAll()" name="state"
+                                           id="state">
                   </ng-multiselect-dropdown>
 
                 </div>
-
               </div>
+
             </div>
             <div class="row">
               <div class="col-lg-4">
@@ -93,179 +78,151 @@
               </div>
               <div class="col-lg-8">
                 <div class="form-group">
-                  <select class="form-control"
-                          id="sourceSystem"
-                          required
-                          [(ngModel)]="model.sourceSystem"
-                          name="sourceSystem"
-                          #sourceSystem="ngModel">
-                    <option *ngFor="let sourceSystem of sourceSystems"
-                            [value]="sourceSystem">{{sourceSystem}}</option>
+                  <select class="form-control" id="sourceSystem" required formControlName="sourceSystem" name="state">
+                    <option *ngFor="let sourceSystem of sourceSystems" [value]="sourceSystem">{{sourceSystem}}
+                    </option>
                   </select>
-                  <div [hidden]="sourceSystem.valid || sourceSystem.untouched" class="alert alert-danger">
-                    Source System is required
-                  </div>
+                  <!--<div [hidden]="sourceSystem.valid || sourceSystem.untouched" class="alert alert-danger">
+                      Source System is required
+                    </div>-->
                 </div>
               </div>
             </div>
-
-
           </div>
         </div>
-      </div>
+        <div class="col-lg-4" style="background-color:white;">
 
-      <div class="col-lg-4" style="background-color:white;">
-
-        <div class="row">
-          <div class="col-lg-4">
-            <label for="name">Form Name: </label>
-          </div>
-          <div class="col-lg-8">
-            <div class="form-group">
-              <input type="text"
-                     class="form-control" id="name"
-                     required [(ngModel)]="model.name"
-                     name="name"
-                     #name="ngModel">
-              <div [hidden]="name.valid || name.untouched" class="alert alert-danger">Name is required
+          <div class="row">
+            <div class="col-lg-4">
+              <label for="name">Form Name: </label>
+            </div>
+            <div class="col-lg-8">
+              <div class="form-group">
+                <input type="text" class="form-control" id="name" required formControlName="name" name="name">
+                <!--<div [hidden]="name.valid || name.untouched" class="alert alert-danger">Name is required
+              </div>-->
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="row">
-          <div class="col-lg-4">
-            <label for="formId">Form ID: </label>
-          </div>
-          <div class="col-lg-8">
-            <div class="form-group">
-              <input type="text"
-                     class="form-control" id="formId"
-                     required [(ngModel)]="model.formId"
-                     name="formId"
-                     #formId="ngModel">
-              <div [hidden]="formId.valid || formId.untouched" class="alert alert-danger">Form ID is required
+          <div class="row">
+            <div class="col-lg-4">
+              <label for="formId">Form ID: </label>
+            </div>
+            <div class="col-lg-8">
+              <div class="form-group">
+                <input type="text" class="form-control" id="formId" required formControlName="formId" name="formId">
+                <!--<div [hidden]="formId.valid || formId.untouched" class="alert alert-danger">Form ID is required
+              </div>-->
               </div>
             </div>
           </div>
+
+          <div class="row">
+            <div class="col-lg-4">
+              <label for="link">Form Link: </label>
+            </div>
+            <div class="col-lg-8">
+              <div class="form-group">
+                <input type="text" class="form-control" id="link" required formControlName="link" name="link">
+                <!--<div [hidden]="link.valid || link.untouched" class="alert alert-danger">Link is required
+              </div>-->
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-4">
+              <label for="description">Form Description: </label>
+            </div>
+            <div class="col-lg-8">
+              <div class="form-group">
+                <input type="text" class="form-control" id="description" required formControlName="description"
+                       name="description">
+                <!--<div [hidden]="description.valid || description.untouched" class="alert alert-danger">Description is
+                required
+              </div>-->
+              </div>
+            </div>
+          </div>
+
         </div>
 
-        <div class="row">
-          <div class="col-lg-4">
-            <label for="link">Form Link: </label>
+        <div class="col-lg-4" style="background-color:white;">
+          <div class="container">
             <button class="button button--primary-yellow" (click)="view=true">View Form</button>
-            <br>
-          </div>
-          <div class="col-lg-8">
-            <div class="form-group">
-              <input type="text"
-                     class="form-control" id="link"
-                     required [(ngModel)]="model.link"
-                     name="link"
-                     #link="ngModel">
-              <div [hidden]="link.valid || link.untouched" class="alert alert-danger">Link is required
-              </div>
+            <div [hidden]="!view">
+              <style class="'pdf'" , height="100px"></style>
+              <pdf-viewer [class]="'pdf'" [src]="'https://cors-anywhere.herokuapp.com/' + model.value.link">
+              </pdf-viewer>
             </div>
           </div>
         </div>
-<br>
-        <div class="row">
-          <div class="col-lg-4">
-             <label for="description">Form Description: </label>
-          </div>
-          <div class="col-lg-8">
-            <div class="form-group">
-              <input type="text"
-                     class="form-control" id="description"
-                     required [(ngModel)]="model.description"
-                     name="description"
-                     #description="ngModel">
-
-            </div>
-          </div>
-        </div>
-
       </div>
-
-      <div class="col-lg-4" style="background-color:white;">
-        <div class="container">
-          <div [hidden]="!view">
-            <style class="'pdf'",
-                   height="100px"></style>
-            <pdf-viewer
-              [class]="'pdf'"
-              [src]="'https://cors-anywhere.herokuapp.com/'+ model.link "
-            ></pdf-viewer>
-          </div>
-
-        </div>
-      </div>
-
+      <button class="button button--primary-yellow" type="button" (click)="submitted=true">Submit</button>
+      <div class="divider"></div>
+      <button class="button button--secondary" type="button" routerLink="/table"
+              routerLinkActive="active">Cancel
+      </button>
     </div>
-
-    <button class="button button--primary-yellow" (click)="submitted=true">Submit</button>
-    <div class="divider"></div>
-    <button class="button button--secondary" routerLink="/table" routerLinkActive="active">Cancel</button>
-
-    </body>
-  </div>
-</div>
-
-<! Confirmation Page begins>
-
-<div [hidden]="!submitted">
-  <h4>You are about to Submit the Following: </h4> <br>
-
-  <table class="confirm">
-    <tr>
-      <th>Form Type</th>
-      <td>{{model.formType}}</td>
-    </tr>
-    <tr>
-      <th>Coverage Type</th>
-      <td>{{model.coverageType}}</td>
-    </tr>
-    <tr>
-      <th>Coverage State(s)</th>
-      <td>{{model.state}}</td>
-    </tr>
-    <tr>
-      <th>Source System</th>
-      <td>{{model.sourceSystem}}</td>
-    </tr>
-    <tr>
-      <th>Form Name</th>
-      <td>{{model.name}}</td>
-    </tr>
-    <tr>
-      <th>Form ID</th>
-      <td>{{model.formId}}</td>
-    </tr>
-    <tr>
-      <th>Form Link</th>
-      <td>{{model.link}}</td>
-    </tr>
-    <tr>
-      <th>Form Description</th>
-      <td>{{model.description}}</td>
-    </tr>
-
-  </table>
-
-  <br> <br> <br>
-
-  <div class="row">
-
-    <button class="button button--primary-yellow" routerLink="/table" routerLinkActive="active" (click)="add(model)">
-      Upload to Database
-    </button>
-    <div class="divider"></div>
-    <button class="button button--secondary" (click)="submitted=false; add(model); model.coverageType=''; model.state=[]; model.sourceSystem=''; model.formType='';
-    model.name=''; model.link=''; model.description=''; model.formId=''">Upload and Submit Another Form
-    </button>
-    <div class="divider"></div>
-    <button class="button button--tertiary" routerLink="/table" routerLinkActive="active">Cancel</button>
-
   </div>
 
-</div>
+  <!--Confirmation Page begins-->
+  <div [hidden]="!submitted">
+    <h3>You are about to submit the Following: </h3>
+
+    <table class="confirm">
+      <tr>
+        <th>Form Type</th>
+        <td>{{model.value.formType}}</td>
+      </tr>
+      <tr>
+        <th>Coverage Type</th>
+        <td>{{model.value.coverageType}}</td>
+      </tr>
+      <tr>
+        <th>Coverage State(s)</th>
+        <td>{{model.value.state}}</td>
+      </tr>
+      <tr>
+        <th>Source System</th>
+        <td>{{model.value.sourceSystem}}</td>
+      </tr>
+      <tr>
+        <th>Form Name</th>
+        <td>{{model.value.name}}</td>
+      </tr>
+      <tr>
+        <th>Form ID</th>
+        <td>{{model.value.formId}}</td>
+      </tr>
+      <tr>
+        <th>Form Link</th>
+        <td>{{model.value.link}}</td>
+      </tr>
+      <tr>
+        <th>Form Description</th>
+        <td>{{model.value.description}}</td>
+      </tr>
+    </table>
+    <br> <br> <br>
+    <div class="row">
+      <button type="submit" class="button button--primary-yellow">
+        Upload to Database
+      </button>
+      <div class="divider"></div>
+      <button class="button button--secondary" type="button"
+              (click)="submitted=false; submit(); model.reset()">Upload
+        and Submit Another Form
+      </button>
+      <div class="divider"></div>
+      <button class="button button--tertiary" type="button" routerLink="/table"
+              routerLinkActive="active">Cancel
+      </button>
+    </div>
+  </div>
+</form>
+</body>
+<ng-template #loading>
+  Loading form...
+</ng-template>

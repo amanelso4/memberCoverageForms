@@ -1,5 +1,6 @@
 //Form class used by submission-form component when adding new forms to db
 export class Form {
+    id: number;
     coverageType: string;
     state: string [];
     sourceSystem: string;
@@ -7,6 +8,5 @@ export class Form {
     name: string;
     link: string;
     description: string;
-    id: number;
     formId: string;
 }
