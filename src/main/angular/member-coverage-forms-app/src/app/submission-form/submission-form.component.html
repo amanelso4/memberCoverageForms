@@ -125,6 +125,7 @@
           <div class="row">
             <div class="col-lg-4">
               <label for="link">Form Link: </label>
+              <button class="button button--primary-yellow" type="button" (click)="view=true">View Form</button>
             </div>
             <div class="col-lg-8">
               <div class="form-group">
@@ -134,6 +135,7 @@
               </div>
             </div>
           </div>
+          <br>
 
           <div class="row">
             <div class="col-lg-4">
@@ -154,11 +156,24 @@
 
         <div class="col-lg-4" style="background-color:white;">
           <div class="container">
-            <button class="button button--primary-yellow" type="button" (click)="view=true">View Form</button>
             <div [hidden]="!view">
               <style class="'pdf'" , height="100px"></style>
-              <pdf-viewer [class]="'pdf'" [src]="'https://cors-anywhere.herokuapp.com/' + model.value.link">
+              <pdf-viewer
+                [class]="'pdf'"
+                [src]="'https://cors-anywhere.herokuapp.com/' + model.value.link"
+                [show-all]="false"
+                [original-size]="false"
+                [fit-to-page]="true"
+                [(page)]="page">
               </pdf-viewer>
+              <!--
+              <div class="pdfOptions">
+                <button (click)="nextPage()"><img src="assets/upArrow.png"></button>
+                <button (click)="prevPage()"><img src="assets/downArrow.png"></button>
+                <span>{{ page }} of {{ pageTotal }}</span>
+              </div>
+              -->
+
             </div>
           </div>
         </div>

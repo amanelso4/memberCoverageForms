@@ -16,6 +16,9 @@ import { tap } from 'rxjs/operators';
 })
 export class SubmissionFormComponent implements OnInit {
 
+  page: any = 1;
+  pageTotal: any;
+
   constructor(
     private formService: FormService,
     private formBuilder: FormBuilder,
@@ -30,6 +33,7 @@ export class SubmissionFormComponent implements OnInit {
 
   form: Observable<Form>;
   model: FormGroup;
+  private _pdf: PDFDocumentProxy;
   newForm = false;
 
   coverageTypes = ['STD', 'LTD', 'DENTAL', 'GAP', 'DENTALPREPAID', 'CRITICALILLNESS'];
@@ -124,7 +128,22 @@ export class SubmissionFormComponent implements OnInit {
     }
   }
 
+  callBackFn(pdf: PDFDocumentProxy) {
+    // do anything with "pdf"
+    this.pageTotal = pdf.numPages;
+  }
 
+  nextPage() {
+    if(this.page < this.pageTotal) {
+      this.page = this.page + 1;
+    }
+  }
+
+  prevPage() {
+    if(this.page > 1) {
+      this.page = this.page - 1;
+    }
+  }
   /*updateState(): void {
     let tempArray = [];
     this.model.value.state.forEach((item) => tempArray.push(item.valueOf()));
@@ -155,9 +174,7 @@ export class SubmissionFormComponent implements OnInit {
     if (name=='amanda.x.nelson') {
       this.egg=true;
     }
-  }
-
-
+  } */
 
 }
 

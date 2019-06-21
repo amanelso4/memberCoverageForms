@@ -73,7 +73,33 @@ select::-ms-expand {
   height: 500px;
 }
 
+.pdf-viewer {
+  height: 100px;
+}
 
+pdf-viewer {
+  display: block;
+  width: 100%;
+}
+.pdfOptions {
+  font-size: 1.4rem;
+}
+.pdfOptions {
+  color: white;
+  padding-right: 10px;
+  margin: 10px;
+  text-align: center;
+}
+.pdfOptions button {
+  background:black;
+  border:none;
+  float: left;
+  padding-bottom: 2px;
+  margin: 5px;
+}
+.pdfOptions span {
+  float: right;
+}
 
 
 
