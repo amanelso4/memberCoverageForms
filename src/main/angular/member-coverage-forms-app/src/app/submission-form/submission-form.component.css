@@ -64,9 +64,6 @@ select::-ms-expand {
 
 */
 
-body {
-  margin: 50px;
-}
 
 .row-eq-height {
   display: -webkit-box;

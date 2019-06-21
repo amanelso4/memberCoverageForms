@@ -61,11 +61,15 @@
               </div>
               <div class="col-lg-8">
                 <div class="form-group">
-                  <ng-multiselect-dropdown [placeholder]="'States'" [data]="states" formControlName="state"
-                                           [settings]="dropdownSettings" (onSelect)="updateState()"
-                                           (onSelectAll)="onSelectAll()"
-                                           (onDeSelect)="updateState()" (onDeSelectAll)="onDeSelectAll()" name="state"
-                                           id="state">
+                  <ng-multiselect-dropdown
+                    [placeholder]="'States'"
+                    [data]="states" formControlName="state"
+                    [settings]="dropdownSettings"
+                    (onSelect)="updateState()"
+                    (onSelectAll)="onSelectAll()"
+                    (onDeSelect)="updateState()"
+                    (onDeSelectAll)="onDeSelectAll()"
+                     id="state">
                   </ng-multiselect-dropdown>
 
                 </div>
@@ -168,6 +172,7 @@
   </div>
 
   <!--Confirmation Page begins-->
+
   <div [hidden]="!submitted">
     <h3>You are about to submit the Following: </h3>
 
@@ -221,8 +226,13 @@
       </button>
     </div>
   </div>
+
 </form>
 </body>
+
+
+
+
 <ng-template #loading>
   Loading form...
 </ng-template>
