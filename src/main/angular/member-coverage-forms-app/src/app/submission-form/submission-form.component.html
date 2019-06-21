@@ -209,15 +209,20 @@
     </table>
     <br> <br> <br>
     <div class="row">
-      <button type="submit" class="button button--primary-yellow">
+      <button type="submit" *ngIf="newForm" class="button button--primary-yellow">
         Upload to Database
       </button>
-      <div class="divider"></div>
-      <button class="button button--secondary" type="button"
-              (click)="submitted=false; submit(); model.reset()">Upload
-        and Submit Another Form
+      <button type="submit" *ngIf="!newForm" class="button button--primary-yellow">
+        Upload Changes
       </button>
       <div class="divider"></div>
+      <div *ngIf="newForm">
+        <button class="button button--secondary" type="button"
+                (click)="submitted=false; submit(); model.reset()">Upload
+          and Submit Another Form
+        </button>
+        <div class="divider"></div>
+      </div>
       <button class="button button--tertiary" type="button" routerLink="/table"
               routerLinkActive="active">Cancel
       </button>
