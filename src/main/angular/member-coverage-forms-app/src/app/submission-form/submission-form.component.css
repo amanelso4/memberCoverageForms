@@ -101,11 +101,15 @@ pdf-viewer {
   float: right;
 }
 
-.editedCell {
+.editedCell--original {
   color: white;
-  /*background-color: #0b713a;*/
   background-color: #b81f41;
   text-decoration: line-through;
+}
+
+.editedCell--new {
+  color: white;
+  background-color: #0b713a;
 }
 
 
