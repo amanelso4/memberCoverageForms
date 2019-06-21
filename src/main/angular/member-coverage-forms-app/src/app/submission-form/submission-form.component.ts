@@ -144,6 +144,12 @@ export class SubmissionFormComponent implements OnInit {
       this.page = this.page - 1;
     }
   }
+
+  easterEgg(name: string) {
+    if (name=='amanda.x.nelson') {
+      this.egg=true;
+    }
+  }
   /*updateState(): void {
     let tempArray = [];
     this.model.value.state.forEach((item) => tempArray.push(item.valueOf()));
@@ -170,11 +176,7 @@ export class SubmissionFormComponent implements OnInit {
     }
 
   }
-  easterEgg(name: string) {
-    if (name=='amanda.x.nelson') {
-      this.egg=true;
-    }
-  } */
+   */
 
 }
 
