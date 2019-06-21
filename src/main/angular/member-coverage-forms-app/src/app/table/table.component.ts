@@ -14,7 +14,7 @@ export class TableComponent implements OnInit {
     private activatedRoute: ActivatedRoute
   ) {
     //Using table-resolver service to get initial form data - allows for data to be pre-fetched
-    this.forms = this.activatedRoute.snapshot.data['formList'];
+    // this.forms = this.activatedRoute.snapshot.data['formList'];
   }
 
   //////////////////
@@ -23,6 +23,7 @@ export class TableComponent implements OnInit {
 
 
   forms: Form[];
+  initialGetForms: boolean;
 
   formType: string = '';
   coverageType: string = '';
@@ -31,7 +32,9 @@ export class TableComponent implements OnInit {
   formId: string = '';
   name: string = '';
 
-  coverageTypesVar = ['STD', 'LTD', 'DENTAL', 'GAP', 'DENTALPREPAID', 'CRITICALILLNESS'];
+  coverageTypesVar: string[] = [];
+  sourceVar: string[] = [];
+  formTypeVar: string[] = [];
 
   statesVar = ['AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA',
     'HI', 'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI',
@@ -39,18 +42,17 @@ export class TableComponent implements OnInit {
     'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VA', 'VT',
     'WA', 'WI', 'WV', 'WY'];
 
-  sourceVar = ['S', 'Q'];
-
-  formTypeVar = ['Claim', 'Continuance'];
 
   //////////////////
   ///// METHODS ////
   //////////////////
 
   ngOnInit() {
+    this.initialGetForms = true;
+    this.getForms();
   }
 
-  //Clear the currently selected filters
+  // Clear the currently selected filters
   clearFilters() {
     this.formType = '';
     this.coverageType = '';
@@ -58,12 +60,33 @@ export class TableComponent implements OnInit {
     this.name = '';
     this.sourceSystem = '';
     this.formId = '';
-    console.log(this.forms);
   }
 
-  //Retrieve updated forms after a delete call
+  // Retrieve updated forms after a delete call
   getForms() {
-    this.formService.getForms().subscribe( forms => this.forms = forms);
+    this.formService.getForms().subscribe( forms => {
+      this.forms = forms;
+      if (this.initialGetForms) { // only retrieve dropdown options on initial getForms()
+        this.updateDropdownOptions();
+        this.initialGetForms = false;
+      }
+    });
+  }
+
+  // Retrieve dropdown menu options from local forms
+  updateDropdownOptions() {
+    console.log('updating dropdown options');
+    for (let form of this.forms) {
+      if (!this.coverageTypesVar.includes(form.coverageType)) {
+        this.coverageTypesVar.push(form.coverageType);
+      }
+      if (!this.sourceVar.includes(form.sourceSystem)) {
+        this.sourceVar.push(form.sourceSystem);
+      }
+      if (!this.formTypeVar.includes(form.formType)) {
+        this.formTypeVar.push(form.formType);
+      }
+    }
   }
 
   //Delete a form by providing the form's id as an argument
