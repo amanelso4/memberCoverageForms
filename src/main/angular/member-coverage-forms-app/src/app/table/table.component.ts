@@ -89,7 +89,7 @@ export class TableComponent implements OnInit {
     }
   }
 
-  //Delete a form by providing the form's id as an argument
+  // Delete a form by providing the form's id as an argument
   deleteForm(id: number) {
     this.formService.deleteForm(id).subscribe(() => {
       console.log('Employee w/ Id ' + id + ' deleted');

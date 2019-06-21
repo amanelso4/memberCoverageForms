@@ -34,6 +34,7 @@ export class SubmissionFormComponent implements OnInit {
   model: FormGroup;
   private _pdf: PDFDocumentProxy;
   newForm = false;
+  originalForm: Form;
 
   coverageTypes = ['STD', 'LTD', 'DENTAL', 'GAP', 'DENTALPREPAID', 'CRITICALILLNESS'];
 
@@ -100,6 +101,7 @@ export class SubmissionFormComponent implements OnInit {
     this.form = this.formService.getSingleForm(id).pipe(
       tap(form => this.model.patchValue(form))
     )
+    this.formService.getSingleForm(id).subscribe(form => this.originalForm = form)
   }
 
   // POST or PUT submitted form depending on form id

@@ -194,39 +194,52 @@
   <!--Confirmation Page begins-->
 
   <div [hidden]="!submitted">
-    <h3>You are about to submit the Following: </h3>
+    <h3>You are about to submit the following: </h3>
 
     <table class="confirm">
+      <tr *ngIf="!newForm">
+        <th></th>
+        <th>Original</th>
+        <th>Edited</th>
+      </tr>
       <tr>
         <th>Form Type</th>
-        <td>{{model.value.formType}}</td>
+        <td *ngIf="!newForm">{{originalForm.formType}}</td>
+        <td [ngClass]="{'editedCell': ((!newForm) && (originalForm.formType !== model.value.formType))}">{{model.value.formType}}</td>
       </tr>
       <tr>
         <th>Coverage Type</th>
+        <td *ngIf="!newForm">{{originalForm.coverageType}}</td>
         <td>{{model.value.coverageType}}</td>
       </tr>
       <tr>
         <th>Coverage State(s)</th>
+        <td *ngIf="!newForm">{{originalForm.state}}</td>
         <td>{{model.value.state}}</td>
       </tr>
       <tr>
         <th>Source System</th>
+        <td *ngIf="!newForm">{{originalForm.state}}</td>
         <td>{{model.value.sourceSystem}}</td>
       </tr>
       <tr>
         <th>Form Name</th>
+        <td *ngIf="!newForm">{{originalForm.name}}</td>
         <td>{{model.value.name}}</td>
       </tr>
       <tr>
         <th>Form ID</th>
+        <td *ngIf="!newForm">{{originalForm.formId}}</td>
         <td>{{model.value.formId}}</td>
       </tr>
       <tr>
         <th>Form Link</th>
+        <td *ngIf="!newForm">{{originalForm.link}}</td>
         <td>{{model.value.link}}</td>
       </tr>
       <tr>
         <th>Form Description</th>
+        <td *ngIf="!newForm">{{originalForm.description}}</td>
         <td>{{model.value.description}}</td>
       </tr>
     </table>
