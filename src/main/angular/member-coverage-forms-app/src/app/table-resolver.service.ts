@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
-import { Form } from "./form";
 import { Observable } from "rxjs";
-import { FormService } from "./form.service";
+import { Form, FormService } from "./form.service";
 
 @Injectable({
   providedIn: 'root'

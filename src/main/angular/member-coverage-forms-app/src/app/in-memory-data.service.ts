@@ -1,5 +1,5 @@
 import { InMemoryDbService }  from 'angular-in-memory-web-api';
-import { Form } from "./form";
+import { Form } from "./form.service";
 import { Injectable } from '@angular/core';
 
 

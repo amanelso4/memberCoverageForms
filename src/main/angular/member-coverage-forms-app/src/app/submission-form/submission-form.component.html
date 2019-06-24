@@ -194,53 +194,71 @@
   <!--Confirmation Page begins-->
 
   <div [hidden]="!submitted">
-    <h3>You are about to submit the Following: </h3>
+    <h3>You are about to submit the following: </h3>
 
     <table class="confirm">
+      <tr *ngIf="!newForm">
+        <th></th>
+        <th>Original</th>
+        <th>Edited</th>
+      </tr>
       <tr>
         <th>Form Type</th>
-        <td>{{model.value.formType}}</td>
+        <td *ngIf="!newForm" [ngClass]="{'editedCell--original': ((!newForm) && (originalForm.formType !== model.value.formType))}">{{originalForm.formType}}</td>
+        <td [ngClass]="{'editedCell--new': ((!newForm) && (originalForm.formType !== model.value.formType))}">{{model.value.formType}}</td>
       </tr>
       <tr>
         <th>Coverage Type</th>
-        <td>{{model.value.coverageType}}</td>
+        <td *ngIf="!newForm" [ngClass]="{'editedCell--original': ((!newForm) && (originalForm.coverageType !== model.value.coverageType))}">{{originalForm.coverageType}}</td>
+        <td [ngClass]="{'editedCell--new': ((!newForm) && (originalForm.coverageType !== model.value.coverageType))}">{{model.value.coverageType}}</td>
       </tr>
       <tr>
         <th>Coverage State(s)</th>
-        <td>{{model.value.state}}</td>
+        <td *ngIf="!newForm" [ngClass]="{'editedCell--original': ((!newForm) && (originalForm.state !== model.value.state))}">{{originalForm.state}}</td>
+        <td [ngClass]="{'editedCell--new': ((!newForm) && (originalForm.state !== model.value.state))}">{{model.value.state}}</td>
       </tr>
       <tr>
         <th>Source System</th>
-        <td>{{model.value.sourceSystem}}</td>
+        <td *ngIf="!newForm" [ngClass]="{'editedCell--original': ((!newForm) && (originalForm.sourceSystem !== model.value.sourceSystem))}">{{originalForm.state}}</td>
+        <td [ngClass]="{'editedCell--new': ((!newForm) && (originalForm.sourceSystem !== model.value.sourceSystem))}">{{model.value.sourceSystem}}</td>
       </tr>
       <tr>
         <th>Form Name</th>
-        <td>{{model.value.name}}</td>
+        <td *ngIf="!newForm" [ngClass]="{'editedCell--original': ((!newForm) && (originalForm.name !== model.value.name))}">{{originalForm.name}}</td>
+        <td [ngClass]="{'editedCell--new': ((!newForm) && (originalForm.name !== model.value.name))}">{{model.value.name}}</td>
       </tr>
       <tr>
         <th>Form ID</th>
-        <td>{{model.value.formId}}</td>
+        <td *ngIf="!newForm" [ngClass]="{'editedCell--original': ((!newForm) && (originalForm.formId !== model.value.formId))}">{{originalForm.formId}}</td>
+        <td [ngClass]="{'editedCell--new': ((!newForm) && (originalForm.formId !== model.value.formId))}">{{model.value.formId}}</td>
       </tr>
       <tr>
         <th>Form Link</th>
-        <td>{{model.value.link}}</td>
+        <td *ngIf="!newForm" [ngClass]="{'editedCell--original': ((!newForm) && (originalForm.link !== model.value.link))}">{{originalForm.link}}</td>
+        <td [ngClass]="{'editedCell--new': ((!newForm) && (originalForm.link !== model.value.link))}">{{model.value.link}}</td>
       </tr>
       <tr>
         <th>Form Description</th>
-        <td>{{model.value.description}}</td>
+        <td *ngIf="!newForm" [ngClass]="{'editedCell--original': ((!newForm) && (originalForm.description !== model.value.description))}">{{originalForm.description}}</td>
+        <td [ngClass]="{'editedCell--new': ((!newForm) && (originalForm.description !== model.value.description))}">{{model.value.description}}</td>
       </tr>
     </table>
     <br> <br> <br>
     <div class="row">
-      <button type="submit" class="button button--primary-yellow">
+      <button type="submit" *ngIf="newForm" class="button button--primary-yellow">
         Upload to Database
       </button>
-      <div class="divider"></div>
-      <button class="button button--secondary" type="button"
-              (click)="submitted=false; submit(); model.reset()">Upload
-        and Submit Another Form
+      <button type="submit" *ngIf="!newForm" class="button button--primary-yellow">
+        Upload Changes
       </button>
       <div class="divider"></div>
+      <div *ngIf="newForm">
+        <button class="button button--secondary" type="button"
+                (click)="submitted=false; submit(); model.reset()">Upload
+          and Submit Another Form
+        </button>
+        <div class="divider"></div>
+      </div>
       <button class="button button--tertiary" type="button" routerLink="/table"
               routerLinkActive="active">Cancel
       </button>
