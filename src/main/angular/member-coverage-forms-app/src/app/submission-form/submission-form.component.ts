@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Form } from '../form';
-import { FormService } from "../form.service";
+import { Form, FormService } from "../form.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -35,6 +34,7 @@ export class SubmissionFormComponent implements OnInit {
   model: FormGroup;
   private _pdf: PDFDocumentProxy;
   newForm = false;
+  originalForm: Form;
 
   coverageTypes = ['STD', 'LTD', 'DENTAL', 'GAP', 'DENTALPREPAID', 'CRITICALILLNESS'];
 
@@ -101,6 +101,7 @@ export class SubmissionFormComponent implements OnInit {
     this.form = this.formService.getSingleForm(id).pipe(
       tap(form => this.model.patchValue(form))
     )
+    this.formService.getSingleForm(id).subscribe(form => this.originalForm = form)
   }
 
   // POST or PUT submitted form depending on form id

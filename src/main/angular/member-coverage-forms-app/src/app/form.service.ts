@@ -2,7 +2,18 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from "rxjs";
 import { catchError, retry } from "rxjs/operators";
-import { Form } from "./form";
+
+export class Form {
+  id: number;
+  coverageType: string;
+  state: string [];
+  sourceSystem: string;
+  formType: string;
+  name: string;
+  link: string;
+  description: string;
+  formId: string;
+}
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
