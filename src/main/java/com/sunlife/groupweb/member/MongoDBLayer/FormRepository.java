@@ -6,6 +6,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface FormRepository extends MongoRepository<Form, String> {
 
-    public Form findbyState(String sc);
+   List<Form> findBySc(String sc);
 
 }

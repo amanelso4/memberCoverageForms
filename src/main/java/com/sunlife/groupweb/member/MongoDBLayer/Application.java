@@ -5,6 +5,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+
+
 @SpringBootApplication
 public class Application implements CommandLineRunner {
 
@@ -17,6 +19,6 @@ public class Application implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        System.out.println(repository.findbyState("AK"));
+        System.out.println(repository.findBySc("AK"));
     }
 }

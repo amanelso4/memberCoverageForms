@@ -1,7 +1,11 @@
 package com.sunlife.groupweb.member.MongoDBLayer;
 
-import com.sun.javafx.beans.IDProperty;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.Arrays;
+
+@Document(collection="memberCoverageForms")
 
 public class Form {
 
@@ -20,10 +24,20 @@ public class Form {
         this.id = id;
         this.ci = ci;
         this.fhf = fhf;
-        this.subForm[] = subForm[];
         this.fl = fl;
         this.sc = sc;
         this.ss = ss;
     }
 
+    @Override
+    public String toString() {
+        return "Form{" +
+                "id='" + id + '\'' +
+                ", ci='" + ci + '\'' +
+                ", fhf=" + fhf +
+                ", fl=" + Arrays.toString(fl) +
+                ", sc='" + sc + '\'' +
+                ", ss=" + ss +
+                '}';
+    }
 }

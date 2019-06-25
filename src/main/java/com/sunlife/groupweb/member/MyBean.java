@@ -1,7 +1,10 @@
 package com.sunlife.groupweb.member;
 
+import com.mongodb.client.MongoDatabase;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.MongoDbFactory;
 import com.mongodb.DB;
+import org.springframework.stereotype.Component;
 
 @Component
 public class MyBean {
@@ -16,7 +19,7 @@ public class MyBean {
     // ...
 
     public void example() {
-        DB db = mongo.getDb();
+        MongoDatabase db = mongo.getDb();
         // ...
     }
 
