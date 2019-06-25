@@ -67,7 +67,7 @@
     <!-- "Update" and "Delete" displayed by default, "Confirm" and "Cancel" displayed if "Delete" is pressed -->
     <!-- This is controlled on a per-row basis by the form.confirmDelete variable -->
     <td>
-      <button class="button button--primary-blue button--context-table" *ngIf="!form.confirmDelete" [routerLink]="['/submission-form/', form.id]">Update</button>
+      <button class="button button--primary-blue button--context-table" *ngIf="!form.confirmDelete" [routerLink]="['/mfm/', form.id]">Update</button>
       <button class="button button--type-confirm button--context-table" *ngIf="form.confirmDelete" (click)="deleteForm(form.id)">Confirm</button>
     </td>
     <td>

@@ -18,9 +18,9 @@ import { TableResolverService } from "./table-resolver.service";
 import { NgMultiSelectDropDownModule } from '../../node_modules/ng-multiselect-dropdown';
 
 const appRoutes: Routes = [
-  {path: 'submission-form/:id', component: SubmissionFormComponent},
-  {path: 'table', component: TableComponent, resolve: { formList: TableResolverService }},
-  {path: '', redirectTo: 'table', pathMatch: 'full'},
+  {path: 'mfm/:id', component: SubmissionFormComponent},
+  {path: 'mfm', component: TableComponent, resolve: { formList: TableResolverService }},
+  {path: '', redirectTo: 'mfm', pathMatch: 'full'},
 ];
 
 @NgModule({
