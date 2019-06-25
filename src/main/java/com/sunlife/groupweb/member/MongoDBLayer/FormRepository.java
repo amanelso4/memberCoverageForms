@@ -8,5 +8,6 @@ public interface FormRepository extends MongoRepository<Form, String> {
 
    List<Form> findBySc(String sc);
    List<Form> findAll();
+    List<Form> find(String criteria);
 
 }
