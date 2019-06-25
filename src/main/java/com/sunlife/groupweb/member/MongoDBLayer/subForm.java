@@ -2,12 +2,12 @@ package com.sunlife.groupweb.member.MongoDBLayer;
 
 public class subForm {
 
-    public String ds;
-    public String fl;
-    public String ft;
-    public boolean fill;
-    public String fh;
-    public String fc;
+    public String ds; // FORM NAME
+    public String fl; // FORM LINK
+    public String ft; // FORM TYPE
+    public boolean fill; // FORM FILLABLE - deprecated, default to true
+    public String fh; // FORM DESCRIPTION
+    public String fc; // FORM ID
 
     public subForm() {}
 
