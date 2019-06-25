@@ -16,7 +16,7 @@ public class Form {
     public boolean fhf; // IDK - deprecated, default to false
     public subForm[] fl; // NESTED ARRAY OF DOCUMENTS - see subForm class
     public String sc; // COVERAGE STATE
-    public char ss; // SOURCE SYSTEM
+    public String ss; // SOURCE SYSTEM
 
     public Form() {}
 
