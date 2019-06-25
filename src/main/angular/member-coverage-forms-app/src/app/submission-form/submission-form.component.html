@@ -219,7 +219,7 @@
       </tr>
       <tr>
         <th>Source System</th>
-        <td *ngIf="!newForm" [ngClass]="{'editedCell--original': ((!newForm) && (originalForm.sourceSystem !== model.value.sourceSystem))}">{{originalForm.state}}</td>
+        <td *ngIf="!newForm" [ngClass]="{'editedCell--original': ((!newForm) && (originalForm.sourceSystem !== model.value.sourceSystem))}">{{originalForm.sourceSystem}}</td>
         <td [ngClass]="{'editedCell--new': ((!newForm) && (originalForm.sourceSystem !== model.value.sourceSystem))}">{{model.value.sourceSystem}}</td>
       </tr>
       <tr>
