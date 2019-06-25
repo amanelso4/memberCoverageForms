@@ -21,8 +21,6 @@ public class Application implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        // System.out.println(repository.findBySc("AK"));
-        System.out.println(repository.findByCustomStuffs("ci", "GAP"));
     }
 
 }
