@@ -10,23 +10,24 @@ import java.util.Arrays;
 public class Form {
 
     @Id
-    public String id;
-    public String ci;
-    public boolean fhf;
-    public subForm[] fl;
-    public String sc;
-    public String ss;
+
+    public String id; // OBJECT_ID
+    public String ci; // COVERAGE TYPE
+    public boolean fhf; // IDK - deprecated, default to false
+    public subForm[] fl; // NESTED ARRAY OF DOCUMENTS - see subForm class
+    public String sc; // COVERAGE STATE
+    public char ss; // SOURCE SYSTEM
 
     public Form() {}
 
-    public Form(String id, String ci, boolean fhf, subForm[] fl, String sc, String ss) {
+    /*public Form(String id, String ci, boolean fhf, subForm[] fl, String sc, char ss) {
         this.id = id;
         this.ci = ci;
         this.fhf = fhf;
         this.fl = fl;
         this.sc = sc;
         this.ss = ss;
-    }
+    }*/
 
     // Constructor w/o id needed (mongo handles id generation)
     public Form(String ci, boolean fhf, subForm[] fl, String sc, String ss) {
