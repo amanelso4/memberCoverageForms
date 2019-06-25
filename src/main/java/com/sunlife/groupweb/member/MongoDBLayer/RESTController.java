@@ -33,9 +33,21 @@ public class RESTController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public Form addSubForm(@Valid @RequestBody Form form) {
+    public Form addSubForm(@Valid @RequestBody FormDTO form) {
         // convert Form form into appropriate formatting
+        String states={$in:[{form.sc}]};
+        String sourceSystem= form.ss;
+        String coverageType = form.ci;
+        String name = fl.ds;
+
+
+
+
         // add to documents based on state-coverageType-source combo
+
+        repository.findByThreeFields("sc", states, "ss", sourceSystem, "ci", coverageType);
+        repository.save(new subForm());
+
     }
 
     @RequestMapping(value = "/{formId}", method = RequestMethod.DELETE)

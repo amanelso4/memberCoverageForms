@@ -15,11 +15,11 @@ public class Form {
     public boolean fhf;
     public subForm[] fl;
     public String sc;
-    public char ss;
+    public String ss;
 
     public Form() {}
 
-    public Form(String id, String ci, boolean fhf, subForm[] fl, String sc, char ss) {
+    public Form(String id, String ci, boolean fhf, subForm[] fl, String sc, String ss) {
         this.id = id;
         this.ci = ci;
         this.fhf = fhf;
@@ -29,7 +29,7 @@ public class Form {
     }
 
     // Constructor w/o id needed (mongo handles id generation)
-    public Form(String ci, boolean fhf, subForm[] fl, String sc, char ss) {
+    public Form(String ci, boolean fhf, subForm[] fl, String sc, String ss) {
         this.ci = ci;
         this.fhf = fhf;
         this.fl = fl;
