@@ -1,14 +1,50 @@
 package com.sunlife.groupweb.member.MongoDBLayer;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class PUTMethod {
+public class HttpMethods {
 
     private FormRepository repository;
 
-    public void doAPutPlease(String formId, FormDTO newFormDTO) {
+    public void post(FormDTO form) {
+        for (int i=0; i<form.states.length; i++)
+        {
+            String state = form.states[i];
+            List<Form> formsToBeAdded = repository.findByThreeFields("sc", state, "ss", form.sourceSystem, "ci", form.coverageType);
+            for(Form f : formsToBeAdded)
+            {        /*
+                   Iterator stateIterator = formDTO.iterator();
+                   for(Form f=null; stateIterator.hasNext(); f=(Form)stateIterator.next()) { */
+                ArrayList<subForm> subFormPlusOne=  new ArrayList<subForm>(Arrays.asList(f.fl));
+                subForm newSub = new subForm(form.name, form.link, form.formType, false, form.description, form.formId);
+                subFormPlusOne.add(newSub);
+                f.fl = subFormPlusOne.toArray(new subForm[subFormPlusOne.size()]);
+                repository.save(f);
+            }
+        }
+    }
+
+    public void delete(String formId) {
+        List<Form> allTheForms = repository.findAll();
+        for(Form f: allTheForms)
+        {
+            for(int i = 0; i<f.fl.length; i++)
+            {
+                if(f.fl[i].fc.equals(formId))
+                {
+                    ArrayList<subForm> subFormMinusOne= new ArrayList<subForm>(Arrays.asList(f.fl));
+                    subFormMinusOne.remove(i);
+                    f.fl = subFormMinusOne.toArray(new subForm[subFormMinusOne.size()]);
+                    repository.save(f);
+                }
+            }
+        }
+    }
+
+    public void put(String formId, FormDTO newFormDTO) {
         boolean coverageTypeChanged = false;
         boolean sourceSystemChanged = false;
         boolean exteriorChange = false;

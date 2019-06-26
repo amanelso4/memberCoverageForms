@@ -17,6 +17,8 @@ public class RESTController {
     @Autowired
     private FormRepository repository;
 
+    private HttpMethods http;
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public List<Form> getAllForms() {
         return repository.findAll();
@@ -35,32 +37,35 @@ public class RESTController {
         // convert Form form into appropriate formatting
         // determine what fields have been changed
         // make the appropriate modifications to the form
+        http.put(formId, form);
     }
 
     @RequestMapping(value = "/submission-form", method = RequestMethod.POST)
     public void addSubForm(@Valid @RequestBody FormDTO form)
     {
-       for (int i=0; i<form.states.length; i++)
+        http.post(form);
+      /* for (int i=0; i<form.states.length; i++)
        {
            String state = form.states[i];
            List<Form> formsToBeAdded = repository.findByThreeFields("sc", state, "ss", form.sourceSystem, "ci", form.coverageType);
            for(Form f : formsToBeAdded)
-           {        /*
+           {        *//*
                    Iterator stateIterator = formDTO.iterator();
-                   for(Form f=null; stateIterator.hasNext(); f=(Form)stateIterator.next()) { */
+                   for(Form f=null; stateIterator.hasNext(); f=(Form)stateIterator.next()) { *//*
                ArrayList<subForm> subFormPlusOne=  new ArrayList<subForm>(Arrays.asList(f.fl));
                subForm newSub = new subForm(form.name, form.link, form.formType, false, form.description, form.formId);
                subFormPlusOne.add(newSub);
                f.fl = subFormPlusOne.toArray(new subForm[subFormPlusOne.size()]);
             repository.save(f);
            }
-       }
+       }*/
     }
 
     @RequestMapping(value = "delete-form/{formId}", method = RequestMethod.DELETE)
     public void deleteSubForm(@PathVariable("formId") String formId)
     {
-        List<Form> allTheForms = repository.findAll();
+        http.delete(formId);
+       /* List<Form> allTheForms = repository.findAll();
         for(Form f: allTheForms)
         {
             for(int i = 0; i<f.fl.length; i++)
@@ -73,7 +78,7 @@ public class RESTController {
                    repository.save(f);
                 }
             }
-        }
+        }*/
     }
 
 
