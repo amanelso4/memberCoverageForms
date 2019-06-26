@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/mfm")
 public class RESTController {
 
-    @Autowired
+    @Autowired // says field injection not reccomended, maybe create config class and move it there?
     private FormRepository repository;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -35,8 +35,7 @@ public class RESTController {
         // Find original copy of form to compare
         List<Form> originalForm = repository.findByOneField("'fl.fc'", formId);
         // convert new form into a java form
-        FormTranslator formTranslator = new FormTranslator();
-        List<Form> editedForm = formTranslator.angularToJava(newFormDTO);
+        List<Form> editedForm = angularToJava(newFormDTO);
         // create new subForm to be used
         subForm newSubForm = new subForm(newFormDTO.name, newFormDTO.link, newFormDTO.formType, true, newFormDTO.description, newFormDTO.formId);
         // Check to see if exterior fields have been changed
@@ -62,8 +61,8 @@ public class RESTController {
         } else {
             // Check to see if list of states has been changed
             List<String> newStatesList = Arrays.asList(newFormDTO.states);
-            List<String> oldStatesList = new ArrayList<String>();
-            List<String> statesDeleted = new ArrayList<String>();
+            List<String> oldStatesList = new ArrayList<>();
+            List<String> statesDeleted = new ArrayList<>();
             // record list of added and deleted states
             for (Form thisForm : originalForm) {
                 if (!oldStatesList.contains(thisForm.sc)) {
@@ -151,6 +150,23 @@ public class RESTController {
         }
         stateSearch = stateSearch + states.get(states.size() - 1) + "' ] }";
         return stateSearch;
+    }
+
+    private List<Form> angularToJava(FormDTO formDTO) {
+        List<Form> javaForms = new ArrayList<>();
+        for (int i = 0; i < formDTO.states.length; i++) {
+            // return matching forms and take the first one
+            List<Form> matchingForms = repository.findSingleForm(formDTO.coverageType, formDTO.sourceSystem, formDTO.states[i]);
+            Form thisForm = matchingForms.get(0);
+            // create a new subForm with data that was passed in
+            subForm newSubForm = new subForm(formDTO.name, formDTO.link, formDTO.formType,true, formDTO.description, formDTO.formId);
+            // add new subForm to existing fl list by converting to array and back
+            List<subForm> tempSubList = Arrays.asList(thisForm.fl);
+            tempSubList.add(newSubForm);
+            thisForm.fl = tempSubList.toArray(new subForm[0]); // apparently empty array is preferred and it will realloc correctly?
+            javaForms.add(thisForm);
+        }
+        return javaForms;
     }
 
 }
