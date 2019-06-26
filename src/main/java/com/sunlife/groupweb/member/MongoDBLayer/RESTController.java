@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 @RestController
@@ -35,10 +38,29 @@ public class RESTController {
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public Form addSubForm(@Valid @RequestBody FormDTO form) {
         // convert Form form into appropriate formatting
-        String states={$in:[{form.sc}]};
-        String sourceSystem= form.ss;
-        String coverageType = form.ci;
-        String name = fl.ds;
+       /* Iterate through the form's states, coverageTypes, and ss and for each found  from the database then add subForm to state, ss,
+       and coverageType combination
+        */
+       for (int i=0; i<form.states.length; i++) {
+
+           String state = form.states[i];
+           List formDTO = repository.findByThreeFields("sc", state, "ss", form.sourceSystem, "ci", form.coverageType);
+           Iterator stateIterator = formDTO.iterator();
+
+           for(Form f=null; stateIterator.hasNext(); f=(Form)stateIterator.next()) {
+
+               ArrayList<subForm>subFormPlusOne=  (ArrayList<subForm>)Arrays.asList(f.fl);
+               subForm newSub = new subForm(form.name, form.link, form.formType, false, form.description, form.formId);
+               subFormPlusOne.add(newSub);
+               f.fl = (subForm[])subFormPlusOne.toArray();
+               repository.save(f);
+           }
+       }
+
+
+
+
+
 
 
 
