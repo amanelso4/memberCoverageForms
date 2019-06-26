@@ -10,6 +10,7 @@ import java.util.Arrays;
 public class Form {
 
     @Id
+
     public String id; // OBJECT_ID
     public String ci; // COVERAGE TYPE
     public boolean fhf; // IDK - deprecated, default to false
