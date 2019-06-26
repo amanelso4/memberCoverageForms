@@ -56,20 +56,6 @@ public class RESTController {
                repository.save(f);
            }
        }
-
-
-
-
-
-
-
-
-
-        // add to documents based on state-coverageType-source combo
-
-        repository.findByThreeFields("sc", states, "ss", sourceSystem, "ci", coverageType);
-        repository.save(new subForm());
-
     }
 
     @RequestMapping(value = "/{formId}", method = RequestMethod.DELETE)
