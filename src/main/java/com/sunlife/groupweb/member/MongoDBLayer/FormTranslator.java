@@ -26,9 +26,9 @@ public class FormTranslator {
         return javaForms;
     }
 
-    public FormDTO javaToSingleAngular(String formId, List<Form> javaForms) {
+    /*public FormDTO javaToSingleAngular(String formId, List<Form> javaForms) {
 
-    }
+    }*/
 
     /*public List<FormDTO> javaToAllAngular(List<Form> javaForms) {
 

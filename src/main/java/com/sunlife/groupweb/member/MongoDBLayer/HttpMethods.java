@@ -44,46 +44,61 @@ public class HttpMethods {
         }
     }
 
+    private void replaceInFormList(String formId, subForm newSubForm, List<Form> formList) {
+        for ( Form thisForm: formList ) {
+            List<subForm> thisSubForms = Arrays.asList(thisForm.fl);
+            List<subForm> filteredSubForms = thisSubForms.stream().filter(s -> !s.fc.equals(formId)).collect(Collectors.toList());
+            filteredSubForms.add(newSubForm);
+            thisForm.fl = filteredSubForms.toArray(new subForm[0]);
+            repository.save(thisForm);
+        }
+    }
+    private void deleteFromFormList(String formId, List<Form> formList) {
+        for ( Form thisForm : formList ) {
+            List<subForm> thisSubForms = Arrays.asList(thisForm.fl);
+            thisForm.fl = thisSubForms.stream().filter(s -> !s.fc.equals(formId)).toArray(subForm[]::new);
+            repository.save(thisForm);
+        }
+    }
+
+    private void deleteFromStates(String formId, List<String> statesDeleted) {
+        // craft the search string for states
+        String stateSearch = createStateSearch(statesDeleted);
+        List<Form> matchingForms = repository.findByTwoFields("'fl.fc'", formId, "sc", stateSearch);
+        deleteFromFormList(formId, matchingForms);
+    }
+
+    private String createStateSearch(List<String> states) {
+        String stateSearch = "{ $in : { '";
+        for (int i = 0; i < (states.size() - 1); i++) {
+            stateSearch = stateSearch + states.get(i) + "', '";
+        }
+        stateSearch = stateSearch + states.get(states.size() - 1) + "' ] }";
+        return stateSearch;
+    }
+
     public void put(String formId, FormDTO newFormDTO) {
-        boolean coverageTypeChanged = false;
-        boolean sourceSystemChanged = false;
         boolean exteriorChange = false;
-        boolean statesDeleted = false;
         // Find original copy of form to compare
         List<Form> originalForm = repository.findByOneField("'fl.fc'", formId);
-        // Convert original form into angular form for easier comparision
+        // convert new form into a java form
         FormTranslator formTranslator = new FormTranslator();
         List<Form> editedForm = formTranslator.angularToJava(newFormDTO);
+        // create new subForm to be used
+        subForm newSubForm = new subForm(newFormDTO.name, newFormDTO.link, newFormDTO.formType, true, newFormDTO.description, newFormDTO.formId);
         // Check to see if exterior fields have been changed
         if (originalForm.get(0).ci.equals(editedForm.get(0).ci) || originalForm.get(0).ss.equals(editedForm.get(0).ss)) {
             exteriorChange = true;
         }
-        // Check to see if list of states has been changed
-        List<String> statesList = Arrays.asList(newFormDTO.states);
-        for ( Form thisForm : originalForm ) {
-            if (!statesList.contains(thisForm.sc)) {
-                statesDeleted = true;
-            }
-        }
         // COV TYPE OR SOURCE SYSTEM CHANGED
         if (exteriorChange) {
             // Remove all instances of form from current doc
-            for (Form thisForm : originalForm) {
-                List<subForm> thisSubForms = Arrays.asList(thisForm.fl);
-                thisForm.fl = thisSubForms.stream().filter(s -> !s.fc.equals(formId)).toArray(subForm[]::new);
-                repository.save(thisForm);
-            }
+            deleteFromFormList(formId, originalForm);
             // craft the search string for states
-            String stateSearch = "{ $in : { '";
-            for (int i = 0; i < (newFormDTO.states.length - 1); i++) {
-                stateSearch = stateSearch + newFormDTO.states[i] + "', '";
-            }
-            stateSearch = stateSearch + newFormDTO.states[newFormDTO.states.length - 1] + "' ] }";
+            String stateSearch = createStateSearch(Arrays.asList(newFormDTO.states));
             // replace originalForm with the new location for the subForms
             List<Form> newFormLocations = repository.findByThreeFields("ci", editedForm.get(0).ci, "ss", editedForm.get(0).ss,
                     "sc", stateSearch);
-            // create new subForm to be added
-            subForm newSubForm = new subForm(newFormDTO.name, newFormDTO.link, newFormDTO.formType, true, newFormDTO.description, newFormDTO.formId);
             // add new subForm to all new form locations
             for (Form thisForm: newFormLocations) {
                 List<subForm> thisSubForms = Arrays.asList(thisForm.fl);
@@ -91,7 +106,29 @@ public class HttpMethods {
                 thisForm.fl = thisSubForms.toArray(new subForm[0]);
                 repository.save(thisForm);
             }
+        } else {
+            // Check to see if list of states has been changed
+            List<String> newStatesList = Arrays.asList(newFormDTO.states);
+            List<String> oldStatesList = new  ArrayList<String>();
+            List<String> statesDeleted = new ArrayList<String>();
+            // record list of added and deleted states
+            for ( Form thisForm : originalForm ) {
+                if (!oldStatesList.contains(thisForm.sc)) {
+                    oldStatesList.add(thisForm.sc);
+                }
+                if (!newStatesList.contains(thisForm.sc) && !statesDeleted.contains(thisForm.sc)) {
+                    statesDeleted.add(thisForm.sc);
+                }
+            }
+            // if necessary, delete from removed states
+            if (!statesDeleted.isEmpty()) {
+                deleteFromStates(formId, statesDeleted);
+            }
+            // add/edit in new list of states
+            String stateSearch = createStateSearch(newStatesList);
+            List<Form> formsToUpdate = repository.findByThreeFields("ci", newFormDTO.coverageType,
+                    "ss", newFormDTO.sourceSystem, "sc", stateSearch);
+            replaceInFormList(formId, newSubForm, formsToUpdate);
         }
     }
-
 }

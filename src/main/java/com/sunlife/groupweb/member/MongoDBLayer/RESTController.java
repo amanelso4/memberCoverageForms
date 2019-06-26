@@ -32,7 +32,7 @@ public class RESTController {
     }
 
     @RequestMapping(value = "/{formId}", method = RequestMethod.PUT)
-    public void modifyFormByFormId(@PathVariable("formId") String formId, @Valid @RequestBody Form form) {
+    public void modifyFormByFormId(@PathVariable("formId") String formId, @Valid @RequestBody FormDTO form) {
         // find current version of form by formId
         // convert Form form into appropriate formatting
         // determine what fields have been changed
