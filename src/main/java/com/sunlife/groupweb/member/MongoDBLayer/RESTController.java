@@ -9,7 +9,6 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-import static org.apache.catalina.security.SecurityUtil.remove;
 
 @RestController
 @RequestMapping("/mfm")
@@ -51,16 +50,16 @@ public class RESTController {
            {        /*
                    Iterator stateIterator = formDTO.iterator();
                    for(Form f=null; stateIterator.hasNext(); f=(Form)stateIterator.next()) { */
-               ArrayList<subForm>subFormPlusOne=  (ArrayList<subForm>)Arrays.asList(f.fl);
+               ArrayList<subForm> subFormPlusOne=  new ArrayList<subForm>(Arrays.asList(f.fl));
                subForm newSub = new subForm(form.name, form.link, form.formType, false, form.description, form.formId);
                subFormPlusOne.add(newSub);
-               f.fl = (subForm[])subFormPlusOne.toArray();
-               repository.save(f);
+               f.fl = subFormPlusOne.toArray(new subForm[subFormPlusOne.size()]);
+            repository.save(f);
            }
        }
     }
 
-    @RequestMapping(value = "/{formId}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "delete-form/{formId}", method = RequestMethod.DELETE)
     public void deleteSubForm(@PathVariable("formId") String formId)
     //Passes a FormDTO in from Angular and cycles through database based on state(s), coverageType, and sourceSystem to find the Forms it needs to modify,
     //then it deletes the subForm(s) that have the same formId, link, formType, name, and description as the FormDTO passed in
@@ -70,11 +69,13 @@ public class RESTController {
         {
             for(int i = 0; i<f.fl.length; i++)
             {
-                if(f.fl[i].fc == formId)
+                if(f.fl[i].fc.equals(formId))
                 {
-                    remove(f.fl[i]);
+                    ArrayList<subForm> subFormMinusOne= new ArrayList<subForm>(Arrays.asList(f.fl));
+                    subFormMinusOne.remove(i);
+                    f.fl = subFormMinusOne.toArray(new subForm[subFormMinusOne.size()]);
+                   repository.save(f);
                 }
-                repository.save(f);
             }
         }
     }
