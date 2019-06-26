@@ -9,6 +9,8 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import static org.apache.catalina.security.SecurityUtil.remove;
+
 @RestController
 @RequestMapping("/mfm")
 public class RESTController {
@@ -37,11 +39,10 @@ public class RESTController {
     }
 
     @RequestMapping(value = "/submission-form", method = RequestMethod.POST)
-    public void addSubForm(@Valid @RequestBody FormDTO form) {
-        // convert Form form into appropriate formatting
-       /* Iterate through the form's states, coverageTypes, and ss and for each found  from the database then add subForm to state, ss,
-       and coverageType combination
-        */
+    public void addSubForm(@Valid @RequestBody FormDTO form)
+    //Passes a FormDTO in from Angular and cycles through the database based on state(s), coverageType, and sourceSystem to find the Forms it needs to modify,
+    //then adds a new subForm to the Forms found from find
+    {
        for (int i=0; i<form.states.length; i++)
        {
            String state = form.states[i];
@@ -59,26 +60,28 @@ public class RESTController {
        }
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
-    public void deleteSubForm(@Valid @RequestBody FormDTO form)
+    @RequestMapping(value = "/{formId}", method = RequestMethod.DELETE)
+    public void deleteSubForm(@PathVariable("formId") String formId)
+    //Passes a FormDTO in from Angular and cycles through database based on state(s), coverageType, and sourceSystem to find the Forms it needs to modify,
+    //then it deletes the subForm(s) that have the same formId, link, formType, name, and description as the FormDTO passed in
     {
-
-        // remove all subforms that contain that formId
-        for (int i=0; i<form.states.length; i++)
+        List<Form> allTheForms = repository.findAll();
+        for(Form f: allTheForms)
         {
-            String state = form.states[i];
-            List<Form> formToBeDeleted = repository.findByThreeFields("sc", state, "ss", form.sourceSystem, "ci", form.coverageType);
-            for(Form f : formToBeDeleted)
+            for(int i = 0; i<f.fl.length; i++)
             {
-                ArrayList<subForm> subFormMinusOne=  (ArrayList<subForm>)Arrays.asList(f.fl);
-                subForm newSub = new subForm(form.name, form.link, form.formType, true, form.description, form.formId);
-                subFormMinusOne.remove(newSub);
-                f.fl = (subForm[])subFormMinusOne.toArray();
+                if(f.fl[i].fc == formId)
+                {
+                    remove(f.fl[i]);
+                }
                 repository.save(f);
-
             }
         }
     }
 
 
+
 }
+
+
+
