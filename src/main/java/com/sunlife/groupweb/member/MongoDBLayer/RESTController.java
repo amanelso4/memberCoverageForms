@@ -39,8 +39,6 @@ public class RESTController {
 
     @RequestMapping(value = "/submission-form", method = RequestMethod.POST)
     public void addSubForm(@Valid @RequestBody FormDTO form)
-    //Passes a FormDTO in from Angular and cycles through the database based on state(s), coverageType, and sourceSystem to find the Forms it needs to modify,
-    //then adds a new subForm to the Forms found from find
     {
        for (int i=0; i<form.states.length; i++)
        {
@@ -61,8 +59,6 @@ public class RESTController {
 
     @RequestMapping(value = "delete-form/{formId}", method = RequestMethod.DELETE)
     public void deleteSubForm(@PathVariable("formId") String formId)
-    //Passes a FormDTO in from Angular and cycles through database based on state(s), coverageType, and sourceSystem to find the Forms it needs to modify,
-    //then it deletes the subForm(s) that have the same formId, link, formType, name, and description as the FormDTO passed in
     {
         List<Form> allTheForms = repository.findAll();
         for(Form f: allTheForms)
