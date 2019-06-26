@@ -33,7 +33,7 @@ public class RESTController {
     public void modifyFormByFormId(@PathVariable("formId") String formId, @Valid @RequestBody FormDTO newFormDTO) {
         boolean exteriorChange = false;
         // Find original copy of form to compare
-        List<Form> originalForm = repository.findByOneField("'fl.fc'", formId);
+        List<Form> originalForm = repository.findByOneField("fl.fc", formId);
         // convert new form into a java form
         List<Form> editedForm = angularToJava(newFormDTO);
         // create new subForm to be used
@@ -53,7 +53,7 @@ public class RESTController {
                     "sc", stateSearch);
             // add new subForm to all new form locations
             for (Form thisForm : newFormLocations) {
-                List<subForm> thisSubForms = Arrays.asList(thisForm.fl);
+                ArrayList<subForm> thisSubForms = new ArrayList<>(Arrays.asList(thisForm.fl));
                 thisSubForms.add(newSubForm);
                 thisForm.fl = thisSubForms.toArray(new subForm[0]);
                 repository.save(thisForm);
@@ -161,7 +161,7 @@ public class RESTController {
             // create a new subForm with data that was passed in
             subForm newSubForm = new subForm(formDTO.name, formDTO.link, formDTO.formType,true, formDTO.description, formDTO.formId);
             // add new subForm to existing fl list by converting to array and back
-            List<subForm> tempSubList = Arrays.asList(thisForm.fl);
+            ArrayList<subForm> tempSubList = new ArrayList<>(Arrays.asList(thisForm.fl));
             tempSubList.add(newSubForm);
             thisForm.fl = tempSubList.toArray(new subForm[0]); // apparently empty array is preferred and it will realloc correctly?
             javaForms.add(thisForm);
