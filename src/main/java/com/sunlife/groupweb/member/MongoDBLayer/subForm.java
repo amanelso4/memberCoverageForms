@@ -4,7 +4,6 @@ import org.springframework.data.annotation.Id;
 
 public class subForm {
 
-    @Id
     public String ds; // FORM NAME
     public String fl; // FORM LINK
     public String ft; // FORM TYPE
