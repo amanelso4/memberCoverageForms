@@ -23,7 +23,7 @@ public class subForm {
     @Override
     public String toString() {
         return String.format(
-                "subForm[ds='%s', fl='%s', ft='%s', fill=%s, fh='&s', fc='%s']",
+                "subForm[ds='%s', fl='%s', ft='%s', fill=%s, fh='%s', fc='%s']",
                 ds, fl, ft, fill, fh, fc);
     }
 }
