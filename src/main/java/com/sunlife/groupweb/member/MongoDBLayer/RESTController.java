@@ -61,23 +61,19 @@ public class RESTController {
 
     @RequestMapping(value = "/", method = RequestMethod.DELETE)
     public void deleteSubForm(@Valid @RequestBody FormDTO form) {
+
         // remove all subforms that contain that formId
-        /*
         for (int i=0; i<form.states.length; i++) {
-
             String state = form.states[i];
-            List formDTO = repository.findByThreeFields("sc", state, "ss", form.sourceSystem, "ci", form.coverageType);
-            Iterator stateIterator = formDTO.iterator();
-
-            for(Form f=null; stateIterator.hasNext(); f=(Form)stateIterator.next()) {
-
-                ArrayList<subForm>subFormPlusOne=  (ArrayList<subForm>)Arrays.asList(f.fl);
-                subForm newSub = new subForm(form.name, form.link, form.formType, false, form.description, form.formId);
-                subFormPlusOne.add(newSub);
-                f.fl = (subForm[])subFormPlusOne.toArray();
-                repository.save(f);
+            List<Form> formToBeDeleted = repository.findByThreeFields("sc", state, "ss", form.sourceSystem, "ci", form.coverageType);
+            for(Form f : formToBeDeleted) {
+                for(int j=0; j<f.fl.length; j++) {
+                    if(f.fl[j].fc == form.formId) {
+                        delete(f.fl[j]);
+                        repository.save(f);
+                    }
+                }
             }
         }
-*/
     }
 }
