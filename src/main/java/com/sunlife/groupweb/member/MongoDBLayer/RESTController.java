@@ -25,6 +25,7 @@ public class RESTController {
     public List<Form> getFormByFormId(@PathVariable("formId") String formId) {
         // return repository.findByFormId(formId);
         // return a list of all forms that contain that formId
+        return null;
     }
 
     @RequestMapping(value = "/{formId}", method = RequestMethod.PUT)
@@ -35,8 +36,8 @@ public class RESTController {
         // make the appropriate modifications to the form
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
-    public Form addSubForm(@Valid @RequestBody FormDTO form) {
+    @RequestMapping(value = "/submission-form", method = RequestMethod.POST)
+    public void addSubForm(@Valid @RequestBody FormDTO form) {
         // convert Form form into appropriate formatting
        /* Iterate through the form's states, coverageTypes, and ss and for each found  from the database then add subForm to state, ss,
        and coverageType combination
@@ -44,10 +45,10 @@ public class RESTController {
        for (int i=0; i<form.states.length; i++) {
 
            String state = form.states[i];
-           List formDTO = repository.findByThreeFields("sc", state, "ss", form.sourceSystem, "ci", form.coverageType);
+           List<Form> formDTO = repository.findByThreeFields("sc", state, "ss", form.sourceSystem, "ci", form.coverageType);
+           for(Form f : formDTO) { /*
            Iterator stateIterator = formDTO.iterator();
-
-           for(Form f=null; stateIterator.hasNext(); f=(Form)stateIterator.next()) {
+           for(Form f=null; stateIterator.hasNext(); f=(Form)stateIterator.next()) { */
 
                ArrayList<subForm>subFormPlusOne=  (ArrayList<subForm>)Arrays.asList(f.fl);
                subForm newSub = new subForm(form.name, form.link, form.formType, false, form.description, form.formId);
@@ -58,9 +59,25 @@ public class RESTController {
        }
     }
 
-    @RequestMapping(value = "/{formId}", method = RequestMethod.DELETE)
-    public void deleteSubForm(@PathVariable("formId") String formId)
-    {
+    @RequestMapping(value = "/", method = RequestMethod.DELETE)
+    public void deleteSubForm(@Valid @RequestBody FormDTO form) {
         // remove all subforms that contain that formId
+        /*
+        for (int i=0; i<form.states.length; i++) {
+
+            String state = form.states[i];
+            List formDTO = repository.findByThreeFields("sc", state, "ss", form.sourceSystem, "ci", form.coverageType);
+            Iterator stateIterator = formDTO.iterator();
+
+            for(Form f=null; stateIterator.hasNext(); f=(Form)stateIterator.next()) {
+
+                ArrayList<subForm>subFormPlusOne=  (ArrayList<subForm>)Arrays.asList(f.fl);
+                subForm newSub = new subForm(form.name, form.link, form.formType, false, form.description, form.formId);
+                subFormPlusOne.add(newSub);
+                f.fl = (subForm[])subFormPlusOne.toArray();
+                repository.save(f);
+            }
+        }
+*/
     }
 }

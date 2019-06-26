@@ -8,7 +8,6 @@ import org.springframework.data.mongodb.repository.Query;
 public interface FormRepository extends MongoRepository<Form, String> {
 
    List<Form> findAll();
-    List<Form> find(String criteria);
 
    @Query("{ ?0 : ?1 }")
    List<Form> findByOneField(String field, String search);
