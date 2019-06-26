@@ -15,7 +15,7 @@ public class Form {
     public boolean fhf; // IDK - deprecated, default to false
     public subForm[] fl; // NESTED ARRAY OF DOCUMENTS - see subForm class
     public String sc; // COVERAGE STATE
-    public char ss; // SOURCE SYSTEM
+    public String ss; // SOURCE SYSTEM
 
     public Form() {}
 
@@ -29,7 +29,7 @@ public class Form {
     }*/
 
     // Constructor w/o id needed (mongo handles id generation)
-    public Form(String ci, boolean fhf, subForm[] fl, String sc, char ss) {
+    public Form(String ci, boolean fhf, subForm[] fl, String sc, String ss) {
         this.ci = ci;
         this.fhf = fhf;
         this.fl = fl;

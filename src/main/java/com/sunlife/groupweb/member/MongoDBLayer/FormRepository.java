@@ -21,6 +21,9 @@ public interface FormRepository extends MongoRepository<Form, String> {
    @Query("{ ?0 : ?1, ?2 : ?3, ?4 : ?5, ?6 : ?7 }")
    List<Form> findByFourFields(String field1, String search1, String field2, String search2, String field3, String search3, String field4, String search4);
 
+   @Query("{ ci : ?0, ss: ?1, sc: ?2 }")
+   List<Form> findSingleForm(String coverageType, String sourceSystem, String state);
+
    // If multiple states are being searched for, must use this notation:
    // SEARCH: { $in : [ 'state1', 'state2', 'state3' ] }
 

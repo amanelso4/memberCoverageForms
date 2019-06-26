@@ -13,8 +13,8 @@ public class FormTranslator {
         List<Form> javaForms = new ArrayList<>();
         for (int i = 0; i < formDTO.states.length; i++) {
             // return matching forms and take the first one
-            List<Form> arrayForm = repository.findSingleForm(formDTO.coverageType, formDTO.sourceSystem, formDTO.states[i]);
-            Form thisForm = arrayForm.get(0);
+            List<Form> matchingForms = repository.findSingleForm(formDTO.coverageType, formDTO.sourceSystem, formDTO.states[i]);
+            Form thisForm = matchingForms.get(0);
             // create a new subForm with data that was passed in
             subForm newSubForm = new subForm(formDTO.name, formDTO.link, formDTO.formType,true, formDTO.description, formDTO.formId);
             // add new subForm to existing fl list by converting to array and back
@@ -26,7 +26,11 @@ public class FormTranslator {
         return javaForms;
     }
 
-    /*public List<FormDTO> javaToAngular(List<Form> javaForms) {
+    /*public FormDTO javaToSingleAngular(List<Form> javaForms) {
+
+    }
+
+    public List<FormDTO> javaToAllAngular(List<Form> javaForms) {
 
     }*/
 }
