@@ -80,16 +80,6 @@ public class RESTController {
             }
         }*/
     }
-    @RequestMapping(value = "delete-class/{formId}", method = RequestMethod.DELETE)
-    public void deleteClass(@PathVariable("formId") String formId)
-    {
-        List<Form> allTheForms = repository.findAll();
-
-        for(Form f: allTheForms)
-        {
-
-        }
-    }
 
 
 
