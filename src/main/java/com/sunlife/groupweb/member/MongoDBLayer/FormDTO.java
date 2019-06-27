@@ -22,4 +22,5 @@ public class FormDTO {
         this.formId = formId;
     }
 
+    public FormDTO() { }
 }

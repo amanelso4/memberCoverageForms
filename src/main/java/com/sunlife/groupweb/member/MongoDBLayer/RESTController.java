@@ -14,19 +14,66 @@ import java.util.stream.Collectors;
 @RequestMapping("/mfm")
 public class RESTController {
 
-    @Autowired // says field injection not reccomended, maybe create config class and move it there?
+    @Autowired // says field injection not recommended, maybe create config class and move it there?
     private FormRepository repository;
+
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public List<Form> getAllForms() {
         return repository.findAll();
     }
 
+    @RequestMapping(value = "/populateTable", method = RequestMethod.GET)
+    public FormDTO[] translateAllFormsToFormDTOs() {
+        List<Form> allTheForms = repository.findAll();
+        List<FormDTO> allTheAngular = new ArrayList<FormDTO>();
+        ArrayList<String> states = new ArrayList<String>();
+        for (Form f : allTheForms) {
+            FormDTO angular = new FormDTO();
+            for (int i = 0; i < f.fl.length; i++) {
+                angular.coverageType = f.ci;
+                angular.sourceSystem = f.ss;
+                angular.formType = f.fl[i].ft;
+                angular.name = f.fl[i].ds;
+                angular.link = f.fl[i].fl;
+                angular.description = f.fl[i].fh;
+                angular.formId = f.fl[i].fc;
+                if (states.contains(f.sc) == false) {
+                    states.add(f.sc);
+                }
+                angular.states = states.toArray(new String[states.size()]);
+                if (allTheAngular.contains(angular) == false) {
+                    allTheAngular.add(angular);
+                }
+            }
+        }
+        return allTheAngular.toArray(new FormDTO[allTheAngular.size()]);
+    }
+
     @RequestMapping(value = "/{formId}", method = RequestMethod.GET)
-    public List<Form> getFormByFormId(@PathVariable("formId") String formId) {
-        // return repository.findByFormId(formId);
-        // return a list of all forms that contain that formId
-        return null;
+    public FormDTO getFormByFormId(@PathVariable("formId") String formId) {
+        // return a the FormDTO that matches the FormId provided
+        List<Form> allTheForms = repository.findAll();
+        FormDTO fillForm = new FormDTO();
+        ArrayList<String> states = new ArrayList<String>();
+        for (Form f : allTheForms) {
+            for (int i = 0; i < f.fl.length; i++) {
+                if (f.fl[i].fc.equals(formId)) {
+                    fillForm.coverageType = f.ci;
+                    fillForm.sourceSystem = f.ss;
+                    fillForm.formType = f.fl[i].ft;
+                    fillForm.name = f.fl[i].ds;
+                    fillForm.link = f.fl[i].fl;
+                    fillForm.description = f.fl[i].fh;
+                    fillForm.formId = f.fl[i].fc;
+                    if (states.contains(f.sc) == false) {
+                        states.add(f.sc);
+                    }
+                }
+            }
+        }
+        fillForm.states = states.toArray(new String[states.size()]);
+        return fillForm;
     }
 
     @RequestMapping(value = "/?{field}={search}", method = RequestMethod.GET)
@@ -34,19 +81,19 @@ public class RESTController {
         List<Form> filteredForms = repository.findByOneField(field, search);
         List<FormDTO> outgoingForms = new ArrayList<>();
         List<String> insertedFormIds = new ArrayList<>();
-        for ( Form thisForm : filteredForms ) {
+        for (Form thisForm : filteredForms) {
             ArrayList<subForm> thisSubFormList = new ArrayList<>(Arrays.asList(thisForm.fl));
-            for ( subForm thisSubForm : thisSubFormList ) {
+            for (subForm thisSubForm : thisSubFormList) {
                 if (!insertedFormIds.contains(thisSubForm.fc)) {
                     insertedFormIds.add(thisSubForm.fc);
                     String[] states = new String[1];
                     states[0] = thisForm.sc;
                     FormDTO newAngularForm = new FormDTO(thisForm.ci, states, thisForm.ss, thisSubForm.ft,
-                                                thisSubForm.ds, thisSubForm.fl, thisSubForm.fh, thisSubForm.fc);
+                            thisSubForm.ds, thisSubForm.fl, thisSubForm.fh, thisSubForm.fc);
                     outgoingForms.add(newAngularForm);
                 } else {
-                    for ( FormDTO angularForm : outgoingForms ) {
-                        if ( angularForm.formId.equals(thisSubForm.fc) ) {
+                    for (FormDTO angularForm : outgoingForms) {
+                        if (angularForm.formId.equals(thisSubForm.fc)) {
                             List<String> states = new ArrayList<>(Arrays.asList(angularForm.states));
                             if (!states.contains(thisSubForm.fc)) {
                                 states.add(thisSubForm.fc);
@@ -112,6 +159,7 @@ public class RESTController {
             }
         }
 
+
     }
 
     @RequestMapping(value = "/submission-form", method = RequestMethod.POST)
@@ -133,6 +181,7 @@ public class RESTController {
 
     @RequestMapping(value = "delete-form/{formId}", method = RequestMethod.DELETE)
     public void deleteSubForm(@PathVariable("formId") String formId) {
+
         List<Form> allTheForms = repository.findAll();
         for (Form f : allTheForms) {
             for (int i = 0; i < f.fl.length; i++) {
@@ -156,14 +205,6 @@ public class RESTController {
         }
     }
 
-    private void deleteFromFormList(String formId, List<Form> formList) {
-        for (Form thisForm : formList) {
-            List<subForm> thisSubForms = Arrays.asList(thisForm.fl);
-            thisForm.fl = thisSubForms.stream().filter(s -> !s.fc.equals(formId)).toArray(subForm[]::new);
-            repository.save(thisForm);
-        }
-    }
-
     private void deleteFromStates(String formId, List<String> statesDeleted) {
         // craft the search string for states
         for (int i = 0; i < statesDeleted.size(); i++) {
@@ -172,6 +213,15 @@ public class RESTController {
         }
     }
 
+    private void deleteFromFormList(String formId, List<Form> formList) {
+        for (Form thisForm : formList) {
+            List<subForm> thisSubForms = Arrays.asList(thisForm.fl);
+            thisForm.fl = thisSubForms.stream().filter(s -> !s.fc.equals(formId)).toArray(subForm[]::new);
+            repository.save(thisForm);
+        }
+    }
+
+
     private List<Form> angularToJava(FormDTO formDTO) {
         List<Form> javaForms = new ArrayList<>();
         for (int i = 0; i < formDTO.states.length; i++) {
@@ -179,7 +229,7 @@ public class RESTController {
             List<Form> matchingForms = repository.findSingleForm(formDTO.coverageType, formDTO.sourceSystem, formDTO.states[i]);
             Form thisForm = matchingForms.get(0);
             // create a new subForm with data that was passed in
-            subForm newSubForm = new subForm(formDTO.name, formDTO.link, formDTO.formType,true, formDTO.description, formDTO.formId);
+            subForm newSubForm = new subForm(formDTO.name, formDTO.link, formDTO.formType, true, formDTO.description, formDTO.formId);
             // add new subForm to existing fl list by converting to array and back
             ArrayList<subForm> tempSubList = new ArrayList<>(Arrays.asList(thisForm.fl));
             tempSubList.add(newSubForm);
@@ -189,7 +239,6 @@ public class RESTController {
         return javaForms;
     }
 
+
 }
-
-
 
