@@ -23,10 +23,37 @@ public class RESTController {
         return repository.findAll();
     }
 
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public FormDTO[] translateAllFormsToFormDTOs() {
+        List<Form> allTheForms = repository.findAll();
+        List<FormDTO> allTheAngular = null;
+        FormDTO angular = null;
+        ArrayList<String> states = new ArrayList<String>();
+        FormDTO[] output = null;
+        for(Form f : allTheForms)
+        {
+            for (int i = 0; i < f.fl.length; i++)
+            {
+                angular.coverageType = f.ci;
+                angular.sourceSystem = f.ss;
+                angular.formType = f.fl[i].ft;
+                angular.name = f.fl[i].ds;
+                angular.link = f.fl[i].fl;
+                angular.description = f.fl[i].fh;
+                angular.formId = f.fl[i].fc;
+                states.add(f.sc);
+                angular.states = states.toArray(new String[states.size()]);
+                allTheAngular.add(angular);
+            }
+        }
+        output = allTheAngular.toArray(new FormDTO[allTheAngular.size()]);
+        return output;
+    }
+
     @RequestMapping(value = "/{formId}", method = RequestMethod.GET)
-    public FormDTO getFormByFormId(@PathVariable("formId") String formId) {
-        // return repository.findByFormId(formId);
-        // return a list of all forms that contain that formId
+    public FormDTO getFormByFormId(@PathVariable("formId") String formId)
+    {
+        // return a the FormDTO that matches the FormId provided
         List<Form> allTheForms = repository.findAll();
         FormDTO fillForm = new FormDTO();
         ArrayList<String> states = new ArrayList<String>();
