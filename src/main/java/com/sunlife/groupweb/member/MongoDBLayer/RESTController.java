@@ -25,29 +25,26 @@ public class RESTController {
 
     @RequestMapping(value = "/populateTable", method = RequestMethod.GET)
     public FormDTO[] translateAllFormsToFormDTOs() {
+        //This method retrieves all forms from database and turn them into FormDTOs
+        //This method also combines all duplicate
         List<Form> allTheForms = repository.findAll();
-        List<FormDTO> allTheAngular = new ArrayList<FormDTO>();
-        ArrayList<String> states = new ArrayList<String>();
+        ArrayList<String> formIds = new ArrayList<>();
+        List<FormDTO> finalList = new ArrayList<FormDTO>();
         for (Form f : allTheForms) {
-            FormDTO angular = new FormDTO();
-            for (int i = 0; i < f.fl.length; i++) {
-                angular.coverageType = f.ci;
-                angular.sourceSystem = f.ss;
-                angular.formType = f.fl[i].ft;
-                angular.name = f.fl[i].ds;
-                angular.link = f.fl[i].fl;
-                angular.description = f.fl[i].fh;
-                angular.formId = f.fl[i].fc;
-                if (states.contains(f.sc) == false) {
-                    states.add(f.sc);
-                }
-                angular.states = states.toArray(new String[states.size()]);
-                if (allTheAngular.contains(angular) == false) {
-                    allTheAngular.add(angular);
+            for (int i = 0; i < f.fl.length; i++)
+            {
+                if(!formIds.contains(f.fl[i].fc))
+                {
+                    formIds.add(f.fl[i].fc);
                 }
             }
         }
-        return allTheAngular.toArray(new FormDTO[allTheAngular.size()]);
+        for(String id: formIds) {
+           finalList.add(getFormByFormId(id));
+        }
+        System.out.println(finalList.toArray(new FormDTO[finalList.size()]).length);
+        System.out.println(formIds.toArray(new String[formIds.size()]).length);
+        return finalList.toArray(new FormDTO[finalList.size()]);
     }
 
     @RequestMapping(value = "/{formId}", method = RequestMethod.GET)
