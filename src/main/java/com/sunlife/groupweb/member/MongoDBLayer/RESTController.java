@@ -25,11 +25,13 @@ public class RESTController {
 
     @RequestMapping(value = "/populateTable", method = RequestMethod.GET)
     public FormDTO[] translateAllFormsToFormDTOs() {
+        //This method retrieves all forms from database and turn them into FormDTOs
+        //This method also combines all duplicate
         List<Form> allTheForms = repository.findAll();
         List<FormDTO> allTheAngular = new ArrayList<FormDTO>();
-        ArrayList<String> states = new ArrayList<String>();
         for (Form f : allTheForms) {
             FormDTO angular = new FormDTO();
+            ArrayList<String> states = new ArrayList<String>();
             for (int i = 0; i < f.fl.length; i++) {
                 angular.coverageType = f.ci;
                 angular.sourceSystem = f.ss;
@@ -38,14 +40,28 @@ public class RESTController {
                 angular.link = f.fl[i].fl;
                 angular.description = f.fl[i].fh;
                 angular.formId = f.fl[i].fc;
-                if (states.contains(f.sc) == false) {
+                if(!states.contains(f.sc))
+                {
                     states.add(f.sc);
                 }
                 angular.states = states.toArray(new String[states.size()]);
-                if (allTheAngular.contains(angular) == false) {
+                if (allTheAngular.contains(angular) == false)
+                {
                     allTheAngular.add(angular);
                 }
             }
+        }
+        ArrayList<String> formIds = new ArrayList<>();
+        for(FormDTO f: allTheAngular)
+        {
+            if(!formIds.contains(f.formId))
+            {
+                formIds.add(f.formId);
+            }
+        }
+        for(String id: formIds)
+        {
+           allTheAngular.add(getFormByFormId(id));
         }
         return allTheAngular.toArray(new FormDTO[allTheAngular.size()]);
     }
