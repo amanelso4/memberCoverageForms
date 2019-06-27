@@ -48,8 +48,8 @@ export class FormService {
       );
   }
 
-  getSingleForm(id: number): Observable<Form> {
-    return this.http.get<Form>(`${this.formUrl}/${id}`)
+  getSingleForm(formId: string): Observable<Form> {
+    return this.http.get<Form>(`${this.formUrl}/${formId}`)
       .pipe(catchError(this.handleError));
   }
 
@@ -63,13 +63,13 @@ export class FormService {
 
   // PUT
   updateForm(form: Form): Observable<{}> {
-    return this.http.put(`${this.formUrl}/${form.id}`, form, httpOptions)
+    return this.http.put(`${this.formUrl}/${form.formId}`, form, httpOptions)
       .pipe(catchError(this.handleError));
   }
 
   // DELETE
-  deleteForm(id: number): Observable<{}> {
-    return this.http.delete(`${this.formUrl}/${id}`)
+  deleteForm(formId: string): Observable<{}> {
+    return this.http.delete(`${this.formUrl}/${formId}`)
       .pipe(catchError(this.handleError));
   }
 
