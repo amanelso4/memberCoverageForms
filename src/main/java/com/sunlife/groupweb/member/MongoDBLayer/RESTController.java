@@ -40,7 +40,10 @@ public class RESTController {
                     fillForm.link = f.fl[i].fl;
                     fillForm.description = f.fl[i].fh;
                     fillForm.formId = f.fl[i].fc;
-                    states.add(f.sc);
+                    if(states.contains(f.sc) == false)
+                    {
+                        states.add(f.sc);
+                    }
                 }
             }
         }
