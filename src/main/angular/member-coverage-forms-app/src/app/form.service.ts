@@ -4,7 +4,6 @@ import { Observable, throwError } from "rxjs";
 import { catchError, retry } from "rxjs/operators";
 
 export class Form {
-  id: number;
   coverageType: string;
   state: string [];
   sourceSystem: string;
@@ -32,7 +31,7 @@ export class FormService {
   // DECLARATIONS //
   //////////////////
 
-  private formUrl: string = "api/forms";
+  private formUrl: string = "http://localhost:8080/mfm";
 
   //////////////////
   ///// METHODS ////

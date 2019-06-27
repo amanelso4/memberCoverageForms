@@ -22,19 +22,16 @@ public class RESTController {
     //// GET METHODS ////
     /////////////////////
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public List<Form> getAllForms() {
-        return repository.findAll();
-    }
-
-    @RequestMapping(value = "/populateTable", method = RequestMethod.GET)
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public FormDTO[] translateAllFormsToFormDTOs() {
         //This method retrieves all forms from database and turn them into FormDTOs
         //This method also combines all duplicate
         List<Form> allTheForms = repository.findAll();
         ArrayList<String> formIds = new ArrayList<>();
-        List<FormDTO> finalList = new ArrayList<FormDTO>();
+        List<FormDTO> finalList = new ArrayList<>();
         for (Form f : allTheForms) {
+            // populate formIds list with all unique formIds
             for (int i = 0; i < f.fl.length; i++)
             {
                 if(!formIds.contains(f.fl[i].fc))
@@ -51,12 +48,13 @@ public class RESTController {
         return finalList.toArray(new FormDTO[finalList.size()]);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/{formId}", method = RequestMethod.GET)
     public FormDTO getFormByFormId(@PathVariable("formId") String formId) {
         // return a the FormDTO that matches the FormId provided
         List<Form> allTheForms = repository.findAll();
         FormDTO fillForm = new FormDTO();
-        ArrayList<String> states = new ArrayList<String>();
+        ArrayList<String> states = new ArrayList<>();
         for (Form f : allTheForms) {
             for (int i = 0; i < f.fl.length; i++) {
                 if (f.fl[i].fc.equals(formId)) {
@@ -123,6 +121,7 @@ public class RESTController {
     //// PUT METHOD ////
     ////////////////////
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/{formId}", method = RequestMethod.PUT)
     public void modifyFormByFormId(@PathVariable("formId") String formId, @Valid @RequestBody FormDTO newFormDTO) {
         boolean exteriorChange = false;
@@ -181,7 +180,8 @@ public class RESTController {
     //// POST METHOD ////
     /////////////////////
 
-    @RequestMapping(value = "/submission-form", method = RequestMethod.POST)
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public void addSubForm(@Valid @RequestBody FormDTO form) {
         for (int i = 0; i < form.states.length; i++) {
             String state = form.states[i];
@@ -202,7 +202,8 @@ public class RESTController {
     /// DELETE METHOD ///
     /////////////////////
 
-    @RequestMapping(value = "delete-form/{formId}", method = RequestMethod.DELETE)
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/{formId}", method = RequestMethod.DELETE)
     public void deleteSubForm(@PathVariable("formId") String formId) {
 
         List<Form> allTheForms = repository.findAll();

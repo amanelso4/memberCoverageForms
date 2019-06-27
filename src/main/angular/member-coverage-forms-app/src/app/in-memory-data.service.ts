@@ -12,7 +12,6 @@ export class InMemoryDataService implements InMemoryDbService {
   createDb() {
     const forms = [ //Maybe make this a Form[] object?
       {
-        id: 1,
         coverageType: 'STD',
         state: 'NY',
         sourceSystem: 'S',
@@ -23,7 +22,6 @@ export class InMemoryDataService implements InMemoryDbService {
         formId: 'k0384any',
       },
       {
-        id: 2,
         coverageType: 'DENTAL',
         state: 'AK',
         sourceSystem: 'S',
@@ -34,7 +32,6 @@ export class InMemoryDataService implements InMemoryDbService {
         formId: 'k2147a'
       },
       {
-        id: 3,
         coverageType: 'DENTAL',
         state: 'HI',
         sourceSystem: 'S',
@@ -45,7 +42,6 @@ export class InMemoryDataService implements InMemoryDbService {
         formId: 'k2147a'
       },
       {
-        id: 4,
         coverageType: 'DENTAL',
         state: 'DE',
         sourceSystem: 'S',
@@ -56,7 +52,6 @@ export class InMemoryDataService implements InMemoryDbService {
         formId: 'k2147a'
       },
       {
-        id: 5,
         coverageType: 'LTD',
         state: 'KS',
         sourceSystem: 'S',
@@ -67,7 +62,6 @@ export class InMemoryDataService implements InMemoryDbService {
         formId: 'k1615'
       },
       {
-        id: 6,
         coverageType: 'LTD',
         state: 'AZ',
         sourceSystem: 'S',
@@ -78,7 +72,6 @@ export class InMemoryDataService implements InMemoryDbService {
         formId: 'k4054e'
       },
       {
-        id: 7,
         coverageType: 'LTD',
         state: 'AZ',
         sourceSystem: 'S',
@@ -89,7 +82,6 @@ export class InMemoryDataService implements InMemoryDbService {
         formId: 'k3283a'
       },
       {
-        id: 8,
         coverageType: 'GAP',
         state: 'MD',
         sourceSystem: 'S',
@@ -100,7 +92,6 @@ export class InMemoryDataService implements InMemoryDbService {
         formId: 'kc4739fsl'
       },
       {
-        id: 9,
         coverageType: 'LTD',
         state: 'DE',
         sourceSystem: 'S',
@@ -111,7 +102,6 @@ export class InMemoryDataService implements InMemoryDbService {
         formId: 'k3283a'
       },
       {
-        id: 10,
         coverageType: 'LTD',
         state: 'DE',
         sourceSystem: 'S',
@@ -122,7 +112,6 @@ export class InMemoryDataService implements InMemoryDbService {
         formId: 'k3283p'
       },
       {
-        id: 11,
         coverageType: 'GAP',
         state: 'AR',
         sourceSystem: 'S',
@@ -133,7 +122,6 @@ export class InMemoryDataService implements InMemoryDbService {
         formId: 'kc4739fsl'
       },
       {
-        id: 12,
         coverageType: 'LTD',
         state: 'SD',
         sourceSystem: 'S',
@@ -144,7 +132,6 @@ export class InMemoryDataService implements InMemoryDbService {
         formId: 'k1615'
       },
       {
-        id: 13,
         coverageType: 'GAP',
         state: 'KY',
         sourceSystem: 'S',
@@ -155,7 +142,6 @@ export class InMemoryDataService implements InMemoryDbService {
         formId: 'kc4739fsl'
       },
       {
-        id: 14,
         coverageType: 'LTD',
         state: 'AZ',
         sourceSystem: 'S',
@@ -166,7 +152,6 @@ export class InMemoryDataService implements InMemoryDbService {
         formId: 'k3283a'
       },
       {
-        id: 15,
         coverageType: 'DENTALPREPAID',
         state: 'AZ',
         sourceSystem: 'S',
@@ -177,7 +162,6 @@ export class InMemoryDataService implements InMemoryDbService {
         formId: 'k2147l'
       },
       {
-        id: 16,
         coverageType: 'DENTALPREPAID',
         state: 'AK',
         sourceSystem: 'S',
@@ -188,7 +172,6 @@ export class InMemoryDataService implements InMemoryDbService {
         formId: 'k2147l'
       },
       {
-        id: 17,
         coverageType: 'CRITICALILLNESS',
         state: 'IN',
         sourceSystem: 'Q',
@@ -199,7 +182,6 @@ export class InMemoryDataService implements InMemoryDbService {
         formId: 'k4700'
       },
       {
-        id: 18,
         coverageType: 'CRITICALILLNESS',
         state: 'IN',
         sourceSystem: 'Q',
@@ -210,7 +192,6 @@ export class InMemoryDataService implements InMemoryDbService {
         formId: 'KC4700-S'
       },
       {
-        id: 19,
         coverageType: 'CRITICALILLNESS',
         state: 'IN',
         sourceSystem: 'Q',
@@ -221,7 +202,6 @@ export class InMemoryDataService implements InMemoryDbService {
         formId: 'k4678'
       },
       {
-        id: 20,
         coverageType: 'LTD',
         state: 'AZ',
         sourceSystem: 'Q',
@@ -234,9 +214,4 @@ export class InMemoryDataService implements InMemoryDbService {
     ];
     return {forms};
   }
-
-  genId(forms: Form[]): number {
-    return forms.length > 0 ? Math.max(...forms.map(form => form.id)) + 1 : 11;
-  }
-
 }
