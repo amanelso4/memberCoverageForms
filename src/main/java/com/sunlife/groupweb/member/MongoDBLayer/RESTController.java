@@ -32,16 +32,33 @@ public class RESTController {
         List<FormDTO> finalList = new ArrayList<>();
         for (Form f : allTheForms) {
             // populate formIds list with all unique formIds
-            for (int i = 0; i < f.fl.length; i++)
-            {
-                if(!formIds.contains(f.fl[i].fc))
-                {
+            for (int i = 0; i < f.fl.length; i++) {
+                if (!formIds.contains(f.fl[i].fc)) {
                     formIds.add(f.fl[i].fc);
                 }
             }
         }
-        for(String id: formIds) {
-           finalList.add(getFormByFormId(id));
+        for (String id : formIds) {
+            FormDTO fillForm = new FormDTO();
+            ArrayList<String> states = new ArrayList<>();
+            for (Form f : allTheForms) {
+                for (int i = 0; i < f.fl.length; i++) {
+                    if (f.fl[i].fc.equals(id)) {
+                        fillForm.coverageType = f.ci;
+                        fillForm.sourceSystem = f.ss;
+                        fillForm.formType = f.fl[i].ft;
+                        fillForm.name = f.fl[i].ds;
+                        fillForm.link = f.fl[i].fl;
+                        fillForm.description = f.fl[i].fh;
+                        fillForm.formId = f.fl[i].fc;
+                        if (states.contains(f.sc) == false) {
+                            states.add(f.sc);
+                        }
+                    }
+                }
+            }
+            fillForm.state = states.toArray(new String[states.size()]);
+            finalList.add(fillForm);
         }
         System.out.println(finalList.toArray(new FormDTO[finalList.size()]).length);
         System.out.println(formIds.toArray(new String[formIds.size()]).length);
