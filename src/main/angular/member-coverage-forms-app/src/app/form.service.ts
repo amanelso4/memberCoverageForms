@@ -61,8 +61,8 @@ export class FormService {
   }
 
   // PUT
-  updateForm(form: Form): Observable<{}> {
-    return this.http.put(`${this.formUrl}/${form.formId}`, form, httpOptions)
+  updateForm(formId: string, form: Form): Observable<{}> {
+    return this.http.put(`${this.formUrl}/${formId}`, form, httpOptions)
       .pipe(catchError(this.handleError));
   }
 

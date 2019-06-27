@@ -35,6 +35,7 @@ export class SubmissionFormComponent implements OnInit {
   private _pdf: PDFDocumentProxy;
   newForm = false;
   originalForm: Form;
+  originalFormId: string;
 
   coverageTypes = ['STD', 'LTD', 'DENTAL', 'GAP', 'DENTALPREPAID', 'CRITICALILLNESS'];
 
@@ -84,10 +85,10 @@ export class SubmissionFormComponent implements OnInit {
     });
     // Get form id from active route and determine if this is a new form or an existing one
     this.route.paramMap.subscribe(parameterMap => {
-      const formId = parameterMap.get('formId');
-      if (formId !== "new") {
+      this.originalFormId = parameterMap.get('formId');
+      if (this.originalFormId !== "new") {
         // Existing form
-        this.getForm(formId);
+        this.getForm(this.originalFormId);
       } else {
         // New form
         this.newForm = true;
@@ -118,7 +119,7 @@ export class SubmissionFormComponent implements OnInit {
       //If updating an existing form, call a PUT
     } else {
       const updatedForm: Form = Object.assign({}, this.model.value);
-      this.formService.updateForm(updatedForm).subscribe(
+      this.formService.updateForm(this.originalFormId, updatedForm).subscribe(
         () => {
           console.log('Updated form w/ id' + this.model.value.formId);
           console.log(updatedForm);

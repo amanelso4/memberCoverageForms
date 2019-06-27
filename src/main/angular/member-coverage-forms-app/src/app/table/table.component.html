@@ -60,7 +60,7 @@
   <tr *ngFor="let form of forms | filter: formType:coverageType:state:sourceSystem:formId:name | paginate: { itemsPerPage: 10, currentPage: p }">
     <td style="max-width: 20px;">{{ form.formType }}</td>
     <td>{{ form.coverageType }}</td>
-    <td>{{ form.state }}</td>
+    <td class="state">{{ form.state }}</td>
     <td>{{ form.sourceSystem }}</td>
     <td title="{{ form.description }}"><a class="a" href="{{ form.link }}" target="_blank">{{ form.name }}</a></td>
     <td>{{ form.formId }}</td>
