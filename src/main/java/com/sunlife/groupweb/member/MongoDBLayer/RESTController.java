@@ -17,6 +17,9 @@ public class RESTController {
     @Autowired // says field injection not recommended, maybe create config class and move it there?
     private FormRepository repository;
 
+    /////////////////////
+    //// GET METHODS ////
+    /////////////////////
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public List<Form> getAllForms() {
@@ -107,6 +110,10 @@ public class RESTController {
         return outgoingForms.toArray(new FormDTO[0]);
     }
 
+    ////////////////////
+    //// PUT METHOD ////
+    ////////////////////
+
     @RequestMapping(value = "/{formId}", method = RequestMethod.PUT)
     public void modifyFormByFormId(@PathVariable("formId") String formId, @Valid @RequestBody FormDTO newFormDTO) {
         boolean exteriorChange = false;
@@ -159,9 +166,11 @@ public class RESTController {
                 replaceInFormList(formId, newSubForm, formsToUpdate);
             }
         }
-
-
     }
+
+    /////////////////////
+    //// POST METHOD ////
+    /////////////////////
 
     @RequestMapping(value = "/submission-form", method = RequestMethod.POST)
     public void addSubForm(@Valid @RequestBody FormDTO form) {
@@ -180,6 +189,10 @@ public class RESTController {
         }
     }
 
+    /////////////////////
+    /// DELETE METHOD ///
+    /////////////////////
+
     @RequestMapping(value = "delete-form/{formId}", method = RequestMethod.DELETE)
     public void deleteSubForm(@PathVariable("formId") String formId) {
 
@@ -195,6 +208,10 @@ public class RESTController {
             }
         }
     }
+
+    /////////////////////
+    ////// HELPERS //////
+    /////////////////////
 
     private void replaceInFormList(String formId, subForm newSubForm, List<Form> formList) {
         for (Form thisForm : formList) {
@@ -221,7 +238,6 @@ public class RESTController {
             repository.save(thisForm);
         }
     }
-
 
     private List<Form> angularToJava(FormDTO formDTO) {
         List<Form> javaForms = new ArrayList<>();
