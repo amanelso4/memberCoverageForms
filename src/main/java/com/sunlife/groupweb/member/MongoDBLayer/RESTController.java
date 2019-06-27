@@ -76,9 +76,9 @@ public class RESTController {
         return fillForm;
     }
 
-    @RequestMapping(value = "/?{field}={search}", method = RequestMethod.GET)
-    public void getFormsBySingleSearch(@PathVariable("field") String field, @PathVariable("search") String search) {
-        List<Form> filteredForms = repository.findByOneField(field, search);
+    @RequestMapping(value = "/search/{search}", method = RequestMethod.GET)
+    public FormDTO[] getFormsBySingleSearch(@PathVariable("search") String search) {
+        List<Form> filteredForms = repository.findByOneField("ci", search);
         List<FormDTO> outgoingForms = new ArrayList<>();
         List<String> insertedFormIds = new ArrayList<>();
         for (Form thisForm : filteredForms) {
@@ -95,8 +95,8 @@ public class RESTController {
                     for (FormDTO angularForm : outgoingForms) {
                         if (angularForm.formId.equals(thisSubForm.fc)) {
                             List<String> states = new ArrayList<>(Arrays.asList(angularForm.states));
-                            if (!states.contains(thisSubForm.fc)) {
-                                states.add(thisSubForm.fc);
+                            if (!states.contains(thisForm.sc)) {
+                                states.add(thisForm.sc);
                                 angularForm.states = states.toArray(new String[0]);
                             }
                         }
@@ -104,6 +104,7 @@ public class RESTController {
                 }
             }
         }
+        return outgoingForms.toArray(new FormDTO[0]);
     }
 
     @RequestMapping(value = "/{formId}", method = RequestMethod.PUT)
