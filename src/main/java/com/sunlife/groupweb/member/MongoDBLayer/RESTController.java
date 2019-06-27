@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/mfm")
 public class RESTController {
 
-    @Autowired // says field injection not reccomended, maybe create config class and move it there?
+    @Autowired // says field injection not recommended, maybe create config class and move it there?
     private FormRepository repository;
 
 
@@ -222,4 +222,3 @@ public class RESTController {
 
     }
 
-}
