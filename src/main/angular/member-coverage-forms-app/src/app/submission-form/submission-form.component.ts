@@ -35,6 +35,7 @@ export class SubmissionFormComponent implements OnInit {
   private _pdf: PDFDocumentProxy;
   newForm = false;
   originalForm: Form;
+  originalFormId: string;
 
   coverageTypes = ['STD', 'LTD', 'DENTAL', 'GAP', 'DENTALPREPAID', 'CRITICALILLNESS'];
 
@@ -73,7 +74,6 @@ export class SubmissionFormComponent implements OnInit {
     };*/
     // Initialize form to blank values
     this.model = this.formBuilder.group({
-      id: [null, Validators.required],
       coverageType: [null, Validators.required],
       state: [null, Validators.required],
       sourceSystem: [null, Validators.required],
@@ -85,10 +85,10 @@ export class SubmissionFormComponent implements OnInit {
     });
     // Get form id from active route and determine if this is a new form or an existing one
     this.route.paramMap.subscribe(parameterMap => {
-      const id = +parameterMap.get('id');
-      if (id !== 0) {
+      this.originalFormId = parameterMap.get('formId');
+      if (this.originalFormId !== "new") {
         // Existing form
-        this.getForm(id);
+        this.getForm(this.originalFormId);
       } else {
         // New form
         this.newForm = true;
@@ -97,33 +97,33 @@ export class SubmissionFormComponent implements OnInit {
   }
 
   // Retrieve the form the user wants to update and populate the page with its details
-  private getForm(id: number) {
-    this.form = this.formService.getSingleForm(id).pipe(
+  private getForm(formId: string) {
+    this.form = this.formService.getSingleForm(formId).pipe(
       tap(form => this.model.patchValue(form))
     )
-    this.formService.getSingleForm(id).subscribe(form => this.originalForm = form)
+    this.formService.getSingleForm(formId).subscribe(form => this.originalForm = form)
   }
 
   // POST or PUT submitted form depending on form id
   submit() {
     // If adding a new form, call a POST
-    if (this.model.value.id === null) {
-      const newForm: Form = Object.assign({}, this.model.value);
-      this.formService.addForm(newForm).subscribe(
+    if (this.newForm) {
+      const createdForm: Form = Object.assign({}, this.model.value);
+      this.formService.addForm(createdForm).subscribe(
         (data: Form) => {
           console.log('Added form: ');
           console.log(data);
-          this.router.navigate(['table']);
+          this.router.navigate(['']);
         }
       );
       //If updating an existing form, call a PUT
     } else {
       const updatedForm: Form = Object.assign({}, this.model.value);
-      this.formService.updateForm(updatedForm).subscribe(
+      this.formService.updateForm(this.originalFormId, updatedForm).subscribe(
         () => {
-          console.log('Updated form w/ id' + this.model.value.id);
+          console.log('Updated form w/ id' + this.model.value.formId);
           console.log(updatedForm);
-          this.router.navigate(['table']);
+          this.router.navigate(['']);
         }
       )
     }

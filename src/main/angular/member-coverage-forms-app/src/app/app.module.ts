@@ -8,8 +8,6 @@ import { AppComponent } from './app.component';
 import { SubmissionFormComponent } from './submission-form/submission-form.component';
 import { TableComponent } from './table/table.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
-import { InMemoryDataService } from "./in-memory-data.service";
-import { HttpClientInMemoryWebApiModule } from "angular-in-memory-web-api";
 import { FilterPipe } from "./pipes/filter.pipe";
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { NgxPaginationModule } from "ngx-pagination";
@@ -18,7 +16,7 @@ import { TableResolverService } from "./table-resolver.service";
 import { NgMultiSelectDropDownModule } from '../../node_modules/ng-multiselect-dropdown';
 
 const appRoutes: Routes = [
-  {path: 'mfm/:id', component: SubmissionFormComponent},
+  {path: 'mfm/:formId', component: SubmissionFormComponent},
   {path: 'mfm', component: TableComponent, resolve: { formList: TableResolverService }},
   {path: '', redirectTo: 'mfm', pathMatch: 'full'},
 ];
@@ -42,7 +40,6 @@ const appRoutes: Routes = [
     NgxPaginationModule,
     FontAwesomeModule,
     HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false }),
     PdfViewerModule,
     NgMultiSelectDropDownModule,
   ],

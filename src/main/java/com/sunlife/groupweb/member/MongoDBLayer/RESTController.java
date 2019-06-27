@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -17,42 +18,60 @@ public class RESTController {
     @Autowired // says field injection not recommended, maybe create config class and move it there?
     private FormRepository repository;
 
+    /////////////////////
+    //// GET METHODS ////
+    /////////////////////
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public List<Form> getAllForms() {
-        return repository.findAll();
-    }
-
-    @RequestMapping(value = "/populateTable", method = RequestMethod.GET)
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public FormDTO[] translateAllFormsToFormDTOs() {
         //This method retrieves all forms from database and turn them into FormDTOs
         //This method also combines all duplicate
         List<Form> allTheForms = repository.findAll();
         ArrayList<String> formIds = new ArrayList<>();
-        List<FormDTO> finalList = new ArrayList<FormDTO>();
+        List<FormDTO> finalList = new ArrayList<>();
         for (Form f : allTheForms) {
-            for (int i = 0; i < f.fl.length; i++)
-            {
-                if(!formIds.contains(f.fl[i].fc))
-                {
+            // populate formIds list with all unique formIds
+            for (int i = 0; i < f.fl.length; i++) {
+                if (!formIds.contains(f.fl[i].fc)) {
                     formIds.add(f.fl[i].fc);
                 }
             }
         }
-        for(String id: formIds) {
-           finalList.add(getFormByFormId(id));
+        for (String id : formIds) {
+            FormDTO fillForm = new FormDTO();
+            ArrayList<String> states = new ArrayList<>();
+            for (Form f : allTheForms) {
+                for (int i = 0; i < f.fl.length; i++) {
+                    if (f.fl[i].fc.equals(id)) {
+                        fillForm.coverageType = f.ci;
+                        fillForm.sourceSystem = f.ss;
+                        fillForm.formType = f.fl[i].ft;
+                        fillForm.name = f.fl[i].ds;
+                        fillForm.link = f.fl[i].fl;
+                        fillForm.description = f.fl[i].fh;
+                        fillForm.formId = f.fl[i].fc;
+                        if (states.contains(f.sc) == false) {
+                            states.add(f.sc);
+                        }
+                    }
+                }
+            }
+            fillForm.state = states.toArray(new String[states.size()]);
+            finalList.add(fillForm);
         }
         System.out.println(finalList.toArray(new FormDTO[finalList.size()]).length);
         System.out.println(formIds.toArray(new String[formIds.size()]).length);
         return finalList.toArray(new FormDTO[finalList.size()]);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/{formId}", method = RequestMethod.GET)
     public FormDTO getFormByFormId(@PathVariable("formId") String formId) {
         // return a the FormDTO that matches the FormId provided
         List<Form> allTheForms = repository.findAll();
         FormDTO fillForm = new FormDTO();
-        ArrayList<String> states = new ArrayList<String>();
+        ArrayList<String> states = new ArrayList<>();
         for (Form f : allTheForms) {
             for (int i = 0; i < f.fl.length; i++) {
                 if (f.fl[i].fc.equals(formId)) {
@@ -69,40 +88,15 @@ public class RESTController {
                 }
             }
         }
-        fillForm.states = states.toArray(new String[states.size()]);
+        fillForm.state = states.toArray(new String[states.size()]);
         return fillForm;
     }
 
-    @RequestMapping(value = "/?{field}={search}", method = RequestMethod.GET)
-    public void getFormsBySingleSearch(@PathVariable("field") String field, @PathVariable("search") String search) {
-        List<Form> filteredForms = repository.findByOneField(field, search);
-        List<FormDTO> outgoingForms = new ArrayList<>();
-        List<String> insertedFormIds = new ArrayList<>();
-        for (Form thisForm : filteredForms) {
-            ArrayList<subForm> thisSubFormList = new ArrayList<>(Arrays.asList(thisForm.fl));
-            for (subForm thisSubForm : thisSubFormList) {
-                if (!insertedFormIds.contains(thisSubForm.fc)) {
-                    insertedFormIds.add(thisSubForm.fc);
-                    String[] states = new String[1];
-                    states[0] = thisForm.sc;
-                    FormDTO newAngularForm = new FormDTO(thisForm.ci, states, thisForm.ss, thisSubForm.ft,
-                            thisSubForm.ds, thisSubForm.fl, thisSubForm.fh, thisSubForm.fc);
-                    outgoingForms.add(newAngularForm);
-                } else {
-                    for (FormDTO angularForm : outgoingForms) {
-                        if (angularForm.formId.equals(thisSubForm.fc)) {
-                            List<String> states = new ArrayList<>(Arrays.asList(angularForm.states));
-                            if (!states.contains(thisSubForm.fc)) {
-                                states.add(thisSubForm.fc);
-                                angularForm.states = states.toArray(new String[0]);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+    ////////////////////
+    //// PUT METHOD ////
+    ////////////////////
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/{formId}", method = RequestMethod.PUT)
     public void modifyFormByFormId(@PathVariable("formId") String formId, @Valid @RequestBody FormDTO newFormDTO) {
         boolean exteriorChange = false;
@@ -120,9 +114,9 @@ public class RESTController {
         if (exteriorChange) {
             // Remove all instances of form from current doc
             deleteFromFormList(formId, originalForm);
-            for (int i = 0; i < newFormDTO.states.length; i++) {
+            for (int i = 0; i < newFormDTO.state.length; i++) {
                 List<Form> newFormLocations = repository.findByThreeFields("ci", editedForm.get(0).ci, "ss", editedForm.get(0).ss,
-                        "sc", newFormDTO.states[i]);
+                        "sc", newFormDTO.state[i]);
                 for (Form thisForm : newFormLocations) {
                     ArrayList<subForm> thisSubForms = new ArrayList<>(Arrays.asList(thisForm.fl));
                     thisSubForms.add(newSubForm);
@@ -132,7 +126,7 @@ public class RESTController {
             }
         } else {
             // Check to see if list of states has been changed
-            List<String> newStatesList = Arrays.asList(newFormDTO.states);
+            List<String> newStatesList = Arrays.asList(newFormDTO.state);
             List<String> oldStatesList = new ArrayList<>();
             List<String> statesDeleted = new ArrayList<>();
             // record list of added and deleted states
@@ -155,14 +149,17 @@ public class RESTController {
                 replaceInFormList(formId, newSubForm, formsToUpdate);
             }
         }
-
-
     }
 
-    @RequestMapping(value = "/submission-form", method = RequestMethod.POST)
+    /////////////////////
+    //// POST METHOD ////
+    /////////////////////
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public void addSubForm(@Valid @RequestBody FormDTO form) {
-        for (int i = 0; i < form.states.length; i++) {
-            String state = form.states[i];
+        for (int i = 0; i < form.state.length; i++) {
+            String state = form.state[i];
             List<Form> formsToBeAdded = repository.findByThreeFields("sc", state, "ss", form.sourceSystem, "ci", form.coverageType);
             for (Form f : formsToBeAdded) {        /*
                    Iterator stateIterator = formDTO.iterator();
@@ -176,10 +173,15 @@ public class RESTController {
         }
     }
 
-    @RequestMapping(value = "delete-form/{formId}", method = RequestMethod.DELETE)
-    public void deleteSubForm(@PathVariable("formId") String formId) {
+    /////////////////////
+    /// DELETE METHOD ///
+    /////////////////////
 
-        List<Form> allTheForms = repository.findAll();
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/{formId}", method = RequestMethod.DELETE)
+    public void deleteSubForm(@PathVariable("formId") String formId) {
+        System.out.println("Deleting form w/ formId " + formId);
+        List<Form> allTheForms = repository.findByOneField("fl.fc", formId);
         for (Form f : allTheForms) {
             for (int i = 0; i < f.fl.length; i++) {
                 if (f.fl[i].fc.equals(formId)) {
@@ -191,6 +193,10 @@ public class RESTController {
             }
         }
     }
+
+    /////////////////////
+    ////// HELPERS //////
+    /////////////////////
 
     private void replaceInFormList(String formId, subForm newSubForm, List<Form> formList) {
         for (Form thisForm : formList) {
@@ -218,12 +224,11 @@ public class RESTController {
         }
     }
 
-
     private List<Form> angularToJava(FormDTO formDTO) {
         List<Form> javaForms = new ArrayList<>();
-        for (int i = 0; i < formDTO.states.length; i++) {
+        for (int i = 0; i < formDTO.state.length; i++) {
             // return matching forms and take the first one
-            List<Form> matchingForms = repository.findSingleForm(formDTO.coverageType, formDTO.sourceSystem, formDTO.states[i]);
+            List<Form> matchingForms = repository.findSingleForm(formDTO.coverageType, formDTO.sourceSystem, formDTO.state[i]);
             Form thisForm = matchingForms.get(0);
             // create a new subForm with data that was passed in
             subForm newSubForm = new subForm(formDTO.name, formDTO.link, formDTO.formType, true, formDTO.description, formDTO.formId);

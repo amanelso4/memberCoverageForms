@@ -27,7 +27,7 @@
               </div>
               <div class="col-lg-8">
                 <div class="form-group">
-                  <select class="form-control" required formControlName="formType">
+                  <select class="form-control" required formControlName="formType" id="formType">
                     <option *ngFor="let fType of formTypes" [value]="fType">{{fType}}</option>
                   </select>
                   <!--<div [hidden]="formType.valid || formType.untouched" class="alert alert-danger">
