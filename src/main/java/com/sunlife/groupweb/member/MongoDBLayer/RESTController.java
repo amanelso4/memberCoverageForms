@@ -30,7 +30,6 @@ public class RESTController {
         List<Form> allTheForms = repository.findAll();
         FormDTO fillForm = new FormDTO();
         for (Form f : allTheForms) {
-            String[] States = new String[fillForm.states.length + 1];
             for (int i = 0; i < f.fl.length; i++) {
                 if (f.fl[i].fc.equals(formId)) {
                     fillForm.coverageType = f.ci;
@@ -40,14 +39,7 @@ public class RESTController {
                     fillForm.link = f.fl[i].fl;
                     fillForm.description = f.fl[i].fh;
                     fillForm.formId = f.fl[i].fc;
-                    for (int j = 0; j < States.length; j++) {
-                        if (j == States.length) {
-                            States[j] = f.sc;
-                        }
-                        States[j] = fillForm.states[j];
-                    }
                 }
-                fillForm.states = States;
             }
         }
         return fillForm;
