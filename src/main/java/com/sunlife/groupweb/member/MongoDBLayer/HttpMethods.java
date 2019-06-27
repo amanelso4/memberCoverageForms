@@ -1,3 +1,4 @@
+/*
 package com.sunlife.groupweb.member.MongoDBLayer;
 
 import java.util.ArrayList;
@@ -15,9 +16,11 @@ public class HttpMethods {
             String state = form.states[i];
             List<Form> formsToBeAdded = repository.findByThreeFields("sc", state, "ss", form.sourceSystem, "ci", form.coverageType);
             for(Form f : formsToBeAdded)
-            {        /*
+            {        */
+/*
                    Iterator stateIterator = formDTO.iterator();
-                   for(Form f=null; stateIterator.hasNext(); f=(Form)stateIterator.next()) { */
+                   for(Form f=null; stateIterator.hasNext(); f=(Form)stateIterator.next()) { *//*
+
                 ArrayList<subForm> subFormPlusOne=  new ArrayList<subForm>(Arrays.asList(f.fl));
                 subForm newSub = new subForm(form.name, form.link, form.formType, false, form.description, form.formId);
                 subFormPlusOne.add(newSub);
@@ -132,3 +135,4 @@ public class HttpMethods {
         }
     }
 }
+*/

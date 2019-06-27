@@ -17,7 +17,7 @@ public class RESTController {
     @Autowired
     private FormRepository repository;
 
-    private HttpMethods http;
+  //  private HttpMethods http;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public List<Form> getAllForms() {
@@ -25,11 +25,39 @@ public class RESTController {
     }
 
     @RequestMapping(value = "/{formId}", method = RequestMethod.GET)
-    public List<Form> getFormByFormId(@PathVariable("formId") String formId) {
+    public FormDTO getFormByFormId(@PathVariable("formId") String formId)
+    {
         // return repository.findByFormId(formId);
         // return a list of all forms that contain that formId
-        return null;
+        List<Form> allTheForms = repository.findAll();
+        FormDTO fillForm = new FormDTO();
+        for (Form f : allTheForms) {
+            String[] States = new String[fillForm.states.length+1];
+            for (int i = 0; i < f.fl.length; i++) {
+                if (f.fl[i].fc.equals(formId))
+                {
+                    fillForm.coverageType = f.ci;
+                    fillForm.sourceSystem = f.ss;
+                    fillForm.formType = f.fl[i].ft;
+                    fillForm.name = f.fl[i].ds;
+                    fillForm.link = f.fl[i].fl;
+                    fillForm.description = f.fl[i].fh;
+                    fillForm.formId = f.fl[i].fc;
+                    for(int j = 0; j<States.length; j++)
+                    {
+                        if(j == States.length)
+                        {
+                            States[j] = f.sc;
+                        }
+                        States[j] = fillForm.states[j];
+                    }
+                }
+                fillForm.states = States;
+            }
+        }
+        return fillForm;
     }
+
 
     @RequestMapping(value = "/{formId}", method = RequestMethod.PUT)
     public void modifyFormByFormId(@PathVariable("formId") String formId, @Valid @RequestBody FormDTO form) {
@@ -37,13 +65,13 @@ public class RESTController {
         // convert Form form into appropriate formatting
         // determine what fields have been changed
         // make the appropriate modifications to the form
-        http.put(formId, form);
+   //     http.put(formId, form);
     }
 
     @RequestMapping(value = "/submission-form", method = RequestMethod.POST)
     public void addSubForm(@Valid @RequestBody FormDTO form)
     {
-        http.post(form);
+    //    http.post(form);
       /* for (int i=0; i<form.states.length; i++)
        {
            String state = form.states[i];
@@ -64,7 +92,7 @@ public class RESTController {
     @RequestMapping(value = "delete-form/{formId}", method = RequestMethod.DELETE)
     public void deleteSubForm(@PathVariable("formId") String formId)
     {
-        http.delete(formId);
+      //  http.delete(formId);
        /* List<Form> allTheForms = repository.findAll();
         for(Form f: allTheForms)
         {
