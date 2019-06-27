@@ -28,10 +28,10 @@ public class RESTController {
     {
         List<Form> allTheForms = repository.findAll();
         List<FormDTO> allTheAngular = new ArrayList<FormDTO>();
-        FormDTO angular = new FormDTO();
         ArrayList<String> states = new ArrayList<String>();
         for(Form f : allTheForms)
         {
+            FormDTO angular = new FormDTO();
             for (int i = 0; i < f.fl.length; i++)
             {
                 angular.coverageType = f.ci;
@@ -41,8 +41,15 @@ public class RESTController {
                 angular.link = f.fl[i].fl;
                 angular.description = f.fl[i].fh;
                 angular.formId = f.fl[i].fc;
+                if(states.contains(f.sc) == false)
+                {
+                    states.add(f.sc);
+                }
+                angular.states = states.toArray(new String[states.size()]);
+                if(allTheAngular.contains(angular) == false) {
+                    allTheAngular.add(angular);
+                }
             }
-                allTheAngular.add(angular);
         }
         return allTheAngular.toArray(new FormDTO[allTheAngular.size()]);
     }
