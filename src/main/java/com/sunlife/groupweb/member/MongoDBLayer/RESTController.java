@@ -29,6 +29,36 @@ public class RESTController {
         return null;
     }
 
+    @RequestMapping(value = "/?{field}={search}", method = RequestMethod.GET)
+    public void getFormsBySingleSearch(@PathVariable("field") String field, @PathVariable("search") String search) {
+        List<Form> filteredForms = repository.findByOneField(field, search);
+        List<FormDTO> outgoingForms = new ArrayList<>();
+        List<String> insertedFormIds = new ArrayList<>();
+        for ( Form thisForm : filteredForms ) {
+            ArrayList<subForm> thisSubFormList = new ArrayList<>(Arrays.asList(thisForm.fl));
+            for ( subForm thisSubForm : thisSubFormList ) {
+                if (!insertedFormIds.contains(thisSubForm.fc)) {
+                    insertedFormIds.add(thisSubForm.fc);
+                    String[] states = new String[1];
+                    states[0] = thisForm.sc;
+                    FormDTO newAngularForm = new FormDTO(thisForm.ci, states, thisForm.ss, thisSubForm.ft,
+                                                thisSubForm.ds, thisSubForm.fl, thisSubForm.fh, thisSubForm.fc);
+                    outgoingForms.add(newAngularForm);
+                } else {
+                    for ( FormDTO angularForm : outgoingForms ) {
+                        if ( angularForm.formId.equals(thisSubForm.fc) ) {
+                            List<String> states = new ArrayList<>(Arrays.asList(angularForm.states));
+                            if (!states.contains(thisSubForm.fc)) {
+                                states.add(thisSubForm.fc);
+                                angularForm.states = states.toArray(new String[0]);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     @RequestMapping(value = "/{formId}", method = RequestMethod.PUT)
     public void modifyFormByFormId(@PathVariable("formId") String formId, @Valid @RequestBody FormDTO newFormDTO) {
         boolean exteriorChange = false;
@@ -115,7 +145,6 @@ public class RESTController {
             }
         }
     }
-
 
     private void replaceInFormList(String formId, subForm newSubForm, List<Form> formList) {
         for (Form thisForm : formList) {
