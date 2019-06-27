@@ -23,13 +23,13 @@ public class RESTController {
         return repository.findAll();
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public FormDTO[] translateAllFormsToFormDTOs() {
+    @RequestMapping(value = "/populateTable", method = RequestMethod.GET)
+    public FormDTO[] translateAllFormsToFormDTOs()
+    {
         List<Form> allTheForms = repository.findAll();
-        List<FormDTO> allTheAngular = null;
-        FormDTO angular = null;
+        List<FormDTO> allTheAngular = new ArrayList<FormDTO>();
+        FormDTO angular = new FormDTO();
         ArrayList<String> states = new ArrayList<String>();
-        FormDTO[] output = null;
         for(Form f : allTheForms)
         {
             for (int i = 0; i < f.fl.length; i++)
@@ -41,13 +41,10 @@ public class RESTController {
                 angular.link = f.fl[i].fl;
                 angular.description = f.fl[i].fh;
                 angular.formId = f.fl[i].fc;
-                states.add(f.sc);
-                angular.states = states.toArray(new String[states.size()]);
-                allTheAngular.add(angular);
             }
+                allTheAngular.add(angular);
         }
-        output = allTheAngular.toArray(new FormDTO[allTheAngular.size()]);
-        return output;
+        return allTheAngular.toArray(new FormDTO[allTheAngular.size()]);
     }
 
     @RequestMapping(value = "/{formId}", method = RequestMethod.GET)
@@ -57,9 +54,12 @@ public class RESTController {
         List<Form> allTheForms = repository.findAll();
         FormDTO fillForm = new FormDTO();
         ArrayList<String> states = new ArrayList<String>();
-        for (Form f : allTheForms) {
-            for (int i = 0; i < f.fl.length; i++) {
-                if (f.fl[i].fc.equals(formId)) {
+        for (Form f : allTheForms)
+        {
+            for (int i = 0; i < f.fl.length; i++)
+            {
+                if (f.fl[i].fc.equals(formId))
+                {
                     fillForm.coverageType = f.ci;
                     fillForm.sourceSystem = f.ss;
                     fillForm.formType = f.fl[i].ft;
