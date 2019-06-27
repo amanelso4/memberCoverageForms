@@ -28,42 +28,23 @@ public class RESTController {
         //This method retrieves all forms from database and turn them into FormDTOs
         //This method also combines all duplicate
         List<Form> allTheForms = repository.findAll();
-        List<FormDTO> allTheAngular = new ArrayList<FormDTO>();
-        for (Form f : allTheForms) {
-            FormDTO angular = new FormDTO();
-            ArrayList<String> states = new ArrayList<String>();
-            for (int i = 0; i < f.fl.length; i++) {
-                angular.coverageType = f.ci;
-                angular.sourceSystem = f.ss;
-                angular.formType = f.fl[i].ft;
-                angular.name = f.fl[i].ds;
-                angular.link = f.fl[i].fl;
-                angular.description = f.fl[i].fh;
-                angular.formId = f.fl[i].fc;
-                if(!states.contains(f.sc))
-                {
-                    states.add(f.sc);
-                }
-                angular.states = states.toArray(new String[states.size()]);
-                if (allTheAngular.contains(angular) == false)
-                {
-                    allTheAngular.add(angular);
-                }
-            }
-        }
         ArrayList<String> formIds = new ArrayList<>();
-        for(FormDTO f: allTheAngular)
-        {
-            if(!formIds.contains(f.formId))
+        List<FormDTO> finalList = new ArrayList<FormDTO>();
+        for (Form f : allTheForms) {
+            for (int i = 0; i < f.fl.length; i++)
             {
-                formIds.add(f.formId);
+                if(!formIds.contains(f.fl[i].fc))
+                {
+                    formIds.add(f.fl[i].fc);
+                }
             }
         }
-        for(String id: formIds)
-        {
-           allTheAngular.add(getFormByFormId(id));
+        for(String id: formIds) {
+           finalList.add(getFormByFormId(id));
         }
-        return allTheAngular.toArray(new FormDTO[allTheAngular.size()]);
+        System.out.println(finalList.toArray(new FormDTO[finalList.size()]).length);
+        System.out.println(formIds.toArray(new String[formIds.size()]).length);
+        return finalList.toArray(new FormDTO[finalList.size()]);
     }
 
     @RequestMapping(value = "/{formId}", method = RequestMethod.GET)
