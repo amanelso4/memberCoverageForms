@@ -29,6 +29,7 @@ public class RESTController {
         // return a list of all forms that contain that formId
         List<Form> allTheForms = repository.findAll();
         FormDTO fillForm = new FormDTO();
+        ArrayList<String> states = new ArrayList<String>();
         for (Form f : allTheForms) {
             for (int i = 0; i < f.fl.length; i++) {
                 if (f.fl[i].fc.equals(formId)) {
@@ -39,9 +40,11 @@ public class RESTController {
                     fillForm.link = f.fl[i].fl;
                     fillForm.description = f.fl[i].fh;
                     fillForm.formId = f.fl[i].fc;
+                    states.add(f.sc);
                 }
             }
         }
+        fillForm.states = states.toArray(new String[states.size()]);
         return fillForm;
     }
 
