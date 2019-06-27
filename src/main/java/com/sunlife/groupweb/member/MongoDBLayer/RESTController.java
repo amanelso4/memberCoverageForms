@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -79,9 +80,20 @@ public class RESTController {
         return fillForm;
     }
 
-    @RequestMapping(value = "/search/{search}", method = RequestMethod.GET)
-    public FormDTO[] getFormsBySingleSearch(@PathVariable("search") String search) {
-        List<Form> filteredForms = repository.findByOneField("ci", search);
+    /*@RequestMapping(value = "/search", method = RequestMethod.GET)
+    public FormDTO[] getFormsBySingleSearch(@RequestParam(value="search") Optional<String> search) {
+        String field = "ft";
+        String searchString = null;
+        if (!search.isPresent()) {
+            searchString = "Continuance";
+        } else {
+            searchString = search.get();
+        }
+        // format field appropriately if it's a nested field
+        if (field.equals("ds") || field.equals("fl") || field.equals("ft") || field.equals("fill") || field.equals("fh") || field.equals("fc")) {
+            field = "fl." + field;
+        }
+        List<Form> filteredForms = repository.findByOneField(field, searchString);
         List<FormDTO> outgoingForms = new ArrayList<>();
         List<String> insertedFormIds = new ArrayList<>();
         for (Form thisForm : filteredForms) {
@@ -108,7 +120,7 @@ public class RESTController {
             }
         }
         return outgoingForms.toArray(new FormDTO[0]);
-    }
+    }*/
 
     ////////////////////
     //// PUT METHOD ////
