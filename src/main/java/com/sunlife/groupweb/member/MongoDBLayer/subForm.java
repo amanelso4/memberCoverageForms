@@ -1,7 +1,5 @@
 package com.sunlife.groupweb.member.MongoDBLayer;
 
-import org.springframework.data.annotation.Id;
-
 public class subForm {
 
     public String ds; // FORM NAME
