@@ -92,48 +92,6 @@ public class RESTController {
         return fillForm;
     }
 
-    /*@RequestMapping(value = "/search", method = RequestMethod.GET)
-    public FormDTO[] getFormsBySingleSearch(@RequestParam(value="search") Optional<String> search) {
-        String field = "ft";
-        String searchString = null;
-        if (!search.isPresent()) {
-            searchString = "Continuance";
-        } else {
-            searchString = search.get();
-        }
-        // format field appropriately if it's a nested field
-        if (field.equals("ds") || field.equals("fl") || field.equals("ft") || field.equals("fill") || field.equals("fh") || field.equals("fc")) {
-            field = "fl." + field;
-        }
-        List<Form> filteredForms = repository.findByOneField(field, searchString);
-        List<FormDTO> outgoingForms = new ArrayList<>();
-        List<String> insertedFormIds = new ArrayList<>();
-        for (Form thisForm : filteredForms) {
-            ArrayList<subForm> thisSubFormList = new ArrayList<>(Arrays.asList(thisForm.fl));
-            for (subForm thisSubForm : thisSubFormList) {
-                if (!insertedFormIds.contains(thisSubForm.fc)) {
-                    insertedFormIds.add(thisSubForm.fc);
-                    String[] states = new String[1];
-                    states[0] = thisForm.sc;
-                    FormDTO newAngularForm = new FormDTO(thisForm.ci, states, thisForm.ss, thisSubForm.ft,
-                            thisSubForm.ds, thisSubForm.fl, thisSubForm.fh, thisSubForm.fc);
-                    outgoingForms.add(newAngularForm);
-                } else {
-                    for (FormDTO angularForm : outgoingForms) {
-                        if (angularForm.formId.equals(thisSubForm.fc)) {
-                            List<String> states = new ArrayList<>(Arrays.asList(angularForm.states));
-                            if (!states.contains(thisForm.sc)) {
-                                states.add(thisForm.sc);
-                                angularForm.states = states.toArray(new String[0]);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return outgoingForms.toArray(new FormDTO[0]);
-    }*/
-
     ////////////////////
     //// PUT METHOD ////
     ////////////////////
@@ -222,8 +180,8 @@ public class RESTController {
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/{formId}", method = RequestMethod.DELETE)
     public void deleteSubForm(@PathVariable("formId") String formId) {
-
-        List<Form> allTheForms = repository.findAll();
+        System.out.println("Deleting form w/ formId " + formId);
+        List<Form> allTheForms = repository.findByOneField("fl.fc", formId);
         for (Form f : allTheForms) {
             for (int i = 0; i < f.fl.length; i++) {
                 if (f.fl[i].fc.equals(formId)) {
