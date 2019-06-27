@@ -46,17 +46,15 @@ public class RESTController {
         if (exteriorChange) {
             // Remove all instances of form from current doc
             deleteFromFormList(formId, originalForm);
-            // craft the search string for states
-            String stateSearch = createStateSearch(Arrays.asList(newFormDTO.states));
-            // replace originalForm with the new location for the subForms
-            List<Form> newFormLocations = repository.findByThreeFields("ci", editedForm.get(0).ci, "ss", editedForm.get(0).ss,
-                    "sc", stateSearch);
-            // add new subForm to all new form locations
-            for (Form thisForm : newFormLocations) {
-                ArrayList<subForm> thisSubForms = new ArrayList<>(Arrays.asList(thisForm.fl));
-                thisSubForms.add(newSubForm);
-                thisForm.fl = thisSubForms.toArray(new subForm[0]);
-                repository.save(thisForm);
+            for (int i = 0; i < newFormDTO.states.length; i++) {
+                List<Form> newFormLocations = repository.findByThreeFields("ci", editedForm.get(0).ci, "ss", editedForm.get(0).ss,
+                        "sc", newFormDTO.states[i]);
+                for (Form thisForm : newFormLocations) {
+                    ArrayList<subForm> thisSubForms = new ArrayList<>(Arrays.asList(thisForm.fl));
+                    thisSubForms.add(newSubForm);
+                    thisForm.fl = thisSubForms.toArray(new subForm[0]);
+                    repository.save(thisForm);
+                }
             }
         } else {
             // Check to see if list of states has been changed
@@ -77,10 +75,11 @@ public class RESTController {
                 deleteFromStates(formId, statesDeleted);
             }
             // add/edit in new list of states
-            String stateSearch = createStateSearch(newStatesList);
-            List<Form> formsToUpdate = repository.findByThreeFields("ci", newFormDTO.coverageType,
-                    "ss", newFormDTO.sourceSystem, "sc", stateSearch);
-            replaceInFormList(formId, newSubForm, formsToUpdate);
+            for (int i = 0; i < newStatesList.size(); i++) {
+                List<Form> formsToUpdate = repository.findByThreeFields("ci", newFormDTO.coverageType,
+                        "ss", newFormDTO.sourceSystem, "sc", newStatesList.get(i));
+                replaceInFormList(formId, newSubForm, formsToUpdate);
+            }
         }
 
     }
@@ -138,18 +137,10 @@ public class RESTController {
 
     private void deleteFromStates(String formId, List<String> statesDeleted) {
         // craft the search string for states
-        String stateSearch = createStateSearch(statesDeleted);
-        List<Form> matchingForms = repository.findByTwoFields("'fl.fc'", formId, "sc", stateSearch);
-        deleteFromFormList(formId, matchingForms);
-    }
-
-    private String createStateSearch(List<String> states) {
-        String stateSearch = "{ $in : { '";
-        for (int i = 0; i < (states.size() - 1); i++) {
-            stateSearch = stateSearch + states.get(i) + "', '";
+        for (int i = 0; i < statesDeleted.size(); i++) {
+            List<Form> matchingForms = repository.findByTwoFields("'fl.fc'", formId, "sc", statesDeleted.get(i));
+            deleteFromFormList(formId, matchingForms);
         }
-        stateSearch = stateSearch + states.get(states.size() - 1) + "' ] }";
-        return stateSearch;
     }
 
     private List<Form> angularToJava(FormDTO formDTO) {
