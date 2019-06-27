@@ -71,7 +71,7 @@ public class RESTController {
                 }
             }
         }
-        fillForm.states = states.toArray(new String[states.size()]);
+        fillForm.state = states.toArray(new String[states.size()]);
         return fillForm;
     }
 
@@ -139,9 +139,9 @@ public class RESTController {
         if (exteriorChange) {
             // Remove all instances of form from current doc
             deleteFromFormList(formId, originalForm);
-            for (int i = 0; i < newFormDTO.states.length; i++) {
+            for (int i = 0; i < newFormDTO.state.length; i++) {
                 List<Form> newFormLocations = repository.findByThreeFields("ci", editedForm.get(0).ci, "ss", editedForm.get(0).ss,
-                        "sc", newFormDTO.states[i]);
+                        "sc", newFormDTO.state[i]);
                 for (Form thisForm : newFormLocations) {
                     ArrayList<subForm> thisSubForms = new ArrayList<>(Arrays.asList(thisForm.fl));
                     thisSubForms.add(newSubForm);
@@ -151,7 +151,7 @@ public class RESTController {
             }
         } else {
             // Check to see if list of states has been changed
-            List<String> newStatesList = Arrays.asList(newFormDTO.states);
+            List<String> newStatesList = Arrays.asList(newFormDTO.state);
             List<String> oldStatesList = new ArrayList<>();
             List<String> statesDeleted = new ArrayList<>();
             // record list of added and deleted states
@@ -183,8 +183,8 @@ public class RESTController {
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "", method = RequestMethod.POST)
     public void addSubForm(@Valid @RequestBody FormDTO form) {
-        for (int i = 0; i < form.states.length; i++) {
-            String state = form.states[i];
+        for (int i = 0; i < form.state.length; i++) {
+            String state = form.state[i];
             List<Form> formsToBeAdded = repository.findByThreeFields("sc", state, "ss", form.sourceSystem, "ci", form.coverageType);
             for (Form f : formsToBeAdded) {        /*
                    Iterator stateIterator = formDTO.iterator();
@@ -251,9 +251,9 @@ public class RESTController {
 
     private List<Form> angularToJava(FormDTO formDTO) {
         List<Form> javaForms = new ArrayList<>();
-        for (int i = 0; i < formDTO.states.length; i++) {
+        for (int i = 0; i < formDTO.state.length; i++) {
             // return matching forms and take the first one
-            List<Form> matchingForms = repository.findSingleForm(formDTO.coverageType, formDTO.sourceSystem, formDTO.states[i]);
+            List<Form> matchingForms = repository.findSingleForm(formDTO.coverageType, formDTO.sourceSystem, formDTO.state[i]);
             Form thisForm = matchingForms.get(0);
             // create a new subForm with data that was passed in
             subForm newSubForm = new subForm(formDTO.name, formDTO.link, formDTO.formType, true, formDTO.description, formDTO.formId);
