@@ -7,7 +7,6 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -39,26 +38,7 @@ public class RESTController {
             }
         }
         for (String id : formIds) {
-            FormDTO fillForm = new FormDTO();
-            ArrayList<String> states = new ArrayList<>();
-            for (Form f : allTheForms) {
-                for (int i = 0; i < f.fl.length; i++) {
-                    if (f.fl[i].fc.equals(id)) {
-                        fillForm.coverageType = f.ci;
-                        fillForm.sourceSystem = f.ss;
-                        fillForm.formType = f.fl[i].ft;
-                        fillForm.name = f.fl[i].ds;
-                        fillForm.link = f.fl[i].fl;
-                        fillForm.description = f.fl[i].fh;
-                        fillForm.formId = f.fl[i].fc;
-                        if (states.contains(f.sc) == false) {
-                            states.add(f.sc);
-                        }
-                    }
-                }
-            }
-            fillForm.state = states.toArray(new String[states.size()]);
-            finalList.add(fillForm);
+            finalList.add(createAngularForm(id, allTheForms));
         }
         System.out.println(finalList.toArray(new FormDTO[finalList.size()]).length);
         System.out.println(formIds.toArray(new String[formIds.size()]).length);
@@ -70,26 +50,7 @@ public class RESTController {
     public FormDTO getFormByFormId(@PathVariable("formId") String formId) {
         // return a the FormDTO that matches the FormId provided
         List<Form> allTheForms = repository.findAll();
-        FormDTO fillForm = new FormDTO();
-        ArrayList<String> states = new ArrayList<>();
-        for (Form f : allTheForms) {
-            for (int i = 0; i < f.fl.length; i++) {
-                if (f.fl[i].fc.equals(formId)) {
-                    fillForm.coverageType = f.ci;
-                    fillForm.sourceSystem = f.ss;
-                    fillForm.formType = f.fl[i].ft;
-                    fillForm.name = f.fl[i].ds;
-                    fillForm.link = f.fl[i].fl;
-                    fillForm.description = f.fl[i].fh;
-                    fillForm.formId = f.fl[i].fc;
-                    if (states.contains(f.sc) == false) {
-                        states.add(f.sc);
-                    }
-                }
-            }
-        }
-        fillForm.state = states.toArray(new String[states.size()]);
-        return fillForm;
+        return createAngularForm(formId, allTheForms);
     }
 
     ////////////////////
@@ -197,6 +158,29 @@ public class RESTController {
     /////////////////////
     ////// HELPERS //////
     /////////////////////
+
+    private FormDTO createAngularForm(String formId, List<Form> allTheForms) {
+        FormDTO newAngularForm = new FormDTO();
+        ArrayList<String> states = new ArrayList<>();
+        for (Form f : allTheForms) {
+            for (int i = 0; i < f.fl.length; i++) {
+                if (f.fl[i].fc.equals(formId)) {
+                    newAngularForm.coverageType = f.ci;
+                    newAngularForm.sourceSystem = f.ss;
+                    newAngularForm.formType = f.fl[i].ft;
+                    newAngularForm.name = f.fl[i].ds;
+                    newAngularForm.link = f.fl[i].fl;
+                    newAngularForm.description = f.fl[i].fh;
+                    newAngularForm.formId = f.fl[i].fc;
+                    if (states.contains(f.sc) == false) {
+                        states.add(f.sc);
+                    }
+                }
+            }
+        }
+        newAngularForm.state = states.toArray(new String[states.size()]);
+        return newAngularForm;
+    }
 
     private void replaceInFormList(String formId, subForm newSubForm, List<Form> formList) {
         for (Form thisForm : formList) {
