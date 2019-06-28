@@ -25,6 +25,7 @@ export class TableComponent implements OnInit {
 
   forms: Form[];
   initialGetForms: boolean;
+  initialGetComplete: boolean;
 
   formType: string = '';
   coverageType: string = '';
@@ -67,6 +68,7 @@ export class TableComponent implements OnInit {
   getForms() {
     this.formService.getForms().subscribe( forms => {
       this.forms = forms;
+      this.initialGetComplete = true;
       if (this.initialGetForms) { // only retrieve dropdown options on initial getForms()
         this.updateDropdownOptions();
         this.initialGetForms = false;

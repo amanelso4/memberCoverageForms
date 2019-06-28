@@ -8,7 +8,7 @@ export class FilterPipe implements PipeTransform {
   //If search value is empty string, it does not apply filter
   transform(items: any[], fTypeSearch: string, covTypeSearch: string, stateSearch: string, sourceSearch: string, idSearch: string, nameSearch: string) {
     if (items && items.length) {
-      return items.filter(item =>{
+      items = items.filter(item =>{
         if (fTypeSearch && fTypeSearch != item.formType){
           return false;
         }
@@ -37,6 +37,10 @@ export class FilterPipe implements PipeTransform {
           return a.name < b.name ? -1 : 1;
         }
       })
+      if (items.length == 0) {
+        items.push({"formType":"ERROR"});
+      }
+    return items;
     }
     else {
       return items;
