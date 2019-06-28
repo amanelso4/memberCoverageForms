@@ -60,15 +60,15 @@
   <tr *ngFor="let form of forms | filter: formType:coverageType:state:sourceSystem:formId:name | paginate: { itemsPerPage: 10, currentPage: p }">
     <td style="max-width: 20px;">{{ form.formType }}</td>
     <td>{{ form.coverageType }}</td>
-    <td>{{ form.state }}</td>
+    <td class="state">{{ form.state }}</td>
     <td>{{ form.sourceSystem }}</td>
     <td title="{{ form.description }}"><a class="a" href="{{ form.link }}" target="_blank">{{ form.name }}</a></td>
     <td>{{ form.formId }}</td>
     <!-- "Update" and "Delete" displayed by default, "Confirm" and "Cancel" displayed if "Delete" is pressed -->
     <!-- This is controlled on a per-row basis by the form.confirmDelete variable -->
     <td>
-      <button class="button button--primary-blue button--context-table" *ngIf="!form.confirmDelete" [routerLink]="['/mfm/', form.id]">Update</button>
-      <button class="button button--type-confirm button--context-table" *ngIf="form.confirmDelete" (click)="deleteForm(form.id)">Confirm</button>
+      <button class="button button--primary-blue button--context-table" *ngIf="!form.confirmDelete" [routerLink]="['/mfm/', form.formId]">Update</button>
+      <button class="button button--type-confirm button--context-table" *ngIf="form.confirmDelete" (click)="deleteForm(form.formId)">Confirm</button>
     </td>
     <td>
       <button class="button button--primary-blue button--context-table" *ngIf="!form.confirmDelete" (click)="form.confirmDelete=true">Delete</button>
