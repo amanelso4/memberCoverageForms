@@ -28,6 +28,14 @@ export class FilterPipe implements PipeTransform {
           return false;
         }
         return true;
+      }).sort(function(a, b) {
+        if (a.formType != b.formType) {
+          return a.formType < b.formType ? -1 : 1;
+        } else if (a.coverageType != b.coverageType) {
+          return a.coverageType < b.coverageType ? -1 : 1;
+        } else {
+          return a.name < b.name ? -1 : 1;
+        }
       })
     }
     else {
