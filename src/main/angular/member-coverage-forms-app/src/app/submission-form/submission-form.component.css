@@ -112,5 +112,16 @@ pdf-viewer {
   background-color: #0b713a;
 }
 
+.oldText {
+  color: #424242;
+  text-decoration: line-through;
+  height: auto;
+  /*color: #b81f41;*/
+}
+
+.comparison {
+  color: #b81f41;
+}
+
 
 
