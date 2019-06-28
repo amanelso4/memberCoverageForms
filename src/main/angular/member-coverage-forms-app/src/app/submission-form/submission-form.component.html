@@ -14,13 +14,19 @@
 <body>
 <form *ngIf="(form | async) || newForm; else loading" [formGroup]="model" (ngSubmit)="submit()">
   <div class="container-fluid">
+    <!--
+    -------------------------------------------------Submission Form Page-----------------------------------------------
+    -->
     <div [hidden]="submitted">
 
       <h3>Form Submission</h3>
       <div class="row">
         <br> <br>
+                      <!--Column #1: DropDown Menus for formType, coverageType, state, and sourceSystem -->
+
         <div class="col-lg-4">
           <div class="container">
+            <!-- Row for the Form Type dropdown and label -->
             <div class="row">
               <div class="col-lg-4">
                 <label for="formType">Form type: </label> <br>
@@ -28,15 +34,13 @@
               <div class="col-lg-8">
                 <div class="form-group">
                   <select class="form-control" required formControlName="formType" id="formType">
-                    <option *ngFor="let fType of formTypes" [value]="fType">{{fType}}</option>
+                    <option *ngFor="let type of formTypeVar" [value]="type">{{ type }}</option>
                   </select>
-                  <!--<div [hidden]="formType.valid || formType.untouched" class="alert alert-danger">
-                      Form type is required
-                    </div>-->
                 </div>
               </div>
             </div>
 
+            <!-- Row for the Coverage Type dropdown and label -->
             <div class="row">
               <div class="col-lg-4">
                 <label for="coverageType">Coverage Type: </label>
@@ -46,15 +50,15 @@
                 <div class="form-group">
                   <select class="form-control" id="coverageType" required formControlName="coverageType"
                           name="coverageType">
-                    <option *ngFor="let coverageType of coverageTypes" [value]="coverageType">{{coverageType}}
-                    </option>
+                    <option *ngFor="let cType of coverageTypesVar" [value]="cType">{{ cType }}</option>
+                  <!--  <option *ngFor="let coverageType of coverageTypes" [value]="coverageType">{{coverageType}}
+                    </option> -->
                   </select>
-                  <!--<div [hidden]="coverageType.valid || coverageType.untouched" class="alert alert-danger">
-                      Coverage Type is required
-                    </div>-->
                 </div>
               </div>
             </div>
+
+            <!-- Row for the State MULTI-SELECT dropdown and label -->
             <div class="row">
               <div class="col-lg-4">
                 <label for="state">Coverage State(s): </label>
@@ -69,13 +73,13 @@
                                            id="state">
                   </ng-multiselect-dropdown>-->
                   <select multiple formControlName="state" class="form-control" id="state" required style="height: auto" name="state">
-                    <option *ngFor="let state of states" [value]="state">{{ state }}</option>
+                    <option *ngFor="let state of statesVar" [value]="state">{{ state }}</option>
                   </select>
-
                 </div>
               </div>
-
             </div>
+
+            <!-- Row for the Source System dropdown and label -->
             <div class="row">
               <div class="col-lg-4">
                 <label for="sourceSystem">Source System: </label>
@@ -83,19 +87,19 @@
               <div class="col-lg-8">
                 <div class="form-group">
                   <select class="form-control" id="sourceSystem" required formControlName="sourceSystem" name="state">
-                    <option *ngFor="let sourceSystem of sourceSystems" [value]="sourceSystem">{{sourceSystem}}
-                    </option>
+                    <option *ngFor="let source of sourceVar" [value]="source">{{ source }}</option>
                   </select>
-                  <!--<div [hidden]="sourceSystem.valid || sourceSystem.untouched" class="alert alert-danger">
-                      Source System is required
-                    </div>-->
                 </div>
               </div>
             </div>
           </div>
         </div>
+
+                                  <!-- Column #2: Text Field Inputs and "View Form" Button -->
+
         <div class="col-lg-4" style="background-color:white;">
 
+          <!-- Row for Form Name text box and label -->
           <div class="row">
             <div class="col-lg-4">
               <label for="name">Form Name: </label>
@@ -109,6 +113,7 @@
             </div>
           </div>
 
+          <!-- Row for Form ID text box and label-->
           <div class="row">
             <div class="col-lg-4">
               <label for="formId">Form ID: </label>
@@ -116,12 +121,11 @@
             <div class="col-lg-8">
               <div class="form-group">
                 <input type="text" class="form-control" id="formId" required formControlName="formId" name="formId">
-                <!--<div [hidden]="formId.valid || formId.untouched" class="alert alert-danger">Form ID is required
-              </div>-->
               </div>
             </div>
           </div>
 
+          <!-- Row for Form Link text box and label along with "View Form" button for PDF Viewer -->
           <div class="row">
             <div class="col-lg-4">
               <label for="link">Form Link: </label>
@@ -130,13 +134,12 @@
             <div class="col-lg-8">
               <div class="form-group">
                 <input type="text" class="form-control" id="link" required formControlName="link" name="link">
-                <!--<div [hidden]="link.valid || link.untouched" class="alert alert-danger">Link is required
-              </div>-->
               </div>
             </div>
           </div>
           <br>
 
+          <!-- Row for Form Description text box and label -->
           <div class="row">
             <div class="col-lg-4">
               <label for="description">Form Description: </label>
@@ -145,9 +148,6 @@
               <div class="form-group">
                 <input type="text" class="form-control" id="description" required formControlName="description"
                        name="description">
-                <!--<div [hidden]="description.valid || description.untouched" class="alert alert-danger">Description is
-                required
-              </div>-->
               </div>
             </div>
             <div [hidden]="!egg">
@@ -158,6 +158,8 @@
           </div>
 
         </div>
+
+                                              <!-- Column #3: PDF Viewer!!!!!! -->
 
         <div class="col-lg-4" style="background-color:white;">
           <div class="container">
@@ -178,20 +180,22 @@
                 <span>{{ page }} of {{ pageTotal }}</span>
               </div>
               -->
-
             </div>
           </div>
         </div>
-      </div>
+      </div> <!-- end of big row that contains three columns -->
+
       <button class="button button--primary-yellow" type="button" (click)="submitted=true">Submit</button>
       <div class="divider"></div>
       <button class="button button--secondary" type="button" routerLink="/mfm"
               routerLinkActive="active">Cancel
       </button>
-    </div>
+    </div> <!-- End of Submission Form Page -->
   </div>
 
-  <!--Confirmation Page begins-->
+  <!--
+  ---------------------------------------------Confirmation Page begins-------------------------------------------------
+  -->
 
   <div [hidden]="!submitted">
     <h3>You are about to submit the following: </h3>
@@ -267,9 +271,6 @@
 
 </form>
 </body>
-
-
-
 
 <ng-template #loading>
   Loading form...
