@@ -61,7 +61,7 @@ export class SubmissionFormComponent implements OnInit{
 
   ngOnInit() {
     //set drop down settings
-    /*this.dropdownSettings = {
+    this.dropdownSettings = {
       singleSelection: false,
       idField: 'id',
       textField: 'coverage',
@@ -70,7 +70,7 @@ export class SubmissionFormComponent implements OnInit{
       enableCheckAll: true,
       selectAllText: 'Select All States',
       unSelectAllText: 'Deselect All States'
-    };*/
+    };
 
     this.initialGetForms = true;
     this.getForms();
@@ -102,20 +102,19 @@ export class SubmissionFormComponent implements OnInit{
 
   //multi-select drop-down menu function and declarations
 selectedValue: string;
-  states = new FormControl();
   stateList: string[] = ['AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA',
     'HI', 'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI',
     'MN', 'MO', 'MS', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV', 'NY',
     'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VA', 'VT',
     'WA', 'WI', 'WV', 'WY'];
-  selectAll(ev){
 
+  selectAll(ev){
     if(ev._selected){
-      this.states.setValue(this.stateList);
+      this.model.value.state.setValue(this.stateList);
       ev._selected=true;
     }
     if(ev._selected==false){
-      this.states.setValue([]);
+      this.model.value.state.setValue([]);
     }
   }
 
@@ -203,7 +202,7 @@ selectedValue: string;
       this.egg=true;
     }
   }
-  /*updateState(): void {
+  updateState(): void {
     let tempArray = [];
     this.model.value.state.forEach((item) => tempArray.push(item.valueOf()));
     this.coverageState.length = 0;
@@ -229,7 +228,7 @@ selectedValue: string;
     }
 
   }
-   */
+
 }
 
 

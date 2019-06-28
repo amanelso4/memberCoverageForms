@@ -51,8 +51,9 @@ import {
   MatTooltipModule,
   MatTreeModule,
 } from '@angular/material';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import {platformBrowserDynamic} from "@angular/platform-browser-dynamic";
+import {MatOptionModule} from "@angular/material";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 const appRoutes: Routes = [
   {path: 'mfm/:formId', component: SubmissionFormComponent},
@@ -81,7 +82,10 @@ const appRoutes: Routes = [
     HttpClientModule,
     PdfViewerModule,
     NgMultiSelectDropDownModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatOptionModule,
+    MatSelectModule,
+    BrowserAnimationsModule,
   ],
   exports: [
     MatFormFieldModule,
@@ -123,7 +127,6 @@ const appRoutes: Routes = [
   ],
   providers: [TableResolverService],
   bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }
 
