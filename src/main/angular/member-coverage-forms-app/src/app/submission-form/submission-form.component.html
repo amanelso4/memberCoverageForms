@@ -14,13 +14,18 @@
 <body>
 <form *ngIf="(form | async) || newForm; else loading" [formGroup]="model" (ngSubmit)="submit()">
   <div class="container-fluid">
+    <!--
+    -------------------------------------------------Submission Form Page-----------------------------------------------
+    -->
     <div [hidden]="submitted">
 
       <h3>Form Submission</h3>
       <div class="row">
         <br> <br>
+        <!--Column #1: DropDown Menus for formType, coverageType, state, and sourceSystem -->
         <div class="col-lg-4">
           <div class="container">
+            <!-- Row for the Form Type dropdown and label -->
             <div class="row">
               <div class="col-lg-4">
                 <label for="formType">Form type: </label> <br>
@@ -30,13 +35,11 @@
                   <select class="form-control" required formControlName="formType" id="formType">
                     <option *ngFor="let fType of formTypes" [value]="fType">{{fType}}</option>
                   </select>
-                  <!--<div [hidden]="formType.valid || formType.untouched" class="alert alert-danger">
-                      Form type is required
-                    </div>-->
                 </div>
               </div>
             </div>
 
+            <!-- Row for the Coverage Type dropdown and label -->
             <div class="row">
               <div class="col-lg-4">
                 <label for="coverageType">Coverage Type: </label>
@@ -49,12 +52,11 @@
                     <option *ngFor="let coverageType of coverageTypes" [value]="coverageType">{{coverageType}}
                     </option>
                   </select>
-                  <!--<div [hidden]="coverageType.valid || coverageType.untouched" class="alert alert-danger">
-                      Coverage Type is required
-                    </div>-->
                 </div>
               </div>
             </div>
+
+            <!-- Row for the State MULTISELECT dropdown and label -->
             <div class="row">
               <div class="col-lg-4">
                 <label for="state">Coverage State(s): </label>
@@ -71,11 +73,11 @@
                   <select multiple formControlName="state" class="form-control" id="state" required style="height: auto" name="state">
                     <option *ngFor="let state of states" [value]="state">{{ state }}</option>
                   </select>
-
                 </div>
               </div>
-
             </div>
+
+            <!-- Row for the Source System dropdown and label -->
             <div class="row">
               <div class="col-lg-4">
                 <label for="sourceSystem">Source System: </label>
@@ -94,6 +96,8 @@
             </div>
           </div>
         </div>
+
+        <!-- Column #2: Text Field Inputs and "View Form" Button -->
         <div class="col-lg-4" style="background-color:white;">
 
           <div class="row">

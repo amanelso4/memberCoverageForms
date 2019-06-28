@@ -3,20 +3,16 @@ import { Form, FormService } from "../form.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PDFSource, PdfViewerModule } from "ng2-pdf-viewer";
 import { PDFDocumentProxy, PDFPromise, PDFProgressData, PDFJS } from "pdfjs-dist";
 import { tap } from 'rxjs/operators';
-
 
 @Component({
   selector: 'app-form',
   templateUrl: './submission-form.component.html',
   styleUrls: ['./submission-form.component.css'],
 })
-export class SubmissionFormComponent implements OnInit {
 
-  page: any = 1;
-  pageTotal: any;
+export class SubmissionFormComponent implements OnInit {
 
   constructor(
     private formService: FormService,
@@ -36,6 +32,18 @@ export class SubmissionFormComponent implements OnInit {
   newForm = false;
   originalForm: Form;
   originalFormId: string;
+  forms: Form[];
+
+  formType: string = '';
+  coverageType: string = '';
+  state: string = '';
+  sourceSystem: string = '';
+  formId: string = '';
+  name: string = '';
+
+  coverageTypesVar: string[] = [];
+  sourceVar: string[] = [];
+  formTypeVar: string[] = [];
 
   coverageTypes = ['STD', 'LTD', 'DENTAL', 'GAP', 'DENTALPREPAID', 'CRITICALILLNESS'];
 
@@ -47,19 +55,36 @@ export class SubmissionFormComponent implements OnInit {
 
   sourceSystems = ['S', 'Q'];
 
-  formTypes = ['Claim', 'Continuance'];
+  formTypes = ['GAP', 'Continuance'];
 
   submitted = false;
   view = false;
   egg = false;
 
+  page: any = 1;
+  pageTotal: any;
+
   dropdownSettings = {};
-  coverageState = [];
 
   //////////////////
   ///// METHODS ////
   //////////////////
 
+  //To figure out how to populate drowdown menus with choices from the database
+  updateDropdownOptions() {
+    console.log('updating dropdown options');
+    for (let form of this.forms) {
+      if (!this.coverageTypesVar.includes(form.coverageType)) {
+        this.coverageTypesVar.push(form.coverageType);
+      }
+      if (!this.sourceVar.includes(form.sourceSystem)) {
+        this.sourceVar.push(form.sourceSystem);
+      }
+      if (!this.formTypeVar.includes(form.formType)) {
+        this.formTypeVar.push(form.formType);
+      }
+    }
+  }
   ngOnInit() {
     //set drop down settings
     /*this.dropdownSettings = {
@@ -72,6 +97,7 @@ export class SubmissionFormComponent implements OnInit {
       selectAllText: 'Select All States',
       unSelectAllText: 'Deselect All States'
     };*/
+
     // Initialize form to blank values
     this.model = this.formBuilder.group({
       coverageType: [null, Validators.required],
@@ -83,6 +109,7 @@ export class SubmissionFormComponent implements OnInit {
       description: [null, Validators.required],
       formId: [null, Validators.required]
     });
+
     // Get form id from active route and determine if this is a new form or an existing one
     this.route.paramMap.subscribe(parameterMap => {
       this.originalFormId = parameterMap.get('formId');
@@ -116,6 +143,7 @@ export class SubmissionFormComponent implements OnInit {
           this.router.navigate(['']);
         }
       );
+
       //If updating an existing form, call a PUT
     } else {
       const updatedForm: Form = Object.assign({}, this.model.value);
@@ -129,8 +157,8 @@ export class SubmissionFormComponent implements OnInit {
     }
   }
 
+  //PDF Viewer functions to have pagination
   callBackFn(pdf: PDFDocumentProxy) {
-    // do anything with "pdf"
     this.pageTotal = pdf.numPages;
   }
 
