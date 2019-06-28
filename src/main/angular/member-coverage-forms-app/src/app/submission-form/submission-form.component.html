@@ -34,7 +34,7 @@
               <div class="col-lg-8">
                 <div class="form-group">
                   <select class="form-control" required formControlName="formType" id="formType">
-                    <option *ngFor="let fType of formTypes" [value]="fType">{{fType}}</option>
+                    <option *ngFor="let type of formTypeVar" [value]="type">{{ type }}</option>
                   </select>
                 </div>
               </div>
@@ -50,14 +50,15 @@
                 <div class="form-group">
                   <select class="form-control" id="coverageType" required formControlName="coverageType"
                           name="coverageType">
-                    <option *ngFor="let coverageType of coverageTypes" [value]="coverageType">{{coverageType}}
-                    </option>
+                    <option *ngFor="let cType of coverageTypesVar" [value]="cType">{{ cType }}</option>
+                  <!--  <option *ngFor="let coverageType of coverageTypes" [value]="coverageType">{{coverageType}}
+                    </option> -->
                   </select>
                 </div>
               </div>
             </div>
 
-            <!-- Row for the State MULTISELECT dropdown and label -->
+            <!-- Row for the State MULTI-SELECT dropdown and label -->
             <div class="row">
               <div class="col-lg-4">
                 <label for="state">Coverage State(s): </label>
@@ -72,7 +73,7 @@
                                            id="state">
                   </ng-multiselect-dropdown>-->
                   <select multiple formControlName="state" class="form-control" id="state" required style="height: auto" name="state">
-                    <option *ngFor="let state of states" [value]="state">{{ state }}</option>
+                    <option *ngFor="let state of statesVar" [value]="state">{{ state }}</option>
                   </select>
                 </div>
               </div>
@@ -86,12 +87,8 @@
               <div class="col-lg-8">
                 <div class="form-group">
                   <select class="form-control" id="sourceSystem" required formControlName="sourceSystem" name="state">
-                    <option *ngFor="let sourceSystem of sourceSystems" [value]="sourceSystem">{{sourceSystem}}
-                    </option>
+                    <option *ngFor="let source of sourceVar" [value]="source">{{ source }}</option>
                   </select>
-                  <!--<div [hidden]="sourceSystem.valid || sourceSystem.untouched" class="alert alert-danger">
-                      Source System is required
-                    </div>-->
                 </div>
               </div>
             </div>

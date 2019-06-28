@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { Form, FormService } from "../form.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Observable } from 'rxjs';
@@ -12,7 +12,7 @@ import { tap } from 'rxjs/operators';
   styleUrls: ['./submission-form.component.css'],
 })
 
-export class SubmissionFormComponent implements OnInit {
+export class SubmissionFormComponent implements OnInit{
 
   constructor(
     private formService: FormService,
@@ -33,6 +33,7 @@ export class SubmissionFormComponent implements OnInit {
   originalForm: Form;
   originalFormId: string;
   forms: Form[];
+  initialGetForms: boolean;
 
   formType: string = '';
   coverageType: string = '';
@@ -45,17 +46,11 @@ export class SubmissionFormComponent implements OnInit {
   sourceVar: string[] = [];
   formTypeVar: string[] = [];
 
-  coverageTypes = ['STD', 'LTD', 'DENTAL', 'GAP', 'DENTALPREPAID', 'CRITICALILLNESS'];
-
-  states = ['AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA',
+  statesVar = ['AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA',
     'HI', 'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI',
     'MN', 'MO', 'MS', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV', 'NY',
     'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VA', 'VT',
     'WA', 'WI', 'WV', 'WY'];
-
-  sourceSystems = ['S', 'Q'];
-
-  formTypes = ['GAP', 'Continuance'];
 
   submitted = false;
   view = false;
@@ -70,21 +65,6 @@ export class SubmissionFormComponent implements OnInit {
   ///// METHODS ////
   //////////////////
 
-  //To figure out how to populate drowdown menus with choices from the database
-  updateDropdownOptions() {
-    console.log('updating dropdown options');
-    for (let form of this.forms) {
-      if (!this.coverageTypesVar.includes(form.coverageType)) {
-        this.coverageTypesVar.push(form.coverageType);
-      }
-      if (!this.sourceVar.includes(form.sourceSystem)) {
-        this.sourceVar.push(form.sourceSystem);
-      }
-      if (!this.formTypeVar.includes(form.formType)) {
-        this.formTypeVar.push(form.formType);
-      }
-    }
-  }
   ngOnInit() {
     //set drop down settings
     /*this.dropdownSettings = {
@@ -97,6 +77,9 @@ export class SubmissionFormComponent implements OnInit {
       selectAllText: 'Select All States',
       unSelectAllText: 'Deselect All States'
     };*/
+
+    this.initialGetForms = true;
+    this.getForms();
 
     // Initialize form to blank values
     this.model = this.formBuilder.group({
@@ -129,6 +112,32 @@ export class SubmissionFormComponent implements OnInit {
       tap(form => this.model.patchValue(form))
     )
     this.formService.getSingleForm(formId).subscribe(form => this.originalForm = form)
+  }
+
+  getForms() {
+    this.formService.getForms().subscribe( forms => {
+      this.forms = forms;
+      if (this.initialGetForms) { // only retrieve dropdown options on initial getForms()
+        this.updateDropdownOptions();
+        this.initialGetForms = false;
+      }
+    });
+  }
+
+  // Retrieve dropdown menu options from local forms
+  updateDropdownOptions() {
+    console.log('updating dropdown options');
+    for (let form of this.forms) {
+      if (!this.coverageTypesVar.includes(form.coverageType)) {
+        this.coverageTypesVar.push(form.coverageType);
+      }
+      if (!this.sourceVar.includes(form.sourceSystem)) {
+        this.sourceVar.push(form.sourceSystem);
+      }
+      if (!this.formTypeVar.includes(form.formType)) {
+        this.formTypeVar.push(form.formType);
+      }
+    }
   }
 
   // POST or PUT submitted form depending on form id
