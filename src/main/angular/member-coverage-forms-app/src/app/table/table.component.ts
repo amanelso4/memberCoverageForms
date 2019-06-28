@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Form, FormService } from "../form.service";
 import { ActivatedRoute } from "@angular/router";
+import { SubmissionFormComponent} from "../submission-form/submission-form.component";
 
 @Component({
   selector: 'app-table',
@@ -32,7 +33,7 @@ export class TableComponent implements OnInit {
   formId: string = '';
   name: string = '';
 
-  coverageTypesVar: string[] = [];
+ coverageTypesVar: string[] = [];
   sourceVar: string[] = [];
   formTypeVar: string[] = [];
 
