@@ -22,7 +22,8 @@
       <h3>Form Submission</h3>
       <div class="row">
         <br> <br>
-        <!--Column #1: DropDown Menus for formType, coverageType, state, and sourceSystem -->
+                      <!--Column #1: DropDown Menus for formType, coverageType, state, and sourceSystem -->
+
         <div class="col-lg-4">
           <div class="container">
             <!-- Row for the Form Type dropdown and label -->
@@ -97,9 +98,11 @@
           </div>
         </div>
 
-        <!-- Column #2: Text Field Inputs and "View Form" Button -->
+                                  <!-- Column #2: Text Field Inputs and "View Form" Button -->
+
         <div class="col-lg-4" style="background-color:white;">
 
+          <!-- Row for Form Name text box and label -->
           <div class="row">
             <div class="col-lg-4">
               <label for="name">Form Name: </label>
@@ -113,6 +116,7 @@
             </div>
           </div>
 
+          <!-- Row for Form ID text box and label-->
           <div class="row">
             <div class="col-lg-4">
               <label for="formId">Form ID: </label>
@@ -120,12 +124,11 @@
             <div class="col-lg-8">
               <div class="form-group">
                 <input type="text" class="form-control" id="formId" required formControlName="formId" name="formId">
-                <!--<div [hidden]="formId.valid || formId.untouched" class="alert alert-danger">Form ID is required
-              </div>-->
               </div>
             </div>
           </div>
 
+          <!-- Row for Form Link text box and label along with "View Form" button for PDF Viewer -->
           <div class="row">
             <div class="col-lg-4">
               <label for="link">Form Link: </label>
@@ -134,13 +137,12 @@
             <div class="col-lg-8">
               <div class="form-group">
                 <input type="text" class="form-control" id="link" required formControlName="link" name="link">
-                <!--<div [hidden]="link.valid || link.untouched" class="alert alert-danger">Link is required
-              </div>-->
               </div>
             </div>
           </div>
           <br>
 
+          <!-- Row for Form Description text box and label -->
           <div class="row">
             <div class="col-lg-4">
               <label for="description">Form Description: </label>
@@ -149,9 +151,6 @@
               <div class="form-group">
                 <input type="text" class="form-control" id="description" required formControlName="description"
                        name="description">
-                <!--<div [hidden]="description.valid || description.untouched" class="alert alert-danger">Description is
-                required
-              </div>-->
               </div>
             </div>
             <div [hidden]="!egg">
@@ -162,6 +161,8 @@
           </div>
 
         </div>
+
+                                              <!-- Column #3: PDF Viewer!!!!!! -->
 
         <div class="col-lg-4" style="background-color:white;">
           <div class="container">
@@ -182,20 +183,22 @@
                 <span>{{ page }} of {{ pageTotal }}</span>
               </div>
               -->
-
             </div>
           </div>
         </div>
-      </div>
+      </div> <!-- end of big row that contains three columns -->
+
       <button class="button button--primary-yellow" type="button" (click)="submitted=true">Submit</button>
       <div class="divider"></div>
       <button class="button button--secondary" type="button" routerLink="/mfm"
               routerLinkActive="active">Cancel
       </button>
-    </div>
+    </div> <!-- End of Submission Form Page -->
   </div>
 
-  <!--Confirmation Page begins-->
+  <!--
+  ---------------------------------------------Confirmation Page begins-------------------------------------------------
+  -->
 
   <div [hidden]="!submitted">
     <h3>You are about to submit the following: </h3>
@@ -271,9 +274,6 @@
 
 </form>
 </body>
-
-
-
 
 <ng-template #loading>
   Loading form...
