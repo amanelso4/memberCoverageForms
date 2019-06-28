@@ -8,7 +8,7 @@ export class FilterPipe implements PipeTransform {
   //If search value is empty string, it does not apply filter
   transform(items: any[], fTypeSearch: string, covTypeSearch: string, stateSearch: string, sourceSearch: string, idSearch: string, nameSearch: string) {
     if (items && items.length) {
-      return items.filter(item =>{
+      items = items.filter(item =>{
         if (fTypeSearch && fTypeSearch != item.formType){
           return false;
         }
@@ -28,7 +28,22 @@ export class FilterPipe implements PipeTransform {
           return false;
         }
         return true;
+      }).sort(function(a, b) {
+        if (a.formType != b.formType) {
+          return a.formType < b.formType ? -1 : 1;
+        } else if (a.coverageType != b.coverageType) {
+          return a.coverageType < b.coverageType ? -1 : 1;
+        } else {
+          return a.name < b.name ? -1 : 1;
+        }
       })
+      if (items == undefined) {
+        console.log("empty");
+        items = [{"formType":"ERROR", "state":[]}];
+      } else if (items.length == 0) {
+        items.push({"formType":"ERROR", "state":[]});
+      }
+    return items;
     }
     else {
       return items;

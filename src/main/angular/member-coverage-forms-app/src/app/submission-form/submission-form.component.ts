@@ -90,7 +90,7 @@ export class SubmissionFormComponent implements OnInit{
     // Get form id from active route and determine if this is a new form or an existing one
     this.route.paramMap.subscribe(parameterMap => {
       this.originalFormId = parameterMap.get('formId');
-      if (this.originalFormId !== "new") {
+      if (this.originalFormId != "new") {
         // Existing form
         this.getForm(this.originalFormId);
       } else {

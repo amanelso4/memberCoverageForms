@@ -9,7 +9,6 @@ public class subForm {
     public String fh; // FORM DESCRIPTION
     public String fc; // FORM ID
 
-    public subForm() {}
 
     public subForm(String ds, String fl, String ft, boolean fill, String fh, String fc) {
         this.ds = ds;

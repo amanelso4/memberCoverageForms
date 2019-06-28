@@ -22,7 +22,7 @@
       <h3>Form Submission</h3>
       <div class="row">
         <br> <br>
-                      <!--Column #1: DropDown Menus for formType, coverageType, state, and sourceSystem -->
+        <!--Column #1: DropDown Menus for formType, coverageType, state, and sourceSystem -->
 
         <div class="col-lg-4">
           <div class="container">
@@ -51,8 +51,8 @@
                   <select class="form-control" id="coverageType" required formControlName="coverageType"
                           name="coverageType">
                     <option *ngFor="let cType of coverageTypesVar" [value]="cType">{{ cType }}</option>
-                  <!--  <option *ngFor="let coverageType of coverageTypes" [value]="coverageType">{{coverageType}}
-                    </option> -->
+                    <!--  <option *ngFor="let coverageType of coverageTypes" [value]="coverageType">{{coverageType}}
+                      </option> -->
                   </select>
                 </div>
               </div>
@@ -92,7 +92,7 @@
           </div>
         </div>
 
-                                  <!-- Column #2: Text Field Inputs and "View Form" Button -->
+        <!-- Column #2: Text Field Inputs and "View Form" Button -->
 
         <div class="col-lg-4" style="background-color:white;">
 
@@ -126,6 +126,10 @@
           <div class="row">
             <div class="col-lg-4">
               <label for="link">Form Link: </label>
+
+              <button class="button button--primary-yellow" type="button"
+                      (click)="view=true; easterEgg(model.value.name)">View Form
+              </button>
             </div>
             <div class="col-lg-8">
               <div class="form-group">
@@ -156,7 +160,7 @@
 
         </div>
 
-                                              <!-- Column #3: PDF Viewer!!!!!! -->
+        <!-- Column #3: PDF Viewer!!!!!! -->
 
         <div class="col-lg-4" style="background-color:white;">
           <div class="container">
@@ -197,51 +201,116 @@
   <div [hidden]="!submitted">
     <h3>You are about to submit the following: </h3>
 
-    <table class="confirm">
-      <tr *ngIf="!newForm">
-        <th></th>
-        <th>Original</th>
-        <th>Edited</th>
-      </tr>
+    <table *ngIf="!newForm" class="confirm">
       <tr>
         <th>Form Type</th>
-        <td *ngIf="!newForm" [ngClass]="{'editedCell--original': ((!newForm) && (originalForm.formType !== model.value.formType))}">{{originalForm.formType}}</td>
-        <td [ngClass]="{'editedCell--new': ((!newForm) && (originalForm.formType !== model.value.formType))}">{{model.value.formType}}</td>
+        <!--Field not Changed-->
+        <td *ngIf="originalForm.formType === model.value.formType">{{model.value.formType}}</td>
+        <!--Field Changed-->
+        <td class="comparison" *ngIf="originalForm.formType !== model.value.formType">
+          <p><span class="oldText">{{originalForm.formType}}</span>  {{model.value.formType}}</p>
+        </td>
       </tr>
       <tr>
         <th>Coverage Type</th>
-        <td *ngIf="!newForm" [ngClass]="{'editedCell--original': ((!newForm) && (originalForm.coverageType !== model.value.coverageType))}">{{originalForm.coverageType}}</td>
-        <td [ngClass]="{'editedCell--new': ((!newForm) && (originalForm.coverageType !== model.value.coverageType))}">{{model.value.coverageType}}</td>
+        <!--Field not Changed-->
+        <td *ngIf="originalForm.coverageType === model.value.coverageType">{{model.value.coverageType}}</td>
+        <!--Field Changed-->
+        <td class="comparison" *ngIf="originalForm.coverageType !== model.value.coverageType">
+          <p><span class="oldText">{{originalForm.coverageType}}</span>  {{model.value.coverageType}}</p>
+        </td>
       </tr>
       <tr>
         <th>Coverage State(s)</th>
-        <td *ngIf="!newForm" [ngClass]="{'editedCell--original': ((!newForm) && (originalForm.state !== model.value.state))}">{{originalForm.state}}</td>
-        <td [ngClass]="{'editedCell--new': ((!newForm) && (originalForm.state !== model.value.state))}">{{model.value.state}}</td>
+        <!--Field not Changed-->
+        <td *ngIf="originalForm.state.toString() === model.value.state.toString()">{{model.value.state}}</td>
+        <!--Field Changed-->
+        <td class="comparison" *ngIf="originalForm.state.toString() !== model.value.state.toString()">
+          <p><span class="oldText">{{originalForm.state}}</span>  {{model.value.state}}</p>
+        </td>
       </tr>
       <tr>
         <th>Source System</th>
-        <td *ngIf="!newForm" [ngClass]="{'editedCell--original': ((!newForm) && (originalForm.sourceSystem !== model.value.sourceSystem))}">{{originalForm.sourceSystem}}</td>
-        <td [ngClass]="{'editedCell--new': ((!newForm) && (originalForm.sourceSystem !== model.value.sourceSystem))}">{{model.value.sourceSystem}}</td>
+        <!--Field not Changed-->
+        <td *ngIf="originalForm.sourceSystem === model.value.sourceSystem">{{model.value.sourceSystem}}</td>
+        <!--Field Changed-->
+        <td class="comparison" *ngIf="originalForm.sourceSystem !== model.value.sourceSystem">
+          <p><span class="oldText">{{originalForm.sourceSystem}}</span>  {{model.value.sourceSystem}}</p>
+        </td>
       </tr>
       <tr>
         <th>Form Name</th>
-        <td *ngIf="!newForm" [ngClass]="{'editedCell--original': ((!newForm) && (originalForm.name !== model.value.name))}">{{originalForm.name}}</td>
-        <td [ngClass]="{'editedCell--new': ((!newForm) && (originalForm.name !== model.value.name))}">{{model.value.name}}</td>
+        <!--Field not Changed-->
+        <td *ngIf="originalForm.name === model.value.name">{{model.value.name}}</td>
+        <!--Field Changed-->
+        <td class="comparison" *ngIf="originalForm.name !== model.value.name">
+          <p><span class="oldText">{{originalForm.name}}</span>  {{model.value.name}}</p>
+        </td>
       </tr>
       <tr>
         <th>Form ID</th>
-        <td *ngIf="!newForm" [ngClass]="{'editedCell--original': ((!newForm) && (originalForm.formId !== model.value.formId))}">{{originalForm.formId}}</td>
-        <td [ngClass]="{'editedCell--new': ((!newForm) && (originalForm.formId !== model.value.formId))}">{{model.value.formId}}</td>
+        <!--Field not Changed-->
+        <td *ngIf="originalForm.formId === model.value.formId">{{model.value.formId}}</td>
+        <!--Field Changed-->
+        <td class="comparison" *ngIf="originalForm.formId !== model.value.formId">
+          <p><span class="oldText">{{originalForm.formId}}</span>  {{model.value.formId}}</p>
+        </td>
       </tr>
       <tr>
         <th>Form Link</th>
-        <td *ngIf="!newForm" [ngClass]="{'editedCell--original': ((!newForm) && (originalForm.link !== model.value.link))}">{{originalForm.link}}</td>
-        <td [ngClass]="{'editedCell--new': ((!newForm) && (originalForm.link !== model.value.link))}">{{model.value.link}}</td>
+        <!--Field not Changed-->
+        <td *ngIf="originalForm.link === model.value.link">{{model.value.link}}</td>
+        <!--Field Changed-->
+        <td class="comparison" *ngIf="originalForm.link !== model.value.link">
+          <p><span class="oldText">{{originalForm.link}}</span>  {{model.value.link}}</p>
+        </td>
       </tr>
       <tr>
         <th>Form Description</th>
-        <td *ngIf="!newForm" [ngClass]="{'editedCell--original': ((!newForm) && (originalForm.description !== model.value.description))}">{{originalForm.description}}</td>
-        <td [ngClass]="{'editedCell--new': ((!newForm) && (originalForm.description !== model.value.description))}">{{model.value.description}}</td>
+        <!--Field not Changed-->
+        <td *ngIf="originalForm.description === model.value.description">{{model.value.description}}</td>
+        <!--Field Changed-->
+        <td class="comparison" *ngIf="originalForm.description !== model.value.description">
+          <p style="height: 14px"><span class="oldText">{{originalForm.description}}</span>  {{model.value.description}}
+          </p>
+        </td>
+      </tr>
+      <!--<tr *ngIf="!newForm">
+        <td class="comparison" style="text-align: center" colspan="2"><p style="height: 14px"><span class="oldText">Original Text</span>  Edited Text</p>
+        </td>
+      </tr>-->
+    </table>
+    <table *ngIf="newForm" class="confirm">
+      <tr>
+        <th>Form Type</th>
+        <td>{{model.value.formType}}</td>
+      </tr>
+      <tr>
+        <th>Coverage Type</th>
+        <td>{{model.value.coverageType}}</td>
+      <tr>
+        <th>Coverage State(s)</th>
+        <td>{{model.value.state}}</td>
+      </tr>
+      <tr>
+        <th>Source System</th>
+        <td>{{model.value.sourceSystem}}</td>
+      </tr>
+      <tr>
+        <th>Form Name</th>
+        <td>{{model.value.name}}</td>
+      </tr>
+      <tr>
+        <th>Form ID</th>
+        <td>{{model.value.formId}}</td>
+      </tr>
+      <tr>
+        <th>Form Link</th>
+        <td>{{model.value.link}}</td>
+      </tr>
+      <tr>
+        <th>Form Description</th>
+        <td>{{model.value.description}}</td>
       </tr>
     </table>
     <br> <br> <br>
