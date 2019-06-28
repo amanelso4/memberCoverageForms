@@ -60,7 +60,10 @@
   <tr *ngFor="let form of forms | filter: formType:coverageType:state:sourceSystem:formId:name | paginate: { itemsPerPage: 10, currentPage: p }">
     <td *ngIf="form.formType!='ERROR'" style="max-width: 20px;">{{ form.formType }}</td>
     <td *ngIf="form.formType!='ERROR'">{{ form.coverageType }}</td>
-    <td *ngIf="form.formType!='ERROR'" class="state">{{ form.state }}</td>
+    <td *ngIf="form.formType!='ERROR' && form.state.length <= 5" class="state">{{ form.state }}</td>
+    <td *ngIf="form.formType!='ERROR' && form.state.length == 51" class="state">All States + DC</td>
+    <td *ngIf="form.formType!='ERROR' && form.state.length == 50 && !form.state.includes('NY')" class="state">All Except NY</td>
+    <td *ngIf="form.formType!='ERROR' && (form.state.length > 5 && form.state.length < 50) || (form.state.length == 50 && form.state.includes('NY'))" class="state" title="{{form.state}}">{{ form.state.length }} States</td>
     <td *ngIf="form.formType!='ERROR'" >{{ form.sourceSystem }}</td>
     <td *ngIf="form.formType!='ERROR'" title="{{ form.description }}"><a class="a" href="{{ form.link }}" target="_blank">{{ form.name }}</a></td>
     <td *ngIf="form.formType!='ERROR'" >{{ form.formId }}</td>
