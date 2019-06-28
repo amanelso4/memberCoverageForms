@@ -13,8 +13,14 @@ import org.springframework.data.mongodb.core.mapping.MongoMappingContext;
 @Configuration
 public class SpringMongoConfig {
 
-    @Autowired MongoDbFactory mongoDbFactory;
-    @Autowired MongoMappingContext mongoMappingContext;
+    private MongoDbFactory mongoDbFactory;
+    private MongoMappingContext mongoMappingContext;
+
+    @Autowired
+    public SpringMongoConfig(MongoDbFactory mongoDbFactory, MongoMappingContext mongoMappingContext) {
+        this.mongoDbFactory = mongoDbFactory;
+        this.mongoMappingContext = mongoMappingContext;
+    }
 
     @Bean
     public MappingMongoConverter mappingMongoConverter() {

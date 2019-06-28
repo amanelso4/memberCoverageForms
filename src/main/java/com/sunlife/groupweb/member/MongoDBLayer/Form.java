@@ -18,17 +18,6 @@ public class Form {
     public String sc; // COVERAGE STATE
     public String ss; // SOURCE SYSTEM
 
-    public Form() {}
-
-    /*public Form(String id, String ci, boolean fhf, subForm[] fl, String sc, char ss) {
-        this.id = id;
-        this.ci = ci;
-        this.fhf = fhf;
-        this.fl = fl;
-        this.sc = sc;
-        this.ss = ss;
-    }*/
-
     // Constructor w/o id needed (mongo handles id generation)
     public Form(String ci, boolean fhf, subForm[] fl, String sc, String ss) {
         this.ci = ci;
