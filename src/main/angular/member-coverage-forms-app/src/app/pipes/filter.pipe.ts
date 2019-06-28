@@ -37,8 +37,11 @@ export class FilterPipe implements PipeTransform {
           return a.name < b.name ? -1 : 1;
         }
       })
-      if (items.length == 0) {
-        items.push({"formType":"ERROR"});
+      if (items == undefined) {
+        console.log("empty");
+        items = [{"formType":"ERROR", "state":[]}];
+      } else if (items.length == 0) {
+        items.push({"formType":"ERROR", "state":[]});
       }
     return items;
     }

@@ -22,7 +22,7 @@
       <h3>Form Submission</h3>
       <div class="row">
         <br> <br>
-                      <!--Column #1: DropDown Menus for formType, coverageType, state, and sourceSystem -->
+        <!--Column #1: DropDown Menus for formType, coverageType, state, and sourceSystem -->
 
         <div class="col-lg-4">
           <div class="container">
@@ -51,8 +51,8 @@
                   <select class="form-control" id="coverageType" required formControlName="coverageType"
                           name="coverageType">
                     <option *ngFor="let cType of coverageTypesVar" [value]="cType">{{ cType }}</option>
-                  <!--  <option *ngFor="let coverageType of coverageTypes" [value]="coverageType">{{coverageType}}
-                    </option> -->
+                    <!--  <option *ngFor="let coverageType of coverageTypes" [value]="coverageType">{{coverageType}}
+                      </option> -->
                   </select>
                 </div>
               </div>
@@ -72,7 +72,8 @@
                                            (onDeSelect)="updateState()" (onDeSelectAll)="onDeSelectAll()" name="state"
                                            id="state">
                   </ng-multiselect-dropdown>-->
-                  <select multiple formControlName="state" class="form-control" id="state" required style="height: auto" name="state">
+                  <select multiple formControlName="state" class="form-control" id="state" required style="height: auto"
+                          name="state">
                     <option *ngFor="let state of statesVar" [value]="state">{{ state }}</option>
                   </select>
                 </div>
@@ -95,7 +96,7 @@
           </div>
         </div>
 
-                                  <!-- Column #2: Text Field Inputs and "View Form" Button -->
+        <!-- Column #2: Text Field Inputs and "View Form" Button -->
 
         <div class="col-lg-4" style="background-color:white;">
 
@@ -129,7 +130,9 @@
           <div class="row">
             <div class="col-lg-4">
               <label for="link">Form Link: </label>
-              <button class="button button--primary-yellow" type="button" (click)="view=true; easterEgg(model.value.name)">View Form</button>
+              <button class="button button--primary-yellow" type="button"
+                      (click)="view=true; easterEgg(model.value.name)">View Form
+              </button>
             </div>
             <div class="col-lg-8">
               <div class="form-group">
@@ -159,7 +162,7 @@
 
         </div>
 
-                                              <!-- Column #3: PDF Viewer!!!!!! -->
+        <!-- Column #3: PDF Viewer!!!!!! -->
 
         <div class="col-lg-4" style="background-color:white;">
           <div class="container">
@@ -200,7 +203,7 @@
   <div [hidden]="!submitted">
     <h3>You are about to submit the following: </h3>
 
-    <table class="confirm">
+    <table *ngIf="!newForm" class="confirm">
       <tr>
         <th>Form Type</th>
         <!--Field not Changed-->
@@ -270,13 +273,47 @@
         <td *ngIf="originalForm.description === model.value.description">{{model.value.description}}</td>
         <!--Field Changed-->
         <td class="comparison" *ngIf="originalForm.description !== model.value.description">
-          <p style="height: 14px"><span class="oldText">{{originalForm.description}}</span>  {{model.value.description}}</p>
+          <p style="height: 14px"><span class="oldText">{{originalForm.description}}</span>  {{model.value.description}}
+          </p>
         </td>
       </tr>
       <!--<tr *ngIf="!newForm">
         <td class="comparison" style="text-align: center" colspan="2"><p style="height: 14px"><span class="oldText">Original Text</span>  Edited Text</p>
         </td>
       </tr>-->
+    </table>
+    <table *ngIf="newForm" class="confirm">
+      <tr>
+        <th>Form Type</th>
+        <td>{{model.value.formType}}</td>
+      </tr>
+      <tr>
+        <th>Coverage Type</th>
+        <td>{{model.value.coverageType}}</td>
+      <tr>
+        <th>Coverage State(s)</th>
+        <td>{{model.value.state}}</td>
+      </tr>
+      <tr>
+        <th>Source System</th>
+        <td>{{model.value.sourceSystem}}</td>
+      </tr>
+      <tr>
+        <th>Form Name</th>
+        <td>{{model.value.name}}</td>
+      </tr>
+      <tr>
+        <th>Form ID</th>
+        <td>{{model.value.formId}}</td>
+      </tr>
+      <tr>
+        <th>Form Link</th>
+        <td>{{model.value.link}}</td>
+      </tr>
+      <tr>
+        <th>Form Description</th>
+        <td>{{model.value.description}}</td>
+      </tr>
     </table>
     <br> <br> <br>
     <div class="row">
