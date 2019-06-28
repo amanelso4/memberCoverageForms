@@ -59,8 +59,6 @@
             </div>
 
             <!-- Row for the State MULTI-SELECT dropdown and label -->
-
-
             <div class="row">
               <div class="col-lg-4">
                 <mat-label>States: </mat-label>
@@ -68,27 +66,12 @@
 
               <div class="col-lg-8">
                 <div class="form-group">
-
-<!--                  <mat-form-field>-->
-<!--                    <mat-select multiple id="state" required formControlName="state" >-->
-<!--                      <mat-option [value]="1" (click)="selectAll(ev)" #ev>SelectAll</mat-option>-->
-<!--                      <mat-option *ngFor="let state of stateList" [value]="state">{{ state }}</mat-option>-->
-<!--                    </mat-select>-->
-<!--                  </mat-form-field>-->
-
-                  <!--class="form-control" id="state" required formControlName="state" -->
-
                   <ng-multiselect-dropdown [placeholder]="'States'" [data]="stateList" formControlName="state"
                                            [settings]="dropdownSettings" (onSelect)="updateState()"
                                            (onSelectAll)="onSelectAll()"
                                            (onDeSelect)="updateState()" (onDeSelectAll)="onDeSelectAll()" name="state"
                                            id="state">
                   </ng-multiselect-dropdown>
-                  <!--
-                  <select multiple formControlName="state" class="form-control" id="state" required style="height: auto" name="state">
-                    <option *ngFor="let state of statesVar" [value]="state">{{ state }}</option>
-                  </select> -->
-
                 </div>
               </div>
             </div>

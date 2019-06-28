@@ -101,22 +101,11 @@ export class SubmissionFormComponent implements OnInit{
   }
 
   //multi-select drop-down menu function and declarations
-selectedValue: string;
   stateList: string[] = ['AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA',
     'HI', 'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI',
     'MN', 'MO', 'MS', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV', 'NY',
     'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VA', 'VT',
     'WA', 'WI', 'WV', 'WY'];
-
-  selectAll(ev){
-    if(ev._selected){
-      this.model.value.state.setValue(this.stateList);
-      ev._selected=true;
-    }
-    if(ev._selected==false){
-      this.model.value.state.setValue([]);
-    }
-  }
 
 
   // Retrieve the form the user wants to update and populate the page with its details
@@ -205,15 +194,15 @@ selectedValue: string;
   updateState(): void {
     let tempArray = [];
     this.model.value.state.forEach((item) => tempArray.push(item.valueOf()));
-    this.coverageState.length = 0;
-    this.coverageState = tempArray;
+    this.state.length = 0;
+    this.state = tempArray;
   }
 
   onSelectAll(): void {
     let tempArray = [];
-    this.states.forEach((item) => tempArray.push(item.valueOf()));
-    this.coverageState.length = 0;
-    this.coverageState = tempArray;
+    this.stateList.forEach((item) => tempArray.push(item.valueOf()));
+    this.state.length = 0;
+    this.state = tempArray;
   }
 
   onDeSelectAll(): void {
