@@ -88,6 +88,9 @@ export class TableComponent implements OnInit {
         this.formTypeVar.push(form.formType);
       }
     }
+    this.coverageTypesVar.sort((a, b) => {return a < b ? -1 : 1});
+    this.sourceVar.sort((a, b) => {return a < b ? -1 : 1});
+    this.formTypeVar.sort((a, b) => {return a < b ? -1 : 1});
   }
 
   // Delete a form by providing the form's id as an argument
