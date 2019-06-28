@@ -59,8 +59,22 @@
             </div>
 
             <!-- Row for the State MULTI-SELECT dropdown and label -->
+
+
             <div class="row">
               <div class="col-lg-4">
+
+                <mat-form-field>
+                  <mat-label>State: </mat-label>
+                  <mat-select [(ngModel)]="selectedValue" name="state">
+                    <mat-option *ngFor="let state of stateList" [value]="state">
+                      {{state}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+
+
                 <label for="state">Coverage State(s): </label>
               </div>
               <div class="col-lg-8">

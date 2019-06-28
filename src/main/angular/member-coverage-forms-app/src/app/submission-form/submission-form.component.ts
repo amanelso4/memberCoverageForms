@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PDFDocumentProxy, PDFPromise, PDFProgressData, PDFJS } from "pdfjs-dist";
 import { tap } from 'rxjs/operators';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-form',
@@ -25,7 +26,6 @@ export class SubmissionFormComponent implements OnInit{
   //////////////////
   // DECLARATIONS //
   //////////////////
-
   form: Observable<Form>;
   model: FormGroup;
   private _pdf: PDFDocumentProxy;
@@ -45,12 +45,6 @@ export class SubmissionFormComponent implements OnInit{
   coverageTypesVar: string[] = [];
   sourceVar: string[] = [];
   formTypeVar: string[] = [];
-
-  statesVar = ['AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA',
-    'HI', 'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI',
-    'MN', 'MO', 'MS', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV', 'NY',
-    'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VA', 'VT',
-    'WA', 'WI', 'WV', 'WY'];
 
   submitted = false;
   view = false;
@@ -106,6 +100,26 @@ export class SubmissionFormComponent implements OnInit{
     });
   }
 
+  //multi-select drop-down menu function and declarations
+selectedValue: string;
+  states = new FormControl();
+  stateList: string[] = ['AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA',
+    'HI', 'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI',
+    'MN', 'MO', 'MS', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV', 'NY',
+    'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VA', 'VT',
+    'WA', 'WI', 'WV', 'WY'];
+  selectAll(ev){
+
+    if(ev._selected){
+      this.states.setValue(this.stateList);
+      ev._selected=true;
+    }
+    if(ev._selected==false){
+      this.states.setValue([]);
+    }
+  }
+
+
   // Retrieve the form the user wants to update and populate the page with its details
   private getForm(formId: string) {
     this.form = this.formService.getSingleForm(formId).pipe(
@@ -114,6 +128,7 @@ export class SubmissionFormComponent implements OnInit{
     this.formService.getSingleForm(formId).subscribe(form => this.originalForm = form)
   }
 
+  //Get all forms to check through and Update the drop-down options from
   getForms() {
     this.formService.getForms().subscribe( forms => {
       this.forms = forms;
@@ -215,7 +230,6 @@ export class SubmissionFormComponent implements OnInit{
 
   }
    */
-
 }
 
 
