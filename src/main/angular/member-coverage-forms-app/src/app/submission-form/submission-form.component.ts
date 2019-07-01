@@ -113,7 +113,15 @@ export class SubmissionFormComponent implements OnInit{
     this.form = this.formService.getSingleForm(formId).pipe(
       tap(form => this.model.patchValue(form))
     )
-    this.formService.getSingleForm(formId).subscribe(form => this.originalForm = form)
+    this.formService.getSingleForm(formId).subscribe(form => {
+      this.originalForm = form;
+      // handle error where no form matching formId found
+      if (this.originalForm.formId == null) {
+        console.warn("Form with formId " + formId + " not found.");
+        this.newForm = true;
+        this.model.value.formId = formId;
+      }
+    })
   }
 
   //Get all forms to check through and Update the drop-down options from
@@ -141,6 +149,9 @@ export class SubmissionFormComponent implements OnInit{
         this.formTypeVar.push(form.formType);
       }
     }
+    this.coverageTypesVar.sort((a, b) => {return a < b ? -1 : 1});
+    this.sourceVar.sort((a, b) => {return a < b ? -1 : 1});
+    this.formTypeVar.sort((a, b) => {return a < b ? -1 : 1});
   }
 
   // POST or PUT submitted form depending on form id
@@ -191,7 +202,7 @@ export class SubmissionFormComponent implements OnInit{
       this.egg=true;
     }
   }
-  updateState(): void {
+  /*updateState(): void {
     let tempArray = [];
     this.model.value.state.forEach((item) => tempArray.push(item.valueOf()));
     this.state.length = 0;
@@ -209,7 +220,7 @@ export class SubmissionFormComponent implements OnInit{
     let tempArray = [];
     this.coverageState.length = 0;
     this.coverageState = tempArray;
-  }
+  }*/
   message: string = '';
   validate(input: string) {
     if (input.length == 0) {
