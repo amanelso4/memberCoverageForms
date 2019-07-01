@@ -65,26 +65,34 @@ public class RESTController {
         boolean exteriorChange = false;
         // Find original copy of form to compare
         List<Form> originalForm = repository.findByOneField("fl.fc", formId);
-        // convert new form into a java form
-        List<Form> editedForm = angularToJava(newFormDTO);
+        /* TODO: Handle error where no matches found */
         // create new subForm to be used
         subForm newSubForm = new subForm(newFormDTO.name, newFormDTO.link, newFormDTO.formType, true, newFormDTO.description, newFormDTO.formId);
         // Check to see if exterior fields have been changed
-        if (originalForm.get(0).ci.equals(editedForm.get(0).ci) || originalForm.get(0).ss.equals(editedForm.get(0).ss)) {
+        if (originalForm.get(0).ci.equals(newFormDTO.coverageType) || originalForm.get(0).ss.equals(newFormDTO.sourceSystem)) {
             exteriorChange = true;
         }
         // COV TYPE OR SOURCE SYSTEM CHANGED
         if (exteriorChange) {
             // Remove all instances of form from current doc
             deleteFromFormList(formId, originalForm);
+            // find new locations based on changed exterior fields
             for (int i = 0; i < newFormDTO.state.length; i++) {
-                List<Form> newFormLocations = repository.findByThreeFields("ci", editedForm.get(0).ci, "ss", editedForm.get(0).ss,
+                List<Form> newFormLocations = repository.findByThreeFields("ci", newFormDTO.coverageType, "ss", newFormDTO.sourceSystem,
                         "sc", newFormDTO.state[i]);
-                for (Form thisForm : newFormLocations) {
-                    ArrayList<subForm> thisSubForms = new ArrayList<>(Arrays.asList(thisForm.fl));
+                if (newFormLocations.size() == 0) {
+                    // form location not found, need a new record
+                    ArrayList<subForm> thisSubForms = new ArrayList<>();
                     thisSubForms.add(newSubForm);
-                    thisForm.fl = thisSubForms.toArray(new subForm[0]);
-                    repository.save(thisForm);
+                    Form newRecord = new Form(newFormDTO.coverageType, true, thisSubForms.toArray(new subForm[0]), newFormDTO.state[i], newFormDTO.sourceSystem);
+                    repository.save(newRecord);
+                } else {
+                    for (Form thisForm : newFormLocations) {
+                        ArrayList<subForm> thisSubForms = new ArrayList<>(Arrays.asList(thisForm.fl));
+                        thisSubForms.add(newSubForm);
+                        thisForm.fl = thisSubForms.toArray(new subForm[0]);
+                        repository.save(thisForm);
+                    }
                 }
             }
         } else {
@@ -106,10 +114,19 @@ public class RESTController {
                 deleteFromStates(formId, statesDeleted);
             }
             // add/edit in new list of states
-            for ( String newState : newStatesList) {
+            for (String newState : newStatesList) {
+                // find new locations
                 List<Form> formsToUpdate = repository.findByThreeFields("ci", newFormDTO.coverageType,
                         "ss", newFormDTO.sourceSystem, "sc", newState);
-                replaceInFormList(formId, newSubForm, formsToUpdate);
+                if (formsToUpdate.size() == 0) {
+                    // record for that state not found, need new top-level document
+                    ArrayList<subForm> thisSubForms = new ArrayList<>();
+                    thisSubForms.add(newSubForm);
+                    Form newRecord = new Form(newFormDTO.coverageType, true, thisSubForms.toArray(new subForm[0]), newState, newFormDTO.sourceSystem);
+                    repository.save(newRecord);
+                } else {
+                    replaceInFormList(formId, newSubForm, formsToUpdate);
+                }
             }
         }
     }
@@ -121,17 +138,22 @@ public class RESTController {
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "", method = RequestMethod.POST)
     public void addSubForm(@Valid @RequestBody FormDTO form) {
+        subForm newSub = new subForm(form.name, form.link, form.formType, true, form.description, form.formId);
         for (int i = 0; i < form.state.length; i++) {
             String state = form.state[i];
             List<Form> formsToBeAdded = repository.findByThreeFields("sc", state, "ss", form.sourceSystem, "ci", form.coverageType);
-            for (Form f : formsToBeAdded) {        /*
-                   Iterator stateIterator = formDTO.iterator();
-                   for(Form f=null; stateIterator.hasNext(); f=(Form)stateIterator.next()) { */
-                ArrayList<subForm> subFormPlusOne = new ArrayList<>(Arrays.asList(f.fl));
-                subForm newSub = new subForm(form.name, form.link, form.formType, false, form.description, form.formId);
-                subFormPlusOne.add(newSub);
-                f.fl = subFormPlusOne.toArray(new subForm[0]);
-                repository.save(f);
+            if (formsToBeAdded.size() == 0) {
+                ArrayList<subForm> thisSubForms = new ArrayList<>();
+                thisSubForms.add(newSub);
+                Form newRecord = new Form(form.coverageType, true, thisSubForms.toArray(new subForm[0]), state, form.sourceSystem);
+                repository.save(newRecord);
+            } else {
+                for (Form f : formsToBeAdded) {
+                    ArrayList<subForm> subFormPlusOne = new ArrayList<>(Arrays.asList(f.fl));
+                    subFormPlusOne.add(newSub);
+                    f.fl = subFormPlusOne.toArray(new subForm[0]);
+                    repository.save(f);
+                }
             }
         }
     }
@@ -161,6 +183,8 @@ public class RESTController {
     ////// HELPERS //////
     /////////////////////
 
+    // Creates an angular form from a given formId and list of java forms
+    // Used by: Both GETs
     private FormDTO createAngularForm(String formId, List<Form> allTheForms) {
         FormDTO newAngularForm = new FormDTO();
         ArrayList<String> states = new ArrayList<>();
@@ -184,6 +208,7 @@ public class RESTController {
         return newAngularForm;
     }
 
+    // Used by: PUT
     private void replaceInFormList(String formId, subForm newSubForm, List<Form> formList) {
         for (Form thisForm : formList) {
             List<subForm> thisSubForms = Arrays.asList(thisForm.fl);
@@ -194,14 +219,17 @@ public class RESTController {
         }
     }
 
+    // Used by: PUT
     private void deleteFromStates(String formId, List<String> statesDeleted) {
         // craft the search string for states
-        for ( String stateRemoved : statesDeleted) {
+        for (String stateRemoved : statesDeleted) {
             List<Form> matchingForms = repository.findByTwoFields("'fl.fc'", formId, "sc", stateRemoved);
             deleteFromFormList(formId, matchingForms);
         }
     }
 
+    // Deletes a form given its formId from the database using a given form list
+    // Used by: PUT, DELETE
     private void deleteFromFormList(String formId, List<Form> formList) {
         for (Form thisForm : formList) {
             List<subForm> thisSubForms = Arrays.asList(thisForm.fl);
@@ -209,24 +237,6 @@ public class RESTController {
             repository.save(thisForm);
         }
     }
-
-    private List<Form> angularToJava(FormDTO formDTO) {
-        List<Form> javaForms = new ArrayList<>();
-        for (int i = 0; i < formDTO.state.length; i++) {
-            // return matching forms and take the first one
-            List<Form> matchingForms = repository.findSingleForm(formDTO.coverageType, formDTO.sourceSystem, formDTO.state[i]);
-            Form thisForm = matchingForms.get(0);
-            // create a new subForm with data that was passed in
-            subForm newSubForm = new subForm(formDTO.name, formDTO.link, formDTO.formType, true, formDTO.description, formDTO.formId);
-            // add new subForm to existing fl list by converting to array and back
-            ArrayList<subForm> tempSubList = new ArrayList<>(Arrays.asList(thisForm.fl));
-            tempSubList.add(newSubForm);
-            thisForm.fl = tempSubList.toArray(new subForm[0]); // apparently empty array is preferred and it will realloc correctly?
-            javaForms.add(thisForm);
-        }
-        return javaForms;
-    }
-
 
 }
 
