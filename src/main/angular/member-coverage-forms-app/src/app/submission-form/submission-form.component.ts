@@ -56,6 +56,7 @@ export class SubmissionFormComponent implements OnInit{
   coverageTypesVar: string[] = [];
   sourceVar: string[] = [];
   formTypeVar: string[] = [];
+  formIds: string[] = [];
 
   addNewCoverageType: boolean = false;
   addNewFormType: boolean = false;
@@ -168,18 +169,7 @@ duplicate = false;
     })
   }
 
-/*checkDuplicate ()
-{
-  if(this.newForm == false) {
-    this.message = "You are trying to enter a form that already exists in the database. Please edit the information above.";
-    this.submitted = false;
-    this.duplicate = true;
-  }
-  else {
-    this.submitted = true;
-    this.duplicate = true;
-  }
-}*/
+
   //Get all forms to check through and Update the drop-down options from
   getForms() {
     this.formService.getForms().subscribe( forms => {
@@ -203,6 +193,9 @@ duplicate = false;
       }
       if (!this.formTypeVar.includes(form.formType)) {
         this.formTypeVar.push(form.formType);
+      }
+      if (!this.formIds.includes(form.formId)) {
+        this.formIds.push(form.formId);
       }
     }
     this.coverageTypesVar.sort((a, b) => {return a < b ? -1 : 1});
@@ -270,6 +263,16 @@ duplicate = false;
     else {
       this.submitted = true;
     }
+  }
+
+  duplicateCheck(modelId) {
+    if (this.formIds.includes(modelId)) {
+      this.duplicate = true;
+      this.valid = false;
+      this.submitted = false;
+      this.message = "You are trying to submit a form that already exists. Please change information above."
+    }
+
   }
 
   updateState(): void {

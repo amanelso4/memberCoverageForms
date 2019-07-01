@@ -244,11 +244,11 @@
            class="alert alert-danger">
         All fields must be valid before submitting form.
       </div>
-<!--
+
       <div [hidden]="!duplicate" class="alert alert-danger">
       {{message}} <br>
-      </div>-->
-      <button class="button button--primary-yellow" type="button" (click)="submissionCheck();">Submit</button>
+      </div>
+      <button class="button button--primary-yellow" type="button" (click)="submissionCheck(); duplicateCheck(model.value.formId)">Submit</button>
       <div class="divider"></div>
       <button class="button button--secondary" type="button" routerLink="/mfm"
               routerLinkActive="active">Cancel
