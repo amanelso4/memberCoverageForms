@@ -213,7 +213,7 @@ export class SubmissionFormComponent implements OnInit{
   }
 
   //Functions for multi-select Drop-down
-  updateCoverageState(): void {
+  updateState(): void {
     let tempArray = [];
     this.selectedStates.forEach((item) => tempArray.push(item.coverage));
     this.coverageStates.length = 0;
