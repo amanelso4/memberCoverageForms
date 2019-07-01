@@ -191,7 +191,7 @@ export class SubmissionFormComponent implements OnInit{
       this.egg=true;
     }
   }
-  updateState(): void {
+  /*updateState(): void {
     let tempArray = [];
     this.model.value.state.forEach((item) => tempArray.push(item.valueOf()));
     this.state.length = 0;
@@ -209,7 +209,7 @@ export class SubmissionFormComponent implements OnInit{
     let tempArray = [];
     this.coverageState.length = 0;
     this.coverageState = tempArray;
-  }
+  }*/
   message: string = '';
   validate(input: string) {
     if (input.length == 0) {
