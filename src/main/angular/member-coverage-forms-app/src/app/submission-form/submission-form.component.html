@@ -19,7 +19,7 @@
     -->
     <div [hidden]="submitted">
 
-      <h3>Form Submission</h3>
+      <h3>Form Submission</h3> <br>
       <div class="row">
         <br> <br>
         <!--Column #1: DropDown Menus for formType, coverageType, state, and sourceSystem -->
@@ -61,21 +61,17 @@
             <!-- Row for the State MULTI-SELECT dropdown and label -->
             <div class="row">
               <div class="col-lg-4">
-                <label for="state">Coverage State(s): </label>
+                <mat-label>States: </mat-label>
               </div>
+
               <div class="col-lg-8">
                 <div class="form-group">
-
-                  <!--<ng-multiselect-dropdown [placeholder]="'States'" [data]="states" formControlName="state"
+                  <ng-multiselect-dropdown [placeholder]="'States'" [data]="stateList" formControlName="state"
                                            [settings]="dropdownSettings" (onSelect)="updateState()"
                                            (onSelectAll)="onSelectAll()"
                                            (onDeSelect)="updateState()" (onDeSelectAll)="onDeSelectAll()" name="state"
                                            id="state">
-                  </ng-multiselect-dropdown>-->
-                  <select multiple formControlName="state" class="form-control" id="state" required style="height: auto"
-                          name="state">
-                    <option *ngFor="let state of statesVar" [value]="state">{{ state }}</option>
-                  </select>
+                  </ng-multiselect-dropdown>
                 </div>
               </div>
             </div>
@@ -87,7 +83,7 @@
               </div>
               <div class="col-lg-8">
                 <div class="form-group">
-                  <select class="form-control" id="sourceSystem" required formControlName="sourceSystem" name="state">
+                  <select class="form-control" id="sourceSystem" required formControlName="sourceSystem" name="sourceSystem">
                     <option *ngFor="let source of sourceVar" [value]="source">{{ source }}</option>
                   </select>
                 </div>
@@ -130,14 +126,12 @@
           <div class="row">
             <div class="col-lg-4">
               <label for="link">Form Link: </label>
-              <button class="button button--primary-yellow" type="button"
-                      (click)="view=true; easterEgg(model.value.name)">View Form
-              </button>
             </div>
             <div class="col-lg-8">
               <div class="form-group">
                 <input type="text" class="form-control" id="link" required formControlName="link" name="link">
               </div>
+              <button class="button button--primary-yellow" type="button" (click)="view=true; easterEgg(model.value.name)">View Form</button>
             </div>
           </div>
           <br>
@@ -200,7 +194,7 @@
   ---------------------------------------------Confirmation Page begins-------------------------------------------------
   -->
 
-  <div [hidden]="!submitted">
+  <div class="container" [hidden]="!submitted">
     <h3>You are about to submit the following: </h3>
     <!--Table if an existing form is being updated-->
     <table *ngIf="!newForm" class="confirm">
@@ -312,7 +306,7 @@
         <td>{{model.value.description}}</td>
       </tr>
     </table>
-    <br> <br> <br>
+    <br>
     <div class="row">
       <button type="submit" *ngIf="newForm" class="button button--primary-yellow">
         Upload to Database

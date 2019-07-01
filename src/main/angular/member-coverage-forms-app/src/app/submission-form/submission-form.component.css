@@ -49,6 +49,11 @@ table.confirm th {
   width: 20%;
 }
 
+.container {
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
 /*
 select {
   -webkit-appearance: none;
