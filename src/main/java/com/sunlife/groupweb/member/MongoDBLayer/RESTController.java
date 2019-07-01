@@ -168,12 +168,19 @@ public class RESTController {
         System.out.println("Deleting form w/ formId " + formId);
         List<Form> allTheForms = repository.findByOneField("fl.fc", formId);
         for (Form f : allTheForms) {
-            for (int i = 0; i < f.fl.length; i++) {
-                if (f.fl[i].fc.equals(formId)) {
-                    ArrayList<subForm> subFormMinusOne = new ArrayList<>(Arrays.asList(f.fl));
-                    subFormMinusOne.remove(i);
-                    f.fl = subFormMinusOne.toArray(new subForm[0]);
-                    repository.save(f);
+            if (f.fl.length == 1) {
+                // only one subform, whole document can be removed
+                repository.delete(f);
+            }
+            else {
+                for (int i = 0; i < f.fl.length; i++) {
+                    if (f.fl[i].fc.equals(formId)) {
+                        ArrayList<subForm> subFormMinusOne = new ArrayList<>(Arrays.asList(f.fl));
+                        subFormMinusOne.remove(i);
+                        f.fl = subFormMinusOne.toArray(new subForm[0]);
+                        repository.save(f);
+                        break;
+                    }
                 }
             }
         }
