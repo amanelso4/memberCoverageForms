@@ -87,12 +87,7 @@ public class RESTController {
                     Form newRecord = new Form(newFormDTO.coverageType, true, thisSubForms.toArray(new subForm[0]), newFormDTO.state[i], newFormDTO.sourceSystem);
                     repository.save(newRecord);
                 } else {
-                    for (Form thisForm : newFormLocations) {
-                        ArrayList<subForm> thisSubForms = new ArrayList<>(Arrays.asList(thisForm.fl));
-                        thisSubForms.add(newSubForm);
-                        thisForm.fl = thisSubForms.toArray(new subForm[0]);
-                        repository.save(thisForm);
-                    }
+                    addToFormList(newSubForm, newFormLocations);
                 }
             }
         } else {
@@ -148,12 +143,7 @@ public class RESTController {
                 Form newRecord = new Form(form.coverageType, true, thisSubForms.toArray(new subForm[0]), state, form.sourceSystem);
                 repository.save(newRecord);
             } else {
-                for (Form f : formsToBeAdded) {
-                    ArrayList<subForm> subFormPlusOne = new ArrayList<>(Arrays.asList(f.fl));
-                    subFormPlusOne.add(newSub);
-                    f.fl = subFormPlusOne.toArray(new subForm[0]);
-                    repository.save(f);
-                }
+                addToFormList(newSub, formsToBeAdded);
             }
         }
     }
@@ -213,6 +203,15 @@ public class RESTController {
         }
         newAngularForm.state = states.toArray(new String[0]);
         return newAngularForm;
+    }
+
+    private void addToFormList(subForm newSubForm, List<Form> formList) {
+        for (Form thisForm : formList) {
+            ArrayList<subForm> thisSubForms = new ArrayList<>(Arrays.asList(thisForm.fl));
+            thisSubForms.add(newSubForm);
+            thisForm.fl = thisSubForms.toArray(new subForm[0]);
+            repository.save(thisForm);
+        }
     }
 
     // Used by: PUT
