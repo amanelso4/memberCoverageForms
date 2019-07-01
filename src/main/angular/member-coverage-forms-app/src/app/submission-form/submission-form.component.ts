@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PDFDocumentProxy, PDFPromise, PDFProgressData, PDFJS } from "pdfjs-dist";
 import { tap } from 'rxjs/operators';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-form',
@@ -25,7 +26,6 @@ export class SubmissionFormComponent implements OnInit{
   //////////////////
   // DECLARATIONS //
   //////////////////
-
   form: Observable<Form>;
   model: FormGroup;
   private _pdf: PDFDocumentProxy;
@@ -46,12 +46,6 @@ export class SubmissionFormComponent implements OnInit{
   sourceVar: string[] = [];
   formTypeVar: string[] = [];
 
-  statesVar = ['AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA',
-    'HI', 'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI',
-    'MN', 'MO', 'MS', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV', 'NY',
-    'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VA', 'VT',
-    'WA', 'WI', 'WV', 'WY'];
-
   submitted = false;
   view = false;
   egg = false;
@@ -67,7 +61,7 @@ export class SubmissionFormComponent implements OnInit{
 
   ngOnInit() {
     //set drop down settings
-    /*this.dropdownSettings = {
+    this.dropdownSettings = {
       singleSelection: false,
       idField: 'id',
       textField: 'coverage',
@@ -76,7 +70,7 @@ export class SubmissionFormComponent implements OnInit{
       enableCheckAll: true,
       selectAllText: 'Select All States',
       unSelectAllText: 'Deselect All States'
-    };*/
+    };
 
     this.initialGetForms = true;
     this.getForms();
@@ -106,6 +100,14 @@ export class SubmissionFormComponent implements OnInit{
     });
   }
 
+  //multi-select drop-down menu function and declarations
+  stateList: string[] = ['AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA',
+    'HI', 'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI',
+    'MN', 'MO', 'MS', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV', 'NY',
+    'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VA', 'VT',
+    'WA', 'WI', 'WV', 'WY'];
+
+
   // Retrieve the form the user wants to update and populate the page with its details
   private getForm(formId: string) {
     this.form = this.formService.getSingleForm(formId).pipe(
@@ -114,6 +116,7 @@ export class SubmissionFormComponent implements OnInit{
     this.formService.getSingleForm(formId).subscribe(form => this.originalForm = form)
   }
 
+  //Get all forms to check through and Update the drop-down options from
   getForms() {
     this.formService.getForms().subscribe( forms => {
       this.forms = forms;
@@ -188,18 +191,18 @@ export class SubmissionFormComponent implements OnInit{
       this.egg=true;
     }
   }
-  /*updateState(): void {
+  updateState(): void {
     let tempArray = [];
     this.model.value.state.forEach((item) => tempArray.push(item.valueOf()));
-    this.coverageState.length = 0;
-    this.coverageState = tempArray;
+    this.state.length = 0;
+    this.state = tempArray;
   }
 
   onSelectAll(): void {
     let tempArray = [];
-    this.states.forEach((item) => tempArray.push(item.valueOf()));
-    this.coverageState.length = 0;
-    this.coverageState = tempArray;
+    this.stateList.forEach((item) => tempArray.push(item.valueOf()));
+    this.state.length = 0;
+    this.state = tempArray;
   }
 
   onDeSelectAll(): void {
@@ -214,7 +217,6 @@ export class SubmissionFormComponent implements OnInit{
     }
 
   }
-   */
 
 }
 
