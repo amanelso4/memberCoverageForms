@@ -174,6 +174,10 @@ checkDuplicate ()
     this.submitted = false;
     this.duplicate = true;
   }
+  else {
+    this.submitted = true;
+    this.duplicate = true;
+  }
 }
   //Get all forms to check through and Update the drop-down options from
   getForms() {
