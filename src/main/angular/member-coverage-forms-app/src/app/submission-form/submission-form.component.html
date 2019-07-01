@@ -33,9 +33,13 @@
               </div>
               <div class="col-lg-8">
                 <div class="form-group">
-                  <select class="form-control" required formControlName="formType" id="formType">
+                  <select [hidden]="addNewFormType" class="form-control" required formControlName="formType"
+                          id="formType" (change)="checkFormType()">
                     <option *ngFor="let type of formTypeVar" [value]="type">{{ type }}</option>
+                    <option value="newFormOption">Add new form type</option>
                   </select>
+                  <input class="form-control" *ngIf="addNewFormType" required formControlName="formType"
+                         placeholder="Enter new form type">
                   <div *ngIf="formType.invalid && (formType.dirty || formType.touched)"
                        class="alert alert-danger">
                     <div *ngIf="formType.errors.required">
@@ -53,17 +57,19 @@
               </div>
 
               <div class="col-lg-8">
-                <div class="form-group">
-                  <select class="form-control" id="coverageType" required formControlName="coverageType"
-                          name="coverageType">
+                <div class="form-group covTypeInput">
+                  <select [hidden]="addNewCoverageType" class="form-control" id="coverageType" required
+                          formControlName="coverageType"
+                          name="coverageType" (change)="checkCoverageType()">
                     <option *ngFor="let cType of coverageTypesVar" [value]="cType">{{ cType }}</option>
-                    <!--  <option *ngFor="let coverageType of coverageTypes" [value]="coverageType">{{coverageType}}
-                      </option> -->
+                    <option value="newCovOption">Add new coverage type</option>
                   </select>
+                  <input class="form-control" *ngIf="addNewCoverageType" required formControlName="coverageType"
+                         placeholder="Enter new coverage type">
                   <div *ngIf="coverageType.invalid && (coverageType.dirty || coverageType.touched)"
                        class="alert alert-danger">
                     <div *ngIf="coverageType.errors.required">
-                     Coverage Type is required.
+                      Coverage Type is required.
                     </div>
                   </div>
                 </div>
@@ -73,7 +79,7 @@
             <!-- Row for the State MULTI-SELECT dropdown and label -->
             <div class="row">
               <div class="col-lg-4">
-                <mat-label>States: </mat-label>
+                <mat-label>States:</mat-label>
               </div>
 
               <div class="col-lg-8">
@@ -101,9 +107,13 @@
               </div>
               <div class="col-lg-8">
                 <div class="form-group">
-                  <select class="form-control" id="sourceSystem" required formControlName="sourceSystem" name="sourceSystem">
+                  <select [hidden]="addNewSource" class="form-control" id="sourceSystem" required formControlName="sourceSystem"
+                          name="sourceSystem" (change)="checkSource()">
                     <option *ngFor="let source of sourceVar" [value]="source">{{ source }}</option>
+                    <option value="newSourceOption">Add new source system</option>
                   </select>
+                  <input class="form-control" *ngIf="addNewSource" required formControlName="sourceSystem"
+                         placeholder="Enter new source system">
                   <div *ngIf="sourceSystem.invalid && (sourceSystem.dirty || sourceSystem.touched)"
                        class="alert alert-danger">
                     <div *ngIf="sourceSystem.errors.required">
@@ -174,7 +184,9 @@
                   </div>
                 </div>
               </div>
-              <button class="button button--primary-yellow" type="button" (click)="view=true; easterEgg(model.value.name)">View Form</button>
+              <button class="button button--primary-yellow" type="button"
+                      (click)="view=true; easterEgg(model.value.name)">View Form
+              </button>
             </div>
           </div>
           <br>
@@ -220,10 +232,10 @@
                 [(page)]="page"
                 (after-load-complete)="callBackFn($event)">
               </pdf-viewer>
-                <div>{{ page }} of {{ pageTotal }}</div>
-                <button class="button button--primary-yellow" (click)="prevPage()">Previous Page</button>
-                <div class="divider"></div>
-                <button class="button button--primary-yellow" (click)="nextPage()">Next Page</button>
+              <div>{{ page }} of {{ pageTotal }}</div>
+              <button class="button button--primary-yellow" (click)="prevPage()">Previous Page</button>
+              <div class="divider"></div>
+              <button class="button button--primary-yellow" (click)="nextPage()">Next Page</button>
             </div>
           </div>
         </div>
@@ -369,12 +381,13 @@
         Upload Changes
       </button>
       <div class="divider"></div>
-        <button *ngIf="newForm" class="button button--secondary" type="button"
-                (click)="submitted=false; submit(); model.reset()">Upload
-          and Submit Another Form
-        </button>
-        <button *ngIf="!newForm" class="button button--secondary" type="button" (click)="submitted=false">Return to Form</button>
-        <div class="divider"></div>
+      <button *ngIf="newForm" class="button button--secondary" type="button"
+              (click)="submitted=false; submit(); model.reset()">Upload
+        and Submit Another Form
+      </button>
+      <button *ngIf="!newForm" class="button button--secondary" type="button" (click)="submitted=false">Return to Form
+      </button>
+      <div class="divider"></div>
       <button class="button button--tertiary" type="button" routerLink="/mfm"
               routerLinkActive="active">Cancel
       </button>

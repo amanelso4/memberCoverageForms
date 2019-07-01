@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import {AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import { PDFDocumentProxy, PDFPromise, PDFProgressData, PDFJS } from "pdfjs-dist";
 import { tap } from 'rxjs/operators';
+import { FormControl } from '@angular/forms';
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { formIdValidation } from "./formIdValidation.directive";
 
 @Component({
@@ -55,6 +57,10 @@ export class SubmissionFormComponent implements OnInit{
   sourceVar: string[] = [];
   formTypeVar: string[] = [];
 
+  addNewCoverageType: boolean = false;
+  addNewFormType: boolean = false;
+  addNewSource: boolean = false;
+
   submitted = false;
   view = false;
   egg = false;
@@ -62,6 +68,8 @@ duplicate = false;
   pdfSrc: string = "";
   page: any = 1;
   pageTotal: any;
+
+  faPlus = faPlus;
 
   dropdownSettings = {};
 
@@ -108,6 +116,27 @@ duplicate = false;
         this.newForm = true;
       }
     });
+  }
+
+  checkCoverageType(): void {
+    if (this.model.value.coverageType == "newCovOption") {
+      this.model.controls['coverageType'].setValue('');
+      this.addNewCoverageType = true;
+    }
+  }
+
+  checkFormType(): void {
+    if (this.model.value.formType == "newFormOption") {
+      this.model.controls['formType'].setValue('');
+      this.addNewFormType = true;
+    }
+  }
+
+  checkSource(): void {
+    if (this.model.value.sourceSystem == "newSourceOption") {
+      this.model.controls['sourceSystem'].setValue('');
+      this.addNewSource = true;
+    }
   }
 
   //multi-select drop-down menu function and declarations
