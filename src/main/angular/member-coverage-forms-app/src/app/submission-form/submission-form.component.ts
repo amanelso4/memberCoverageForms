@@ -5,7 +5,8 @@ import { Observable } from 'rxjs';
 import {AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import { PDFDocumentProxy, PDFPromise, PDFProgressData, PDFJS } from "pdfjs-dist";
 import { tap } from 'rxjs/operators';
-import { FormControl } from '@angular/forms';
+import { formIdValidation } from "./formIdValidation.directive";
+import { FormIdValidationDirective} from "./formIdValidation.directive";
 
 @Component({
   selector: 'app-form',
@@ -30,7 +31,6 @@ export class SubmissionFormComponent implements OnInit{
     private route: ActivatedRoute,
     private router: Router
   ) { }
-
 
   //////////////////
   // DECLARATIONS //
@@ -59,8 +59,6 @@ export class SubmissionFormComponent implements OnInit{
   submitted = false;
   view = false;
   egg = false;
-  valid = true;
-
 
   pdfSrc: string = "";
   page: any = 1;
@@ -97,16 +95,8 @@ export class SubmissionFormComponent implements OnInit{
       name: [null, Validators.required],
       link: [null, Validators.required,],
       description: [null, Validators.required],
-      formId: [null, Validators.required, forbiddenNameValidator(/new/i)]
+      formId: [null, [Validators.required, formIdValidation(/new/i)]]
     });
-
-    function forbiddenNameValidator(nameRe: RegExp): ValidatorFn {
-      return (control: AbstractControl): {[key: string]: any} | null => {
-        const forbidden = nameRe.test(control.value);
-        return forbidden ? {'forbiddenName': {value: control.value}} : null;
-      };
-    }
-
 
     // Get form id from active route and determine if this is a new form or an existing one
     this.route.paramMap.subscribe(parameterMap => {
