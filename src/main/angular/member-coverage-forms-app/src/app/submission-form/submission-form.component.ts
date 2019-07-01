@@ -57,8 +57,10 @@ export class SubmissionFormComponent implements OnInit{
   coverageTypesVar: string[] = [];
   sourceVar: string[] = [];
   formTypeVar: string[] = [];
+
   addNewCoverageType: boolean = false;
   addNewFormType: boolean = false;
+  addNewSource: boolean = false;
 
   submitted = false;
   view = false;
@@ -128,6 +130,13 @@ export class SubmissionFormComponent implements OnInit{
     if (this.model.value.formType == "newFormOption") {
       this.model.controls['formType'].setValue('');
       this.addNewFormType = true;
+    }
+  }
+
+  checkSource(): void {
+    if (this.model.value.sourceSystem == "newSourceOption") {
+      this.model.controls['sourceSystem'].setValue('');
+      this.addNewSource = true;
     }
   }
 
