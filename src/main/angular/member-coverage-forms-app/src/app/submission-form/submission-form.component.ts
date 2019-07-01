@@ -64,6 +64,7 @@ export class SubmissionFormComponent implements OnInit{
   submitted = false;
   view = false;
   egg = false;
+  valid = true;
 duplicate = false;
   pdfSrc: string = "";
   page: any = 1;
@@ -167,7 +168,7 @@ duplicate = false;
     })
   }
 
-checkDuplicate ()
+/*checkDuplicate ()
 {
   if(this.newForm == false) {
     this.message = "You are trying to enter a form that already exists in the database. Please edit the information above.";
@@ -178,7 +179,7 @@ checkDuplicate ()
     this.submitted = true;
     this.duplicate = true;
   }
-}
+}*/
   //Get all forms to check through and Update the drop-down options from
   getForms() {
     this.formService.getForms().subscribe( forms => {
@@ -255,7 +256,7 @@ checkDuplicate ()
 
   //EXTRA
   easterEgg(name: string) {
-    if (name=='amanda.x.nelson') {
+    if (name==='amanda.x.nelson') {
       this.egg=true;
     }
   }
@@ -264,6 +265,7 @@ checkDuplicate ()
   submissionCheck() {
     if(this.model.invalid) {
       this.submitted = false;
+      this.valid = false;
     }
     else {
       this.submitted = true;

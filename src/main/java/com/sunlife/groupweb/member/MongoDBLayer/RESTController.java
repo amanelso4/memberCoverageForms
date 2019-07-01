@@ -174,6 +174,7 @@ public class RESTController {
                     subFormMinusOne.remove(i);
                     f.fl = subFormMinusOne.toArray(new subForm[0]);
                     repository.save(f);
+                    break;
                 }
             }
         }
