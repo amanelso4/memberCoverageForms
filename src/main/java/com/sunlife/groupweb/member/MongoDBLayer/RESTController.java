@@ -84,7 +84,7 @@ public class RESTController {
                     // form location not found, need a new record
                     ArrayList<subForm> thisSubForms = new ArrayList<>();
                     thisSubForms.add(newSubForm);
-                    Form newRecord = new Form(newFormDTO.coverageType, false, thisSubForms.toArray(new subForm[0]), newFormDTO.state[i], newFormDTO.sourceSystem);
+                    Form newRecord = new Form(newFormDTO.coverageType, true, thisSubForms.toArray(new subForm[0]), newFormDTO.state[i], newFormDTO.sourceSystem);
                     repository.save(newRecord);
                 } else {
                     for (Form thisForm : newFormLocations) {
@@ -122,7 +122,7 @@ public class RESTController {
                     // record for that state not found, need new top-level document
                     ArrayList<subForm> thisSubForms = new ArrayList<>();
                     thisSubForms.add(newSubForm);
-                    Form newRecord = new Form(newFormDTO.coverageType, false, thisSubForms.toArray(new subForm[0]), newState, newFormDTO.sourceSystem);
+                    Form newRecord = new Form(newFormDTO.coverageType, true, thisSubForms.toArray(new subForm[0]), newState, newFormDTO.sourceSystem);
                     repository.save(newRecord);
                 } else {
                     replaceInFormList(formId, newSubForm, formsToUpdate);
@@ -138,17 +138,22 @@ public class RESTController {
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "", method = RequestMethod.POST)
     public void addSubForm(@Valid @RequestBody FormDTO form) {
+        subForm newSub = new subForm(form.name, form.link, form.formType, true, form.description, form.formId);
         for (int i = 0; i < form.state.length; i++) {
             String state = form.state[i];
             List<Form> formsToBeAdded = repository.findByThreeFields("sc", state, "ss", form.sourceSystem, "ci", form.coverageType);
-            for (Form f : formsToBeAdded) {        /*
-                   Iterator stateIterator = formDTO.iterator();
-                   for(Form f=null; stateIterator.hasNext(); f=(Form)stateIterator.next()) { */
-                ArrayList<subForm> subFormPlusOne = new ArrayList<>(Arrays.asList(f.fl));
-                subForm newSub = new subForm(form.name, form.link, form.formType, false, form.description, form.formId);
-                subFormPlusOne.add(newSub);
-                f.fl = subFormPlusOne.toArray(new subForm[0]);
-                repository.save(f);
+            if (formsToBeAdded.size() == 0) {
+                ArrayList<subForm> thisSubForms = new ArrayList<>();
+                thisSubForms.add(newSub);
+                Form newRecord = new Form(form.coverageType, true, thisSubForms.toArray(new subForm[0]), state, form.sourceSystem);
+                repository.save(newRecord);
+            } else {
+                for (Form f : formsToBeAdded) {
+                    ArrayList<subForm> subFormPlusOne = new ArrayList<>(Arrays.asList(f.fl));
+                    subFormPlusOne.add(newSub);
+                    f.fl = subFormPlusOne.toArray(new subForm[0]);
+                    repository.save(f);
+                }
             }
         }
     }
