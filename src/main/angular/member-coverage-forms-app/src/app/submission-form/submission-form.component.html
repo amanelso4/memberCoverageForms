@@ -33,9 +33,11 @@
               </div>
               <div class="col-lg-8">
                 <div class="form-group">
-                  <select class="form-control" required formControlName="formType" id="formType">
+                  <select [hidden]="addNewFormType" class="form-control" required formControlName="formType" id="formType" (change)="checkFormType()">
                     <option *ngFor="let type of formTypeVar" [value]="type">{{ type }}</option>
+                    <option value="newFormOption">Add New Form Type</option>
                   </select>
+                  <input class="form-control" *ngIf="addNewFormType" required formControlName="formType" placeholder="Enter new form type">
                 </div>
               </div>
             </div>
@@ -47,13 +49,13 @@
               </div>
 
               <div class="col-lg-8">
-                <div class="form-group">
-                  <select class="form-control" id="coverageType" required formControlName="coverageType"
-                          name="coverageType">
+                <div class="form-group covTypeInput">
+                  <select [hidden]="addNewCoverageType" class="form-control" id="coverageType" required formControlName="coverageType"
+                          name="coverageType" (change)="checkCoverageType()">
                     <option *ngFor="let cType of coverageTypesVar" [value]="cType">{{ cType }}</option>
-                    <!--  <option *ngFor="let coverageType of coverageTypes" [value]="coverageType">{{coverageType}}
-                      </option> -->
+                    <option value="newCovOption">Add New Coverage Type</option>
                   </select>
+                  <input class="form-control" *ngIf="addNewCoverageType" required formControlName="coverageType" placeholder="Enter new coverage type">
                 </div>
               </div>
             </div>

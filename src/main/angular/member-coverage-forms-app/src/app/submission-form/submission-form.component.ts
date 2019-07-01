@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PDFDocumentProxy, PDFPromise, PDFProgressData, PDFJS } from "pdfjs-dist";
 import { tap } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-form',
@@ -45,6 +46,8 @@ export class SubmissionFormComponent implements OnInit{
   coverageTypesVar: string[] = [];
   sourceVar: string[] = [];
   formTypeVar: string[] = [];
+  addNewCoverageType: boolean = false;
+  addNewFormType: boolean = false;
 
   submitted = false;
   view = false;
@@ -52,6 +55,8 @@ export class SubmissionFormComponent implements OnInit{
 
   page: any = 1;
   pageTotal: any;
+
+  faPlus = faPlus;
 
   dropdownSettings = {};
 
@@ -98,6 +103,20 @@ export class SubmissionFormComponent implements OnInit{
         this.newForm = true;
       }
     });
+  }
+
+  checkCoverageType(): void {
+    if (this.model.value.coverageType == "newCovOption") {
+      this.model.controls['coverageType'].setValue('');
+      this.addNewCoverageType = true;
+    }
+  }
+
+  checkFormType(): void {
+    if (this.model.value.formType == "newFormOption") {
+      this.model.controls['formType'].setValue('');
+      this.addNewFormType = true;
+    }
   }
 
   //multi-select drop-down menu function and declarations
