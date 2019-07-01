@@ -54,19 +54,19 @@
       <!--FORM ID-->
       <input type="text" [(ngModel)]="formId">
     </th>
-    <th colspan="2" class="table--medCol filterCell"><button class="button button--primary-blue" (click)="clearFilters()">Clear Filters</button></th>
+    <th colspan="2" class="table--medCol filterCell"><button class="button button--primary-blue button--context-filter" (click)="clearFilters()">Clear Filters</button></th>
   </tr>
   <!-- filter applies the user's filters; see ../pipes/filter.pipe.ts for implementation -->
   <tr *ngFor="let form of forms | filter: formType:coverageType:state:sourceSystem:formId:name | paginate: { itemsPerPage: 10, currentPage: p }">
-    <td *ngIf="form.formType!='ERROR'" style="max-width: 20px;">{{ form.formType }}</td>
-    <td *ngIf="form.formType!='ERROR'">{{ form.coverageType }}</td>
-    <td *ngIf="form.formType!='ERROR' && form.state.length <= 5" class="state">{{ form.state }}</td>
-    <td *ngIf="form.formType!='ERROR' && form.state.length == 51" class="state">All States + DC</td>
-    <td *ngIf="form.formType!='ERROR' && form.state.length == 50 && !form.state.includes('NY')" class="state">All Except NY</td>
-    <td *ngIf="form.formType!='ERROR' && (form.state.length > 5 && form.state.length < 50) || (form.state.length == 50 && form.state.includes('NY'))" class="state" title="{{form.state}}">{{ form.state.length }} States</td>
-    <td *ngIf="form.formType!='ERROR'" >{{ form.sourceSystem }}</td>
-    <td *ngIf="form.formType!='ERROR'" title="{{ form.description }}"><a class="a" href="{{ form.link }}" target="_blank">{{ form.name }}</a></td>
-    <td *ngIf="form.formType!='ERROR'" >{{ form.formId }}</td>
+    <td *ngIf="form.formType!='ERROR'" style="max-width: 20px; padding-left: 20px">{{ form.formType }}</td>
+    <td *ngIf="form.formType!='ERROR'" style="padding-left: 20px">{{ form.coverageType }}</td>
+    <td *ngIf="form.formType!='ERROR' && form.state.length <= 5" class="state" style="padding-left: 20px">{{ form.state }}</td>
+    <td *ngIf="form.formType!='ERROR' && form.state.length == 51" class="state" style="padding-left: 20px">All States + DC</td>
+    <td *ngIf="form.formType!='ERROR' && form.state.length == 50 && !form.state.includes('NY')" class="state" style="padding-left: 20px">All Except NY</td>
+    <td *ngIf="form.formType!='ERROR' && (form.state.length > 5 && form.state.length < 50) || (form.state.length == 50 && form.state.includes('NY'))" class="state" title="{{form.state}}" style="padding-left: 20px">{{ form.state.length }} States</td>
+    <td *ngIf="form.formType!='ERROR'" style="padding-left: 20px">{{ form.sourceSystem }}</td>
+    <td *ngIf="form.formType!='ERROR'" title="{{ form.description }}" style="padding-left: 20px"><a class="a" href="{{ form.link }}" target="_blank">{{ form.name }}</a></td>
+    <td *ngIf="form.formType!='ERROR'" style="padding-left: 20px">{{ form.formId }}</td>
     <!-- "Update" and "Delete" displayed by default, "Confirm" and "Cancel" displayed if "Delete" is pressed -->
     <!-- This is controlled on a per-row basis by the form.confirmDelete variable -->
     <td *ngIf="form.formType!='ERROR' && !form.deleted" >
