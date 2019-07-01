@@ -186,30 +186,35 @@ export class SubmissionFormComponent implements OnInit{
     }
   }
 
+  //EXTRA
   easterEgg(name: string) {
     if (name=='amanda.x.nelson') {
       this.egg=true;
     }
   }
+
+  //Functions for State MultiSelect drop-down Menu
   updateState(): void {
     let tempArray = [];
     this.model.value.state.forEach((item) => tempArray.push(item.valueOf()));
-    this.state.length = 0;
-    this.state = tempArray;
+    this.stateList.length = 0;
+    this.stateList = tempArray;
   }
 
   onSelectAll(): void {
     let tempArray = [];
     this.stateList.forEach((item) => tempArray.push(item.valueOf()));
-    this.state.length = 0;
-    this.state = tempArray;
+    this.stateList.length = 0;
+    this.stateList = tempArray;
   }
 
   onDeSelectAll(): void {
     let tempArray = [];
-    this.coverageState.length = 0;
-    this.coverageState = tempArray;
+    this.stateList.length = 0;
+    this.stateList = tempArray;
   }
+
+  //Validation
   message: string = '';
   validate(input: string) {
     if (input.length == 0) {
