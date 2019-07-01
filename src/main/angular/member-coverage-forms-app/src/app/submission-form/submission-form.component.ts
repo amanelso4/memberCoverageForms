@@ -149,6 +149,9 @@ export class SubmissionFormComponent implements OnInit{
         this.formTypeVar.push(form.formType);
       }
     }
+    this.coverageTypesVar.sort((a, b) => {return a < b ? -1 : 1});
+    this.sourceVar.sort((a, b) => {return a < b ? -1 : 1});
+    this.formTypeVar.sort((a, b) => {return a < b ? -1 : 1});
   }
 
   // POST or PUT submitted form depending on form id
