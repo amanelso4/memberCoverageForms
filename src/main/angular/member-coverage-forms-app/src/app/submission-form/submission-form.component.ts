@@ -6,7 +6,6 @@ import {AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators} from '
 import { PDFDocumentProxy, PDFPromise, PDFProgressData, PDFJS } from "pdfjs-dist";
 import { tap } from 'rxjs/operators';
 import { formIdValidation } from "./formIdValidation.directive";
-import { FormIdValidationDirective} from "./formIdValidation.directive";
 
 @Component({
   selector: 'app-form',
@@ -59,7 +58,7 @@ export class SubmissionFormComponent implements OnInit{
   submitted = false;
   view = false;
   egg = false;
-
+duplicate = false;
   pdfSrc: string = "";
   page: any = 1;
   pageTotal: any;
@@ -139,6 +138,14 @@ export class SubmissionFormComponent implements OnInit{
     })
   }
 
+checkDuplicate ()
+{
+  if(this.newForm == false) {
+    this.message = "You are trying to enter a form that already exists in the database. Please edit the information above.";
+    this.submitted = false;
+    this.duplicate = true;
+  }
+}
   //Get all forms to check through and Update the drop-down options from
   getForms() {
     this.formService.getForms().subscribe( forms => {
@@ -229,7 +236,6 @@ export class SubmissionFormComponent implements OnInit{
       this.submitted = true;
     }
   }
-
 
   updateState(): void {
     let tempArray = [];
