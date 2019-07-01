@@ -246,7 +246,7 @@
 
   <div class="container" [hidden]="!submitted">
     <h3>You are about to submit the following: </h3>
-
+    <!--Table if an existing form is being updated-->
     <table *ngIf="!newForm" class="confirm">
       <tr>
         <th>Form Type</th>
@@ -321,11 +321,8 @@
           </p>
         </td>
       </tr>
-      <!--<tr *ngIf="!newForm">
-        <td class="comparison" style="text-align: center" colspan="2"><p style="height: 14px"><span class="oldText">Original Text</span>  Edited Text</p>
-        </td>
-      </tr>-->
     </table>
+    <!--Table when new form is being submitted-->
     <table *ngIf="newForm" class="confirm">
       <tr>
         <th>Form Type</th>
@@ -368,13 +365,12 @@
         Upload Changes
       </button>
       <div class="divider"></div>
-      <div *ngIf="newForm">
-        <button class="button button--secondary" type="button"
+        <button *ngIf="newForm" class="button button--secondary" type="button"
                 (click)="submitted=false; submit(); model.reset()">Upload
           and Submit Another Form
         </button>
+        <button *ngIf="!newForm" class="button button--secondary" type="button" (click)="submitted=false">Return to Form</button>
         <div class="divider"></div>
-      </div>
       <button class="button button--tertiary" type="button" routerLink="/mfm"
               routerLinkActive="active">Cancel
       </button>
