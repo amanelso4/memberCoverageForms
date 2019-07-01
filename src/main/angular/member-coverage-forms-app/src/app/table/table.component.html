@@ -69,14 +69,15 @@
     <td *ngIf="form.formType!='ERROR'" >{{ form.formId }}</td>
     <!-- "Update" and "Delete" displayed by default, "Confirm" and "Cancel" displayed if "Delete" is pressed -->
     <!-- This is controlled on a per-row basis by the form.confirmDelete variable -->
-    <td *ngIf="form.formType!='ERROR'" >
+    <td *ngIf="form.formType!='ERROR' && !form.deleted" >
       <button class="button button--primary-blue button--context-table" *ngIf="!form.confirmDelete" [routerLink]="['/mfm/', form.formId]">Update</button>
-      <button class="button button--type-confirm button--context-table" *ngIf="form.confirmDelete" (click)="deleteForm(form.formId)">Confirm</button>
+      <button class="button button--type-confirm button--context-table" *ngIf="form.confirmDelete" (click)="deleteForm(form.formId); form.deleted=true">Confirm</button>
     </td>
-    <td *ngIf="form.formType!='ERROR'" >
+    <td *ngIf="form.formType!='ERROR' && !form.deleted" >
       <button class="button button--primary-blue button--context-table" *ngIf="!form.confirmDelete" (click)="form.confirmDelete=true">Delete</button>
       <button class="button button--type-confirm button--context-table" *ngIf="form.confirmDelete" (click)="form.confirmDelete=false">Cancel</button>
     </td>
+    <td *ngIf="form.formType!='ERROR' && form.deleted" colspan="2">Deleting...</td>
     <td *ngIf="form.formType=='ERROR'" colspan="8">No forms matching your search criteria</td>
   </tr>
 </table>
