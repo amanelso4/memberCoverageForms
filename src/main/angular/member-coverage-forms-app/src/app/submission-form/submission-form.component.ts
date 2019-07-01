@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import { Form, FormService } from "../form.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Observable } from 'rxjs';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import { PDFDocumentProxy, PDFPromise, PDFProgressData, PDFJS } from "pdfjs-dist";
 import { tap } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
@@ -59,6 +59,7 @@ export class SubmissionFormComponent implements OnInit{
   submitted = false;
   view = false;
   egg = false;
+  valid = true;
 
 
   pdfSrc: string = "";
@@ -94,11 +95,17 @@ export class SubmissionFormComponent implements OnInit{
       sourceSystem: [null, Validators.required],
       formType: [null, Validators.required],
       name: [null, Validators.required],
-      link: [null, Validators.required],
+      link: [null, Validators.required,],
       description: [null, Validators.required],
-      formId: [null, Validators.required]
+      formId: [null, Validators.required, forbiddenNameValidator(/new/i)]
     });
 
+    function forbiddenNameValidator(nameRe: RegExp): ValidatorFn {
+      return (control: AbstractControl): {[key: string]: any} | null => {
+        const forbidden = nameRe.test(control.value);
+        return forbidden ? {'forbiddenName': {value: control.value}} : null;
+      };
+    }
 
 
     // Get form id from active route and determine if this is a new form or an existing one
@@ -123,7 +130,7 @@ export class SubmissionFormComponent implements OnInit{
   coveragesItems = [];
   coverageStates = [];
 
-  //multiselect dropdown module
+  //multi-select dropdown module
   selectedStates = [];
 
   // Retrieve the form the user wants to update and populate the page with its details
@@ -212,6 +219,16 @@ export class SubmissionFormComponent implements OnInit{
     }
   }
 
+  //Checks that entire form is valid before allowing user to Submit
+  submissionCheck() {
+    if(this.model.invalid) {
+      this.submitted = false;
+    }
+    else {
+      this.submitted = true;
+    }
+  }
+
   //Functions for multi-select Drop-down
   updateState(): void {
     let tempArray = [];
@@ -239,7 +256,6 @@ export class SubmissionFormComponent implements OnInit{
     if (input.length == 0) {
       this.message = "Field is required."
     }
-
   }
 
 }

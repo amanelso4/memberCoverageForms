@@ -151,6 +151,9 @@
                   <div *ngIf="formId.errors.required">
                     Form ID is required.
                   </div>
+                  <div *ngIf="formId.errors.forbiddenName">
+                    Form ID cannot be "new".
+                  </div>
                 </div>
               </div>
             </div>
@@ -225,8 +228,11 @@
           </div>
         </div>
       </div> <!-- end of big row that contains three columns -->
-
-      <button class="button button--primary-yellow" type="button" (click)="submitted=true">Submit</button>
+      <div *ngIf="model.invalid && model.touched"
+           class="alert alert-danger">
+        All fields must be valid before submitting form.
+      </div>
+      <button class="button button--primary-yellow" type="button" (click)="submissionCheck()">Submit</button>
       <div class="divider"></div>
       <button class="button button--secondary" type="button" routerLink="/mfm"
               routerLinkActive="active">Cancel
