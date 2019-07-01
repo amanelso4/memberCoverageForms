@@ -202,7 +202,7 @@
 
   <div [hidden]="!submitted">
     <h3>You are about to submit the following: </h3>
-
+    <!--Table if an existing form is being updated-->
     <table *ngIf="!newForm" class="confirm">
       <tr>
         <th>Form Type</th>
@@ -277,11 +277,8 @@
           </p>
         </td>
       </tr>
-      <!--<tr *ngIf="!newForm">
-        <td class="comparison" style="text-align: center" colspan="2"><p style="height: 14px"><span class="oldText">Original Text</span>  Edited Text</p>
-        </td>
-      </tr>-->
     </table>
+    <!--Table when new form is being submitted-->
     <table *ngIf="newForm" class="confirm">
       <tr>
         <th>Form Type</th>

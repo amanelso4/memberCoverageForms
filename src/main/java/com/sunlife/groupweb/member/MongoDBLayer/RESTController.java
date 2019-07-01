@@ -161,6 +161,8 @@ public class RESTController {
     ////// HELPERS //////
     /////////////////////
 
+    // Creates an angular form from a given formId and list of java forms
+    // Used by: Both GETs
     private FormDTO createAngularForm(String formId, List<Form> allTheForms) {
         FormDTO newAngularForm = new FormDTO();
         ArrayList<String> states = new ArrayList<>();
@@ -184,6 +186,7 @@ public class RESTController {
         return newAngularForm;
     }
 
+    // Used by: PUT
     private void replaceInFormList(String formId, subForm newSubForm, List<Form> formList) {
         for (Form thisForm : formList) {
             List<subForm> thisSubForms = Arrays.asList(thisForm.fl);
@@ -194,6 +197,7 @@ public class RESTController {
         }
     }
 
+    // Used by: PUT
     private void deleteFromStates(String formId, List<String> statesDeleted) {
         // craft the search string for states
         for ( String stateRemoved : statesDeleted) {
@@ -202,6 +206,8 @@ public class RESTController {
         }
     }
 
+    // Deletes a form given its formId from the database using a given form list
+    // Used by: PUT, DELETE
     private void deleteFromFormList(String formId, List<Form> formList) {
         for (Form thisForm : formList) {
             List<subForm> thisSubForms = Arrays.asList(thisForm.fl);
@@ -210,6 +216,8 @@ public class RESTController {
         }
     }
 
+    // Converts an angular form to a Java form list
+    // Used by: PUT
     private List<Form> angularToJava(FormDTO formDTO) {
         List<Form> javaForms = new ArrayList<>();
         for (int i = 0; i < formDTO.state.length; i++) {
