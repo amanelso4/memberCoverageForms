@@ -2,11 +2,13 @@ import {Component, Input, OnInit} from '@angular/core';
 import { Form, FormService } from "../form.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Observable } from 'rxjs';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import { PDFDocumentProxy, PDFPromise, PDFProgressData, PDFJS } from "pdfjs-dist";
 import { tap } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { formIdValidation } from "./formIdValidation.directive";
+import { FormIdValidationDirective} from "./formIdValidation.directive";
 
 @Component({
   selector: 'app-form',
@@ -15,6 +17,15 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 })
 
 export class SubmissionFormComponent implements OnInit{
+  get formType() {return this.model.get('formType')}
+  get coverageType() {return this.model.get('coverageType')}
+  get state() {return this.model.get('state')}
+  get sourceSystem() {return this.model.get('sourceSystem')}
+  get name() {return this.model.get('name')}
+  get formId() {return this.model.get('formId')}
+  get link() {return this.model.get('link')}
+  get description() {return this.model.get('description')}
+
 
   constructor(
     private formService: FormService,
@@ -22,7 +33,6 @@ export class SubmissionFormComponent implements OnInit{
     private route: ActivatedRoute,
     private router: Router
   ) { }
-
 
   //////////////////
   // DECLARATIONS //
@@ -35,13 +45,14 @@ export class SubmissionFormComponent implements OnInit{
   originalFormId: string;
   forms: Form[];
   initialGetForms: boolean;
-
+/*
   formType: string = '';
   coverageType: string = '';
   state: string = '';
   sourceSystem: string = '';
   formId: string = '';
-  name: string = '';
+  */
+  private _name: string = '';
 
   coverageTypesVar: string[] = [];
   sourceVar: string[] = [];
@@ -53,6 +64,7 @@ export class SubmissionFormComponent implements OnInit{
   view = false;
   egg = false;
 
+  pdfSrc: string = "";
   page: any = 1;
   pageTotal: any;
 
@@ -87,9 +99,9 @@ export class SubmissionFormComponent implements OnInit{
       sourceSystem: [null, Validators.required],
       formType: [null, Validators.required],
       name: [null, Validators.required],
-      link: [null, Validators.required],
+      link: [null, Validators.required,],
       description: [null, Validators.required],
-      formId: [null, Validators.required]
+      formId: [null, [Validators.required, formIdValidation(/new/i)]]
     });
 
     // Get form id from active route and determine if this is a new form or an existing one
@@ -125,7 +137,11 @@ export class SubmissionFormComponent implements OnInit{
     'MN', 'MO', 'MS', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV', 'NY',
     'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VA', 'VT',
     'WA', 'WI', 'WV', 'WY'];
+  coveragesItems = [];
+  coverageStates = [];
 
+  //multi-select dropdown module
+  selectedStates = [];
 
   // Retrieve the form the user wants to update and populate the page with its details
   private getForm(formId: string) {
@@ -200,6 +216,7 @@ export class SubmissionFormComponent implements OnInit{
   }
 
   //PDF Viewer functions to have pagination
+
   callBackFn(pdf: PDFDocumentProxy) {
     this.pageTotal = pdf.numPages;
   }
@@ -216,36 +233,50 @@ export class SubmissionFormComponent implements OnInit{
     }
   }
 
+  //EXTRA
   easterEgg(name: string) {
     if (name=='amanda.x.nelson') {
       this.egg=true;
     }
   }
-  /*updateState(): void {
+
+  //Checks that entire form is valid before allowing user to Submit
+  submissionCheck() {
+    if(this.model.invalid) {
+      this.submitted = false;
+    }
+    else {
+      this.submitted = true;
+    }
+  }
+
+
+  updateState(): void {
     let tempArray = [];
-    this.model.value.state.forEach((item) => tempArray.push(item.valueOf()));
-    this.state.length = 0;
-    this.state = tempArray;
+    this.selectedStates.forEach((item) => tempArray.push(item.coverage));
+    this.coverageStates.length = 0;
+    this.coverageStates = tempArray;
   }
 
   onSelectAll(): void {
     let tempArray = [];
-    this.stateList.forEach((item) => tempArray.push(item.valueOf()));
-    this.state.length = 0;
-    this.state = tempArray;
+    this.coveragesItems.forEach((item) => tempArray.push(item.coverage));
+    this.coverageStates.length = 0;
+    this.coverageStates = tempArray;
   }
 
   onDeSelectAll(): void {
     let tempArray = [];
-    this.coverageState.length = 0;
-    this.coverageState = tempArray;
-  }*/
+    this.coverageStates.length = 0;
+    this.coverageStates = tempArray;
+  }
+
+  //Validation
   message: string = '';
   validate(input: string) {
     if (input.length == 0) {
       this.message = "Field is required."
     }
-
   }
 
 }
