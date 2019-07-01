@@ -315,13 +315,12 @@
         Upload Changes
       </button>
       <div class="divider"></div>
-      <div *ngIf="newForm">
-        <button class="button button--secondary" type="button"
+        <button *ngIf="newForm" class="button button--secondary" type="button"
                 (click)="submitted=false; submit(); model.reset()">Upload
           and Submit Another Form
         </button>
+        <button *ngIf="!newForm" class="button button--secondary" type="button" (click)="submitted=false">Return to Form</button>
         <div class="divider"></div>
-      </div>
       <button class="button button--tertiary" type="button" routerLink="/mfm"
               routerLinkActive="active">Cancel
       </button>
