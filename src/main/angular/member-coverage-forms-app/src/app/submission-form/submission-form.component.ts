@@ -113,7 +113,15 @@ export class SubmissionFormComponent implements OnInit{
     this.form = this.formService.getSingleForm(formId).pipe(
       tap(form => this.model.patchValue(form))
     )
-    this.formService.getSingleForm(formId).subscribe(form => this.originalForm = form)
+    this.formService.getSingleForm(formId).subscribe(form => {
+      this.originalForm = form;
+      // handle error where no form matching formId found
+      if (this.originalForm.formId == null) {
+        console.warn("Form with formId " + formId + " not found.");
+        this.newForm = true;
+        this.model.value.formId = formId;
+      }
+    })
   }
 
   //Get all forms to check through and Update the drop-down options from
