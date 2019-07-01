@@ -14,6 +14,15 @@ import { FormControl } from '@angular/forms';
 })
 
 export class SubmissionFormComponent implements OnInit{
+  get formType() {return this.model.get('formType')}
+  get coverageType() {return this.model.get('coverageType')}
+  get state() {return this.model.get('state')}
+  get sourceSystem() {return this.model.get('sourceSystem')}
+  get name() {return this.model.get('name')}
+  get formId() {return this.model.get('formId')}
+  get link() {return this.model.get('link')}
+  get description() {return this.model.get('description')}
+
 
   constructor(
     private formService: FormService,
@@ -34,13 +43,14 @@ export class SubmissionFormComponent implements OnInit{
   originalFormId: string;
   forms: Form[];
   initialGetForms: boolean;
-
+/*
   formType: string = '';
   coverageType: string = '';
   state: string = '';
   sourceSystem: string = '';
   formId: string = '';
-  name: string = '';
+  */
+  private _name: string = '';
 
   coverageTypesVar: string[] = [];
   sourceVar: string[] = [];
@@ -88,6 +98,8 @@ export class SubmissionFormComponent implements OnInit{
       description: [null, Validators.required],
       formId: [null, Validators.required]
     });
+
+
 
     // Get form id from active route and determine if this is a new form or an existing one
     this.route.paramMap.subscribe(parameterMap => {
