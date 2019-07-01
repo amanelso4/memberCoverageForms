@@ -106,7 +106,10 @@ public class RESTController {
             }
             // if necessary, delete from removed states
             if (!statesDeleted.isEmpty()) {
-                deleteFromStates(formId, statesDeleted);
+                for (String stateRemoved : statesDeleted) {
+                    List<Form> matchingForms = repository.findByTwoFields("fl.fc", formId, "sc", stateRemoved);
+                    deleteFromFormList(formId, matchingForms);
+                }
             }
             // add/edit in new list of states
             for (String newState : newStatesList) {
@@ -205,6 +208,8 @@ public class RESTController {
         return newAngularForm;
     }
 
+    // Adds a given subForm to all entries in a formList
+    // Used by: PUT, POST
     private void addToFormList(subForm newSubForm, List<Form> formList) {
         for (Form thisForm : formList) {
             ArrayList<subForm> thisSubForms = new ArrayList<>(Arrays.asList(thisForm.fl));
@@ -222,15 +227,6 @@ public class RESTController {
             filteredSubForms.add(newSubForm);
             thisForm.fl = filteredSubForms.toArray(new subForm[0]);
             repository.save(thisForm);
-        }
-    }
-
-    // Used by: PUT
-    private void deleteFromStates(String formId, List<String> statesDeleted) {
-        // craft the search string for states
-        for (String stateRemoved : statesDeleted) {
-            List<Form> matchingForms = repository.findByTwoFields("'fl.fc'", formId, "sc", stateRemoved);
-            deleteFromFormList(formId, matchingForms);
         }
     }
 
