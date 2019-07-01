@@ -50,6 +50,8 @@ export class SubmissionFormComponent implements OnInit{
   view = false;
   egg = false;
 
+
+  pdfSrc: string = "";
   page: any = 1;
   pageTotal: any;
 
@@ -106,7 +108,11 @@ export class SubmissionFormComponent implements OnInit{
     'MN', 'MO', 'MS', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV', 'NY',
     'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VA', 'VT',
     'WA', 'WI', 'WV', 'WY'];
+  coveragesItems = [];
+  coverageStates = [];
 
+  //multiselect dropdown module
+  selectedStates = [];
 
   // Retrieve the form the user wants to update and populate the page with its details
   private getForm(formId: string) {
@@ -170,6 +176,7 @@ export class SubmissionFormComponent implements OnInit{
   }
 
   //PDF Viewer functions to have pagination
+
   callBackFn(pdf: PDFDocumentProxy) {
     this.pageTotal = pdf.numPages;
   }
@@ -193,25 +200,25 @@ export class SubmissionFormComponent implements OnInit{
     }
   }
 
-  //Functions for State MultiSelect drop-down Menu
-  updateState(): void {
+  //Functions for multi-select Drop-down
+  updateCoverageState(): void {
     let tempArray = [];
-    this.model.value.state.forEach((item) => tempArray.push(item.valueOf()));
-    this.stateList.length = 0;
-    this.stateList = tempArray;
+    this.selectedStates.forEach((item) => tempArray.push(item.coverage));
+    this.coverageStates.length = 0;
+    this.coverageStates = tempArray;
   }
 
   onSelectAll(): void {
     let tempArray = [];
-    this.stateList.forEach((item) => tempArray.push(item.valueOf()));
-    this.stateList.length = 0;
-    this.stateList = tempArray;
+    this.coveragesItems.forEach((item) => tempArray.push(item.coverage));
+    this.coverageStates.length = 0;
+    this.coverageStates = tempArray;
   }
 
   onDeSelectAll(): void {
     let tempArray = [];
-    this.stateList.length = 0;
-    this.stateList = tempArray;
+    this.coverageStates.length = 0;
+    this.coverageStates = tempArray;
   }
 
   //Validation

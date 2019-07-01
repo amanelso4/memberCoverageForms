@@ -168,15 +168,13 @@
                 [show-all]="false"
                 [original-size]="false"
                 [fit-to-page]="true"
-                [(page)]="page">
+                [(page)]="page"
+                (after-load-complete)="callBackFn($event)">
               </pdf-viewer>
-              <!--
-              <div class="pdfOptions">
-                <button (click)="nextPage()"><img src="assets/upArrow.png"></button>
-                <button (click)="prevPage()"><img src="assets/downArrow.png"></button>
-                <span>{{ page }} of {{ pageTotal }}</span>
-              </div>
-              -->
+                <div>{{ page }} of {{ pageTotal }}</div>
+                <button class="button button--primary-yellow" (click)="prevPage()">Previous Page</button>
+                <div class="divider"></div>
+                <button class="button button--primary-yellow" (click)="nextPage()">Next Page</button>
             </div>
           </div>
         </div>
