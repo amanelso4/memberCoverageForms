@@ -40,9 +40,9 @@
                   </select>
                   <input class="form-control" *ngIf="addNewFormType" required formControlName="formType"
                          placeholder="Enter new form type">
-                  <div *ngIf="formType.invalid && (formType.dirty || formType.touched)"
+                  <div [hidden]="valid" *ngIf="formType.invalid"
                        class="alert alert-danger">
-                    <div *ngIf="formType.errors.required">
+                    <div [hidden]="valid" *ngIf="formType.errors.required">
                       Form Type is required.
                     </div>
                   </div>
@@ -66,9 +66,9 @@
                   </select>
                   <input class="form-control" *ngIf="addNewCoverageType" required formControlName="coverageType"
                          placeholder="Enter new coverage type">
-                  <div *ngIf="coverageType.invalid && (coverageType.dirty || coverageType.touched)"
+                  <div [hidden]="valid" *ngIf="coverageType.invalid"
                        class="alert alert-danger">
-                    <div *ngIf="coverageType.errors.required">
+                    <div [hidden]="valid" *ngIf="coverageType.errors.required">
                       Coverage Type is required.
                     </div>
                   </div>
@@ -90,9 +90,9 @@
                                            (onDeSelect)="updateState()" (onDeSelectAll)="onDeSelectAll()" name="state"
                                            id="state">
                   </ng-multiselect-dropdown>
-                  <div *ngIf="state.invalid && (state.dirty || state.touched)"
+                  <div [hidden]="valid" *ngIf="state.invalid && (state.dirty || state.touched)"
                        class="alert alert-danger">
-                    <div *ngIf="state.errors.required">
+                    <div [hidden]="valid" *ngIf="state.errors.required">
                       State is required.
                     </div>
                   </div>
@@ -114,9 +114,9 @@
                   </select>
                   <input class="form-control" *ngIf="addNewSource" required formControlName="sourceSystem"
                          placeholder="Enter new source system">
-                  <div *ngIf="sourceSystem.invalid && (sourceSystem.dirty || sourceSystem.touched)"
+                  <div [hidden]="valid" *ngIf="sourceSystem.invalid"
                        class="alert alert-danger">
-                    <div *ngIf="sourceSystem.errors.required">
+                    <div [hidden]="valid" *ngIf="sourceSystem.errors.required">
                       Source System is required.
                     </div>
                   </div>
@@ -138,9 +138,9 @@
             <div class="col-lg-8">
               <div class="form-group">
                 <input type="text" class="form-control" id="name" required formControlName="name" name="name">
-                <div *ngIf="name.invalid && (name.dirty || name.touched)"
+                <div [hidden]="valid" *ngIf="name.invalid"
                      class="alert alert-danger">
-                  <div *ngIf="name.errors.required">
+                  <div [hidden]="valid" *ngIf="name.errors.required">
                     Name is required.
                   </div>
                 </div>
@@ -156,12 +156,12 @@
             <div class="col-lg-8">
               <div class="form-group">
                 <input type="text" class="form-control" id="formId" required formControlName="formId" name="formId">
-                <div *ngIf="formId.invalid && (formId.dirty || formId.touched)"
+                <div [hidden]="valid" *ngIf="formId.invalid"
                      class="alert alert-danger">
-                  <div *ngIf="formId.errors.required">
+                  <div [hidden]="valid" *ngIf="formId.errors.required">
                     Form ID is required.
                   </div>
-                  <div *ngIf="formId.errors.formIdValidation">
+                  <div [hidden]="valid" *ngIf="formId.errors.formIdValidation">
                     Form ID cannot be "new".
                   </div>
                 </div>
@@ -177,14 +177,14 @@
             <div class="col-lg-8">
               <div class="form-group">
                 <input type="text" class="form-control" id="link" required formControlName="link" name="link">
-                <div *ngIf="link.invalid && (link.dirty || link.touched)"
+                <div [hidden]="valid" *ngIf="link.invalid"
                      class="alert alert-danger">
-                  <div *ngIf="link.errors.required">
+                  <div [hidden]="valid" *ngIf="link.errors.required">
                     Link is required.
                   </div>
                 </div>
               </div>
-              <button class="button button--primary-yellow" type="button"
+              <button class="button button--secondary" type="button"
                       (click)="view=true; easterEgg(model.value.name)">View Form
               </button>
             </div>
@@ -200,9 +200,9 @@
               <div class="form-group">
                 <input type="text" class="form-control" id="description" required formControlName="description"
                        name="description">
-                <div *ngIf="description.invalid && (description.dirty || description.touched)"
+                <div [hidden]="valid" *ngIf="description.invalid"
                      class="alert alert-danger">
-                  <div *ngIf="description.errors.required">
+                  <div [hidden]="valid" *ngIf="description.errors.required">
                     Description is required.
                   </div>
                 </div>
@@ -233,18 +233,22 @@
                 (after-load-complete)="callBackFn($event)">
               </pdf-viewer>
               <div>{{ page }} of {{ pageTotal }}</div>
-              <button class="button button--primary-yellow" (click)="prevPage()">Previous Page</button>
+              <button type="button" class="button button--secondary" (click)="prevPage()">Previous Page</button>
               <div class="divider"></div>
-              <button class="button button--primary-yellow" (click)="nextPage()">Next Page</button>
+              <button type="button" class="button button--secondary" (click)="nextPage()">Next Page</button>
             </div>
           </div>
         </div>
       </div> <!-- end of big row that contains three columns -->
-      <div *ngIf="model.invalid && model.touched"
+      <div [hidden]="valid" *ngIf="model.invalid"
            class="alert alert-danger">
         All fields must be valid before submitting form.
       </div>
-      <button class="button button--primary-yellow" type="button" (click)="submissionCheck()">Submit</button>
+
+      <div [hidden]="!duplicate" class="alert alert-danger">
+      {{message}} <br>
+      </div>
+      <button class="button button--primary-yellow" type="button" (click)="submissionCheck(); duplicateCheck(model.value.formId)">Submit</button>
       <div class="divider"></div>
       <button class="button button--secondary" type="button" routerLink="/mfm"
               routerLinkActive="active">Cancel
@@ -257,7 +261,7 @@
   -->
 
   <div class="container" [hidden]="!submitted">
-    <h3>You are about to submit the following: </h3>
+    <h3>You are about to submit the following: </h3> <br>
     <!--Table if an existing form is being updated-->
     <table *ngIf="!newForm" class="confirm">
       <tr>
