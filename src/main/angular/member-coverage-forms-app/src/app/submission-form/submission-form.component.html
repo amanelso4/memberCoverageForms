@@ -27,232 +27,233 @@
           <div class="container">
             <!-- Row for the Form Type dropdown and label -->
             <div class="row">
-              <div class="col-lg-4">
-                <label for="formType">Form type: </label> <br>
-              </div>
-              <div class="col-lg-8">
-                <div class="form-group">
-                  <select [hidden]="addNewFormType" class="form-control" required formControlName="formType"
-                          id="formType" (change)="checkFormType()">
-                    <option *ngFor="let type of formTypeVar" [value]="type">{{ type }}</option>
-                    <option value="newFormOption">Add new form type</option>
-                  </select>
-                  <input class="form-control" *ngIf="addNewFormType" required formControlName="formType"
-                         placeholder="Enter new form type">
-                  <div [hidden]="valid" *ngIf="formType.invalid"
-                       class="alert alert-danger">
-                    <div [hidden]="valid" *ngIf="formType.errors.required">
-                      Form Type is required.
+                <div class="col-lg-4">
+                  <label for="formType">Form type: </label> <br>
+                </div>
+                <div class="col-lg-8">
+                  <div class="form-group">
+                    <select [hidden]="addNewFormType" class="form-control" required formControlName="formType"
+                            id="formType" (change)="checkFormType()">
+                      <option *ngFor="let type of formTypeVar" [value]="type">{{ type }}</option>
+                      <option value="newFormOption">Add new form type</option>
+                    </select>
+                    <input class="form-control" *ngIf="addNewFormType" required formControlName="formType"
+                           placeholder="Enter new form type">
+                    <div [hidden]="valid" *ngIf="formType.invalid"
+                         class="alert alert-danger">
+                      <div [hidden]="valid" *ngIf="formType.errors.required">
+                        Form Type is required.
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
             </div>
 
             <!-- Row for the Coverage Type dropdown and label -->
             <div class="row">
-              <div class="col-lg-4">
-                <label for="coverageType">Coverage Type: </label>
-              </div>
+                <div class="col-lg-4">
+                  <label for="coverageType">Coverage Type: </label>
+                </div>
 
-              <div class="col-lg-8">
-                <div class="form-group covTypeInput">
-                  <select [hidden]="addNewCoverageType" class="form-control" id="coverageType" required
-                          formControlName="coverageType"
-                          name="coverageType" (change)="checkCoverageType()">
-                    <option *ngFor="let cType of coverageTypesVar" [value]="cType">{{ cType }}</option>
-                    <option value="newCovOption">Add new coverage type</option>
-                  </select>
-                  <input class="form-control" *ngIf="addNewCoverageType" required formControlName="coverageType"
-                         placeholder="Enter new coverage type">
-                  <div [hidden]="valid" *ngIf="coverageType.invalid"
-                       class="alert alert-danger">
-                    <div [hidden]="valid" *ngIf="coverageType.errors.required">
-                      Coverage Type is required.
+                <div class="col-lg-8">
+                  <div class="form-group covTypeInput">
+                    <select [hidden]="addNewCoverageType" class="form-control" id="coverageType" required
+                            formControlName="coverageType"
+                            name="coverageType" (change)="checkCoverageType()">
+                      <option *ngFor="let cType of coverageTypesVar" [value]="cType">{{ cType }}</option>
+                      <option value="newCovOption">Add new coverage type</option>
+                    </select>
+                    <input class="form-control" *ngIf="addNewCoverageType" required formControlName="coverageType"
+                           placeholder="Enter new coverage type">
+                    <div [hidden]="valid" *ngIf="coverageType.invalid"
+                         class="alert alert-danger">
+                      <div [hidden]="valid" *ngIf="coverageType.errors.required">
+                        Coverage Type is required.
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
             </div>
 
             <!-- Row for the State MULTI-SELECT dropdown and label -->
             <div class="row">
-              <div class="col-lg-4">
-                <label>States:</label>
-              </div>
+                <div class="col-lg-4">
+                  <label>States:</label>
+                </div>
 
-              <div class="col-lg-8">
-                <div class="form-group">
-                  <ng-multiselect-dropdown
-                                            [class] = "'state-dropdown'"
-                                           [data]="stateList"
-                                            formControlName="state"
-                                           [settings]="dropdownSettings"
-                                           (onSelect)="updateState()"
-                                           (onSelectAll)="onSelectAll()"
-                                           (onDeSelect)="updateState()"
-                                           (onDeSelectAll)="onDeSelectAll()"
-                                           id="state">
-                  </ng-multiselect-dropdown>
-                  <div [hidden]="valid" *ngIf="state.invalid"
-                       class="alert alert-danger">
-                    <div [hidden]="valid" *ngIf="state.errors.required">
-                      State is required.
+                <div class="col-lg-8">
+                  <div class="form-group">
+                    <ng-multiselect-dropdown
+                                              [class] = "'state-dropdown'"
+                                             [data]="stateList"
+                                              formControlName="state"
+                                             [settings]="dropdownSettings"
+                                             (onSelect)="updateState()"
+                                             (onSelectAll)="onSelectAll()"
+                                             (onDeSelect)="updateState()"
+                                             (onDeSelectAll)="onDeSelectAll()"
+                                             id="state">
+                    </ng-multiselect-dropdown>
+                    <div [hidden]="valid" *ngIf="state.invalid"
+                         class="alert alert-danger">
+                      <div [hidden]="valid" *ngIf="state.errors.required">
+                        State is required.
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
             </div>
 
             <!-- Row for the Source System dropdown and label -->
             <div class="row">
+                <div class="col-lg-4">
+                  <label for="sourceSystem">Source System: </label>
+                </div>
+                <div class="col-lg-8">
+                  <div class="form-group">
+                    <select [hidden]="addNewSource" class="form-control" id="sourceSystem" required formControlName="sourceSystem"
+                            name="sourceSystem" (change)="checkSource()">
+                      <option *ngFor="let source of sourceVar" [value]="source">{{ source }}</option>
+                      <option value="newSourceOption">Add new source system</option>
+                    </select>
+                    <input class="form-control" *ngIf="addNewSource" required formControlName="sourceSystem"
+                           placeholder="Enter new source system">
+                    <div [hidden]="valid" *ngIf="sourceSystem.invalid"
+                         class="alert alert-danger">
+                      <div [hidden]="valid" *ngIf="sourceSystem.errors.required">
+                        Source System is required.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div> <!-- End of container -->
+        </div> <!-- End of Column #1 -->
+
+
+        <!-- Column #2: Text Field Inputs and "View Form" Button -->
+        <div class="col-lg-4" style="background-color:white;">
+          <!-- Row for Form Name text box and label -->
+          <div class="row">
               <div class="col-lg-4">
-                <label for="sourceSystem">Source System: </label>
+                <label for="name">Form Name: </label>
               </div>
               <div class="col-lg-8">
                 <div class="form-group">
-                  <select [hidden]="addNewSource" class="form-control" id="sourceSystem" required formControlName="sourceSystem"
-                          name="sourceSystem" (change)="checkSource()">
-                    <option *ngFor="let source of sourceVar" [value]="source">{{ source }}</option>
-                    <option value="newSourceOption">Add new source system</option>
-                  </select>
-                  <input class="form-control" *ngIf="addNewSource" required formControlName="sourceSystem"
-                         placeholder="Enter new source system">
-                  <div [hidden]="valid" *ngIf="sourceSystem.invalid"
+                  <input type="text" class="form-control" id="name" required formControlName="name" name="name">
+                  <div [hidden]="valid" *ngIf="name.invalid"
                        class="alert alert-danger">
-                    <div [hidden]="valid" *ngIf="sourceSystem.errors.required">
-                      Source System is required.
+                    <div [hidden]="valid" *ngIf="name.errors.required">
+                      Name is required.
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Column #2: Text Field Inputs and "View Form" Button -->
-        <div class="col-lg-4" style="background-color:white;">
-
-          <!-- Row for Form Name text box and label -->
-          <div class="row">
-            <div class="col-lg-4">
-              <label for="name">Form Name: </label>
-            </div>
-            <div class="col-lg-8">
-              <div class="form-group">
-                <input type="text" class="form-control" id="name" required formControlName="name" name="name">
-                <div [hidden]="valid" *ngIf="name.invalid"
-                     class="alert alert-danger">
-                  <div [hidden]="valid" *ngIf="name.errors.required">
-                    Name is required.
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
 
           <!-- Row for Form ID text box and label-->
           <div class="row">
-            <div class="col-lg-4">
-              <label for="formId">Form ID: </label>
-            </div>
-            <div class="col-lg-8">
-              <div class="form-group">
-                <input type="text" class="form-control" id="formId" required formControlName="formId" name="formId">
-                <div [hidden]="valid" *ngIf="formId.invalid"
-                     class="alert alert-danger">
-                  <div [hidden]="valid" *ngIf="formId.errors.required">
-                    Form ID is required.
-                  </div>
-                  <div [hidden]="valid" *ngIf="formId.errors.formIdValidation">
-                    Form ID cannot be "new".
+              <div class="col-lg-4">
+                <label for="formId">Form ID: </label>
+              </div>
+              <div class="col-lg-8">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="formId" required formControlName="formId" name="formId">
+                  <div [hidden]="valid" *ngIf="formId.invalid"
+                       class="alert alert-danger">
+                    <div [hidden]="valid" *ngIf="formId.errors.required">
+                      Form ID is required.
+                    </div>
+                    <div [hidden]="valid" *ngIf="formId.errors.formIdValidation">
+                      Form ID cannot be "new".
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
           </div>
 
           <!-- Row for Form Link text box and label along with "View Form" button for PDF Viewer -->
           <div class="row">
-            <div class="col-lg-4">
-              <label for="link">Form Link: </label>
-            </div>
-            <div class="col-lg-8">
-              <div class="form-group">
-                <input type="text" class="form-control" id="link" required formControlName="link" name="link">
-                <div [hidden]="valid" *ngIf="link.invalid"
-                     class="alert alert-danger">
-                  <div [hidden]="valid" *ngIf="link.errors.required">
-                    Link is required.
+              <div class="col-lg-4">
+                <label for="link">Form Link: </label>
+              </div>
+              <div class="col-lg-8">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="link" required formControlName="link" name="link">
+                  <div [hidden]="valid" *ngIf="link.invalid"
+                       class="alert alert-danger">
+                    <div [hidden]="valid" *ngIf="link.errors.required">
+                      Link is required.
+                    </div>
                   </div>
                 </div>
+                <button class="button button--secondary" type="button"
+                        (click)="view=true; easterEgg(model.value.name);">View Form
+                </button>
               </div>
-              <button class="button button--secondary" type="button"
-                      (click)="view=true; easterEgg(model.value.name);">View Form
-              </button>
-            </div>
           </div>
           <br>
 
           <!-- Row for Form Description text box and label -->
           <div class="row">
-            <div class="col-lg-4">
-              <label for="description">Form Description: </label>
-            </div>
-            <div class="col-lg-8">
-              <div class="form-group">
-                <input type="text" class="form-control" id="description" required formControlName="description"
-                       name="description">
-                <div [hidden]="valid" *ngIf="description.invalid"
-                     class="alert alert-danger">
-                  <div [hidden]="valid" *ngIf="description.errors.required">
-                    Description is required.
+              <div class="col-lg-4">
+                <label for="description">Form Description: </label>
+              </div>
+              <div class="col-lg-8">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="description" required formControlName="description"
+                         name="description">
+                  <div [hidden]="valid" *ngIf="description.invalid"
+                       class="alert alert-danger">
+                    <div [hidden]="valid" *ngIf="description.errors.required">
+                      Description is required.
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div [hidden]="!egg">
-              Hello there my friend, this is amanda.x.nelson. I like to computer program and I am an intern at Sun Life.
-              I made this app. This is my EasterEgg. Like it? I bet you do.
-            </div>
-
+              <div [hidden]="!egg">
+                {{message}}
+              </div>
           </div>
-
-        </div>
+        </div> <!-- End of Column #2 -->
 
         <!-- Column #3: PDF Viewer!!!!!! -->
 
         <div class="col-lg-4" style="background-color:white;">
-            <div [hidden]="!view">
-              <pdf-viewer
-                [class]="'pdf'"
-                [src]="'https://cors-anywhere.herokuapp.com/' + model.value.link"
-                [show-all]="false"
-                [original-size]="false"
-                [fit-to-page]="true"
-                [(page)]="page"
-                (after-load-complete)="callBackFn($event)">
-              </pdf-viewer>
-              <div>{{ page }} of {{ pageTotal }}</div>
-              <button type="button" class="button button--secondary" (click)="prevPage();">Previous Page</button>
-              <div class="divider"></div>
-              <button type="button" class="button button--secondary" (click)="nextPage();">Next Page</button>
-            </div>
+              <div [hidden]="!view">
+                <pdf-viewer
+                  [class]="'pdf'"
+                  [src]="'https://cors-anywhere.herokuapp.com/' + model.value.link"
+                  [show-all]="false"
+                  [original-size]="false"
+                  [fit-to-page]="true"
+                  [(page)]="page"
+                  (after-load-complete)="callBackFn($event)">
+                </pdf-viewer>
+                <div>{{ page }} of {{ pageTotal }}</div>
+                <button type="button" class="button button--secondary" (click)="prevPage();">Previous Page</button>
+                <div class="divider"></div>
+                <button type="button" class="button button--secondary" (click)="nextPage();">Next Page</button>
+              </div>
         </div>
       </div> <!-- end of big row that contains three columns -->
+
+      <!-- Error Messages that Appear Upon Submit -->
       <div [hidden]="valid" *ngIf="model.invalid"
            class="alert alert-danger">
         All fields must be valid before submitting form.
       </div>
-
       <div [hidden]="!duplicate" class="alert alert-danger">
       {{message}} <br>
       </div>
+
+      <!-- Submit and Cancel Buttons -->
       <button class="button button--primary-yellow" type="button" (click)="submissionCheck(); duplicateCheck(model.value.formId)">Submit</button>
       <div class="divider"></div>
       <button class="button button--secondary" type="button" routerLink="/mfm"
               routerLinkActive="active">Cancel
       </button>
+
     </div> <!-- End of Submission Form Page -->
   </div>
 

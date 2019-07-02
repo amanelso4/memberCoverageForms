@@ -279,6 +279,7 @@ export class SubmissionFormComponent implements OnInit{
   easterEgg(name: string) {
     if (name==='amanda.x.nelson') {
       this.egg=true;
+      this.message = "Hello there my friend, this is amanda.x.nelson. I like to computer program and I am an intern at Sun Life.\n"
     }
   }
 
