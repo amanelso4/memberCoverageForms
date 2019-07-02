@@ -12,7 +12,7 @@ import { FilterPipe } from "./pipes/filter.pipe";
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { NgxPaginationModule } from "ngx-pagination";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
-import { NgMultiSelectDropDownModule } from '../../node_modules/ng-multiselect-dropdown';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import {
   MatAutocompleteModule,
   MatBadgeModule,
