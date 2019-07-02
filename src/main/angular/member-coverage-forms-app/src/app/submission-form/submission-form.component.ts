@@ -104,7 +104,7 @@ duplicate = false;
       sourceSystem: [null, Validators.required],
       formType: [null, Validators.required],
       name: [null, Validators.required],
-      link: [null, Validators.required,],
+      link: [null, Validators.required],
       description: [null, Validators.required],
       formId: [null, [Validators.required, formIdValidation(/new/i)]]
     });

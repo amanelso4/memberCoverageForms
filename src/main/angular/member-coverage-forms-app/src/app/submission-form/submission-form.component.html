@@ -92,7 +92,6 @@
                                            (onSelectAll)="onSelectAll()"
                                            (onDeSelect)="updateState()"
                                            (onDeSelectAll)="onDeSelectAll()"
-                                           name="state"
                                            id="state">
                   </ng-multiselect-dropdown>
                   <div [hidden]="valid" *ngIf="state.invalid"
@@ -189,7 +188,7 @@
                 </div>
               </div>
               <button class="button button--secondary" type="button"
-                      (click)="view=true; easterEgg(model.value.name);">View Form
+                      (click)="view=true; easterEgg(model.value.name); submissionCheck()">View Form
               </button>
             </div>
           </div>
@@ -224,7 +223,7 @@
         <!-- Column #3: PDF Viewer!!!!!! -->
 
         <div class="col-lg-4" style="background-color:white;">
-            <div [hidden]="!view">
+            <div [hidden]="!view" *ngIf="valid">
               <pdf-viewer
                 [class]="'pdf'"
                 [src]="'https://cors-anywhere.herokuapp.com/' + model.value.link"
