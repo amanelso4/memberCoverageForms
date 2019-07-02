@@ -1,12 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { Form, FormService } from "../form.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Observable } from 'rxjs';
-import {AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators} from '@angular/forms';
-import { PDFDocumentProxy, PDFPromise, PDFProgressData, PDFJS } from "pdfjs-dist";
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { PDFDocumentProxy } from "pdfjs-dist";
 import { tap } from 'rxjs/operators';
-import { FormControl } from '@angular/forms';
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { formIdValidation } from "./formIdValidation.directive";
 
 @Component({
@@ -16,6 +14,8 @@ import { formIdValidation } from "./formIdValidation.directive";
 })
 
 export class SubmissionFormComponent implements OnInit{
+
+  //Getters that allow the Validators the check if Valid
   get formType() {return this.model.get('formType')}
   get coverageType() {return this.model.get('coverageType')}
   get state() {return this.model.get('state')}
@@ -36,23 +36,14 @@ export class SubmissionFormComponent implements OnInit{
   //////////////////
   // DECLARATIONS //
   //////////////////
+
   form: Observable<Form>;
   model: FormGroup;
-  private _pdf: PDFDocumentProxy;
   newForm = false;
   originalForm: Form;
   originalFormId: string;
   forms: Form[];
   initialGetForms: boolean;
-/*
-  formType: string = '';
-  coverageType: string = '';
-  state: string = '';
-  sourceSystem: string = '';
-  formId: string = '';
-  */
-  private _name: string = '';
-
   coverageTypesVar: string[] = [];
   sourceVar: string[] = [];
   formTypeVar: string[] = [];
@@ -62,20 +53,16 @@ export class SubmissionFormComponent implements OnInit{
   addNewFormType: boolean = false;
   addNewSource: boolean = false;
 
-  submitted = false;
-  view = false;
-  egg = false;
-  valid = true;
-  pageOne=false;
-  lastPage=false;
-duplicate = false;
-  pdfSrc: string = "";
+  submitted = false; //controls Submission Page and Confirmation Page
+  view = false; //Controls PDF-Viewer
+  valid = true; //Controls Validators
+  duplicate = false; //Controls Duplicate Validator
+
+  //
   page: any = 1;
   pageTotal: any;
-
-  faPlus = faPlus;
-
   dropdownSettings = {};
+  message = String(); //Validation Message
 
   //////////////////
   ///// METHODS ////
@@ -142,18 +129,6 @@ duplicate = false;
       this.addNewSource = true;
     }
   }
-
-  //multi-select drop-down menu function and declarations
-  stateList: string[] = ['AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA',
-    'HI', 'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI',
-    'MN', 'MO', 'MS', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV', 'NY',
-    'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VA', 'VT',
-    'WA', 'WI', 'WV', 'WY'];
-  coveragesItems = [];
-  coverageStates = [];
-
-  //multi-select dropdown module
-  selectedStates = [];
 
   // Retrieve the form the user wants to update and populate the page with its details
   private getForm(formId: string) {
@@ -232,7 +207,6 @@ duplicate = false;
   }
 
   //PDF Viewer functions to have pagination
-
   callBackFn(pdf: PDFDocumentProxy) {
     this.pageTotal = pdf.numPages;
   }
@@ -249,25 +223,7 @@ duplicate = false;
     }
   }
 
-  checkPage() {
-    if(this.page === 1) {
-      this.pageOne=true;
-    }
-    if(this.page === this.pageTotal){
-      this.lastPage=true;
-    }
-  }
-
-
-
-  //EXTRA
-  easterEgg(name: string) {
-    if (name==='amanda.x.nelson') {
-      this.egg=true;
-    }
-  }
-
-  //Checks that entire form is valid before allowing user to Submit
+  //Validation that form is correct before moving on to Confirmation Page Methods
   submissionCheck() {
     if(this.model.invalid) {
       this.submitted = false;
@@ -279,14 +235,24 @@ duplicate = false;
   }
 
   duplicateCheck(modelId) {
-    if (this.formIds.includes(modelId)) {
+    if (this.formIds.includes(modelId) && this.newForm === true) {
       this.duplicate = true;
       this.valid = false;
       this.submitted = false;
-      this.message = "You are trying to submit a form that already exists. Please change information above."
+      this.message = "You are trying to submit a form that already exists in the database. Please change the information above to submit."
     }
 
   }
+
+  //State Multi-select drop-down
+  stateList: string[] = ['AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA',
+    'HI', 'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI',
+    'MN', 'MO', 'MS', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV', 'NY',
+    'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VA', 'VT',
+    'WA', 'WI', 'WV', 'WY'];
+  coveragesItems = [];
+  coverageStates = [];
+  selectedStates = [];
 
   updateState(): void {
     let tempArray = [];
@@ -308,16 +274,12 @@ duplicate = false;
     this.coverageStates = tempArray;
   }
 
-  //Validation
-  message: string = '';
-  validate(input: string) {
-    if (input.length == 0) {
-      this.message = "Field is required."
+  //EXTRA
+  egg = false; // ;)
+  easterEgg(name: string) {
+    if (name==='amanda.x.nelson') {
+      this.egg=true;
     }
   }
 
 }
-
-
-
-
