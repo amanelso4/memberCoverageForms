@@ -84,13 +84,19 @@
 
               <div class="col-lg-8">
                 <div class="form-group">
-                  <ng-multiselect-dropdown [placeholder]="'States'" [data]="stateList" formControlName="state"
-                                           [settings]="dropdownSettings" (onSelect)="updateState()"
+                  <ng-multiselect-dropdown
+                                            [class] = "'state-dropdown'"
+                                           [data]="stateList"
+                                            formControlName="state"
+                                           [settings]="dropdownSettings"
+                                           (onSelect)="updateState()"
                                            (onSelectAll)="onSelectAll()"
-                                           (onDeSelect)="updateState()" (onDeSelectAll)="onDeSelectAll()" name="state"
+                                           (onDeSelect)="updateState()"
+                                           (onDeSelectAll)="onDeSelectAll()"
+                                           name="state"
                                            id="state">
                   </ng-multiselect-dropdown>
-                  <div [hidden]="valid" *ngIf="state.invalid && (state.dirty || state.touched)"
+                  <div [hidden]="valid" *ngIf="state.invalid"
                        class="alert alert-danger">
                     <div [hidden]="valid" *ngIf="state.errors.required">
                       State is required.

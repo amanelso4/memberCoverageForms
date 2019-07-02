@@ -129,4 +129,10 @@ pdf-viewer {
 }
 
 
+/deep/ .state-dropdown {
+  border: purple;
+  border-width: thick;
+}
+
+
 
