@@ -86,7 +86,7 @@ select {
   font-size: 16px;
   height: 36px;
   color: #424242;
-  border-color: #D7D7D7;
+  border-color: #adadad;
   padding-left: 16px;
   padding-right: 16px;
 }
@@ -96,11 +96,15 @@ input {
   font-size: 16px;
   height: 36px;
   color: #424242;
-  border-color: #D7D7D7;
+  border-color: #adadad;
   border-style: solid;
   border-width: 2px;
   padding-left: 16px;
   padding-right: 16px;
+}
+
+.custom-select select {
+  border: purple;
 }
 
 h1 {
@@ -194,5 +198,11 @@ th.filterCell {
 .name {
   max-width: 300px;
 }
+
+pdf-viewer .pdfViewer{
+  height: 475px;
+}
+
+
 
 

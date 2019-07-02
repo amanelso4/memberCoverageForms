@@ -54,7 +54,7 @@ table.confirm th {
   margin-bottom: 10px;
 }
 
-/*
+
 select {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -67,7 +67,7 @@ select::-ms-expand {
   border: 1px solid black;
 }
 
-*/
+
 
 
 .row-eq-height {
@@ -126,6 +126,12 @@ pdf-viewer {
 
 .comparison {
   color: #b81f41;
+}
+
+
+/deep/ .state-dropdown {
+  border: purple;
+  border-width: thick;
 }
 
 
