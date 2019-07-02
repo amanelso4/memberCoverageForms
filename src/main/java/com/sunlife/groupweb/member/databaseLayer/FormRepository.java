@@ -1,7 +1,8 @@
-package com.sunlife.groupweb.member.MongoDBLayer;
+package com.sunlife.groupweb.member.databaseLayer;
 
 import java.util.List;
 
+import com.sunlife.groupweb.member.models.Form;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 

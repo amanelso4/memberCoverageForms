@@ -1,4 +1,4 @@
-package com.sunlife.groupweb.member.MongoDBLayer;
+package com.sunlife.groupweb.member.models;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -14,12 +14,12 @@ public class Form {
     public String id; // OBJECT_ID
     public String ci; // COVERAGE TYPE
     public boolean fhf; // IDK - deprecated, default to false
-    public subForm[] fl; // NESTED ARRAY OF DOCUMENTS - see subForm class
+    public SubForm[] fl; // NESTED ARRAY OF DOCUMENTS - see SubForm class
     public String sc; // COVERAGE STATE
     public String ss; // SOURCE SYSTEM
 
     // Constructor w/o id needed (mongo handles id generation)
-    public Form(String ci, boolean fhf, subForm[] fl, String sc, String ss) {
+    public Form(String ci, boolean fhf, SubForm[] fl, String sc, String ss) {
         this.ci = ci;
         this.fhf = fhf;
         this.fl = fl;

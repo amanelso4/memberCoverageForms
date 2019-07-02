@@ -1,4 +1,4 @@
-package com.sunlife.groupweb.member.MongoDBLayer;
+package com.sunlife.groupweb.member.models;
 
 public class FormDTO {
 
