@@ -87,12 +87,7 @@ public class RESTController {
                     Form newRecord = new Form(newFormDTO.coverageType, true, thisSubForms.toArray(new subForm[0]), newFormDTO.state[i], newFormDTO.sourceSystem);
                     repository.save(newRecord);
                 } else {
-                    for (Form thisForm : newFormLocations) {
-                        ArrayList<subForm> thisSubForms = new ArrayList<>(Arrays.asList(thisForm.fl));
-                        thisSubForms.add(newSubForm);
-                        thisForm.fl = thisSubForms.toArray(new subForm[0]);
-                        repository.save(thisForm);
-                    }
+                    addToFormList(newSubForm, newFormLocations);
                 }
             }
         } else {
@@ -111,7 +106,10 @@ public class RESTController {
             }
             // if necessary, delete from removed states
             if (!statesDeleted.isEmpty()) {
-                deleteFromStates(formId, statesDeleted);
+                for (String stateRemoved : statesDeleted) {
+                    List<Form> matchingForms = repository.findByTwoFields("fl.fc", formId, "sc", stateRemoved);
+                    deleteFromFormList(formId, matchingForms);
+                }
             }
             // add/edit in new list of states
             for (String newState : newStatesList) {
@@ -148,12 +146,7 @@ public class RESTController {
                 Form newRecord = new Form(form.coverageType, true, thisSubForms.toArray(new subForm[0]), state, form.sourceSystem);
                 repository.save(newRecord);
             } else {
-                for (Form f : formsToBeAdded) {
-                    ArrayList<subForm> subFormPlusOne = new ArrayList<>(Arrays.asList(f.fl));
-                    subFormPlusOne.add(newSub);
-                    f.fl = subFormPlusOne.toArray(new subForm[0]);
-                    repository.save(f);
-                }
+                addToFormList(newSub, formsToBeAdded);
             }
         }
     }
@@ -168,13 +161,19 @@ public class RESTController {
         System.out.println("Deleting form w/ formId " + formId);
         List<Form> allTheForms = repository.findByOneField("fl.fc", formId);
         for (Form f : allTheForms) {
-            for (int i = 0; i < f.fl.length; i++) {
-                if (f.fl[i].fc.equals(formId)) {
-                    ArrayList<subForm> subFormMinusOne = new ArrayList<>(Arrays.asList(f.fl));
-                    subFormMinusOne.remove(i);
-                    f.fl = subFormMinusOne.toArray(new subForm[0]);
-                    repository.save(f);
-                    break;
+            if (f.fl.length == 1) {
+                // only one subform, whole document can be removed
+                repository.delete(f);
+            }
+            else {
+                for (int i = 0; i < f.fl.length; i++) {
+                    if (f.fl[i].fc.equals(formId)) {
+                        ArrayList<subForm> subFormMinusOne = new ArrayList<>(Arrays.asList(f.fl));
+                        subFormMinusOne.remove(i);
+                        f.fl = subFormMinusOne.toArray(new subForm[0]);
+                        repository.save(f);
+                        break;
+                    }
                 }
             }
         }
@@ -209,6 +208,17 @@ public class RESTController {
         return newAngularForm;
     }
 
+    // Adds a given subForm to all entries in a formList
+    // Used by: PUT, POST
+    private void addToFormList(subForm newSubForm, List<Form> formList) {
+        for (Form thisForm : formList) {
+            ArrayList<subForm> thisSubForms = new ArrayList<>(Arrays.asList(thisForm.fl));
+            thisSubForms.add(newSubForm);
+            thisForm.fl = thisSubForms.toArray(new subForm[0]);
+            repository.save(thisForm);
+        }
+    }
+
     // Used by: PUT
     private void replaceInFormList(String formId, subForm newSubForm, List<Form> formList) {
         for (Form thisForm : formList) {
@@ -217,15 +227,6 @@ public class RESTController {
             filteredSubForms.add(newSubForm);
             thisForm.fl = filteredSubForms.toArray(new subForm[0]);
             repository.save(thisForm);
-        }
-    }
-
-    // Used by: PUT
-    private void deleteFromStates(String formId, List<String> statesDeleted) {
-        // craft the search string for states
-        for (String stateRemoved : statesDeleted) {
-            List<Form> matchingForms = repository.findByTwoFields("'fl.fc'", formId, "sc", stateRemoved);
-            deleteFromFormList(formId, matchingForms);
         }
     }
 

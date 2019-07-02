@@ -74,13 +74,17 @@ body {
   width: 75px;
   margin: auto;
   display: block;
-  height: 47px;
+  height: 40px;
+}
+
+.button--context-filter {
+  height: 36px;
 }
 
 select {
   font-family: "Sun Life Sans";
   font-size: 16px;
-  height: 48px;
+  height: 36px;
   color: #424242;
   border-color: #D7D7D7;
   padding-left: 16px;
@@ -90,7 +94,7 @@ select {
 input {
   font-family: "Sun Life Sans";
   font-size: 16px;
-  height: 48px;
+  height: 36px;
   color: #424242;
   border-color: #D7D7D7;
   border-style: solid;
@@ -141,13 +145,14 @@ table {
 }
 
 td, th {
-  border-left: solid;
-  border-color: #424242;
-  border-width: 1px;
-  padding: 10px 10px;
+  padding: 5px 5px;
   vertical-align: middle;
   overflow: hidden;
   display: table-cell;
+}
+
+td {
+  color: #000000;
 }
 
 td:first-child, th:first-child {
@@ -155,11 +160,21 @@ td:first-child, th:first-child {
 }
 
 th {
-  background-color: #ffcb05;
+  background-color: #ffffff;
+  color: #666666;
   height: 30px;
   text-align: center;
   padding: 5px;
   margin: 0px;
+  border-bottom: solid 1px #666666;
+}
+
+tr {
+  border-bottom: solid 1px #c9c9c9;
+}
+
+tr:last-child {
+  border-bottom: none;
 }
 
 th.filterCell {
@@ -168,9 +183,9 @@ th.filterCell {
   padding: 10px;
 }
 
-tr:nth-child(odd) {
-  background-color: #FEEDD2;
-}
+/*tr:nth-child(odd) {
+  background-color: #c9c9c9;
+}*/
 
 .description {
   max-width: 400px;
