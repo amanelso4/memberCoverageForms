@@ -12,7 +12,6 @@ import { FilterPipe } from "./pipes/filter.pipe";
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { NgxPaginationModule } from "ngx-pagination";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
-import { TableResolverService } from "./table-resolver.service";
 import { NgMultiSelectDropDownModule } from '../../node_modules/ng-multiselect-dropdown';
 import {
   MatAutocompleteModule,
@@ -57,7 +56,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 const appRoutes: Routes = [
   {path: 'mfm/:formId', component: SubmissionFormComponent},
-  {path: 'mfm', component: TableComponent, resolve: { formList: TableResolverService }},
+  {path: 'mfm', component: TableComponent},
   {path: '', redirectTo: 'mfm', pathMatch: 'full'},
 ];
 
@@ -125,7 +124,7 @@ const appRoutes: Routes = [
     MatTooltipModule,
     MatTreeModule,
   ],
-  providers: [TableResolverService],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
