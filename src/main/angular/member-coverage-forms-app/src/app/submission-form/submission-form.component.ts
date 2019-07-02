@@ -9,9 +9,10 @@ import { formIdValidation } from "./formIdValidation.directive";
 
 /*
    This file contains the methods and declarations that drive the submission-form component of the Member Form Manager
-   Application. This component is also the update page, as well as the confirmation page.
+   Application. This component is also the update page, as well as the confirmation page. These pages in the application
+   are what captures the information that will be used to update the Mongo database.
 
-   @version       02 July 2019
+   @version       1.0 02 July 2019
    @authors       Amanda Nelson & Evan Trout
    @mentors       Jon Carter & Steven Kouri
  */
