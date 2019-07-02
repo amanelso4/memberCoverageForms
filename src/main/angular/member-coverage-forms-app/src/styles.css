@@ -180,7 +180,7 @@ tr:nth-child(odd) {
   max-width: 300px;
 }
 
-ng-multiselect-dropdown .state-dropdown input {
+/*ng-multiselect-dropdown {
   font-family: "Sun Life Sans";
   font-size: 16px;
   height: 48px;
@@ -190,6 +190,11 @@ ng-multiselect-dropdown .state-dropdown input {
   border-width: 2px;
   padding-left: 16px;
   padding-right: 16px;
+}*/
+
+pdf-viewer .pdfViewer{
+  height: 475px;
 }
+
 
 
