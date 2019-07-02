@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import { Form, FormService } from "../form.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Observable } from 'rxjs';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PDFDocumentProxy } from "pdfjs-dist";
 import { tap } from 'rxjs/operators';
 import { formIdValidation } from "./formIdValidation.directive";
@@ -282,5 +282,4 @@ export class SubmissionFormComponent implements OnInit{
       this.message = "Hello there my friend, this is amanda.x.nelson. I like to computer program and I am an intern at Sun Life.\n"
     }
   }
-
 }
