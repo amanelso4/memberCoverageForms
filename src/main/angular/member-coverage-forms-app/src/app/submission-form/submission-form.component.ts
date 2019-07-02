@@ -66,6 +66,8 @@ export class SubmissionFormComponent implements OnInit{
   view = false;
   egg = false;
   valid = true;
+  pageOne=false;
+  lastPage=false;
 duplicate = false;
   pdfSrc: string = "";
   page: any = 1;
@@ -246,6 +248,17 @@ duplicate = false;
       this.page = this.page - 1;
     }
   }
+
+  checkPage() {
+    if(this.page === 1) {
+      this.pageOne=true;
+    }
+    if(this.page === this.pageTotal){
+      this.lastPage=true;
+    }
+  }
+
+
 
   //EXTRA
   easterEgg(name: string) {
