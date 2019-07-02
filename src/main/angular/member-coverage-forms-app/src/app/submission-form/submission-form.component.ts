@@ -11,8 +11,9 @@ import { formIdValidation } from "./formIdValidation.directive";
    This file contains the methods and declarations that drive the submission-form component of the Member Form Manager
    Application. This component is also the update page, as well as the confirmation page.
 
-   @version 02 July 2019
-   @author Amanda Nelson & Evan Trout
+   @version       02 July 2019
+   @authors       Amanda Nelson & Evan Trout
+   @mentors       Jon Carter & Steven Kouri
  */
 
 @Component({
