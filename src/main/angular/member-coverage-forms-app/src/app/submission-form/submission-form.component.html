@@ -228,16 +228,16 @@
                 <pdf-viewer
                   [class]="'pdf'"
                   [src]="'https://cors-anywhere.herokuapp.com/' + model.value.link"
-                  [show-all]="false"
+                  [show-all]="true"
                   [original-size]="false"
                   [fit-to-page]="true"
                   [(page)]="page"
                   (after-load-complete)="callBackFn($event)">
                 </pdf-viewer>
-                <div>{{ page }} of {{ pageTotal }}</div>
-                <button type="button" class="button button--secondary" (click)="prevPage();">Previous Page</button>
+                <!--<div>{{ page }} of {{ pageTotal }}</div>
+                <button type="button" class="button button&#45;&#45;secondary" (click)="prevPage();">Previous Page</button>
                 <div class="divider"></div>
-                <button type="button" class="button button--secondary" (click)="nextPage();">Next Page</button>
+                <button type="button" class="button button&#45;&#45;secondary" (click)="nextPage();">Next Page</button>-->
               </div>
         </div>
       </div> <!-- end of big row that contains three columns -->
