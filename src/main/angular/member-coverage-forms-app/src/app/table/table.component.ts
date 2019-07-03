@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Form, FormService } from "../form.service";
-import { ActivatedRoute } from "@angular/router";
-import { SubmissionFormComponent} from "../submission-form/submission-form.component";
 
 @Component({
   selector: 'app-table',
@@ -12,7 +10,6 @@ export class TableComponent implements OnInit {
 
   constructor(
     private formService: FormService,
-    private activatedRoute: ActivatedRoute
   ) {
     //Using table-resolver service to get initial form data - allows for data to be pre-fetched
     // this.forms = this.activatedRoute.snapshot.data['formList'];

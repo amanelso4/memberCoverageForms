@@ -1,6 +1,6 @@
-package com.sunlife.groupweb.member.MongoDBLayer;
+package com.sunlife.groupweb.member.models;
 
-public class subForm {
+public class SubForm {
 
     public String ds; // FORM NAME
     public String fl; // FORM LINK
@@ -10,7 +10,7 @@ public class subForm {
     public String fc; // FORM ID
 
 
-    public subForm(String ds, String fl, String ft, boolean fill, String fh, String fc) {
+    public SubForm(String ds, String fl, String ft, boolean fill, String fh, String fc) {
         this.ds = ds;
         this.fl = fl;
         this.ft = ft;
@@ -22,7 +22,7 @@ public class subForm {
     @Override
     public String toString() {
         return String.format(
-                "subForm[ds='%s', fl='%s', ft='%s', fill=%s, fh='%s', fc='%s']",
+                "SubForm[ds='%s', fl='%s', ft='%s', fill=%s, fh='%s', fc='%s']",
                 ds, fl, ft, fill, fh, fc);
     }
 }

@@ -1,5 +1,9 @@
-package com.sunlife.groupweb.member.MongoDBLayer;
+package com.sunlife.groupweb.member.RESTfulServiceLayer;
 
+import com.sunlife.groupweb.member.databaseLayer.FormRepository;
+import com.sunlife.groupweb.member.models.Form;
+import com.sunlife.groupweb.member.models.FormDTO;
+import com.sunlife.groupweb.member.models.SubForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -65,9 +69,8 @@ public class RESTController {
         boolean exteriorChange = false;
         // Find original copy of form to compare
         List<Form> originalForm = repository.findByOneField("fl.fc", formId);
-        /* TODO: Handle error where no matches found */
-        // create new subForm to be used
-        subForm newSubForm = new subForm(newFormDTO.name, newFormDTO.link, newFormDTO.formType, true, newFormDTO.description, newFormDTO.formId);
+        // create new SubForm to be used
+        SubForm newSubForm = new SubForm(newFormDTO.name, newFormDTO.link, newFormDTO.formType, true, newFormDTO.description, newFormDTO.formId);
         // Check to see if exterior fields have been changed
         if (originalForm.get(0).ci.equals(newFormDTO.coverageType) || originalForm.get(0).ss.equals(newFormDTO.sourceSystem)) {
             exteriorChange = true;
@@ -82,9 +85,9 @@ public class RESTController {
                         "sc", newFormDTO.state[i]);
                 if (newFormLocations.size() == 0) {
                     // form location not found, need a new record
-                    ArrayList<subForm> thisSubForms = new ArrayList<>();
+                    ArrayList<SubForm> thisSubForms = new ArrayList<>();
                     thisSubForms.add(newSubForm);
-                    Form newRecord = new Form(newFormDTO.coverageType, true, thisSubForms.toArray(new subForm[0]), newFormDTO.state[i], newFormDTO.sourceSystem);
+                    Form newRecord = new Form(newFormDTO.coverageType, true, thisSubForms.toArray(new SubForm[0]), newFormDTO.state[i], newFormDTO.sourceSystem);
                     repository.save(newRecord);
                 } else {
                     addToFormList(newSubForm, newFormLocations);
@@ -118,9 +121,9 @@ public class RESTController {
                         "ss", newFormDTO.sourceSystem, "sc", newState);
                 if (formsToUpdate.size() == 0) {
                     // record for that state not found, need new top-level document
-                    ArrayList<subForm> thisSubForms = new ArrayList<>();
+                    ArrayList<SubForm> thisSubForms = new ArrayList<>();
                     thisSubForms.add(newSubForm);
-                    Form newRecord = new Form(newFormDTO.coverageType, true, thisSubForms.toArray(new subForm[0]), newState, newFormDTO.sourceSystem);
+                    Form newRecord = new Form(newFormDTO.coverageType, true, thisSubForms.toArray(new SubForm[0]), newState, newFormDTO.sourceSystem);
                     repository.save(newRecord);
                 } else {
                     replaceInFormList(formId, newSubForm, formsToUpdate);
@@ -136,14 +139,14 @@ public class RESTController {
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "", method = RequestMethod.POST)
     public void addSubForm(@Valid @RequestBody FormDTO form) {
-        subForm newSub = new subForm(form.name, form.link, form.formType, true, form.description, form.formId);
+        SubForm newSub = new SubForm(form.name, form.link, form.formType, true, form.description, form.formId);
         for (int i = 0; i < form.state.length; i++) {
             String state = form.state[i];
             List<Form> formsToBeAdded = repository.findByThreeFields("sc", state, "ss", form.sourceSystem, "ci", form.coverageType);
             if (formsToBeAdded.size() == 0) {
-                ArrayList<subForm> thisSubForms = new ArrayList<>();
+                ArrayList<SubForm> thisSubForms = new ArrayList<>();
                 thisSubForms.add(newSub);
-                Form newRecord = new Form(form.coverageType, true, thisSubForms.toArray(new subForm[0]), state, form.sourceSystem);
+                Form newRecord = new Form(form.coverageType, true, thisSubForms.toArray(new SubForm[0]), state, form.sourceSystem);
                 repository.save(newRecord);
             } else {
                 addToFormList(newSub, formsToBeAdded);
@@ -168,9 +171,9 @@ public class RESTController {
             else {
                 for (int i = 0; i < f.fl.length; i++) {
                     if (f.fl[i].fc.equals(formId)) {
-                        ArrayList<subForm> subFormMinusOne = new ArrayList<>(Arrays.asList(f.fl));
+                        ArrayList<SubForm> subFormMinusOne = new ArrayList<>(Arrays.asList(f.fl));
                         subFormMinusOne.remove(i);
-                        f.fl = subFormMinusOne.toArray(new subForm[0]);
+                        f.fl = subFormMinusOne.toArray(new SubForm[0]);
                         repository.save(f);
                         break;
                     }
@@ -208,24 +211,24 @@ public class RESTController {
         return newAngularForm;
     }
 
-    // Adds a given subForm to all entries in a formList
+    // Adds a given SubForm to all entries in a formList
     // Used by: PUT, POST
-    private void addToFormList(subForm newSubForm, List<Form> formList) {
+    private void addToFormList(SubForm newSubForm, List<Form> formList) {
         for (Form thisForm : formList) {
-            ArrayList<subForm> thisSubForms = new ArrayList<>(Arrays.asList(thisForm.fl));
+            ArrayList<SubForm> thisSubForms = new ArrayList<>(Arrays.asList(thisForm.fl));
             thisSubForms.add(newSubForm);
-            thisForm.fl = thisSubForms.toArray(new subForm[0]);
+            thisForm.fl = thisSubForms.toArray(new SubForm[0]);
             repository.save(thisForm);
         }
     }
 
     // Used by: PUT
-    private void replaceInFormList(String formId, subForm newSubForm, List<Form> formList) {
+    private void replaceInFormList(String formId, SubForm newSubForm, List<Form> formList) {
         for (Form thisForm : formList) {
-            List<subForm> thisSubForms = Arrays.asList(thisForm.fl);
-            List<subForm> filteredSubForms = thisSubForms.stream().filter(s -> !s.fc.equals(formId)).collect(Collectors.toList());
+            List<SubForm> thisSubForms = Arrays.asList(thisForm.fl);
+            List<SubForm> filteredSubForms = thisSubForms.stream().filter(s -> !s.fc.equals(formId)).collect(Collectors.toList());
             filteredSubForms.add(newSubForm);
-            thisForm.fl = filteredSubForms.toArray(new subForm[0]);
+            thisForm.fl = filteredSubForms.toArray(new SubForm[0]);
             repository.save(thisForm);
         }
     }
@@ -234,8 +237,8 @@ public class RESTController {
     // Used by: PUT, DELETE
     private void deleteFromFormList(String formId, List<Form> formList) {
         for (Form thisForm : formList) {
-            List<subForm> thisSubForms = Arrays.asList(thisForm.fl);
-            thisForm.fl = thisSubForms.stream().filter(s -> !s.fc.equals(formId)).toArray(subForm[]::new);
+            List<SubForm> thisSubForms = Arrays.asList(thisForm.fl);
+            thisForm.fl = thisSubForms.stream().filter(s -> !s.fc.equals(formId)).toArray(SubForm[]::new);
             repository.save(thisForm);
         }
     }
