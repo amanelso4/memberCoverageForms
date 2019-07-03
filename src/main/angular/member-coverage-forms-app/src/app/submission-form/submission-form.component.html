@@ -189,8 +189,11 @@
                   </div>
                 </div>
                 <button class="button button--secondary" type="button"
-                        (click)="view=true; easterEgg(model.value.name);">View Form
+                        (click)="view=true; easterEgg(model.value.name); linkCheck(model.value.link)">View Form
                 </button>
+                <div [hidden]="!testLink" class="alert alert-danger">
+                  Not a valid link. <br>
+                </div>
               </div>
           </div>
           <br>

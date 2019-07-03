@@ -67,6 +67,8 @@ export class SubmissionFormComponent implements OnInit{
   view = false; //Controls PDF-Viewer
   valid = true; //Controls Validators
   duplicate = false; //Controls Duplicate Validator
+  testLink = false; //Controls Link Validator
+  regexp;
 
   //
   page: any = 1;
@@ -251,7 +253,11 @@ export class SubmissionFormComponent implements OnInit{
       this.submitted = false;
       this.message = "You are trying to submit a form that already exists in the database. Please change the information above to submit."
     }
+  }
 
+  linkCheck(triggerLink) {
+    this.regexp = new RegExp('^(?:http(s)?:\\/\\/)?[\\w.-]+(?:\\.[\\w\\.-]+)+[\\w\\-\\._~:/?#[\\]@!\\$&\'\\(\\)\\*\\+,;=.]+$')
+    this.testLink = this.regexp.test(triggerLink);
   }
 
   //State Multi-select drop-down
