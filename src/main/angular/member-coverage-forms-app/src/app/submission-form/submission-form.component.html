@@ -252,7 +252,7 @@
       </div>
 
       <!-- Submit and Cancel Buttons -->
-      <button class="button button--primary-yellow" type="button" (click)="submissionCheck(); duplicateCheck(model.value.formId)">Submit</button>
+      <button class="button button--primary-yellow" type="button" (click)="linkCheck(model.value.link); submissionCheck(); duplicateCheck(model.value.formId)">Submit</button>
       <div class="divider"></div>
       <button class="button button--secondary" type="button" routerLink="/mfm"
               routerLinkActive="active">Cancel

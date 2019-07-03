@@ -237,7 +237,7 @@ export class SubmissionFormComponent implements OnInit{
 
   //Validation that form is correct before moving on to Confirmation Page Methods
   submissionCheck() {
-    if(this.model.invalid) {
+    if(this.model.invalid || this.testLink === true) {
       this.submitted = false;
       this.valid = false;
     }
@@ -300,6 +300,9 @@ export class SubmissionFormComponent implements OnInit{
     {
       this.testLink = true;
       this.message = "Link is not valid."
+    }
+    else {
+      this.testLink = false;
     }
   }
 
