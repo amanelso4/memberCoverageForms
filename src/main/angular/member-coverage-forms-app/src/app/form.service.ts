@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Observable, throwError } from "rxjs";
 import { catchError, retry } from "rxjs/operators";
 
+// Form class, used by submission-form and table components
 export class Form {
   coverageType: string;
   state: string [];
