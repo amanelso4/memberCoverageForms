@@ -192,7 +192,7 @@
                         (click)="view=true; easterEgg(model.value.name); linkCheck(model.value.link)">View Form
                 </button>
                 <div [hidden]="!testLink" class="alert alert-danger">
-                  Not a valid link. <br>
+                 {{message}} <br>
                 </div>
               </div>
           </div>
