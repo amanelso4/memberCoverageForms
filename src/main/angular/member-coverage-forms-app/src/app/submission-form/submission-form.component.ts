@@ -255,11 +255,7 @@ export class SubmissionFormComponent implements OnInit{
     }
   }
 
-  //QUESTION FOR STEVE
-  //After doing some experimenting on my own, I found this big long regex statement online that will test all different types of links
-  //Am I allowed to get this much code off the internet? Like I said, I started out by defining my own statement, but then
-  //decided that this guys will be better for the app since it is so complex and will let them input any type of link
-
+//Source for the Regex statement: https://gist.github.com/dperini/729294
   linkCheck(triggerLink) {
     this.regexp = new RegExp("^" +
       // short syntax // still required
