@@ -144,6 +144,10 @@ table {
   width: 15%;
 }
 
+.table--formIdCol {
+  width: 12%;
+}
+
 .table--largCol {
   width:20%;
 }
