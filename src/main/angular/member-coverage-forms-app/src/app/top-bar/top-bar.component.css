@@ -1,8 +1,8 @@
 .yellowBar {
   background-color: #ffcb05;
   padding-top: 4px;
-  padding-bottom: 0px;
-  margin: 0px;
+  padding-bottom: 0;
+  margin: 0;
 }
 
 img {
@@ -21,6 +21,4 @@ button {
   margin-top: 2.5rem;
   margin-right: 2rem;
 }
-
-/* TODO: vertically center objects in top bar */
 

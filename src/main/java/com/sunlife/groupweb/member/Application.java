@@ -1,4 +1,4 @@
-package com.sunlife.groupweb.member.MongoDBLayer;
+package com.sunlife.groupweb.member;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
