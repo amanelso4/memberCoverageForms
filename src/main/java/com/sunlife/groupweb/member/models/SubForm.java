@@ -1,5 +1,6 @@
 package com.sunlife.groupweb.member.models;
 
+// Format of nested documents inside the mongo database
 public class SubForm {
 
     public String ds; // FORM NAME
