@@ -3,12 +3,13 @@ import { Pipe, PipeTransform } from "@angular/core";
 @Pipe({
   name: 'filter'
 })
+
+// Takes in search field values from table component and returns a filtered version of the form array
 export class FilterPipe implements PipeTransform {
-  //Uses provided search values to filter out form values that do not fit
-  //If search value is empty string, it does not apply filter
   transform(items: any[], fTypeSearch: string, covTypeSearch: string, stateSearch: string, sourceSearch: string, idSearch: string, nameSearch: string) {
     if (items && items.length) {
       items = items.filter(item =>{
+        // only applies each filter if the search value is not an empty string
         if (fTypeSearch && fTypeSearch != item.formType){
           return false;
         }
@@ -29,6 +30,8 @@ export class FilterPipe implements PipeTransform {
         }
         return true;
       }).sort(function(a, b) {
+        // sorts forms alphabetically by form type, then coverage type, then form name
+        // this is applied regardless of whether or not they've searched for something
         if (a.formType != b.formType) {
           return a.formType < b.formType ? -1 : 1;
         } else if (a.coverageType != b.coverageType) {
@@ -37,6 +40,8 @@ export class FilterPipe implements PipeTransform {
           return a.name < b.name ? -1 : 1;
         }
       });
+      // if no items are returned, there are no matching forms for their search strings
+      // push the ERROR form to the items array and return it (handled in table.component.html)
       if (items == undefined) {
         console.log("empty");
         items = [{"formType":"ERROR", "state":[]}];
@@ -45,6 +50,7 @@ export class FilterPipe implements PipeTransform {
       }
     return items;
     }
+    // just return items if it's empty
     else {
       return items;
     }

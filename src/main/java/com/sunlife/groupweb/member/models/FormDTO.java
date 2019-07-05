@@ -1,5 +1,7 @@
 package com.sunlife.groupweb.member.models;
 
+// Form Data Transfer Object
+// format in which forms are retrieved from/sent to the angular frontend
 public class FormDTO {
 
     public String coverageType;
