@@ -1,24 +1,22 @@
 .yellowBar {
   background-color: #ffcb05;
+  margin: 0;
   padding-top: 4px;
   padding-bottom: 0;
-  margin: 0;
 }
 
 img {
   float: left;
-  margin-top: 2.5rem;
-  margin-left: 2rem;
+  margin: 2.7rem 0 0 2rem;
 }
 
 h2 {
-  margin-top: 2.5rem;
+  margin-top: 2.7rem;
   text-align: center;
 }
 
 button {
   float: right;
-  margin-top: 2.5rem;
-  margin-right: 2rem;
+  margin: 2.7rem 2rem 0 0;
 }
 

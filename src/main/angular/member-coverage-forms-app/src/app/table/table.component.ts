@@ -10,20 +10,18 @@ export class TableComponent implements OnInit {
 
   constructor(
     private formService: FormService,
-  ) {
-    //Using table-resolver service to get initial form data - allows for data to be pre-fetched
-    // this.forms = this.activatedRoute.snapshot.data['formList'];
-  }
+  ) {}
 
   //////////////////
   // DECLARATIONS //
   //////////////////
 
-
   forms: Form[];
-  initialGetForms: boolean;
-  initialGetComplete: boolean;
 
+  // controls when dropdown options are updated
+  initialGetForms: boolean;
+
+  // search fields
   formType: string = '';
   coverageType: string = '';
   state: string = '';
@@ -31,10 +29,10 @@ export class TableComponent implements OnInit {
   formId: string = '';
   name: string = '';
 
- coverageTypesVar: string[] = [];
+  // dropdown options
+  coverageTypesVar: string[] = [];
   sourceVar: string[] = [];
   formTypeVar: string[] = [];
-
   statesVar = ['AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA',
     'HI', 'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI',
     'MN', 'MO', 'MS', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV', 'NY',
@@ -65,7 +63,6 @@ export class TableComponent implements OnInit {
   getForms() {
     this.formService.getForms().subscribe( forms => {
       this.forms = forms;
-      this.initialGetComplete = true;
       if (this.initialGetForms) { // only retrieve dropdown options on initial getForms()
         this.updateDropdownOptions();
         this.initialGetForms = false;
@@ -87,6 +84,7 @@ export class TableComponent implements OnInit {
         this.formTypeVar.push(form.formType);
       }
     }
+    // alphabetize retrieved dropdown options
     this.coverageTypesVar.sort((a, b) => {return a < b ? -1 : 1});
     this.sourceVar.sort((a, b) => {return a < b ? -1 : 1});
     this.formTypeVar.sort((a, b) => {return a < b ? -1 : 1});

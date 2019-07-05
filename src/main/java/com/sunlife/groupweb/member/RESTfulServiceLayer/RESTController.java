@@ -33,7 +33,7 @@ public class RESTController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public FormDTO[] translateAllFormsToFormDTOs() {
         //This method retrieves all forms from database and turn them into FormDTOs
-        //This method also combines all duplicate
+        //This method also combines all duplicates
         List<Form> allTheForms = repository.findAll();
         ArrayList<String> formIds = new ArrayList<>();
         List<FormDTO> finalList = new ArrayList<>();

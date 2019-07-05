@@ -15,7 +15,7 @@
     <th>
       Form Name<br>
     </th>
-    <th class="table--medCol">
+    <th class="table--formIdCol">
       Form ID
     </th>
     <th colspan="2" class="table--medCol"></th>
@@ -52,21 +52,22 @@
     </th>
     <th class="filterCell">
       <!--FORM ID-->
-      <input type="text" [(ngModel)]="formId">
+      <input type="text" size="15" [(ngModel)]="formId">
     </th>
     <th colspan="2" class="table--medCol filterCell"><button class="button button--primary-blue button--context-filter" (click)="clearFilters()">Clear Filters</button></th>
   </tr>
   <!-- filter applies the user's filters; see ../pipes/filter.pipe.ts for implementation -->
-  <tr *ngFor="let form of forms | filter: formType:coverageType:state:sourceSystem:formId:name | paginate: { itemsPerPage: 12, currentPage: p }">
+  <tr *ngFor="let form of forms | filter: formType:coverageType:state:sourceSystem:formId:name | paginate: { itemsPerPage: 15, currentPage: p }">
     <td *ngIf="form.formType!='ERROR'" style="max-width: 20px; padding-left: 69px">{{ form.formType }}</td>
     <td *ngIf="form.formType!='ERROR'" style="padding-left: 50px">{{ form.coverageType }}</td>
+    <!-- The following four <td>s are all different view of the form.state array; only one will trigger per form -->
     <td *ngIf="form.formType!='ERROR' && form.state.length <= 5" class="state" style="padding-left: 35px">{{ form.state }}</td>
     <td *ngIf="form.formType!='ERROR' && form.state.length == 51" class="state" style="padding-left: 35px">All States + DC</td>
     <td *ngIf="form.formType!='ERROR' && form.state.length == 50 && !form.state.includes('NY')" class="state" style="padding-left: 35px">All Except NY</td>
     <td *ngIf="form.formType!='ERROR' && (form.state.length > 5 && form.state.length < 50) || (form.state.length == 50 && form.state.includes('NY'))" class="state" title="{{form.state}}" style="padding-left: 35px">{{ form.state.length }} States</td>
     <td *ngIf="form.formType!='ERROR'" style="text-align: center">{{ form.sourceSystem }}</td>
-    <td *ngIf="form.formType!='ERROR'" class="divContainer" title="{{ form.description }}" style="padding-left: 20px"><div><a class="a" href="{{ form.link }}" target="_blank">{{ form.name }}</a></div></td>
-    <td *ngIf="form.formType!='ERROR'" style="padding-left: 40px">{{ form.formId }}</td>
+    <td *ngIf="form.formType!='ERROR'" title="{{ form.description }}" style="padding-left: 20px"><div><a class="a" href="{{ form.link }}" target="_blank">{{ form.name }}</a></div></td>
+    <td *ngIf="form.formType!='ERROR'" style="padding-left: 31px">{{ form.formId }}</td>
     <!-- "Update" and "Delete" displayed by default, "Confirm" and "Cancel" displayed if "Delete" is pressed -->
     <!-- This is controlled on a per-row basis by the form.confirmDelete variable -->
     <td *ngIf="form.formType!='ERROR' && !form.deleted" >
@@ -78,6 +79,8 @@
       <button class="button button--type-confirm button--context-table" *ngIf="form.confirmDelete" (click)="form.confirmDelete=false">Cancel</button>
     </td>
     <td *ngIf="form.formType!='ERROR' && form.deleted" colspan="2">Deleting...</td>
+    <!-- If the filter pipe filters to an empty array, it pushes a single form with formType 'ERROR' which the message below -->
+    <!-- This method was chosen over checking for "form.length===0" because that message would trigger when the forms were loading-->
     <td *ngIf="form.formType=='ERROR'" colspan="8">No forms matching your search criteria</td>
   </tr>
 </table>

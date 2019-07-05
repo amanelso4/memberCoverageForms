@@ -1,12 +1,12 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
 
 html {
+  color: #424242;
   font-family: "Sun Life Sans";
   font-size: 16px;
-  color: #424242;
   line-height: 24px;
-  padding: 0;
   margin: 0;
+  padding: 0;
 }
 
 body {
@@ -18,12 +18,12 @@ body {
 }
 
 .button {
+  border-radius: 5px;
+  border-width: 0;
   font-family: "Sun Life Sans";
   font-size: 16px;
   font-weight: bold;
   height: 48px;
-  border-radius: 5px;
-  border-width: 0;
   text-align: center;
 }
 
@@ -40,29 +40,25 @@ body {
 .button--primary-yellow {
   background-color: #ffcb05;
   color: #004c6c;
-  width: 150px;
   height: 50px;
+  width: 150px;
 }
 
 .button--secondary {
-  border-style: solid;
-  border-width: 2px;
-  border-color: #004c6c;
-  color: #004c6c;
   background-color: white;
+  border: solid 2px #004c6c;
+  color: #004c6c;
 }
 
 .button--tertiary {
-  color: #004c6c;
   background-color: white;
+  color: #004c6c;
 }
 
 .button--type-confirm {
   background-color: white;
-  border-width: 2px;
-  border-color: #b81f41;
+  border: solid 2px #b81f41;
   color: #b81f41;
-  border-style: solid;
 }
 
 .button--type-confirm:hover {
@@ -71,10 +67,10 @@ body {
 }
 
 .button--context-table {
-  width: 75px;
-  margin: auto;
   display: block;
   height: 40px;
+  margin: auto;
+  width: 75px;
 }
 
 .button--context-filter {
@@ -82,28 +78,26 @@ body {
 }
 
 select {
+  border-color: #adadad;
+  color: #424242;
   font-family: "Sun Life Sans";
   font-size: 16px;
   height: 36px;
-  color: #424242;
-  border-color: #adadad;
   padding-left: 16px;
   padding-right: 16px;
 }
 
 input {
+  border: solid 2px #adadad;
+  color: #424242;
   font-family: "Sun Life Sans";
   font-size: 16px;
   height: 36px;
-  color: #424242;
-  border-color: #adadad;
-  border-style: solid;
-  border-width: 2px;
   padding-left: 16px;
   padding-right: 16px;
 }
 
-.custom-select select {
+select.custom-select {
   border: purple;
 }
 
@@ -129,30 +123,29 @@ h4 {
 
 table {
   border-collapse: collapse;
-  table-layout: fixed;
   padding-top: 0;
-  margin-top: 0;
-  width: 100%;
   overflow: hidden;
+  margin-top: 0;
+  table-layout: fixed;
+  width: 100%;
 }
 
 .table--smallCol {
   width: 10%;
 }
 
+.table--formIdCol {
+  width: 12%;
+}
 .table--medCol {
   width: 15%;
 }
 
-.table--largCol {
-  width:20%;
-}
-
 td, th {
-  padding: 5px 5px;
-  vertical-align: middle;
-  overflow: hidden;
   display: table-cell;
+  overflow: hidden;
+  padding: 5px;
+  vertical-align: middle;
 }
 
 td {
@@ -165,12 +158,12 @@ td:first-child, th:first-child {
 
 th {
   background-color: #ffffff;
+  border-bottom: solid 1px #666666;
   color: #666666;
   height: 30px;
-  text-align: center;
-  padding: 5px;
   margin: 0;
-  border-bottom: solid 1px #666666;
+  padding: 5px;
+  text-align: center;
 }
 
 tr {
@@ -182,14 +175,8 @@ tr:last-child {
 }
 
 th.filterCell {
-  border-top: solid;
-  border-width: 1px;
   padding: 10px;
 }
-
-/*tr:nth-child(odd) {
-  background-color: #c9c9c9;
-}*/
 
 .description {
   max-width: 400px;
@@ -199,7 +186,7 @@ th.filterCell {
   max-width: 300px;
 }
 
-pdf-viewer .pdfViewer{
+pdf-viewer.pdfViewer{
   height: 500px;
 }
 
