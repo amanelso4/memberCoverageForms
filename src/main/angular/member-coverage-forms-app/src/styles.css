@@ -97,6 +97,10 @@ input {
   padding-right: 16px;
 }
 
+select.custom-select {
+  border: purple;
+}
+
 h1 {
   font-size: 48px;
   line-height: 61px;
@@ -182,10 +186,9 @@ th.filterCell {
   max-width: 300px;
 }
 
-pdf-viewer.pdfViewer{
+pdf-viewer .pdfViewer {
   height: 500px;
 }
-
 
 
 
