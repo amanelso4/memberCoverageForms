@@ -1,27 +1,8 @@
-
-@import '~bootstrap/dist/css/bootstrap.min.css';
-/* Create three equal columns that floats next to each other */
-.column {
-  float: left;
-}
-
-.left, .middle {
-  width: 25%;
-}
-
-.right {
-  width: 50%;
-}
-
 /* Clear floats after the columns */
 .row:after {
   content: "";
   display: table;
   clear: both;
-}
-.align-content-center
-label, select {
-  display: table-cell;
 }
 
 .form-group {
@@ -29,63 +10,40 @@ label, select {
   align: label;
 }
 
+/* Used as a Spacer In Between buttons */
 .divider{
   width:15px;
   height:auto;
   display:inline-block;
 }
-table.confirm {
-  width: 100%;
-  border: 1px solid black;
-}
 
+table.confirm {
+  border: 5px solid #004c6c;
+}
+/* Confirmation Table Settings */
 table.confirm th, td {
   padding: 15px;
-  border: 1px solid black;
+ border-bottom: 1px solid #adadad;
 }
+table.confirm tr, td:nth-child(even) {background-color: #f2f2f2;}
 
 table.confirm th {
   text-align: center;
   width: 20%;
 }
 
+/* Margins for the Confirmation Page */
 .container {
   margin-left: 10px;
   margin-bottom: 10px;
-}
-
-
-select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  border: 1px solid black;
-}
-
-select::-ms-expand {
-  display: none;
-  border: 1px solid black;
-}
-
-
-
-
-.row-eq-height {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display:         flex;
-  height: 500px;
-}
-
-.pdf-viewer {
-  height: 100px;
 }
 
 pdf-viewer {
   display: block;
   width: 100%;
 }
+
+/* This was for the pagination in the PDF Viewer
 .pdfOptions {
   font-size: 1.4rem;
 }
@@ -104,8 +62,9 @@ pdf-viewer {
 }
 .pdfOptions span {
   float: right;
-}
+}*/
 
+/* Update Table Styling */
 .editedCell--original {
   color: white;
   background-color: #b81f41;
@@ -127,12 +86,5 @@ pdf-viewer {
 .comparison {
   color: #b81f41;
 }
-
-
-/deep/ .state-dropdown {
-  border: purple;
-  border-width: thick;
-}
-
 
 

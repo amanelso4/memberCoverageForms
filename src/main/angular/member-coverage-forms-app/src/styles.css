@@ -103,10 +103,6 @@ input {
   padding-right: 16px;
 }
 
-.custom-select select {
-  border: purple;
-}
-
 h1 {
   font-size: 48px;
   line-height: 61px;

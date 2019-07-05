@@ -251,7 +251,7 @@ export class SubmissionFormComponent implements OnInit{
       this.duplicate = true;
       this.valid = false;
       this.submitted = false;
-      this.message = "You are trying to submit a form that already exists in the database. Please change the Form ID value to submit," +
+      this.message = "You are trying to submit a form that already exists in the database. Please change the Form ID value to submit, " +
         "or navigate back to the Table page and search for this Form ID to edit this form's information."
     }
   }
