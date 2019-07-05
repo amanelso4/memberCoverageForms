@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
-import { faPlus, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+
+import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-top-bar',
@@ -14,7 +15,6 @@ export class TopBarComponent implements OnInit {
   ) { }
 
   //FontAwesome Icons for use on button
-  faPlus = faPlus;
   faPlusCircle = faPlusCircle;
 
   ngOnInit() {
