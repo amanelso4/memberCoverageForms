@@ -223,7 +223,7 @@ export class SubmissionFormComponent implements OnInit{
     this.pageTotal = pdf.numPages;
   }
 
- nextPage() {
+/* nextPage() {
     if(this.page < this.pageTotal) {
       this.page = this.page + 1;
     }
@@ -233,7 +233,7 @@ export class SubmissionFormComponent implements OnInit{
     if(this.page > 1) {
       this.page = this.page - 1;
     }
-  }
+  }*/
 
   //Validation that form is correct before moving on to Confirmation Page Methods
   submissionCheck() {

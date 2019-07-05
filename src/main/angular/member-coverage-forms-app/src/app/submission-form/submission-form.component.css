@@ -22,7 +22,7 @@ table.confirm th, td {
   padding: 15px;
  border-bottom: 1px solid #adadad;
 }
-table.confirm tr, td:nth-child(even) {background-color: #f2f2f2;}
+table.confirm tr, td:nth-child(even) {background-color: #f4f7f6;}
 
 table.confirm th {
   text-align: center;
