@@ -5,11 +5,6 @@
   clear: both;
 }
 
-.form-group {
-  padding: auto;
-  align: label;
-}
-
 /* Used as a Spacer In Between buttons */
 .divider{
   width:15px;
@@ -17,11 +12,12 @@
   display:inline-block;
 }
 
+/* Confirmation Table Settings */
 table.confirm {
   border: 5px solid #004c6c;
   width: 1550px;
 }
-/* Confirmation Table Settings */
+
 table.confirm th, td {
   padding: 15px;
  border-bottom: 1px solid #adadad;
@@ -39,12 +35,13 @@ table.confirm th {
   margin-bottom: 10px;
 }
 
+/*PDF Viewer Settings*/
 pdf-viewer {
   display: block;
   width: 100%;
 }
 
-.pdfOptions {
+/*.pdfOptions {
   font-size: 1.4rem;
 }
 .pdfOptions {
@@ -62,7 +59,7 @@ pdf-viewer {
 }
 .pdfOptions span {
   float: right;
-}
+}*/
 
 /* Update Table Styling */
 .editedCell--original {
