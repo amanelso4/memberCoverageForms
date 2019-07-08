@@ -181,19 +181,13 @@
               <div class="col-lg-8">
                 <div class="form-group">
                   <input type="text" class="form-control" id="link" required formControlName="link" name="link">
-                  <div [hidden]="valid" *ngIf="link.invalid"
-                       class="alert alert-danger">
-                    <div [hidden]="valid" *ngIf="link.errors.required">
-                      Link is required.
-                    </div>
+                  <div [hidden]="!testLink" class="alert alert-danger">
+                    {{message}} <br>
                   </div>
                 </div>
                 <button class="button button--secondary" type="button"
                         (click)="view=true; easterEgg(model.value.name); linkCheck(model.value.link)">View Form
                 </button>
-                <div [hidden]="!testLink" class="alert alert-danger">
-                 {{message}} <br>
-                </div>
               </div>
           </div>
           <br>
