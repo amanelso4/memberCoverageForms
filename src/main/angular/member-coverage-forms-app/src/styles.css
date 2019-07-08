@@ -186,10 +186,9 @@ th.filterCell {
   max-width: 300px;
 }
 
-pdf-viewer.pdfViewer{
+pdf-viewer .pdfViewer {
   height: 500px;
 }
-
 
 
 
