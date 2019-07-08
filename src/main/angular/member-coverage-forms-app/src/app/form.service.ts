@@ -32,7 +32,10 @@ export class FormService {
   // DECLARATIONS //
   //////////////////
 
-  private formUrl: string = "http://localhost:8080/mfm";
+  // Use if deploying via tomcat
+  /*private formUrl: string = "http://localhost:8080/mfm";*/
+  // Use if deploying spring app locally
+  private formUrl: string = "http://localhost:8080/MemberCoverageForms/mfm";
 
   //////////////////
   ///// METHODS ////
