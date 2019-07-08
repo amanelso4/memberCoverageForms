@@ -68,13 +68,16 @@ export class SubmissionFormComponent implements OnInit{
   valid = true; //Controls Validators
   duplicate = false; //Controls Duplicate Validator
   testLink = false; //Controls Link Validator
+  testFormId = false; //Controls formId validator
   regexp;
+  formIdRegexp;
 
   //
   page: any = 1;
   pageTotal: any;
   dropdownSettings = {};
   message = String(); //Validation Message
+  formIdMessage: string = String();
 
   //////////////////
   ///// METHODS ////
@@ -237,7 +240,7 @@ export class SubmissionFormComponent implements OnInit{
 
   //Validation that form is correct before moving on to Confirmation Page Methods
   submissionCheck() {
-    if(this.model.invalid || this.testLink === true) {
+    if(this.model.invalid || this.testLink === true || this.testFormId === true) {
       this.submitted = false;
       this.valid = false;
     }
@@ -298,6 +301,19 @@ export class SubmissionFormComponent implements OnInit{
     }
     else {
       this.testLink = false;
+    }
+  }
+
+  //Source for the Regex statement: https://gist.github.com/dperini/729294
+  formIdCheck(triggerFormId) {
+    this.formIdRegexp = new RegExp("^[a-zA-Z0-9_-]+$");
+    if(this.formIdRegexp.test(triggerFormId)===false)
+    {
+      this.testFormId = true;
+      this.formIdMessage = "FormId is not valid."
+    }
+    else {
+      this.testFormId = false;
     }
   }
 

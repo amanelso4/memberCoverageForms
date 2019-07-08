@@ -21,6 +21,9 @@ export class TableComponent implements OnInit {
   // controls when dropdown options are updated
   initialGetForms: boolean;
 
+  // controls loading symbol
+  public isLoading: boolean;
+
   // search fields
   formType: string = '';
   coverageType: string = '';
@@ -61,12 +64,14 @@ export class TableComponent implements OnInit {
 
   // Retrieve updated forms after a delete call
   getForms() {
+    this.isLoading = true;
     this.formService.getForms().subscribe( forms => {
       this.forms = forms;
       if (this.initialGetForms) { // only retrieve dropdown options on initial getForms()
         this.updateDropdownOptions();
         this.initialGetForms = false;
       }
+      this.isLoading = false;
     });
   }
 
