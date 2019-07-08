@@ -57,6 +57,7 @@ import {
 import {platformBrowserDynamic} from "@angular/platform-browser-dynamic";
 import {MatOptionModule} from "@angular/material";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { NgxLoadingModule } from "ngx-loading";
 
 const appRoutes: Routes = [
   {path: 'mfm/:formId', component: SubmissionFormComponent},
@@ -77,6 +78,7 @@ const appRoutes: Routes = [
       appRoutes,
       { enableTracing: false }
     ),
+    NgxLoadingModule.forRoot({primaryColour: '#ffcb05', secondaryColour: '#ffcb05', tertiaryColour: '#ffcb05'}),
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
