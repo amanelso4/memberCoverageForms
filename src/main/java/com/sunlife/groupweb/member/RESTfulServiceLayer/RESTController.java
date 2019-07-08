@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 
 @RestController
-@RequestMapping("/mfm")
+@RequestMapping("/api")
 public class RESTController {
 
     private FormRepository repository;

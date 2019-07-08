@@ -32,10 +32,13 @@ export class FormService {
   // DECLARATIONS //
   //////////////////
 
-  // Use if deploying via tomcat
+  // Use if deploying locally
   /*private formUrl: string = "http://localhost:8080/mfm";*/
-  // Use if deploying spring app locally
-  private formUrl: string = "http://localhost:8080/MemberCoverageForms/mfm";
+  // Use if deploying via tomcat
+  /*private formUrl: string = "http://localhost:8080/MemberCoverageForms/mfm";*/
+  // Use if deploying via websphere liberty
+  private formUrl: string = "http://localhost:9090/MemberCoverageForms/api";
+
 
   //////////////////
   ///// METHODS ////

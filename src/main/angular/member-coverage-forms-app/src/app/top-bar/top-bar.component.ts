@@ -11,7 +11,7 @@ import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 export class TopBarComponent implements OnInit {
 
   constructor(
-    private router: Router // Included so that button can be disappeared on add form page
+    public router: Router // Included so that button can be disappeared on add form page
   ) { }
 
   //FontAwesome Icons for use on button
