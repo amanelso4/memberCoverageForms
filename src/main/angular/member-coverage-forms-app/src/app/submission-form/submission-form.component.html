@@ -17,6 +17,9 @@
     <!--
     -------------------------------------------------Submission Form Page-----------------------------------------------
     -->
+
+    <ngx-loading [show]="isLoading"></ngx-loading>
+    <div *ngIf="!isLoading">
     <div [hidden]="submitted">
 
       <h3>Form Submission</h3> <br>
@@ -254,7 +257,7 @@
       <button class="button button--secondary" type="button" routerLink="/mfm"
               routerLinkActive="active">Cancel
       </button>
-
+    </div>
     </div> <!-- End of Submission Form Page -->
   </div>
 

@@ -71,6 +71,7 @@ export class SubmissionFormComponent implements OnInit{
   testFormId = false; //Controls formId validator
   regexp;
   formIdRegexp;
+  public isLoading: boolean;
 
   //
   page: any = 1;
@@ -147,6 +148,7 @@ export class SubmissionFormComponent implements OnInit{
 
   // Retrieve the form the user wants to update and populate the page with its details
   private getForm(formId: string) {
+    this.isLoading = true;
     this.form = this.formService.getSingleForm(formId).pipe(
       tap(form => this.model.patchValue(form))
     )
@@ -164,6 +166,7 @@ export class SubmissionFormComponent implements OnInit{
 
   //Get all forms to check through and Update the drop-down options from
   getForms() {
+    this.isLoading = true;
     this.formService.getForms().subscribe( forms => {
       this.forms = forms;
       if (this.initialGetForms) { // only retrieve dropdown options on initial getForms()
@@ -176,6 +179,7 @@ export class SubmissionFormComponent implements OnInit{
   // Retrieve dropdown menu options from local forms
   updateDropdownOptions() {
     console.log('updating dropdown options');
+    this.isLoading = true;
     for (let form of this.forms) {
       if (!this.coverageTypesVar.includes(form.coverageType)) {
         this.coverageTypesVar.push(form.coverageType);
@@ -193,6 +197,7 @@ export class SubmissionFormComponent implements OnInit{
     this.coverageTypesVar.sort((a, b) => {return a < b ? -1 : 1});
     this.sourceVar.sort((a, b) => {return a < b ? -1 : 1});
     this.formTypeVar.sort((a, b) => {return a < b ? -1 : 1});
+    this.isLoading = false;
   }
 
   // POST or PUT submitted form depending on form id
