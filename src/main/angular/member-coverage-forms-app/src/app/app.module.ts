@@ -76,7 +76,7 @@ const appRoutes: Routes = [
   imports: [
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: false }
+      { useHash: true }
     ),
     NgxLoadingModule.forRoot({primaryColour: '#ffcb05', secondaryColour: '#ffcb05', tertiaryColour: '#ffcb05'}),
     BrowserModule,
@@ -136,4 +136,4 @@ const appRoutes: Routes = [
 export class AppModule { }
 
 
-platformBrowserDynamic().bootstrapModule(AppModule);
+/*platformBrowserDynamic().bootstrapModule(AppModule);*/
