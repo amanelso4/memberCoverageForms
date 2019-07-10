@@ -29,7 +29,6 @@ public class RESTController {
     //// GET METHODS ////
     /////////////////////
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "", method = RequestMethod.GET)
     public FormDTO[] translateAllFormsToFormDTOs() {
         //This method retrieves all forms from database and turn them into FormDTOs
@@ -51,7 +50,6 @@ public class RESTController {
         return finalList.toArray(new FormDTO[0]);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/{formId}", method = RequestMethod.GET)
     public FormDTO getFormByFormId(@PathVariable("formId") String formId) {
         // return a the FormDTO that matches the FormId provided
@@ -63,7 +61,6 @@ public class RESTController {
     //// PUT METHOD ////
     ////////////////////
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/{formId}", method = RequestMethod.PUT)
     public void modifyFormByFormId(@PathVariable("formId") String formId, @Valid @RequestBody FormDTO newFormDTO) {
         boolean exteriorChange = false;
@@ -136,7 +133,6 @@ public class RESTController {
     //// POST METHOD ////
     /////////////////////
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "", method = RequestMethod.POST)
     public void addSubForm(@Valid @RequestBody FormDTO form) {
         SubForm newSub = new SubForm(form.name, form.link, form.formType, true, form.description, form.formId);
@@ -158,7 +154,6 @@ public class RESTController {
     /// DELETE METHOD ///
     /////////////////////
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/{formId}", method = RequestMethod.DELETE)
     public void deleteSubForm(@PathVariable("formId") String formId) {
         System.out.println("Deleting form w/ formId " + formId);

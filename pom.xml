@@ -68,8 +68,13 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 
@@ -104,13 +109,17 @@
                     </archive>
                 </configuration>
             </plugin>
-
-           <!-- <plugin>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+            </plugin>
+            <plugin>
                 <groupId>com.github.eirslett</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
                 <version>1.4</version>
 
                 <configuration>
+                    <nodeVersion>v10.16.0</nodeVersion>
+                    <npmVersion>6.9.0</npmVersion>
                     <workingDirectory>src/main/angular/member-coverage-forms-app</workingDirectory>
                 </configuration>
 
@@ -121,14 +130,7 @@
                             <goal>install-node-and-npm</goal>
                         </goals>
                         <phase>initialize</phase>
-                        <configuration>
-                            <nodeVersion>v8.11.2</nodeVersion>
-                            <npmVersion>5.6.0</npmVersion>
-                            <nodeDownloadRoot>http://deployer:AP9CtR7tH11AcTzEWnhK9FTM4sB@artifactory.us.sunlife/artifactory/node-repo/</nodeDownloadRoot>
-                            <npmDownloadRoot>http://deployer:AP9CtR7tH11AcTzEWnhK9FTM4sB@artifactory.us.sunlife/artifactory/api/npm/npm/npm/</npmDownloadRoot>
-                        </configuration>
                     </execution>
-
                     <execution>
                         <id>npm-install</id>
                         <goals>
@@ -136,20 +138,39 @@
                         </goals>
                         <phase>initialize</phase>
                         <configuration>
-                            <arguments>install &#45;&#45;loglevel verbose</arguments>
+                            <arguments>install --loglevel warn</arguments>
                         </configuration>
                     </execution>
-
                     <execution>
                         <id>npm-build</id>
                         <goals>
                             <goal>npm</goal>
                         </goals>
                         <configuration>
-                            <arguments>run-script prodbuild</arguments>
-                            <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
+                            <arguments>run-script build</arguments>
                         </configuration>
                         <phase>generate-resources</phase>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!--<plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/classes/resources/</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>membercoverageforms/src/main/angular/member-coverage-forms-app/dist/member-coverage-forms-app/</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>-->
