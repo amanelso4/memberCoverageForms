@@ -1,7 +1,7 @@
-#Sun Life - Member Forms Manager
+# Sun Life - Member Forms Manager
 Developed: Summer 2019
 
-###Stakeholders:
+### Stakeholders:
 
 Name | Title
 ----- | ------
@@ -15,22 +15,22 @@ Edward Fitzgerald | BSA
 
 -------------------------------------
 
-###Prerequisite Software
-1. Git
-2. Maven
+### Prerequisite Software
+1. Git - [Download](https://git-scm.com/downloads)
+2. Maven - [Download](https://maven.apache.org/download.cgi) | [Installation](https://maven.apache.org/install.html)
 3. Liberty Websphere
 
 -------------------------------------
 
-###Deployment Instructions
+### Deployment Instructions
 
-1. To download the project repository, open a command line and run:
+1. To download the project repository, open a command line and navigate to your desired project destination and run:
 
    `git clone http://<ACF2>@bitbucket.us.sunlife/scm/intern/membercoverageforms.git`
    
    where `<ACF2>` is your ACF2 ID.
 
-2. Navigate to the cloned repository and run `mvn install`.
+2. Navigate into the cloned repository and run `mvn install`.
 
 3. When installation is completed (it will take a while), navigate to your WebSphere install location, then to the `bin` subfolder. 
    Run the command `server create <server_name>`, where `<server_name>` is your desired server name.
@@ -51,6 +51,8 @@ Edward Fitzgerald | BSA
 9. In a browser, navigate to http://localhost:9080/MemberCoverageForms
 
 10. When finished, shut down the server by pressing Ctrl+C in the command prompt.
+
+Repeat steps 7-10 whenever you want to run the server again.
 
 
 --------------------------------------
