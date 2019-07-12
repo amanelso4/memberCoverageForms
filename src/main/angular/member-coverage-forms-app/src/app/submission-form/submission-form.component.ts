@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PDFDocumentProxy } from "pdfjs-dist";
 import { tap } from 'rxjs/operators';
-import { formIdValidation } from "./formIdValidation.directive";
+import { formNumberValidation } from "./formNumberValidation.directive";
 
 /*
    This file contains the methods and declarations that drive the submission-form component of the Member Form Manager
@@ -31,7 +31,7 @@ export class SubmissionFormComponent implements OnInit{
   get state() {return this.model.get('state')}
   get sourceSystem() {return this.model.get('sourceSystem')}
   get name() {return this.model.get('name')}
-  get formId() {return this.model.get('formId')}
+  get formNumber() {return this.model.get('formNumber')}
   get link() {return this.model.get('link')}
   get description() {return this.model.get('description')}
 
@@ -51,13 +51,13 @@ export class SubmissionFormComponent implements OnInit{
   model: FormGroup;
   newForm = false;
   originalForm: Form;
-  originalFormId: string;
+  originalFormNumber: string;
   forms: Form[];
   initialGetForms: boolean;
   coverageTypesVar: string[] = [];
   sourceVar: string[] = [];
   formTypeVar: string[] = [];
-  formIds: string[] = [];
+  formNumbers: string[] = [];
 
   addNewCoverageType: boolean = false;
   addNewFormType: boolean = false;
@@ -68,9 +68,9 @@ export class SubmissionFormComponent implements OnInit{
   valid = true; //Controls Validators
   duplicate = false; //Controls Duplicate Validator
   testLink = false; //Controls Link Validator
-  testFormId = false; //Controls formId validator
+  testFormNumber = false; //Controls formNumber validator
   regexp;
-  formIdRegexp;
+  formNumberRegexp;
   public isLoading: boolean;
 
   //
@@ -78,7 +78,7 @@ export class SubmissionFormComponent implements OnInit{
   pageTotal: any;
   dropdownSettings = {};
   message = String(); //Validation Message
-  formIdMessage: string = String();
+  formNumberMessage: string = String();
 
   //////////////////
   ///// METHODS ////
@@ -109,15 +109,15 @@ export class SubmissionFormComponent implements OnInit{
       name: [null, Validators.required],
       link: [null, Validators.required],
       description: [null, Validators.required],
-      formId: [null, [Validators.required, formIdValidation(/new/i)]]
+      formNumber: [null, [Validators.required, formNumberValidation(/new/i)]]
     });
 
-    // Get form id from active route and determine if this is a new form or an existing one
+    // Get form number from active route and determine if this is a new form or an existing one
     this.route.paramMap.subscribe(parameterMap => {
-      this.originalFormId = parameterMap.get('formId');
-      if (this.originalFormId != "new") {
+      this.originalFormNumber = parameterMap.get('formNumber');
+      if (this.originalFormNumber != "new") {
         // Existing form
-        this.getForm(this.originalFormId);
+        this.getForm(this.originalFormNumber);
       } else {
         // New form
         this.newForm = true;
@@ -147,18 +147,18 @@ export class SubmissionFormComponent implements OnInit{
   }
 
   // Retrieve the form the user wants to update and populate the page with its details
-  private getForm(formId: string) {
+  private getForm(formNumber: string) {
     this.isLoading = true;
-    this.form = this.formService.getSingleForm(formId).pipe(
+    this.form = this.formService.getSingleForm(formNumber).pipe(
       tap(form => this.model.patchValue(form))
     )
-    this.formService.getSingleForm(formId).subscribe(form => {
+    this.formService.getSingleForm(formNumber).subscribe(form => {
       this.originalForm = form;
-      // handle error where no form matching formId found
-      if (this.originalForm.formId == null) {
-        console.warn("Form with formId " + formId + " not found.");
+      // handle error where no form matching formNumber found
+      if (this.originalForm.formNumber == null) {
+        console.warn("Form with formNumber " + formNumber + " not found.");
         this.newForm = true;
-        this.model.value.formId = formId;
+        this.model.value.formNumber = formNumber;
       }
     })
   }
@@ -190,8 +190,8 @@ export class SubmissionFormComponent implements OnInit{
       if (!this.formTypeVar.includes(form.formType)) {
         this.formTypeVar.push(form.formType);
       }
-      if (!this.formIds.includes(form.formId)) {
-        this.formIds.push(form.formId);
+      if (!this.formNumbers.includes(form.formNumber)) {
+        this.formNumbers.push(form.formNumber);
       }
     }
     this.coverageTypesVar.sort((a, b) => {return a < b ? -1 : 1});
@@ -200,7 +200,7 @@ export class SubmissionFormComponent implements OnInit{
     this.isLoading = false;
   }
 
-  // POST or PUT submitted form depending on form id
+  // POST or PUT submitted form depending on form number
   submit() {
     // If adding a new form, call a POST
     if (this.newForm) {
@@ -216,9 +216,9 @@ export class SubmissionFormComponent implements OnInit{
       //If updating an existing form, call a PUT
     } else {
       const updatedForm: Form = Object.assign({}, this.model.value);
-      this.formService.updateForm(this.originalFormId, updatedForm).subscribe(
+      this.formService.updateForm(this.originalFormNumber, updatedForm).subscribe(
         () => {
-          console.log('Updated form w/ id' + this.model.value.formId);
+          console.log('Updated form w/ number' + this.model.value.formNumber);
           console.log(updatedForm);
           this.router.navigate(['']);
         }
@@ -245,7 +245,7 @@ export class SubmissionFormComponent implements OnInit{
 
   //Validation that form is correct before moving on to Confirmation Page Methods
   submissionCheck() {
-    if(this.model.invalid || this.testLink === true || this.testFormId === true) {
+    if(this.model.invalid || this.testLink === true || this.testFormNumber === true) {
       this.submitted = false;
       this.valid = false;
     }
@@ -254,13 +254,13 @@ export class SubmissionFormComponent implements OnInit{
     }
   }
 
-  duplicateCheck(modelId) {
-    if (this.formIds.includes(modelId) && this.newForm === true) {
+  duplicateCheck(modelNumber) {
+    if (this.formNumbers.includes(modelNumber) && this.newForm === true) {
       this.duplicate = true;
       this.valid = false;
       this.submitted = false;
-      this.message = "You are trying to submit a form that already exists in the database. Please change the Form ID value to submit, " +
-        "or navigate back to the Table page and search for this Form ID to edit this form's information."
+      this.message = "You are trying to submit a form that already exists in the database. Please change the Form Number value to submit, " +
+        "or navigate back to the Table page and search for this Form Number to edit this form's information."
     }
   }
 
@@ -310,15 +310,15 @@ export class SubmissionFormComponent implements OnInit{
   }
 
   //Source for the Regex statement: https://gist.github.com/dperini/729294
-  formIdCheck(triggerFormId) {
-    this.formIdRegexp = new RegExp("^[a-zA-Z0-9_-]+$");
-    if(this.formIdRegexp.test(triggerFormId)===false)
+  formNumberCheck(triggerFormNumber) {
+    this.formNumberRegexp = new RegExp("^[a-zA-Z0-9_-]+$");
+    if(this.formNumberRegexp.test(triggerFormNumber)===false)
     {
-      this.testFormId = true;
-      this.formIdMessage = "FormId is not valid."
+      this.testFormNumber = true;
+      this.formNumberMessage = "Form Number is not valid."
     }
     else {
-      this.testFormId = false;
+      this.testFormNumber = false;
     }
   }
 

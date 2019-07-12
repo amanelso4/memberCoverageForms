@@ -155,24 +155,24 @@
               </div>
           </div>
 
-          <!-- Row for Form ID text box and label-->
+          <!-- Row for Form Number text box and label-->
           <div class="row">
               <div class="col-lg-4">
-                <label for="formId">Form ID: </label>
+                <label for="formNumber">Form Number: </label>
               </div>
               <div class="col-lg-8">
                 <div class="form-group">
-                  <input type="text" class="form-control" id="formId" required formControlName="formId" name="formId">
-                  <div [hidden]="!testFormId" class="alert alert-danger">
-                    {{ formIdMessage }} <br>
+                  <input type="text" class="form-control" id="formNumber" required formControlName="formNumber" name="formNumber">
+                  <div [hidden]="!testFormNumber" class="alert alert-danger">
+                    {{ formNumberMessage }} <br>
                   </div>
-                  <div [hidden]="valid" *ngIf="formId.invalid"
+                  <div [hidden]="valid" *ngIf="formNumber.invalid"
                        class="alert alert-danger">
-                    <div [hidden]="valid" *ngIf="formId.errors.required">
-                      Form ID is required.
+                    <div [hidden]="valid" *ngIf="formNumber.errors.required">
+                      Form Number is required.
                     </div>
-                    <div [hidden]="valid" *ngIf="formId.errors.formIdValidation">
-                      Form ID cannot be "new".
+                    <div [hidden]="valid" *ngIf="formNumber.errors.formNumberValidation">
+                      Form Number cannot be "new".
                     </div>
                   </div>
                 </div>
@@ -252,7 +252,7 @@
       </div>
 
       <!-- Submit and Cancel Buttons -->
-      <button class="button button--primary-yellow" type="button" (click)="linkCheck(model.value.link); formIdCheck(model.value.formId); submissionCheck(); duplicateCheck(model.value.formId)">Submit</button>
+      <button class="button button--primary-yellow" type="button" (click)="linkCheck(model.value.link); formNumberCheck(model.value.formNumber); submissionCheck(); duplicateCheck(model.value.formNumber)">Submit</button>
       <div class="divider"></div>
       <button class="button button--secondary" type="button" routerLink="/mfm"
               routerLinkActive="active">Cancel
@@ -315,12 +315,12 @@
         </td>
       </tr>
       <tr>
-        <th>Form ID</th>
+        <th>Form Number</th>
         <!--Field not Changed-->
-        <td *ngIf="originalForm.formId === model.value.formId">{{model.value.formId}}</td>
+        <td *ngIf="originalForm.formNumber === model.value.formNumber">{{model.value.formNumber}}</td>
         <!--Field Changed-->
-        <td class="comparison" *ngIf="originalForm.formId !== model.value.formId">
-          <p><span class="oldText">{{originalForm.formId}}</span>  {{model.value.formId}}</p>
+        <td class="comparison" *ngIf="originalForm.formNumber !== model.value.formNumber">
+          <p><span class="oldText">{{originalForm.formNumber}}</span>  {{model.value.formNumber}}</p>
         </td>
       </tr>
       <tr>
@@ -365,8 +365,8 @@
         <td>{{model.value.name}}</td>
       </tr>
       <tr>
-        <th>Form ID</th>
-        <td>{{model.value.formId}}</td>
+        <th>Form Number</th>
+        <td>{{model.value.formNumber}}</td>
       </tr>
       <tr>
         <th>Form Link</th>
