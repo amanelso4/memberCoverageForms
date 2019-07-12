@@ -12,7 +12,7 @@ export class Form {
   name: string;
   link: string;
   description: string;
-  formId: string;
+  formNumber: string;
 }
 
 const httpOptions = {
@@ -54,8 +54,8 @@ export class FormService {
       );
   }
 
-  getSingleForm(formId: string): Observable<Form> {
-    return this.http.get<Form>(`${this.formUrl}/${formId}`)
+  getSingleForm(formNumber: string): Observable<Form> {
+    return this.http.get<Form>(`${this.formUrl}/${formNumber}`)
       .pipe(catchError(this.handleError));
   }
 
@@ -68,14 +68,14 @@ export class FormService {
   }
 
   // PUT
-  updateForm(formId: string, form: Form): Observable<{}> {
-    return this.http.put(`${this.formUrl}/${formId}`, form, httpOptions)
+  updateForm(formNumber: string, form: Form): Observable<{}> {
+    return this.http.put(`${this.formUrl}/${formNumber}`, form, httpOptions)
       .pipe(catchError(this.handleError));
   }
 
   // DELETE
-  deleteForm(formId: string): Observable<{}> {
-    return this.http.delete(`${this.formUrl}/${formId}`)
+  deleteForm(formNumber: string): Observable<{}> {
+    return this.http.delete(`${this.formUrl}/${formNumber}`)
       .pipe(catchError(this.handleError));
   }
 

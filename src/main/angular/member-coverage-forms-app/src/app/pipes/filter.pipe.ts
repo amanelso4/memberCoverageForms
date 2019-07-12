@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from "@angular/core";
 
 // Takes in search field values from table component and returns a filtered version of the form array
 export class FilterPipe implements PipeTransform {
-  transform(items: any[], fTypeSearch: string, covTypeSearch: string, stateSearch: string, sourceSearch: string, idSearch: string, nameSearch: string) {
+  transform(items: any[], fTypeSearch: string, covTypeSearch: string, stateSearch: string, sourceSearch: string, numberSearch: string, nameSearch: string) {
     if (items && items.length) {
       items = items.filter(item =>{
         // only applies each filter if the search value is not an empty string
@@ -25,7 +25,7 @@ export class FilterPipe implements PipeTransform {
         else if (sourceSearch && item.sourceSystem != sourceSearch){
           return false;
         }
-        else if (idSearch && item.formId.toLowerCase().indexOf(idSearch.toLowerCase()) === -1){
+        else if (numberSearch && item.formNumber.toLowerCase().indexOf(numberSearch.toLowerCase()) === -1){
           return false;
         }
         return true;
