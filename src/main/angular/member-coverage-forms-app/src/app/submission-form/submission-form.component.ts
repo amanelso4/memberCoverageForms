@@ -202,6 +202,7 @@ export class SubmissionFormComponent implements OnInit{
 
   // POST or PUT submitted form depending on form number
   submit() {
+    this.isLoading = true;
     // If adding a new form, call a POST
     if (this.newForm) {
       const createdForm: Form = Object.assign({}, this.model.value);
@@ -209,6 +210,7 @@ export class SubmissionFormComponent implements OnInit{
         (data: Form) => {
           console.log('Added form: ');
           console.log(data);
+          this.isLoading = false;
           this.router.navigate(['']);
         }
       );
@@ -220,6 +222,7 @@ export class SubmissionFormComponent implements OnInit{
         () => {
           console.log('Updated form w/ number' + this.model.value.formNumber);
           console.log(updatedForm);
+          this.isLoading = false;
           this.router.navigate(['']);
         }
       )

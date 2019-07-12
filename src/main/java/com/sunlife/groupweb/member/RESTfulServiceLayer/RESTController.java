@@ -34,40 +34,40 @@ public class RESTController {
         //This method retrieves all forms from database and turn them into FormDTOs
         //This method also combines all duplicates
         List<Form> allTheForms = repository.findAll();
-        ArrayList<String> formIds = new ArrayList<>();
+        ArrayList<String> formNumbers = new ArrayList<>();
         List<FormDTO> finalList = new ArrayList<>();
         for (Form f : allTheForms) {
-            // populate formIds list with all unique formIds
+            // populate formNumbers list with all unique formNumbers
             for (int i = 0; i < f.fl.length; i++) {
-                if (!formIds.contains(f.fl[i].fc)) {
-                    formIds.add(f.fl[i].fc);
+                if (!formNumbers.contains(f.fl[i].fc)) {
+                    formNumbers.add(f.fl[i].fc);
                 }
             }
         }
-        for (String id : formIds) {
-            finalList.add(createAngularForm(id, allTheForms));
+        for (String number : formNumbers) {
+            finalList.add(createAngularForm(number, allTheForms));
         }
         return finalList.toArray(new FormDTO[0]);
     }
 
-    @RequestMapping(value = "/{formId}", method = RequestMethod.GET)
-    public FormDTO getFormByFormId(@PathVariable("formId") String formId) {
-        // return a the FormDTO that matches the FormId provided
-        List<Form> allTheForms = repository.findByOneField("fl.fc", formId);
-        return createAngularForm(formId, allTheForms);
+    @RequestMapping(value = "/{formNumber}", method = RequestMethod.GET)
+    public FormDTO getFormByFormNumber(@PathVariable("formNumber") String formNumber) {
+        // return a the FormDTO that matches the formNumber provided
+        List<Form> allTheForms = repository.findByOneField("fl.fc", formNumber);
+        return createAngularForm(formNumber, allTheForms);
     }
 
     ////////////////////
     //// PUT METHOD ////
     ////////////////////
 
-    @RequestMapping(value = "/{formId}", method = RequestMethod.PUT)
-    public void modifyFormByFormId(@PathVariable("formId") String formId, @Valid @RequestBody FormDTO newFormDTO) {
+    @RequestMapping(value = "/{formNumber}", method = RequestMethod.PUT)
+    public void modifyFormByFormNumber(@PathVariable("formNumber") String formNumber, @Valid @RequestBody FormDTO newFormDTO) {
         boolean exteriorChange = false;
         // Find original copy of form to compare
-        List<Form> originalForm = repository.findByOneField("fl.fc", formId);
+        List<Form> originalForm = repository.findByOneField("fl.fc", formNumber);
         // create new SubForm to be used
-        SubForm newSubForm = new SubForm(newFormDTO.name, newFormDTO.link, newFormDTO.formType, true, newFormDTO.description, newFormDTO.formId);
+        SubForm newSubForm = new SubForm(newFormDTO.name, newFormDTO.link, newFormDTO.formType, true, newFormDTO.description, newFormDTO.formNumber);
         // Check to see if exterior fields have been changed
         if (originalForm.get(0).ci.equals(newFormDTO.coverageType) || originalForm.get(0).ss.equals(newFormDTO.sourceSystem)) {
             exteriorChange = true;
@@ -75,7 +75,7 @@ public class RESTController {
         // COV TYPE OR SOURCE SYSTEM CHANGED
         if (exteriorChange) {
             // Remove all instances of form from current doc
-            deleteFromFormList(formId, originalForm);
+            deleteFromFormList(formNumber, originalForm);
             // find new locations based on changed exterior fields
             for (int i = 0; i < newFormDTO.state.length; i++) {
                 List<Form> newFormLocations = repository.findByThreeFields("ci", newFormDTO.coverageType, "ss", newFormDTO.sourceSystem,
@@ -107,8 +107,8 @@ public class RESTController {
             // if necessary, delete from removed states
             if (!statesDeleted.isEmpty()) {
                 for (String stateRemoved : statesDeleted) {
-                    List<Form> matchingForms = repository.findByTwoFields("fl.fc", formId, "sc", stateRemoved);
-                    deleteFromFormList(formId, matchingForms);
+                    List<Form> matchingForms = repository.findByTwoFields("fl.fc", formNumber, "sc", stateRemoved);
+                    deleteFromFormList(formNumber, matchingForms);
                 }
             }
             // add/edit in new list of states
@@ -123,7 +123,7 @@ public class RESTController {
                     Form newRecord = new Form(newFormDTO.coverageType, true, thisSubForms.toArray(new SubForm[0]), newState, newFormDTO.sourceSystem);
                     repository.save(newRecord);
                 } else {
-                    replaceInFormList(formId, newSubForm, formsToUpdate);
+                    replaceInFormList(formNumber, newSubForm, formsToUpdate);
                 }
             }
         }
@@ -135,7 +135,7 @@ public class RESTController {
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public void addSubForm(@Valid @RequestBody FormDTO form) {
-        SubForm newSub = new SubForm(form.name, form.link, form.formType, true, form.description, form.formId);
+        SubForm newSub = new SubForm(form.name, form.link, form.formType, true, form.description, form.formNumber);
         for (int i = 0; i < form.state.length; i++) {
             String state = form.state[i];
             List<Form> formsToBeAdded = repository.findByThreeFields("sc", state, "ss", form.sourceSystem, "ci", form.coverageType);
@@ -154,10 +154,10 @@ public class RESTController {
     /// DELETE METHOD ///
     /////////////////////
 
-    @RequestMapping(value = "/{formId}", method = RequestMethod.DELETE)
-    public void deleteSubForm(@PathVariable("formId") String formId) {
-        System.out.println("Deleting form w/ formId " + formId);
-        List<Form> allTheForms = repository.findByOneField("fl.fc", formId);
+    @RequestMapping(value = "/{formNumber}", method = RequestMethod.DELETE)
+    public void deleteSubForm(@PathVariable("formNumber") String formNumber) {
+        System.out.println("Deleting form w/ formNumber " + formNumber);
+        List<Form> allTheForms = repository.findByOneField("fl.fc", formNumber);
         for (Form f : allTheForms) {
             if (f.fl.length == 1) {
                 // only one subform, whole document can be removed
@@ -165,7 +165,7 @@ public class RESTController {
             }
             else {
                 for (int i = 0; i < f.fl.length; i++) {
-                    if (f.fl[i].fc.equals(formId)) {
+                    if (f.fl[i].fc.equals(formNumber)) {
                         ArrayList<SubForm> subFormMinusOne = new ArrayList<>(Arrays.asList(f.fl));
                         subFormMinusOne.remove(i);
                         f.fl = subFormMinusOne.toArray(new SubForm[0]);
@@ -181,21 +181,21 @@ public class RESTController {
     ////// HELPERS //////
     /////////////////////
 
-    // Creates an angular form from a given formId and list of java forms
+    // Creates an angular form from a given formNumber and list of java forms
     // Used by: Both GETs
-    private FormDTO createAngularForm(String formId, List<Form> allTheForms) {
+    private FormDTO createAngularForm(String formNumber, List<Form> allTheForms) {
         FormDTO newAngularForm = new FormDTO();
         ArrayList<String> states = new ArrayList<>();
         for (Form f : allTheForms) {
             for (int i = 0; i < f.fl.length; i++) {
-                if (f.fl[i].fc.equals(formId)) {
+                if (f.fl[i].fc.equals(formNumber)) {
                     newAngularForm.coverageType = f.ci;
                     newAngularForm.sourceSystem = f.ss;
                     newAngularForm.formType = f.fl[i].ft;
                     newAngularForm.name = f.fl[i].ds;
                     newAngularForm.link = f.fl[i].fl;
                     newAngularForm.description = f.fl[i].fh;
-                    newAngularForm.formId = f.fl[i].fc;
+                    newAngularForm.formNumber = f.fl[i].fc;
                     if (!states.contains(f.sc)) {
                         states.add(f.sc);
                     }
@@ -218,22 +218,22 @@ public class RESTController {
     }
 
     // Used by: PUT
-    private void replaceInFormList(String formId, SubForm newSubForm, List<Form> formList) {
+    private void replaceInFormList(String formNumber, SubForm newSubForm, List<Form> formList) {
         for (Form thisForm : formList) {
             List<SubForm> thisSubForms = Arrays.asList(thisForm.fl);
-            List<SubForm> filteredSubForms = thisSubForms.stream().filter(s -> !s.fc.equals(formId)).collect(Collectors.toList());
+            List<SubForm> filteredSubForms = thisSubForms.stream().filter(s -> !s.fc.equals(formNumber)).collect(Collectors.toList());
             filteredSubForms.add(newSubForm);
             thisForm.fl = filteredSubForms.toArray(new SubForm[0]);
             repository.save(thisForm);
         }
     }
 
-    // Deletes a form given its formId from the database using a given form list
+    // Deletes a form given its formNumber from the database using a given form list
     // Used by: PUT, DELETE
-    private void deleteFromFormList(String formId, List<Form> formList) {
+    private void deleteFromFormList(String formNumber, List<Form> formList) {
         for (Form thisForm : formList) {
             List<SubForm> thisSubForms = Arrays.asList(thisForm.fl);
-            thisForm.fl = thisSubForms.stream().filter(s -> !s.fc.equals(formId)).toArray(SubForm[]::new);
+            thisForm.fl = thisSubForms.stream().filter(s -> !s.fc.equals(formNumber)).toArray(SubForm[]::new);
             repository.save(thisForm);
         }
     }
