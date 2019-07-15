@@ -58,14 +58,13 @@ import {platformBrowserDynamic} from "@angular/platform-browser-dynamic";
 import {MatOptionModule} from "@angular/material";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { NgxLoadingModule } from "ngx-loading";
-import { LoginComponent } from './login/login.component';
+
 
 
 const appRoutes: Routes = [
   {path: 'mfm/:formId', component: SubmissionFormComponent},
   {path: 'mfm', component: TableComponent},
-  {path: 'login', component: LoginComponent},
-  {path: '', redirectTo: 'login', pathMatch: 'full'},
+  {path: '', redirectTo: 'mfm', pathMatch: 'full'},
 ];
 
 @NgModule({
@@ -75,7 +74,6 @@ const appRoutes: Routes = [
     TableComponent,
     TopBarComponent,
     FilterPipe,
-    LoginComponent,
   ],
   imports: [
     RouterModule.forRoot(
