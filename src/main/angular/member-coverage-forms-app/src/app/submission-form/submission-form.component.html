@@ -22,6 +22,14 @@
     <div *ngIf="!isLoading">
     <div [hidden]="submitted">
 
+      <div [hidden]="!loginError">
+        <h4>Please login before adding a new form.</h4> <br>
+        <button class="button button--primary-yellow" type="button" routerLink="/mfm"
+                routerLinkActive="active">Login
+        </button>
+      </div>
+
+      <div [hidden]="loginError">
       <h3>Form Submission</h3> <br>
       <div class="row">
         <!--Column #1: DropDown Menus for formType, coverageType, state, and sourceSystem -->
@@ -397,6 +405,7 @@
               routerLinkActive="active">Cancel
       </button>
     </div>
+  </div>
   </div>
 
 </form>

@@ -6,6 +6,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PDFDocumentProxy } from "pdfjs-dist";
 import { tap } from 'rxjs/operators';
 import { formNumberValidation } from "./formNumberValidation.directive";
+import {LoginService} from "../login.service";
+
 
 /*
    This file contains the methods and declarations that drive the submission-form component of the Member Form Manager
@@ -40,7 +42,8 @@ export class SubmissionFormComponent implements OnInit{
     private formService: FormService,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private loginService: LoginService,
   ) { }
 
   //////////////////
@@ -69,6 +72,7 @@ export class SubmissionFormComponent implements OnInit{
   duplicate = false; //Controls Duplicate Validator
   testLink = false; //Controls Link Validator
   testFormNumber = false; //Controls formNumber validator
+  loginError = false;
   regexp;
   formNumberRegexp;
   public isLoading: boolean;
@@ -172,6 +176,9 @@ export class SubmissionFormComponent implements OnInit{
       if (this.initialGetForms) { // only retrieve dropdown options on initial getForms()
         this.updateDropdownOptions();
         this.initialGetForms = false;
+      }
+      if(this.loginService.count == 0) {
+        this.loginError = true;
       }
     });
   }

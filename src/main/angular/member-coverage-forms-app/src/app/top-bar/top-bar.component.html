@@ -1,6 +1,7 @@
 <div class="topBar">
   <div class="yellowBar"></div>
   <img src="assets/sunLifeLogo.png" alt="Sun Life logo">
+  <button class="button button--tertiary" [routerLink]="['/mfm']" (click)="this.loginService.login = true">Logout</button>
   <!--Add form button only displays if on home page-->
   <button class="button button--primary-yellow" [routerLink]="['/mfm/new']" *ngIf="router.url === '/mfm'">
     <fa-icon [icon]="faPlusCircle"></fa-icon> Add a Form
