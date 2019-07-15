@@ -86,8 +86,10 @@
       <td *ngIf="form.formType=='ERROR'" colspan="8">No forms matching your search criteria</td>
     </tr>
   </table>
-  <div class="footer">
+  <div class="paging">
     <pagination-controls class="my-pagination" (pageChange)="p = $event"></pagination-controls>
   </div>
-
+  <footer>
+    <p class="footer">&copy; 2019 Sun Life, for internal use only</p>
+  </footer>
 </div>
