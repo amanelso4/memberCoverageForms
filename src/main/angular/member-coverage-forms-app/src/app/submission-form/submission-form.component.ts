@@ -72,6 +72,7 @@ export class SubmissionFormComponent implements OnInit{
   duplicate = false; //Controls Duplicate Validator
   testLink = false; //Controls Link Validator
   testFormNumber = false; //Controls formNumber validator
+  loginError = false;
   regexp;
   formNumberRegexp;
   public isLoading: boolean;
@@ -175,6 +176,9 @@ export class SubmissionFormComponent implements OnInit{
       if (this.initialGetForms) { // only retrieve dropdown options on initial getForms()
         this.updateDropdownOptions();
         this.initialGetForms = false;
+      }
+      if(this.loginService.count == 0) {
+        this.loginError = true;
       }
     });
   }

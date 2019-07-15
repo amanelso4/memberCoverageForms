@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Form, FormService } from "../form.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {formIdValidation} from "../submission-form/formIdValidation.directive";
 import {LoginService} from "../login.service";
 
 @Component({
