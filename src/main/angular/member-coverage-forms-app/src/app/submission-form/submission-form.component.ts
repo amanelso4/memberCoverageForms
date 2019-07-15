@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PDFDocumentProxy } from "pdfjs-dist";
 import { tap } from 'rxjs/operators';
 import { formIdValidation } from "./formIdValidation.directive";
+import {LoginService} from "../login.service";
 
 /*
    This file contains the methods and declarations that drive the submission-form component of the Member Form Manager
@@ -40,7 +41,8 @@ export class SubmissionFormComponent implements OnInit{
     private formService: FormService,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private loginService: LoginService,
   ) { }
 
   //////////////////

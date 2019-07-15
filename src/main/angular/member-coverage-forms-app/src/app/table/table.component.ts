@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Form, FormService } from "../form.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {formIdValidation} from "../submission-form/formIdValidation.directive";
+import {LoginService} from "../login.service";
 
 @Component({
   selector: 'app-table',
@@ -13,6 +14,7 @@ export class TableComponent implements OnInit {
   constructor(
     private formService: FormService,
     private formBuilder: FormBuilder,
+    private loginService: LoginService
   ) {}
 
   //////////////////
@@ -22,8 +24,8 @@ export class TableComponent implements OnInit {
   forms: Form[];
 
   //controls login page
-  login = true;
   model: FormGroup;
+  error = false;
 
   // controls when dropdown options are updated
   initialGetForms: boolean;
@@ -65,9 +67,13 @@ export class TableComponent implements OnInit {
   }
 
   checkLogin(userName, passWord) {
-    if(userName.equals("sunlife") && passWord.equals("sunlife")) {
-      this.login = false;
+    if(userName === "sunlife" && passWord === "sunlife") {
+      this.loginService.login = false;
     }
+    else {
+      this.error = true;
+    }
+    this.loginService.count = this.loginService.count + 1;
   }
 
   // Clear the currently selected filters
@@ -87,7 +93,14 @@ export class TableComponent implements OnInit {
       this.forms = forms;
       if (this.initialGetForms) { // only retrieve dropdown options on initial getForms()
         this.updateDropdownOptions();
+        this.loginService.login = true;
         this.initialGetForms = false;
+      }
+      if (this.loginService.count === 0) {
+        this.loginService.login = true;
+      }
+      else {
+        this.loginService.login = false;
       }
       this.isLoading = false;
     });

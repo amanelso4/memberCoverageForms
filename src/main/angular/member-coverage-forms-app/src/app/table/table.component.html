@@ -1,45 +1,31 @@
 <ngx-loading [show]="isLoading"></ngx-loading>
 <div *ngIf="!isLoading">
 
-  <div [hidden]="!login">
+  <div [hidden]="!loginService.login">
   <div class="row">
   <div class="col-lg-4"></div>
   <div class="col-lg-4">
-      <form>
+      <form [formGroup]="model">
         <div class="form-group">
-          <label for="username">Password: </label>
+          <label for="username">Username: </label>
           <input type="text" class="form-control" id="username" required formControlName="username" name="username">
         </div>
-
         <div class="form-group">
           <label for="password">Password: </label>
-          <input type="text" class="form-control" id="password" required formControlName="password" name="password">
+          <input type="password" class="form-control" id="password" required formControlName="password" name="password">
         </div>
-
         <button type="submit" class="button button--primary-yellow" (click)="checkLogin(model.value.username, model.value.password)">Submit</button>
       </form>
+    <br>
+    <div *ngIf="error" class = "alert alert-danger">
+      Username or Password is Incorrect. Please try again.
+    </div>
     </div>
   <div class="col-lg-4"></div>
   </div>
   </div>
 
-  <div [hidden]="!login">
-    <form>
-      <div class="form-group">
-        <label for="name">Username: </label>
-        <input type="text" class="form-control" id="name" required>
-      </div>
-
-      <div class="form-group">
-        <label for="password">Password: </label>
-        <input type="text" class="form-control" id="password">
-      </div>
-
-      <button type="submit" class="btn btn-success" (click)="login=false">Submit</button>
-    </form>
-  </div>
-
-  <div [hidden]="login">
+  <div [hidden]="loginService.login">
   <table>
     <tr>
       <th class="table--medCol">
