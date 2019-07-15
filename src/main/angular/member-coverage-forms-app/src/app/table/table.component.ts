@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Form, FormService } from "../form.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {formIdValidation} from "../submission-form/formIdValidation.directive";
 
 @Component({
   selector: 'app-table',
@@ -10,6 +12,7 @@ export class TableComponent implements OnInit {
 
   constructor(
     private formService: FormService,
+    private formBuilder: FormBuilder,
   ) {}
 
   //////////////////
@@ -20,6 +23,7 @@ export class TableComponent implements OnInit {
 
   //controls login page
   login = true;
+  model: FormGroup;
 
   // controls when dropdown options are updated
   initialGetForms: boolean;
@@ -53,6 +57,17 @@ export class TableComponent implements OnInit {
   ngOnInit() {
     this.initialGetForms = true;
     this.getForms();
+
+    this.model = this.formBuilder.group({
+      username: [null, Validators.required],
+      password: [null, Validators.required],
+    });
+  }
+
+  checkLogin(userName, passWord) {
+    if(userName.equals("sunlife") && passWord.equals("sunlife")) {
+      this.login = false;
+    }
   }
 
   // Clear the currently selected filters
