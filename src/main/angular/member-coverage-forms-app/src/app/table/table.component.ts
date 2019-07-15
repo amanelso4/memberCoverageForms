@@ -23,7 +23,7 @@ export class TableComponent implements OnInit {
 
   forms: Form[];
 
-  //controls login page
+  //Login Page Controls
   model: FormGroup;
   error = false;
 
@@ -66,8 +66,9 @@ export class TableComponent implements OnInit {
     });
   }
 
+  //Validates that Username & Password is correct and sets count to never show page again
   checkLogin(userName, passWord) {
-    if(userName === "sunlife" && passWord === "sunlife") {
+    if(userName === "Sunlife" && passWord === "memberCoverageForms") {
       this.loginService.login = false;
     }
     else {
@@ -96,6 +97,7 @@ export class TableComponent implements OnInit {
         this.loginService.login = true;
         this.initialGetForms = false;
       }
+      //Determines if Login page needs to appear upon load-up
       if (this.loginService.count === 0) {
         this.loginService.login = true;
       }
