@@ -11,9 +11,9 @@ public class FormDTO {
     public String name;
     public String link;
     public String description;
-    public String formId;
+    public String formNumber;
 
-    public FormDTO(String coverageType, String[] states, String sourceSystem, String formType, String name, String link, String description, String formId) {
+    public FormDTO(String coverageType, String[] states, String sourceSystem, String formType, String name, String link, String description, String formNumber) {
         this.coverageType = coverageType;
         this.state = states;
         this.sourceSystem = sourceSystem;
@@ -21,7 +21,7 @@ public class FormDTO {
         this.name = name;
         this.link = link;
         this.description = description;
-        this.formId = formId;
+        this.formNumber = formNumber;
     }
 
     public FormDTO() { }

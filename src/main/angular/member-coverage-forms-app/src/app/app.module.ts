@@ -62,7 +62,7 @@ import { NgxLoadingModule } from "ngx-loading";
 
 
 const appRoutes: Routes = [
-  {path: 'mfm/:formId', component: SubmissionFormComponent},
+  {path: 'mfm/:formNumber', component: SubmissionFormComponent},
   {path: 'mfm', component: TableComponent},
   {path: '', redirectTo: 'mfm', pathMatch: 'full'},
 ];

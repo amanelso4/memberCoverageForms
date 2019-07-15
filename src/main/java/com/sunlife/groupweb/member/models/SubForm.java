@@ -8,7 +8,7 @@ public class SubForm {
     public String ft; // FORM TYPE
     public boolean fill; // FORM FILLABLE - deprecated, default to true
     public String fh; // FORM DESCRIPTION
-    public String fc; // FORM ID
+    public String fc; // FORM NUMBER
 
 
     public SubForm(String ds, String fl, String ft, boolean fill, String fh, String fc) {

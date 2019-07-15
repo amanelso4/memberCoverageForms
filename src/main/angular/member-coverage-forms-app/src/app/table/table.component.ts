@@ -38,7 +38,7 @@ export class TableComponent implements OnInit {
   coverageType: string = '';
   state: string = '';
   sourceSystem: string = '';
-  formId: string = '';
+  formNumber: string = '';
   name: string = '';
 
   // dropdown options
@@ -84,7 +84,7 @@ export class TableComponent implements OnInit {
     this.state = '';
     this.name = '';
     this.sourceSystem = '';
-    this.formId = '';
+    this.formNumber = '';
   }
 
   // Retrieve updated forms after a delete call
@@ -129,9 +129,9 @@ export class TableComponent implements OnInit {
   }
 
   // Delete a form by providing the form's id as an argument
-  deleteForm(formId: string) {
-    this.formService.deleteForm(formId).subscribe(() => {
-      console.log('Form w/ formId ' + formId + ' deleted');
+  deleteForm(formNumber: string) {
+    this.formService.deleteForm(formNumber).subscribe(() => {
+      console.log('Form w/ formNumber ' + formNumber + ' deleted');
       this.getForms();
     });
   }
