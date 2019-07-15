@@ -18,6 +18,9 @@ export class TableComponent implements OnInit {
 
   forms: Form[];
 
+  //controls login page
+  login = true;
+
   // controls when dropdown options are updated
   initialGetForms: boolean;
 

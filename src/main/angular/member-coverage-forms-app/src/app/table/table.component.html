@@ -1,5 +1,23 @@
 <ngx-loading [show]="isLoading"></ngx-loading>
 <div *ngIf="!isLoading">
+
+  <div [hidden]="!login">
+    <form>
+      <div class="form-group">
+        <label for="name">Username: </label>
+        <input type="text" class="form-control" id="name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password: </label>
+        <input type="text" class="form-control" id="password">
+      </div>
+
+      <button type="submit" class="btn btn-success" (click)="login=false">Submit</button>
+    </form>
+  </div>
+
+  <div [hidden]="login">
   <table>
     <tr>
       <th class="table--medCol">
@@ -89,5 +107,5 @@
   <div class="footer">
     <pagination-controls class="my-pagination" (pageChange)="p = $event"></pagination-controls>
   </div>
-
+  </div>
 </div>
