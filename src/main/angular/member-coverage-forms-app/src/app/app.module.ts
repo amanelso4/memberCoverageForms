@@ -59,6 +59,8 @@ import {MatOptionModule} from "@angular/material";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { NgxLoadingModule } from "ngx-loading";
 
+
+
 const appRoutes: Routes = [
   {path: 'mfm/:formNumber', component: SubmissionFormComponent},
   {path: 'mfm', component: TableComponent},
