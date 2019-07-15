@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PDFDocumentProxy } from "pdfjs-dist";
 import { tap } from 'rxjs/operators';
-import { formIdValidation } from "./formIdValidation.directive";
+import { formNumberValidation } from "./formIdValidation.directive";
 import {LoginService} from "../login.service";
 
 /*
@@ -32,7 +32,7 @@ export class SubmissionFormComponent implements OnInit{
   get state() {return this.model.get('state')}
   get sourceSystem() {return this.model.get('sourceSystem')}
   get name() {return this.model.get('name')}
-  get formId() {return this.model.get('formId')}
+  get formNumber() {return this.model.get('formNumber')}
   get link() {return this.model.get('link')}
   get description() {return this.model.get('description')}
 
