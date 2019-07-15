@@ -14,7 +14,7 @@
           <label for="password">Password: </label>
           <input type="password" class="form-control" id="password" required formControlName="password" name="password">
         </div>
-        <button type="submit" class="button button--primary-yellow" (click)="checkLogin(model.value.username, model.value.password)">Submit</button>
+        <button type="submit" class="button button--primary-yellow" (click)="checkLogin(model.value.username, model.value.password)">Login</button>
       </form>
     <br>
     <div *ngIf="error" class = "alert alert-danger">
