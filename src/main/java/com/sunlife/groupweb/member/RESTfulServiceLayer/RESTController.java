@@ -19,6 +19,8 @@ import java.util.stream.Collectors;
 public class RESTController {
 
     private FormRepository repository;
+    private String username = "admin";
+    private String password = "SunLife";
 
     @Autowired // constructor injection instead of field injection
     public RESTController(FormRepository repository) {
@@ -55,6 +57,11 @@ public class RESTController {
         // return a the FormDTO that matches the formNumber provided
         List<Form> allTheForms = repository.findByOneField("fl.fc", formNumber);
         return createAngularForm(formNumber, allTheForms);
+    }
+
+    @RequestMapping(value="/login", method = RequestMethod.GET)
+    public String getLoginDetails() {
+        return username + " " + password;
     }
 
     ////////////////////
