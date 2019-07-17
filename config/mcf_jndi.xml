@@ -1,0 +1,5 @@
+<server>
+    <jndiEntry jndiName="username" value="admin"/>
+    <jndiEntry jndiName="password" value="SunLife"/>
+    <jndiEntry jndiName="devServerAddress" value="mongodb://gobig:s4WO29bEhGKE@cl11189.sunlifecorp.com:27022,cl11190.sunlifecorp.com:27022/dev?connectTimeoutMS=30000"/>
+</server>
