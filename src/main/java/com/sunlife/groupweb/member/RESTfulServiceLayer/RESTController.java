@@ -59,10 +59,10 @@ public class RESTController {
         return createAngularForm(formNumber, allTheForms);
     }
 
-    @RequestMapping(value="/login", method = RequestMethod.GET)
+    /*@RequestMapping(value="/login", method = RequestMethod.GET)
     public String getLoginDetails() {
         return username + " " + password;
-    }
+    }*/
 
     ////////////////////
     //// PUT METHOD ////
