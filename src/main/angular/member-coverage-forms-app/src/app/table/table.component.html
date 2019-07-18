@@ -6,6 +6,10 @@
       <div class="col-lg-4"></div>
       <div class="col-lg-4">
         <form [formGroup]="model">
+          <div class="form-group">
+            <label for="username">Username: </label>
+            <input type="text" class="form-control" id="username" required formControlName="username" name="username">
+          </div>
         <div class="form-group">
           <label for="password">Password: </label>
           <input type="password" class="form-control" id="password" required formControlName="password" name="password">
