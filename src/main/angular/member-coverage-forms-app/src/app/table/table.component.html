@@ -1,6 +1,6 @@
 <ngx-loading [show]="isLoading"></ngx-loading>
-<div *ngIf="!isLoading">
 
+<div *ngIf="!isLoading">
   <div [hidden]="!loginService.login">
   <div class="row">
   <div class="col-lg-4"></div>
@@ -13,6 +13,16 @@
         <div class="form-group">
           <label for="password">Password: </label>
           <input type="password" class="form-control" id="password" required formControlName="password" name="password">
+        </div>
+        <div class="form-group">
+          <label for="mongoEnvironment">Select which level of the Mongo Database you would like to alter: </label>
+          <select class="form-control" id="mongoEnvironment" required formControlName="mongoEnvironment" name="mongoEnvironment">
+            <option>Development</option>
+            <option>Sit</option>
+            <option>Stage</option>
+            <option>Production</option>
+          </select>
+
         </div>
         <button type="submit" class="button button--primary-yellow" (click)="checkLogin(model.value.username, model.value.password)">Login</button>
       </form>
