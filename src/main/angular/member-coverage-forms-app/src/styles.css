@@ -190,5 +190,12 @@ pdf-viewer .pdfViewer {
   height: 500px;
 }
 
+.footer {
+  font-size: 14px;
+  color: rgb(0, 57, 70);
+  line-height: 18px;
+  padding-left: 15px;
+}
+
 
 

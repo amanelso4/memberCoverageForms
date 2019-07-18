@@ -410,6 +410,10 @@
 
 </form>
 </body>
+<br>
+<footer *ngIf="!isLoading">
+  <p class="footer">&copy; 2019 Sun Life, for internal use only</p>
+</footer>
 
 <ng-template #loading>
   <ngx-loading [show]="isLoading"></ngx-loading>
