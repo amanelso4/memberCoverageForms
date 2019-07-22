@@ -18,7 +18,10 @@ export class TopBarComponent implements OnInit {
 
   //FontAwesome Icons for use on button
   faPlusCircle = faPlusCircle;
-
+logout() {
+  this.loginService.login = true;
+  this.loginService.count = 0;
+}
   ngOnInit() {
   }
 
