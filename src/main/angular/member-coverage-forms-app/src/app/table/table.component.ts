@@ -67,7 +67,7 @@ export class TableComponent implements OnInit {
 
   //Validates that Username & Password is correct and sets count to never show page again
   checkLogin(userName, passWord) {
-    if(userName === "Sunlife" && passWord === "memberCoverageForms") {
+    if(userName === "admin" && passWord === "sunlife") {
       this.loginService.login = false;
     }
     else {
