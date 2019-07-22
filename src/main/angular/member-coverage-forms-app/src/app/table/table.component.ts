@@ -57,36 +57,12 @@ export class TableComponent implements OnInit {
 
   ngOnInit() {
     this.initialGetForms = true;
-    this.loadUp();
 
     this.model = this.formBuilder.group({
       username: [null, Validators.required],
       password: [null, Validators.required],
       mongoEnvironment: [null, Validators.required],
     });
-  }
-
-  //Validates that Username & Password is correct and sets count to never show page again
-  checkLogin(userName, passWord) {
-    if(userName === "admin" && passWord === "sunlife") {
-      this.loginService.count = this.loginService.count + 1;
-      this.loginService.login = false;
-      this.getForms();
-      this.loginService.count = this.loginService.count + 1;
-    }
-    else {
-      this.error = true;
-    }
-  }
-
-  loadUp() {
-    if (this.loginService.count === 0) {
-      this.loginService.login = true;
-    }
-    else {
-      this.loginService.login = false;
-      this.getForms();
-    }
   }
 
   // Clear the currently selected filters
