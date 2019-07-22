@@ -3,6 +3,7 @@
   margin: 0;
   padding-top: 4px;
   padding-bottom: 0;
+  text-align: center;
 }
 
 img {
@@ -11,7 +12,7 @@ img {
 }
 
 h2 {
-  margin-top: 2.7rem;
+  margin: 2.7rem auto 0 auto;
   text-align: center;
 }
 
