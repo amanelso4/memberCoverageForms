@@ -11,26 +11,60 @@ import { SubmissionFormComponent } from './submission-form/submission-form.compo
 import { TableComponent } from './table/table.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { FilterPipe } from "./pipes/filter.pipe";
-import { LoginService } from "./login.service";
 
 // Other modules
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { NgxPaginationModule } from "ngx-pagination";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import {
+  MatAutocompleteModule,
+  MatBadgeModule,
+  MatBottomSheetModule,
+  MatButtonModule,
+  MatButtonToggleModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatChipsModule,
+  MatDatepickerModule,
+  MatDialogModule,
+  MatDividerModule,
+  MatExpansionModule, MatFormFieldModule,
+  MatGridListModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatMenuModule,
+  MatNativeDateModule,
+  MatPaginatorModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule,
+  MatRadioModule,
+  MatRippleModule,
+  MatSelectModule,
+  MatSidenavModule,
+  MatSliderModule,
+  MatSlideToggleModule,
+  MatSnackBarModule,
+  MatSortModule,
+  MatStepperModule,
+  MatTableModule,
+  MatTabsModule,
+  MatToolbarModule,
+  MatTooltipModule,
+  MatTreeModule,
+} from '@angular/material';
 import {platformBrowserDynamic} from "@angular/platform-browser-dynamic";
 import {MatOptionModule} from "@angular/material";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { NgxLoadingModule } from "ngx-loading";
-import { LoginComponent } from './login/login.component';
 
 
 
 const appRoutes: Routes = [
-  {path: 'login', component: LoginComponent},
   {path: 'mfm/:formNumber', component: SubmissionFormComponent},
   {path: 'mfm', component: TableComponent},
-  {path: '', redirectTo: 'login', pathMatch: 'full'},
+  {path: '', redirectTo: 'mfm', pathMatch: 'full'},
 ];
 
 @NgModule({
@@ -40,7 +74,6 @@ const appRoutes: Routes = [
     TableComponent,
     TopBarComponent,
     FilterPipe,
-    LoginComponent,
   ],
   imports: [
     RouterModule.forRoot(
@@ -56,9 +89,50 @@ const appRoutes: Routes = [
     HttpClientModule,
     PdfViewerModule,
     NgMultiSelectDropDownModule,
+    MatFormFieldModule,
+    MatOptionModule,
+    MatSelectModule,
     BrowserAnimationsModule,
   ],
-  providers: [LoginService],
+  exports: [
+    MatFormFieldModule,
+    MatAutocompleteModule,
+    MatBadgeModule,
+    MatBottomSheetModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    MatStepperModule,
+    MatDatepickerModule,
+    MatDialogModule,
+    MatDividerModule,
+    MatExpansionModule,
+    MatGridListModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatMenuModule,
+    MatNativeDateModule,
+    MatPaginatorModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatRadioModule,
+    MatRippleModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatSnackBarModule,
+    MatSortModule,
+    MatTableModule,
+    MatTabsModule,
+    MatToolbarModule,
+    MatTooltipModule,
+    MatTreeModule,
+  ],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

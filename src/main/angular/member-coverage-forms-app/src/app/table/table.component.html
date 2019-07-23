@@ -1,7 +1,41 @@
 <ngx-loading [show]="isLoading"></ngx-loading>
 
 <div *ngIf="!isLoading">
-  <div>
+  <div [hidden]="!loginService.login">
+    <div class="row">
+      <div class="col-lg-4"></div>
+      <div class="col-lg-4">
+        <form [formGroup]="model" id="loginForm">
+          <div class="form-group">
+            <label for="username">Username: </label>
+            <input type="text" class="form-control" id="username" required formControlName="username" name="username">
+          </div>
+        <div class="form-group">
+          <label for="password">Password: </label>
+          <input type="password" class="form-control" id="password" required formControlName="password" name="password">
+        </div>
+        <div class="form-group">
+          <label for="mongoEnvironment">Select Environment: </label>
+          <select class="form-control" id="mongoEnvironment" required formControlName="mongoEnvironment" name="mongoEnvironment">
+            <option>Development</option>
+            <option>SIT</option>
+            <option>Stage</option>
+            <option>Production</option>
+          </select>
+
+        </div>
+        <button type="submit" class="button button--primary-yellow" (click)="checkLogin(model.value.username, model.value.password)">Login</button>
+      </form>
+    <br>
+    <div *ngIf="error" class = "alert alert-danger">
+      Username or Password is Incorrect. Please try again.
+    </div>
+      </div>
+      <div class="col-lg-4"></div>
+    </div>
+  </div>
+
+  <div [hidden]="loginService.login">
     <table>
       <tr>
         <th class="table--medCol">
