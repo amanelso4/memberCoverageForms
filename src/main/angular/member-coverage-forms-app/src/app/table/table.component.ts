@@ -73,6 +73,8 @@ export class TableComponent implements OnInit {
         console.log('Attempted login with username ' + username + ' and password ' + password);
         if (success) {
           this.loginService.login = false;
+          this.model.reset();
+          this.error = false;
           this.getForms();
         } else {
           this.error = true;

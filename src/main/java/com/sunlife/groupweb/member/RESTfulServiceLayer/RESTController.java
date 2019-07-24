@@ -20,8 +20,6 @@ import java.util.stream.Collectors;
 public class RESTController {
 
     private FormRepository repository;
-    private final String username = "admin";
-    private final String password = "SunLife";
 
     @Autowired // constructor injection instead of field injection
     public RESTController(FormRepository repository) {
@@ -34,6 +32,8 @@ public class RESTController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public boolean login(@Valid @RequestBody LoginDetails login) {
+        String username = "admin";
+        String password = "sunlife";
         return (login.getUsername().equals(username) && login.getPassword().equals(password));
     }
 
