@@ -37,7 +37,7 @@ export class FormService {
   // Use if deploying via tomcat
   /*private formUrl: string = "http://localhost:8080/MemberCoverageForms/mfm";*/
   // Use if deploying via websphere liberty
-  private formUrl: string = "http://localhost:9080/MemberCoverageForms/api";
+  private formUrl: string = "/api";
 
 
   //////////////////
