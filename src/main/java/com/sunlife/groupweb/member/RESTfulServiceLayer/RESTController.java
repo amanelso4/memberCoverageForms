@@ -3,6 +3,7 @@ package com.sunlife.groupweb.member.RESTfulServiceLayer;
 import com.sunlife.groupweb.member.databaseLayer.FormRepository;
 import com.sunlife.groupweb.member.models.Form;
 import com.sunlife.groupweb.member.models.FormDTO;
+import com.sunlife.groupweb.member.models.LoginDetails;
 import com.sunlife.groupweb.member.models.SubForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,12 +20,21 @@ import java.util.stream.Collectors;
 public class RESTController {
 
     private FormRepository repository;
-    private String username = "admin";
-    private String password = "SunLife";
+    private final String username = "admin";
+    private final String password = "SunLife";
 
     @Autowired // constructor injection instead of field injection
     public RESTController(FormRepository repository) {
         this.repository = repository;
+    }
+
+    //////////////////////
+    //// LOGIN METHOD ////
+    //////////////////////
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public boolean login(@Valid @RequestBody LoginDetails login) {
+        return (login.getUsername().equals(username) && login.getPassword().equals(password));
     }
 
     /////////////////////

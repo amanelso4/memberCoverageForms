@@ -36,7 +36,7 @@
   </div>
 
   <div [hidden]="loginService.login">
-    <table>
+    <table id="tableOfForms">
       <tr>
         <th class="table--medCol">
           Form Type
@@ -48,7 +48,7 @@
           Coverage State
         </th>
         <th class="table--smallCol">
-          Source System
+          <div id="testTarget">Source System</div>
         </th>
         <th>
           Form Name<br>
