@@ -1,4 +1,3 @@
-/*
 package com.sunlife.groupweb.member;
 
 import org.openqa.selenium.WebDriver;
@@ -25,7 +24,11 @@ public class Selenium {
         formElement.submit();
 
         WebDriverWait wait = new WebDriverWait(driver, 10);
-        WebElement messageElement = wait.until(ExpectedConditions.elementToBeClickable(By.))
+        WebElement tableOfForms = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("tableOfForms")));
+
+        System.out.println("made it to the end I guess?");
+        System.out.println(driver.getTitle());
+
+        driver.quit();
     }
 }
-*/

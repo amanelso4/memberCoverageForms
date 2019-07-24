@@ -68,20 +68,20 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-mongodb</artifactId>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -134,8 +134,6 @@
                 <version>1.4</version>
 
                 <configuration>
-                    <nodeVersion>v10.16.0</nodeVersion>
-                    <npmVersion>6.9.0</npmVersion>
                     <workingDirectory>src/main/angular/member-coverage-forms-app</workingDirectory>
                 </configuration>
 
@@ -146,6 +144,12 @@
                             <goal>install-node-and-npm</goal>
                         </goals>
                         <phase>initialize</phase>
+                        <configuration>
+                            <nodeVersion>v11.13.4</nodeVersion>
+                            <npmVersion>6.9.0</npmVersion>
+                            <nodeDownloadRoot>http://deployer:AP9CtR7tH11AcTzEWnhK9FTM4sB@artifactory.us.sunlife/artifactory/node-repo/</nodeDownloadRoot>
+                            <npmDownloadRoot>http://deployer:AP9CtR7tH11AcTzEWnhK9FTM4sB@artifactory.us.sunlife/artifactory/api/npm/npm/npm/</npmDownloadRoot>
+                        </configuration>
                     </execution>
                     <execution>
                         <id>npm-install</id>
