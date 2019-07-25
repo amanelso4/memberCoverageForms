@@ -177,7 +177,7 @@ export class SubmissionFormComponent implements OnInit{
         this.updateDropdownOptions();
         this.initialGetForms = false;
       }
-      if(this.loginService.login == true) {
+      if(this.loginService.login === true) {
         this.loginError = true;
       }
     });

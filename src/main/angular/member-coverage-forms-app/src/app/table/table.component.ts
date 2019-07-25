@@ -93,7 +93,7 @@ export class TableComponent implements OnInit {
   }
 
   loadUp() {
-    if (this.loginService.login == false) {
+    if (this.loginService.login === false) {
       this.getForms();
     }
   }
