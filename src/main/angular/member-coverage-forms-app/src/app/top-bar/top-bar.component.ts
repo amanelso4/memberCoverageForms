@@ -20,7 +20,6 @@ export class TopBarComponent implements OnInit {
   faPlusCircle = faPlusCircle;
 logout() {
   this.loginService.login = true;
-  this.loginService.count = 0;
 }
   ngOnInit() {
   }
