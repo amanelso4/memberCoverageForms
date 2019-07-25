@@ -11,13 +11,16 @@ img {
   margin: 2.7rem 0 0 2rem;
 }
 
-h2 {
-  margin: 2.7rem auto 0 auto;
-  text-align: center;
-}
-
 button {
   float: right;
   margin: 2.7rem 2rem 0 0;
 }
+
+h2 {
+  margin: 2.7rem auto 0 auto;
+  text-align: center;
+  position: fixed;
+}
+
+
 
