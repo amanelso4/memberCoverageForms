@@ -1,12 +1,27 @@
 <div class="topBar">
   <div class="yellowBar"></div>
-  <img src="assets/sunLifeLogo.png" alt="Sun Life logo">
-  <div *ngIf="!loginService.login">
-    <button class="button button--tertiary" [routerLink]="['/mfm']" (click)="logout()">Logout</button>
-    <!--Add form button only displays if on home page-->
-    <button class="button button--primary-yellow" [routerLink]="['/mfm/new']" *ngIf="router.url === '/mfm'">
-      <fa-icon [icon]="faPlusCircle"></fa-icon> Add a Form
-    </button>
+  <div class="row">
+    <div class="col-lg-4">
+      <img src="assets/sunLifeLogo.png" alt="Sun Life logo">
+    </div>
+
+    <div class="col-lg-4">
+      <div class="container4">
+        <h2>Member Form Manager</h2>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div *ngIf="!loginService.login">
+        <button class="button button--tertiary" [routerLink]="['/mfm']" (click)="logout()">
+          Logout
+        </button>
+        <!--Add form button only displays if on home page-->
+        <button class="button button--primary-yellow" [routerLink]="['/mfm/new']" *ngIf="router.url === '/mfm'">
+          <fa-icon [icon]="faPlusCircle"></fa-icon>
+          Add a Form
+        </button>
+      </div>
+    </div>
   </div>
-  <h2>Member Form Manager</h2>
 </div>
