@@ -18,8 +18,4 @@ public class Application extends SpringBootServletInitializer {
         return builder.sources(Application.class);
     }
 
-/*    @Override
-    public void run(String... args) throws Exception {
-    }*/
-
 }

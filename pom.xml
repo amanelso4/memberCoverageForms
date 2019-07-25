@@ -137,7 +137,7 @@
                         <phase>initialize</phase>
                         <configuration>
                             <nodeVersion>v10.16.0</nodeVersion>
-                            <npmVersion>6.9.0</npmVersion>
+                            <npmVersion>6.7.0</npmVersion>
                             <nodeDownloadRoot>http://deployer:AP9CtR7tH11AcTzEWnhK9FTM4sB@artifactory.us.sunlife/artifactory/node-repo/</nodeDownloadRoot>
                             <npmDownloadRoot>http://deployer:AP9CtR7tH11AcTzEWnhK9FTM4sB@artifactory.us.sunlife/artifactory/api/npm/npm/npm/</npmDownloadRoot>
                         </configuration>
