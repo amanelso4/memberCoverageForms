@@ -67,8 +67,21 @@ export class TableComponent implements OnInit {
   }
 
   //Validates that Username & Password is correct and sets count to never show page again
-  checkLogin(userName, passWord) {
-    if(userName === "admin" && passWord === "sunlife") {
+  checkLogin(username, password) {
+    this.loginService.callLogin(username, password).subscribe(
+      (success: boolean) => {
+        console.log('Attempted login with username ' + username + ' and password ' + password);
+        if (success) {
+          this.loginService.login = false;
+          this.model.reset();
+          this.error = false;
+          this.getForms();
+        } else {
+          this.error = true;
+        }
+      }
+    );
+    /*if(userName === "admin" && passWord === "sunlife") {
       this.loginService.count = this.loginService.count + 1;
       this.loginService.login = false;
       this.getForms();
@@ -76,15 +89,11 @@ export class TableComponent implements OnInit {
     }
     else {
       this.error = true;
-    }
+    }*/
   }
 
   loadUp() {
-    if (this.loginService.count === 0) {
-      this.loginService.login = true;
-    }
-    else {
-      this.loginService.login = false;
+    if (this.loginService.login === false) {
       this.getForms();
     }
   }
