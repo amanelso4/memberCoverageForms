@@ -395,7 +395,7 @@
       </button>
       <div class="divider"></div>
       <button *ngIf="newForm" class="button button--secondary" type="button"
-              (click)="submitted=false; submit(); model.reset()">Upload
+              (click)="submitted=false; submitAnother(); model.reset()">Upload
         and Submit Another Form
       </button>
       <button *ngIf="!newForm" class="button button--secondary" type="button" (click)="submitted=false">Return to Form
