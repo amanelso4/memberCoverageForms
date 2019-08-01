@@ -218,7 +218,11 @@ export class SubmissionFormComponent implements OnInit{
           console.log('Added form: ');
           console.log(data);
           this.isLoading = false;
-          this.router.navigate(['']);
+          this.valid = true;
+          this.duplicate=false;
+          this.testLink=false;
+          this.testFormNumber=false;
+/*          this.router.navigate(['']);*/
         }
       );
 
