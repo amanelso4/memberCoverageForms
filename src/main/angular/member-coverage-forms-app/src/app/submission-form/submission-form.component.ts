@@ -218,7 +218,7 @@ export class SubmissionFormComponent implements OnInit{
           console.log('Added form: ');
           console.log(data);
           this.isLoading = false;
-          this.router.navigate(['']);
+       this.router.navigate(['']);
         }
       );
 
@@ -236,7 +236,23 @@ export class SubmissionFormComponent implements OnInit{
     }
   }
 
-  //PDF Viewer functions to have pagination
+  submitAnother() {
+    this.isLoading = true;
+    // If adding a new form, call a POST
+    if (this.newForm) {
+      const createdForm: Form = Object.assign({}, this.model.value);
+      this.formService.addForm(createdForm).subscribe(
+        (data: Form) => {
+          console.log('Added form: ');
+          console.log(data);
+          this.isLoading = false;
+        }
+      )
+    }
+  }
+
+
+      //PDF Viewer functions to have pagination
   callBackFn(pdf: PDFDocumentProxy) {
     this.pageTotal = pdf.numPages;
   }
